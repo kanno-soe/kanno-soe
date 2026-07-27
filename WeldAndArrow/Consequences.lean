@@ -1,7 +1,0 @@
-import WeldAndArrow.Consequences.Basic
-import WeldAndArrow.Consequences.Taxonomy
-import WeldAndArrow.Consequences.ModelWitnesses
-import WeldAndArrow.Consequences.Compounds
-import WeldAndArrow.Consequences.Ladder
-import WeldAndArrow.Consequences.ContentRows
-import WeldAndArrow.Consequences.FoxCase

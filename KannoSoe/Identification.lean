@@ -1,0 +1,7 @@
+import KannoSoe.Identification.Commentary
+import KannoSoe.Identification.Residues
+import KannoSoe.Identification.Ownership
+import KannoSoe.Identification.Placements
+import KannoSoe.Identification.Registers
+import KannoSoe.Identification.Disclaimers
+import KannoSoe.Identification.Absences

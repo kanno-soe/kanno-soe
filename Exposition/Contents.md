@@ -1,4 +1,4 @@
-<!-- GENERATED from WeldAndArrow/Exposition/Registry.lean by `lake exe exposition_gen` - do not edit -->
+<!-- GENERATED from KannoSoe/Exposition/Registry.lean by `lake exe exposition_gen` - do not edit -->
 
 ## Contents
 
@@ -8,4 +8,4 @@
 3. **[Theorems](Theorems.md)** — what falls out of the rules directly (backsliding, memory and prudence, dukkha, the transposition, the error-taxonomy) and the derivations that meet existing discourses (MMK 17, the three killings and AN 6.63, sudden and gradual, other-power, pariṇāmanā, transcription, the Ten Bulls, Five Ranks, and stage-schemes); with the instructive absences in both.
 4. **[The Identification and Placements](Identification.md)** — the karma identification, the offices-spine that earns the name, the sower/reaper split, the contemporary placements, the pole-typing corollary, the taxonomy's internal mis-feeds, and the disclaimers, enumerated.
 5. **[Assumptions](Assumptions.md)** — the input side, enumerated: what the Signature asserts, what it deliberately declines, and its stand-ins; with checked anchors and the axiom audit.
-6. **[Glossary](Glossary.md)** — the generated glossary table from `WeldAndArrow/Exposition/Glossary.lean`: each term with its provenance kind (a Theory, Theorems, or Identification coinage; canonical; or Lean convention), a newcomer-facing gloss, checked Lean anchors, and backward-only see-also references; term uniqueness, reference ordering, table length, and anchor resolvability are Lean-checked, while gloss accuracy and canonical caveats remain prose obligations carried by the Disclaimers.
+6. **[Glossary](Glossary.md)** — the generated glossary table from `KannoSoe/Exposition/Glossary.lean`: each term with its provenance kind (a Theory, Theorems, or Identification coinage; canonical; or Lean convention), a newcomer-facing gloss, checked Lean anchors, and backward-only see-also references; term uniqueness, reference ordering, table length, and anchor resolvability are Lean-checked, while gloss accuracy and canonical caveats remain prose obligations carried by the Disclaimers.

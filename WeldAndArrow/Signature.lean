@@ -1,9 +1,0 @@
-import WeldAndArrow.Signature.Order
-import WeldAndArrow.Signature.Readings
-import WeldAndArrow.Signature.Grid
-import WeldAndArrow.Signature.SentienceConvention
-import WeldAndArrow.Signature.BeingConvention
-import WeldAndArrow.Signature.DirectionConvention
-import WeldAndArrow.Signature.Models
-import WeldAndArrow.Signature.Claims
-import WeldAndArrow.Signature.Assumptions

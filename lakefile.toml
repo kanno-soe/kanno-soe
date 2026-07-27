@@ -1,26 +1,26 @@
-name = "WeldAndArrow"
+name = "KannoSoe"
 version = "0.2.0-dev"
-defaultTargets = ["WeldAndArrow"]
+defaultTargets = ["KannoSoe"]
 
 [leanOptions]
 autoImplicit = false
 relaxedAutoImplicit = false
 
 [[lean_lib]]
-name = "WeldAndArrow"
+name = "KannoSoe"
 
 [[lean_exe]]
 name = "glossary_gen"
-root = "WeldAndArrow.Exposition.Gen.Glossary"
+root = "KannoSoe.Exposition.Gen.Glossary"
 
 [[lean_exe]]
 name = "assumptions_gen"
-root = "WeldAndArrow.Exposition.Gen.Assumptions"
+root = "KannoSoe.Exposition.Gen.Assumptions"
 
 [[lean_exe]]
 name = "exposition_gen"
-root = "WeldAndArrow.Exposition.Gen.Exposition"
+root = "KannoSoe.Exposition.Gen.Exposition"
 
 [[lean_exe]]
 name = "exposition_generation_full"
-root = "WeldAndArrow.Exposition.Gen.FullExpositionGeneration"
+root = "KannoSoe.Exposition.Gen.FullExpositionGeneration"
