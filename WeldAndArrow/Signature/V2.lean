@@ -223,14 +223,14 @@ theorem holds_of_contiguous {D : Type u}
     (Linkage.ChainLinked.of_append_left _ suf h)
 
 def IsResonance {D : Type u} (m : RawMutualDependence D) : Prop :=
-  ∃ b b' : D,
-    m.middle = [Component.singleton b, Component.singleton b']
+  ∃ b₁ b₂ : D,
+    m.middle = [Component.singleton b₁, Component.singleton b₂]
 
 theorem isResonance_quad {D : Type u} (L : Linkage D) (C : Component D)
-    (b b' : D) (R : Component D) :
-    (quad L C (Component.singleton b)
-      (Component.singleton b') R).IsResonance :=
-  ⟨b, b', rfl⟩
+    (b₁ b₂ : D) (R : Component D) :
+    (quad L C (Component.singleton b₁)
+      (Component.singleton b₂) R).IsResonance :=
+  ⟨b₁, b₂, rfl⟩
 
 end RawMutualDependence
 
@@ -519,28 +519,25 @@ end Elaboration
 /--
 Resonance data whose two middle components are forced to be singletons.
 
-b is being receiving calls, b' is being responding. The being's
+b₁ is being receiving calls, b₂ is "same" being responding. The being's
 receiving-stage and responding-stage share linkage despite the change.
-
-To be extra thorough, we might in future model being prior to receiving
-calls and being post responding.
 -/
 structure RawResonance (D : Type u) where
   linkage : Linkage D
   calls : Component D
-  b : D
-  b' : D
+  b₁ : D
+  b₂ : D
   responses : Component D
 
 namespace RawResonance
 
 def middle {D : Type u} (r : RawResonance D) : List (Component D) :=
-  [Component.singleton r.b, Component.singleton r.b']
+  [Component.singleton r.b₁, Component.singleton r.b₂]
 
 def toRawMutualDependence {D : Type u} (r : RawResonance D) :
     RawMutualDependence D :=
-  RawMutualDependence.quad r.linkage r.calls (Component.singleton r.b)
-    (Component.singleton r.b') r.responses
+  RawMutualDependence.quad r.linkage r.calls (Component.singleton r.b₁)
+    (Component.singleton r.b₂) r.responses
 
 def components {D : Type u} (r : RawResonance D) : List (Component D) :=
   r.toRawMutualDependence.components
@@ -557,25 +554,25 @@ def components {D : Type u} (r : RawResonance D) : List (Component D) :=
 
 @[simp] theorem components_eq {D : Type u} (r : RawResonance D) :
     r.components =
-      [r.calls, Component.singleton r.b, Component.singleton r.b', r.responses] :=
+      [r.calls, Component.singleton r.b₁, Component.singleton r.b₂, r.responses] :=
   rfl
 
 theorem isResonance {D : Type u} (r : RawResonance D) :
     r.toRawMutualDependence.IsResonance :=
-  ⟨r.b, r.b', rfl⟩
+  ⟨r.b₁, r.b₂, rfl⟩
 
 def Holds {D : Type u} (r : RawResonance D) : Prop :=
   r.toRawMutualDependence.Holds
 
 @[simp] theorem holds_iff {D : Type u} {r : RawResonance D} :
     r.Holds ↔
-      r.linkage.Linked r.calls (Component.singleton r.b) ∧
-        r.linkage.Linked (Component.singleton r.b)
-          (Component.singleton r.b') ∧
-          r.linkage.Linked (Component.singleton r.b') r.responses := by
+      r.linkage.Linked r.calls (Component.singleton r.b₁) ∧
+        r.linkage.Linked (Component.singleton r.b₁)
+          (Component.singleton r.b₂) ∧
+          r.linkage.Linked (Component.singleton r.b₂) r.responses := by
   change
-    (RawMutualDependence.quad r.linkage r.calls (Component.singleton r.b)
-      (Component.singleton r.b') r.responses).Holds ↔ _
+    (RawMutualDependence.quad r.linkage r.calls (Component.singleton r.b₁)
+      (Component.singleton r.b₂) r.responses).Holds ↔ _
   exact RawMutualDependence.holds_quad_iff
 
 end RawResonance
@@ -587,11 +584,11 @@ theorem RawMutualDependence.IsResonance.exists_rawResonance
     ∃ r : RawResonance D, r.toRawMutualDependence = m := by
   cases m with
   | mk linkage first middle last =>
-      obtain ⟨b, b', hmiddle⟩ := h
-      change middle = [Component.singleton b, Component.singleton b']
+      obtain ⟨b₁, b₂, hmiddle⟩ := h
+      change middle = [Component.singleton b₁, Component.singleton b₂]
         at hmiddle
       subst middle
-      exact ⟨⟨linkage, first, b, b', last⟩, rfl⟩
+      exact ⟨⟨linkage, first, b₁, b₂, last⟩, rfl⟩
 
 /-- The certified counterpart to `RawResonance`, following the same
 raw/certified boundary as mutual dependence. -/
@@ -607,11 +604,11 @@ def linkage {D : Type u} (r : Resonance D) : Linkage D :=
 def calls {D : Type u} (r : Resonance D) : Component D :=
   r.toRawResonance.calls
 
-def b {D : Type u} (r : Resonance D) : D :=
-  r.toRawResonance.b
+def b₁ {D : Type u} (r : Resonance D) : D :=
+  r.toRawResonance.b₁
 
-def b' {D : Type u} (r : Resonance D) : D :=
-  r.toRawResonance.b'
+def b₂ {D : Type u} (r : Resonance D) : D :=
+  r.toRawResonance.b₂
 
 def responses {D : Type u} (r : Resonance D) : Component D :=
   r.toRawResonance.responses
@@ -627,12 +624,12 @@ theorem isResonance {D : Type u} (r : Resonance D) :
     r.toMutualDependence.IsResonance :=
   r.toRawResonance.isResonance
 
-def mk' {D : Type u} (L : Linkage D) (calls : Component D) (b b' : D)
+def mk' {D : Type u} (L : Linkage D) (calls : Component D) (b₁ b₂ : D)
     (responses : Component D)
-    (h₁ : L.Linked calls (Component.singleton b))
-    (h₂ : L.Linked (Component.singleton b) (Component.singleton b'))
-    (h₃ : L.Linked (Component.singleton b') responses) : Resonance D :=
-  ⟨⟨L, calls, b, b', responses⟩,
+    (h₁ : L.Linked calls (Component.singleton b₁))
+    (h₂ : L.Linked (Component.singleton b₁) (Component.singleton b₂))
+    (h₃ : L.Linked (Component.singleton b₂) responses) : Resonance D :=
+  ⟨⟨L, calls, b₁, b₂, responses⟩,
     RawResonance.holds_iff.mpr ⟨h₁, h₂, h₃⟩⟩
 
 end Resonance
