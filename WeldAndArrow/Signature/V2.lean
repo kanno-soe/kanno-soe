@@ -11,6 +11,9 @@ the validity of its targets.
 A linkage derived from an elaboration (`Linkage.ofElaboration E`) cannot
 appear inside the targets of `E`'s own definition; see
 `Elaboration.certify` and `Elaboration.SelfCertified`.
+
+Direction/causality is an additional interpretation a domain may carry,
+not something mutual dependence or resonance asserts or requires.
 -/
 
 universe u v
@@ -397,6 +400,47 @@ theorem Related.symm {D : Type u} {E : Elaboration D} {a b : D}
   obtain ⟨w, ha, hb⟩ := h
   exact ⟨w, hb, ha⟩
 
+private inductive RelatedNotTransitiveCase where
+  | a
+  | b
+  | c
+  deriving DecidableEq
+
+theorem Related.not_transitive :
+    ∃ (D : Type) (E : Elaboration D),
+      ¬ ∀ ⦃a b c⦄, E.Related a b → E.Related b c → E.Related a c := by
+  let L : Linkage RelatedNotTransitiveCase := {
+    Linked := fun _ _ => True
+    symm := fun _ => trivial }
+  let m : RawMutualDependence RelatedNotTransitiveCase :=
+    .pair L (Component.singleton .a) (Component.singleton .c)
+  let E : Elaboration RelatedNotTransitiveCase :=
+    ⟨fun d m' => d = .b ∧ m' = m⟩
+  refine ⟨RelatedNotTransitiveCase, E, ?_⟩
+  intro htrans
+  have hba : E.Reaches .b .a :=
+    Reaches.single (m := m) (A := Component.singleton .a)
+      ⟨rfl, rfl⟩ (by simp [m]) rfl
+  have hbc : E.Reaches .b .c :=
+    Reaches.single (m := m) (A := Component.singleton .c)
+      ⟨rfl, rfl⟩ (by simp [m]) rfl
+  have hab : E.Related .a .b :=
+    ⟨RelatedNotTransitiveCase.a,
+      Reaches.refl RelatedNotTransitiveCase.a, hba⟩
+  have hbc' : E.Related .b .c :=
+    ⟨RelatedNotTransitiveCase.c, hbc,
+      Reaches.refl RelatedNotTransitiveCase.c⟩
+  obtain ⟨w, haw, hcw⟩ := htrans hab hbc'
+  have hwa : w = .a := by
+    cases haw with
+    | refl _ => rfl
+    | step hE _ _ _ => simp [E] at hE
+  have hwc : w = .c := by
+    cases hcw with
+    | refl _ => rfl
+    | step hE _ _ _ => simp [E] at hE
+  exact (by decide : RelatedNotTransitiveCase.a ≠ .c) (hwa.symm.trans hwc)
+
 def Linked {D : Type u} (E : Elaboration D) (A B : Component D) : Prop :=
   (∀ a ∈ A, ∃ b ∈ B, E.Related a b) ∧
     (∀ b ∈ B, ∃ a ∈ A, E.Related a b)
@@ -472,13 +516,21 @@ end Elaboration
 
 /-! ## Resonance, raw and certified -/
 
-/-- Resonance data whose two middle components are forced to be singletons. -/
+/--
+Resonance data whose two middle components are forced to be singletons.
+
+b is being receiving calls, b' is being responding. The being's
+receiving-stage and responding-stage share linkage despite the change.
+
+To be extra thorough, we might in future model being prior to receiving
+calls and being post responding.
+-/
 structure RawResonance (D : Type u) where
   linkage : Linkage D
-  first : Component D
+  calls : Component D
   b : D
   b' : D
-  last : Component D
+  responses : Component D
 
 namespace RawResonance
 
@@ -487,8 +539,8 @@ def middle {D : Type u} (r : RawResonance D) : List (Component D) :=
 
 def toRawMutualDependence {D : Type u} (r : RawResonance D) :
     RawMutualDependence D :=
-  RawMutualDependence.quad r.linkage r.first (Component.singleton r.b)
-    (Component.singleton r.b') r.last
+  RawMutualDependence.quad r.linkage r.calls (Component.singleton r.b)
+    (Component.singleton r.b') r.responses
 
 def components {D : Type u} (r : RawResonance D) : List (Component D) :=
   r.toRawMutualDependence.components
@@ -505,7 +557,7 @@ def components {D : Type u} (r : RawResonance D) : List (Component D) :=
 
 @[simp] theorem components_eq {D : Type u} (r : RawResonance D) :
     r.components =
-      [r.first, Component.singleton r.b, Component.singleton r.b', r.last] :=
+      [r.calls, Component.singleton r.b, Component.singleton r.b', r.responses] :=
   rfl
 
 theorem isResonance {D : Type u} (r : RawResonance D) :
@@ -517,13 +569,13 @@ def Holds {D : Type u} (r : RawResonance D) : Prop :=
 
 @[simp] theorem holds_iff {D : Type u} {r : RawResonance D} :
     r.Holds ↔
-      r.linkage.Linked r.first (Component.singleton r.b) ∧
+      r.linkage.Linked r.calls (Component.singleton r.b) ∧
         r.linkage.Linked (Component.singleton r.b)
           (Component.singleton r.b') ∧
-          r.linkage.Linked (Component.singleton r.b') r.last := by
+          r.linkage.Linked (Component.singleton r.b') r.responses := by
   change
-    (RawMutualDependence.quad r.linkage r.first (Component.singleton r.b)
-      (Component.singleton r.b') r.last).Holds ↔ _
+    (RawMutualDependence.quad r.linkage r.calls (Component.singleton r.b)
+      (Component.singleton r.b') r.responses).Holds ↔ _
   exact RawMutualDependence.holds_quad_iff
 
 end RawResonance
@@ -552,8 +604,8 @@ namespace Resonance
 def linkage {D : Type u} (r : Resonance D) : Linkage D :=
   r.toRawResonance.linkage
 
-def first {D : Type u} (r : Resonance D) : Component D :=
-  r.toRawResonance.first
+def calls {D : Type u} (r : Resonance D) : Component D :=
+  r.toRawResonance.calls
 
 def b {D : Type u} (r : Resonance D) : D :=
   r.toRawResonance.b
@@ -561,8 +613,8 @@ def b {D : Type u} (r : Resonance D) : D :=
 def b' {D : Type u} (r : Resonance D) : D :=
   r.toRawResonance.b'
 
-def last {D : Type u} (r : Resonance D) : Component D :=
-  r.toRawResonance.last
+def responses {D : Type u} (r : Resonance D) : Component D :=
+  r.toRawResonance.responses
 
 def toMutualDependence {D : Type u} (r : Resonance D) :
     MutualDependence D :=
@@ -575,12 +627,12 @@ theorem isResonance {D : Type u} (r : Resonance D) :
     r.toMutualDependence.IsResonance :=
   r.toRawResonance.isResonance
 
-def mk' {D : Type u} (L : Linkage D) (first : Component D) (b b' : D)
-    (last : Component D)
-    (h₁ : L.Linked first (Component.singleton b))
+def mk' {D : Type u} (L : Linkage D) (calls : Component D) (b b' : D)
+    (responses : Component D)
+    (h₁ : L.Linked calls (Component.singleton b))
     (h₂ : L.Linked (Component.singleton b) (Component.singleton b'))
-    (h₃ : L.Linked (Component.singleton b') last) : Resonance D :=
-  ⟨⟨L, first, b, b', last⟩,
+    (h₃ : L.Linked (Component.singleton b') responses) : Resonance D :=
+  ⟨⟨L, calls, b, b', responses⟩,
     RawResonance.holds_iff.mpr ⟨h₁, h₂, h₃⟩⟩
 
 end Resonance
@@ -642,6 +694,11 @@ end GradedResonance
 
 /-! ## Direction and causality -/
 
+/--
+Directed is not derived from the MutualDependence or Resonance,
+instead it's a fact among those - it just turns out that when thermodynamic gradient
+is possible, some designata sit at lower entropy than others; Directed specifies which.
+-/
 structure Directed (D : Type u) where
   Before : D → D → Prop
   trans : ∀ {x y z : D}, Before x y → Before y z → Before x z
@@ -683,35 +740,35 @@ structure Causal (D : Type u) extends Directed D where
 
 namespace GalacticTea
 
-inductive Event where
+inductive GalacticTeaCase where
   | bigBang
   | localTea
   | remoteTea
   deriving DecidableEq, Repr
 
-open Event
+open GalacticTeaCase
 
-inductive TeaBefore : Event → Event → Prop where
+inductive TeaBefore : GalacticTeaCase → GalacticTeaCase → Prop where
   | bigBang_local : TeaBefore bigBang localTea
   | bigBang_remote : TeaBefore bigBang remoteTea
 
-def teaRank : Event → Nat
+def teaRank : GalacticTeaCase → Nat
   | bigBang => 0
   | localTea => 1
   | remoteTea => 1
 
-theorem teaBefore_rank_lt {x y : Event} (h : TeaBefore x y) :
+theorem teaBefore_rank_lt {x y : GalacticTeaCase} (h : TeaBefore x y) :
     teaRank x < teaRank y := by
   cases h <;> decide
 
-def teaDirection : Directed Event :=
+def teaDirection : Directed GalacticTeaCase :=
   Directed.ofBaseRank TeaBefore teaRank teaBefore_rank_lt
 
-inductive TeaCauses : Event → Event → Prop where
+inductive TeaCauses : GalacticTeaCase → GalacticTeaCase → Prop where
   | bigBang_local : TeaCauses bigBang localTea
   | bigBang_remote : TeaCauses bigBang remoteTea
 
-def teaCausal : Causal Event where
+def teaCausal : Causal GalacticTeaCase where
   toDirected := teaDirection
   Causes := TeaCauses
   causes_before := fun h => by
