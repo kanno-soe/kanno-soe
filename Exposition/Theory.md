@@ -14,6 +14,32 @@ The scope is bounded and the boundary is marked as data. The *grammar* of ownerl
 
 The layered library — Signature → Consequences → Doctrines → Identification → Meta → Exposition — keeps the Signature as axioms and the later layers as consequences and tests. Its non-storage claim is architectural — `Config` has no owner-typed slot — and checked at the level of definability: whole-carrier relabelling acts trivially on configurations and commutes with `rePitch` (`Config.relabel_fixed`, `Grid.relabel_rePitch`), while no equivariant recovery exists (`Grid.no_natural_agent_recovery_from_config`). This is not a blanket information-flow claim: cetanā requires grading to depend on the occurrence, and a model's stored tendency may therefore reveal a register number encoded by that occurrence (`ConfigLeakWitness.registerClock_config_recovers_agent`). The value remains a grade in the field register; what is never stored is the designatum *as index*. Every reading is gated by a sibling countermodel, and the taxonomy's rows and verdict history are inspectable data.
 
+## What the V2 formal model is
+
+The project implements a simplified model of Mahayana Buddhism metaphysics. It *is not* that useful for proving anything interesting about Buddhism, except perhaps independence results - insofar as you accept the model as valid, proving something within it shows that it needn't be more complicated than that. But *insofar* is doing all the work there - over-simplify something that's actually complex, and you have only proved something about the simplification, not about the complex thing.
+
+The basic concept for the model is Mutual Dependence (as defined by Nāgārjuna and Jizang).
+
+The simplified model is: for any group/component of designata, and any other component of designata, the two are mutually dependent on one another when they share a designata. The designata are allowed to be elaborated into none, one, or multiple alternative mutual dependences, which allows the definitions to expand and produce more possibilities of mutual dependence.
+
+Mutual dependence can chain to any length, as long as adjacent components satisfy that relatedness linkage.
+
+A resonance is a special case of mutual dependence with 4 linked components, the middle two having only a singleton designatum each. As convention, we name the first component "calls", the second designatum b1, the third designatum b2, and the final component "responses".
+
+This would naturally be viewed as b1 receiving calls, and b2 (considered a different view on the same being) responding with responses.
+
+Designata elaborate to any mutual dependence you could name, so as well as the standard interpretation of a person receiving a call and answering, it's valid in this system to consider it a stone as b1 and b2 - perhaps the wind calls at it, and it responds by rolling downhill.
+
+The calls side and responses side may be graded for dis-resonance. In the example above, stone would have bottom value (ie. 0) for dis-resonance, whereas a grumpy person who has stubbed their toe can have a non-zero grade on either or both sides.
+
+A Being is defined a mutual dependence specifying a linkage of such b1, b2, ... moments.
+
+The system as defined doesn't have time directedness or causality in it. Those are assigned manually, stating that mutual dependence A is before mutual dependence B, or that A causes B. The latter implies the former, but not necessarily for the other way around.
+
+That's... basically it. Feel free to copy the code into a chatbot context and ask it to respond in simple terms and examples.
+
+The older theory (which has an interesting but somewhat orthogonal error generator concept, but tends to overstate its contribution in many ways) follows below.
+
 ## The rules, each preceded by what motivated it
 
 ### Not Nothing
