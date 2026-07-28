@@ -36,7 +36,7 @@ A Being is defined as a mutual dependence specifying a linkage of such b1, b2, .
 
 The system as defined doesn't have time directedness or causality in it. Those are assigned manually, stating that mutual dependence A is before mutual dependence B, or that A causes B. The latter implies the former, but not necessarily for the other way around.
 
-That's... basically it. Feel free to copy the code into a chatbot context and ask it to respond in simple terms and examples.
+That's... basically it. Feel free to copy the code into a chatbot context and ask it to respond about V2 in simple terms and examples.
 
 The theory below describes the philosophical motivation behind this work, elucidates a 3 row "act-grammar" (mutual dependence alone being row 1, resonance alone being row 2, and causality alone being row 3), and defines a collapse/freeze error generator, which fruitfully describes errors predicted by the grid and many other floor/act-time distinctions that can be made.
 
