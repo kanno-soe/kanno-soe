@@ -25,7 +25,7 @@ structure Component (D : Type u) where
   nonempty : ∃ d, carrier d
 
 instance {D : Type u} : Membership D (Component D) :=
-  ⟨fun A d => A.carrier d⟩
+  ⟨fun a d => a.carrier d⟩
 
 instance {D : Type u} : CoeFun (Component D) (fun _ => D → Prop) :=
   ⟨Component.carrier⟩
@@ -40,8 +40,8 @@ def singleton {D : Type u} (d : D) : Component D where
     x ∈ singleton d ↔ x = d :=
   Iff.rfl
 
-theorem exists_mem {D : Type u} (A : Component D) : ∃ d, d ∈ A :=
-  A.nonempty
+theorem exists_mem {D : Type u} (a : Component D) : ∃ d, d ∈ a :=
+  a.nonempty
 
 end Component
 
@@ -49,21 +49,21 @@ end Component
 
 structure Linkage (D : Type u) where
   Linked : Component D → Component D → Prop
-  symm : ∀ {A B}, Linked A B → Linked B A
+  symm : ∀ {c₁ c₂}, Linked c₁ c₂ → Linked c₂ c₁
 
 namespace Linkage
 
 inductive ChainLinked {D : Type u} (L : Linkage D) :
     List (Component D) → Prop where
   | nil : ChainLinked L []
-  | single (A : Component D) : ChainLinked L [A]
-  | cons {A B : Component D} {rest : List (Component D)}
-      (hAB : L.Linked A B) (h : ChainLinked L (B :: rest)) :
-      ChainLinked L (A :: B :: rest)
+  | single (c₁ : Component D) : ChainLinked L [c₁]
+  | cons {c₁ c₂ : Component D} {rest : List (Component D)}
+      (h₁₂ : L.Linked c₁ c₂) (h : ChainLinked L (c₂ :: rest)) :
+      ChainLinked L (c₁ :: c₂ :: rest)
 
 theorem ChainLinked.tail {D : Type u} {L : Linkage D}
-    {A : Component D} {l : List (Component D)}
-    (h : L.ChainLinked (A :: l)) : L.ChainLinked l := by
+    {c₁ : Component D} {l : List (Component D)}
+    (h : L.ChainLinked (c₁ :: l)) : L.ChainLinked l := by
   cases h with
   | single _ => exact ChainLinked.nil
   | cons _ h => exact h
@@ -72,7 +72,7 @@ theorem ChainLinked.of_append_right {D : Type u} {L : Linkage D} :
     ∀ (l₁ : List (Component D)) {l₂ : List (Component D)},
       L.ChainLinked (l₁ ++ l₂) → L.ChainLinked l₂
   | [], _, h => h
-  | A :: rest, l₂, h => by
+  | c₁ :: rest, l₂, h => by
       rw [List.cons_append] at h
       exact ChainLinked.of_append_right rest h.tail
 
@@ -80,35 +80,35 @@ theorem ChainLinked.of_append_left {D : Type u} {L : Linkage D} :
     ∀ (l₁ l₂ : List (Component D)),
       L.ChainLinked (l₁ ++ l₂) → L.ChainLinked l₁
   | [], _, _ => ChainLinked.nil
-  | [A], _, _ => ChainLinked.single A
-  | A :: B :: rest, l₂, h => by
+  | [c₁], _, _ => ChainLinked.single c₁
+  | c₁ :: c₂ :: rest, l₂, h => by
       rw [List.cons_append, List.cons_append] at h
       cases h with
-      | cons hAB h =>
-          refine ChainLinked.cons hAB
-            (ChainLinked.of_append_left (B :: rest) l₂ ?_)
+      | cons h₁₂ h =>
+          refine ChainLinked.cons h₁₂
+            (ChainLinked.of_append_left (c₂ :: rest) l₂ ?_)
           rw [List.cons_append]
           exact h
 
 theorem ChainLinked.glue {D : Type u} {L : Linkage D} :
-    ∀ {l₁ : List (Component D)} {X : Component D}
+    ∀ {l₁ : List (Component D)} {cₙ : Component D}
         {l₂ : List (Component D)},
-      L.ChainLinked (l₁ ++ [X]) → L.ChainLinked (X :: l₂) →
-      L.ChainLinked (l₁ ++ X :: l₂) := by
-  intro l₁ X l₂ hleft hright
+      L.ChainLinked (l₁ ++ [cₙ]) → L.ChainLinked (cₙ :: l₂) →
+      L.ChainLinked (l₁ ++ cₙ :: l₂) := by
+  intro l₁ cₙ l₂ hleft hright
   induction l₁ with
   | nil => exact hright
-  | cons A rest ih =>
+  | cons c₁ rest ih =>
       cases rest with
       | nil =>
-          change L.ChainLinked [A, X] at hleft
+          change L.ChainLinked [c₁, cₙ] at hleft
           cases hleft with
-          | cons hAX _ => exact .cons hAX hright
-      | cons B rest =>
-          change L.ChainLinked (A :: B :: rest ++ [X]) at hleft
+          | cons h₁ₙ _ => exact .cons h₁ₙ hright
+      | cons c₂ rest =>
+          change L.ChainLinked (c₁ :: c₂ :: rest ++ [cₙ]) at hleft
           cases hleft with
-          | cons hAB htail =>
-              exact .cons hAB (ih htail)
+          | cons h₁₂ htail =>
+              exact .cons h₁₂ (ih htail)
 
 end Linkage
 
@@ -122,92 +122,94 @@ makes no assertion; `RawMutualDependence.Holds` states it, and
 -/
 structure RawMutualDependence (D : Type u) where
   linkage : Linkage D
-  first : Component D
+  c₁ : Component D
   middle : List (Component D)
-  last : Component D
+  cₙ : Component D
 
 namespace RawMutualDependence
 
-def components {D : Type u} (m : RawMutualDependence D) :
+def components {D : Type u} (rawM : RawMutualDependence D) :
     List (Component D) :=
-  m.first :: m.middle ++ [m.last]
+  rawM.c₁ :: rawM.middle ++ [rawM.cₙ]
 
 /-- The assertion: every two adjacent components are accepted by the
 bundled linkage. -/
-def Holds {D : Type u} (m : RawMutualDependence D) : Prop :=
-  m.linkage.ChainLinked m.components
+def Holds {D : Type u} (rawM : RawMutualDependence D) : Prop :=
+  rawM.linkage.ChainLinked rawM.components
 
-def pair {D : Type u} (L : Linkage D) (A B : Component D) :
+def pair {D : Type u} (L : Linkage D) (c₁ c₂ : Component D) :
     RawMutualDependence D :=
-  ⟨L, A, [], B⟩
+  ⟨L, c₁, [], c₂⟩
 
-def triple {D : Type u} (L : Linkage D) (A B C : Component D) :
+def triple {D : Type u} (L : Linkage D) (c₁ c₂ c₃ : Component D) :
     RawMutualDependence D :=
-  ⟨L, A, [B], C⟩
+  ⟨L, c₁, [c₂], c₃⟩
 
-def quad {D : Type u} (L : Linkage D) (A B C R : Component D) :
+def quad {D : Type u} (L : Linkage D) (c₁ c₂ c₃ c₄ : Component D) :
     RawMutualDependence D :=
-  ⟨L, A, [B, C], R⟩
+  ⟨L, c₁, [c₂, c₃], c₄⟩
 
 @[simp] theorem linkage_pair {D : Type u} (L : Linkage D)
-    (A B : Component D) : (pair L A B).linkage = L :=
+    (c₁ c₂ : Component D) : (pair L c₁ c₂).linkage = L :=
   rfl
 
 @[simp] theorem components_pair {D : Type u} (L : Linkage D)
-    (A B : Component D) : (pair L A B).components = [A, B] :=
+    (c₁ c₂ : Component D) : (pair L c₁ c₂).components = [c₁, c₂] :=
   rfl
 
 @[simp] theorem components_triple {D : Type u} (L : Linkage D)
-    (A B C : Component D) : (triple L A B C).components = [A, B, C] :=
+    (c₁ c₂ c₃ : Component D) :
+    (triple L c₁ c₂ c₃).components = [c₁, c₂, c₃] :=
   rfl
 
 @[simp] theorem components_quad {D : Type u} (L : Linkage D)
-    (A B C R : Component D) :
-    (quad L A B C R).components = [A, B, C, R] :=
+    (c₁ c₂ c₃ c₄ : Component D) :
+    (quad L c₁ c₂ c₃ c₄).components = [c₁, c₂, c₃, c₄] :=
   rfl
 
 @[simp] theorem holds_pair_iff {D : Type u} {L : Linkage D}
-    {A B : Component D} :
-    (pair L A B).Holds ↔ L.Linked A B := by
+    {c₁ c₂ : Component D} :
+    (pair L c₁ c₂).Holds ↔ L.Linked c₁ c₂ := by
   constructor
   · intro h
-    have h : L.ChainLinked [A, B] := h
+    have h : L.ChainLinked [c₁, c₂] := h
     cases h with
-    | cons hAB _ => exact hAB
+    | cons h₁₂ _ => exact h₁₂
   · intro h
-    show L.ChainLinked [A, B]
-    exact .cons h (.single B)
+    show L.ChainLinked [c₁, c₂]
+    exact .cons h (.single c₂)
 
 @[simp] theorem holds_triple_iff {D : Type u} {L : Linkage D}
-    {A B C : Component D} :
-    (triple L A B C).Holds ↔ L.Linked A B ∧ L.Linked B C := by
+    {c₁ c₂ c₃ : Component D} :
+    (triple L c₁ c₂ c₃).Holds ↔
+      L.Linked c₁ c₂ ∧ L.Linked c₂ c₃ := by
   constructor
   · intro h
-    have h : L.ChainLinked [A, B, C] := h
+    have h : L.ChainLinked [c₁, c₂, c₃] := h
     cases h with
-    | cons hAB h =>
+    | cons h₁₂ h =>
         cases h with
-        | cons hBC _ => exact ⟨hAB, hBC⟩
+        | cons h₂₃ _ => exact ⟨h₁₂, h₂₃⟩
   · intro h
-    show L.ChainLinked [A, B, C]
-    exact .cons h.1 (.cons h.2 (.single C))
+    show L.ChainLinked [c₁, c₂, c₃]
+    exact .cons h.1 (.cons h.2 (.single c₃))
 
 @[simp] theorem holds_quad_iff {D : Type u} {L : Linkage D}
-    {A B C R : Component D} :
-    (quad L A B C R).Holds ↔
-      L.Linked A B ∧ L.Linked B C ∧ L.Linked C R := by
+    {c₁ c₂ c₃ c₄ : Component D} :
+    (quad L c₁ c₂ c₃ c₄).Holds ↔
+      L.Linked c₁ c₂ ∧ L.Linked c₂ c₃ ∧ L.Linked c₃ c₄ := by
   constructor
   · intro h
-    have h : L.ChainLinked [A, B, C, R] := h
+    have h : L.ChainLinked [c₁, c₂, c₃, c₄] := h
     cases h with
-    | cons hAB h =>
+    | cons h₁₂ h =>
         cases h with
-        | cons hBC h =>
+        | cons h₂₃ h =>
             cases h with
-            | cons hCR _ => exact ⟨hAB, hBC, hCR⟩
+            | cons h₃₄ _ => exact ⟨h₁₂, h₂₃, h₃₄⟩
   · intro h
-    show L.ChainLinked [A, B, C, R]
-    exact .cons h.1 (.cons h.2.1 (.cons h.2.2 (.single R)))
+    show L.ChainLinked [c₁, c₂, c₃, c₄]
+    exact .cons h.1 (.cons h.2.1 (.cons h.2.2 (.single c₄)))
 
 theorem holds_of_contiguous {D : Type u}
     {whole sub : RawMutualDependence D} {pre suf : List (Component D)}
@@ -222,14 +224,14 @@ theorem holds_of_contiguous {D : Type u}
   exact Linkage.ChainLinked.of_append_right pre
     (Linkage.ChainLinked.of_append_left _ suf h)
 
-def IsResonance {D : Type u} (m : RawMutualDependence D) : Prop :=
+def IsResonance {D : Type u} (rawM : RawMutualDependence D) : Prop :=
   ∃ b₁ b₂ : D,
-    m.middle = [Component.singleton b₁, Component.singleton b₂]
+    rawM.middle = [Component.singleton b₁, Component.singleton b₂]
 
-theorem isResonance_quad {D : Type u} (L : Linkage D) (C : Component D)
-    (b₁ b₂ : D) (R : Component D) :
-    (quad L C (Component.singleton b₁)
-      (Component.singleton b₂) R).IsResonance :=
+theorem isResonance_quad {D : Type u} (L : Linkage D) (c₁ : Component D)
+    (b₁ b₂ : D) (c₄ : Component D) :
+    (quad L c₁ (Component.singleton b₁)
+      (Component.singleton b₂) c₄).IsResonance :=
   ⟨b₁, b₂, rfl⟩
 
 end RawMutualDependence
@@ -253,14 +255,14 @@ namespace MutualDependence
 def linkage {D : Type u} (m : MutualDependence D) : Linkage D :=
   m.toRaw.linkage
 
-def first {D : Type u} (m : MutualDependence D) : Component D :=
-  m.toRaw.first
+def c₁ {D : Type u} (m : MutualDependence D) : Component D :=
+  m.toRaw.c₁
 
 def middle {D : Type u} (m : MutualDependence D) : List (Component D) :=
   m.toRaw.middle
 
-def last {D : Type u} (m : MutualDependence D) : Component D :=
-  m.toRaw.last
+def cₙ {D : Type u} (m : MutualDependence D) : Component D :=
+  m.toRaw.cₙ
 
 def components {D : Type u} (m : MutualDependence D) :
     List (Component D) :=
@@ -268,82 +270,86 @@ def components {D : Type u} (m : MutualDependence D) :
 
 /-- Proof irrelevance: equality of certified dependences reduces to
 equality of the underlying data. -/
-theorem ext {D : Type u} {m₁ m₂ : MutualDependence D}
-    (h : m₁.toRaw = m₂.toRaw) : m₁ = m₂ := by
-  cases m₁
-  cases m₂
+theorem ext {D : Type u} {a b : MutualDependence D}
+    (h : a.toRaw = b.toRaw) : a = b := by
+  cases a
+  cases b
   cases h
   rfl
 
-def pair {D : Type u} (L : Linkage D) (A B : Component D)
-    (h : L.Linked A B) : MutualDependence D :=
-  ⟨RawMutualDependence.pair L A B,
+def pair {D : Type u} (L : Linkage D) (c₁ c₂ : Component D)
+    (h : L.Linked c₁ c₂) : MutualDependence D :=
+  ⟨RawMutualDependence.pair L c₁ c₂,
     RawMutualDependence.holds_pair_iff.mpr h⟩
 
-def triple {D : Type u} (L : Linkage D) (A B C : Component D)
-    (hAB : L.Linked A B) (hBC : L.Linked B C) : MutualDependence D :=
-  ⟨RawMutualDependence.triple L A B C,
-    RawMutualDependence.holds_triple_iff.mpr ⟨hAB, hBC⟩⟩
-
-def quad {D : Type u} (L : Linkage D) (A B C R : Component D)
-    (hAB : L.Linked A B) (hBC : L.Linked B C) (hCR : L.Linked C R) :
+def triple {D : Type u} (L : Linkage D) (c₁ c₂ c₃ : Component D)
+    (h₁₂ : L.Linked c₁ c₂) (h₂₃ : L.Linked c₂ c₃) :
     MutualDependence D :=
-  ⟨RawMutualDependence.quad L A B C R,
-    RawMutualDependence.holds_quad_iff.mpr ⟨hAB, hBC, hCR⟩⟩
+  ⟨RawMutualDependence.triple L c₁ c₂ c₃,
+    RawMutualDependence.holds_triple_iff.mpr ⟨h₁₂, h₂₃⟩⟩
+
+def quad {D : Type u} (L : Linkage D) (c₁ c₂ c₃ c₄ : Component D)
+    (h₁₂ : L.Linked c₁ c₂) (h₂₃ : L.Linked c₂ c₃)
+    (h₃₄ : L.Linked c₃ c₄) :
+    MutualDependence D :=
+  ⟨RawMutualDependence.quad L c₁ c₂ c₃ c₄,
+    RawMutualDependence.holds_quad_iff.mpr ⟨h₁₂, h₂₃, h₃₄⟩⟩
 
 /-- `holds_of_contiguous` as a slicing function: the sub-tuple copies the
 whole's linkage, so it comes back certified with no side conditions. -/
 def slice {D : Type u} (whole : MutualDependence D)
-    (first : Component D) (middle : List (Component D))
-    (last : Component D) (pre suf : List (Component D))
+    (c₁ : Component D) (middle : List (Component D))
+    (cₙ : Component D) (pre suf : List (Component D))
     (hdecomp : whole.toRaw.components =
-      pre ++ (first :: middle ++ [last]) ++ suf) : MutualDependence D :=
-  ⟨⟨whole.toRaw.linkage, first, middle, last⟩,
+      pre ++ (c₁ :: middle ++ [cₙ]) ++ suf) : MutualDependence D :=
+  ⟨⟨whole.toRaw.linkage, c₁, middle, cₙ⟩,
     RawMutualDependence.holds_of_contiguous
       (whole := whole.toRaw)
-      (sub := ⟨whole.toRaw.linkage, first, middle, last⟩)
+      (sub := ⟨whole.toRaw.linkage, c₁, middle, cₙ⟩)
       (pre := pre) (suf := suf) rfl hdecomp whole.holds⟩
 
-def mergeSharedEndpoint {D : Type u} (A B : MutualDependence D)
-    (hL : A.linkage = B.linkage) (hX : A.last = B.first) :
+def mergeSharedEndpoint {D : Type u} (m₁ m₂ : MutualDependence D)
+    (hL : m₁.linkage = m₂.linkage) (hShared : m₁.cₙ = m₂.c₁) :
     MutualDependence D := by
-  refine ⟨⟨A.linkage, A.first, A.middle ++ A.last :: B.middle, B.last⟩, ?_⟩
-  have hB :
-      A.linkage.ChainLinked (A.last :: B.middle ++ [B.last]) := by
-    rw [hL, hX]
-    exact B.holds
+  refine
+    ⟨⟨m₁.linkage, m₁.c₁, m₁.middle ++ m₁.cₙ :: m₂.middle, m₂.cₙ⟩, ?_⟩
+  have h₂ :
+      m₁.linkage.ChainLinked (m₁.cₙ :: m₂.middle ++ [m₂.cₙ]) := by
+    rw [hL, hShared]
+    exact m₂.holds
   have h := Linkage.ChainLinked.glue
-    (l₁ := A.first :: A.middle) (X := A.last)
-    (l₂ := B.middle ++ [B.last]) A.holds hB
-  simpa [MutualDependence.linkage, MutualDependence.first,
-    MutualDependence.middle, MutualDependence.last,
+    (l₁ := m₁.c₁ :: m₁.middle) (cₙ := m₁.cₙ)
+    (l₂ := m₂.middle ++ [m₂.cₙ]) m₁.holds h₂
+  simpa [MutualDependence.linkage, MutualDependence.c₁,
+    MutualDependence.middle, MutualDependence.cₙ,
     RawMutualDependence.Holds, RawMutualDependence.components,
     List.append_assoc] using h
 
-def mergeLinkedEndpoints {D : Type u} (A B : MutualDependence D)
-    (hL : A.linkage = B.linkage)
-    (hJoin : A.linkage.Linked A.last B.first) : MutualDependence D := by
+def mergeLinkedEndpoints {D : Type u} (m₁ m₂ : MutualDependence D)
+    (hL : m₁.linkage = m₂.linkage)
+    (hJoin : m₁.linkage.Linked m₁.cₙ m₂.c₁) :
+    MutualDependence D := by
   refine
-    ⟨⟨A.linkage, A.first,
-      A.middle ++ [A.last, B.first] ++ B.middle, B.last⟩, ?_⟩
-  have hAB :
-      A.linkage.ChainLinked
-        (((A.first :: A.middle) ++ [A.last]) ++ [B.first]) := by
-    simpa [MutualDependence.linkage, MutualDependence.first,
-      MutualDependence.middle, MutualDependence.last,
+    ⟨⟨m₁.linkage, m₁.c₁,
+      m₁.middle ++ [m₁.cₙ, m₂.c₁] ++ m₂.middle, m₂.cₙ⟩, ?_⟩
+  have h₁₂ :
+      m₁.linkage.ChainLinked
+        (((m₁.c₁ :: m₁.middle) ++ [m₁.cₙ]) ++ [m₂.c₁]) := by
+    simpa [MutualDependence.linkage, MutualDependence.c₁,
+      MutualDependence.middle, MutualDependence.cₙ,
       List.append_assoc] using
       (Linkage.ChainLinked.glue
-        (l₁ := A.first :: A.middle) (X := A.last) (l₂ := [B.first])
-        A.holds (.cons hJoin (.single B.first)))
-  have hB :
-      A.linkage.ChainLinked (B.first :: B.middle ++ [B.last]) := by
+        (l₁ := m₁.c₁ :: m₁.middle) (cₙ := m₁.cₙ) (l₂ := [m₂.c₁])
+        m₁.holds (.cons hJoin (.single m₂.c₁)))
+  have h₂ :
+      m₁.linkage.ChainLinked (m₂.c₁ :: m₂.middle ++ [m₂.cₙ]) := by
     rw [hL]
-    exact B.holds
+    exact m₂.holds
   have h := Linkage.ChainLinked.glue
-    (l₁ := (A.first :: A.middle) ++ [A.last]) (X := B.first)
-    (l₂ := B.middle ++ [B.last]) hAB hB
-  simpa [MutualDependence.linkage, MutualDependence.first,
-    MutualDependence.middle, MutualDependence.last,
+    (l₁ := (m₁.c₁ :: m₁.middle) ++ [m₁.cₙ]) (cₙ := m₂.c₁)
+    (l₂ := m₂.middle ++ [m₂.cₙ]) h₁₂ h₂
+  simpa [MutualDependence.linkage, MutualDependence.c₁,
+    MutualDependence.middle, MutualDependence.cₙ,
     RawMutualDependence.Holds, RawMutualDependence.components,
     List.append_assoc] using h
 
@@ -355,8 +361,8 @@ end MutualDependence
 /-! ## Elaboration and relatedness -/
 
 /--
-An elaboration system. `Elab d m` asserts that designatum `d` *may be
-elaborated as* the raw mutual dependence `m`.
+An elaboration system. `Elab d rawM` asserts that designatum `d` *may be
+elaborated as* the raw mutual dependence `rawM`.
 
 `Elaboration` must target `RawMutualDependence`: it constrains the
 components of its targets and stays agnostic about both the bundled
@@ -372,21 +378,23 @@ namespace Elaboration
 
 inductive Reaches {D : Type u} (E : Elaboration D) : D → D → Prop where
   | refl (d : D) : Reaches E d d
-  | step {d e f : D} {m : RawMutualDependence D} {A : Component D}
-      (hE : E.Elab d m) (hA : A ∈ m.components) (he : e ∈ A)
+  | step {d e f : D} {rawM : RawMutualDependence D}
+      {a : Component D}
+      (hE : E.Elab d rawM) (ha : a ∈ rawM.components) (he : e ∈ a)
       (h : Reaches E e f) : Reaches E d f
 
 theorem Reaches.trans {D : Type u} {E : Elaboration D} {d e f : D}
     (h₁ : E.Reaches d e) : E.Reaches e f → E.Reaches d f := by
   induction h₁ with
   | refl _ => exact id
-  | step hE hA he _ ih => exact fun h₂ => Reaches.step hE hA he (ih h₂)
+  | step hE ha he _ ih =>
+      exact fun h₂ => Reaches.step hE ha he (ih h₂)
 
 theorem Reaches.single {D : Type u} {E : Elaboration D} {d e : D}
-    {m : RawMutualDependence D} {A : Component D}
-    (hE : E.Elab d m) (hA : A ∈ m.components) (he : e ∈ A) :
+    {rawM : RawMutualDependence D} {a : Component D}
+    (hE : E.Elab d rawM) (ha : a ∈ rawM.components) (he : e ∈ a) :
     E.Reaches d e :=
-  Reaches.step hE hA he (Reaches.refl e)
+  Reaches.step hE ha he (Reaches.refl e)
 
 def Related {D : Type u} (E : Elaboration D) (a b : D) : Prop :=
   ∃ w, E.Reaches a w ∧ E.Reaches b w
@@ -419,10 +427,10 @@ theorem Related.not_transitive :
   refine ⟨RelatedNotTransitiveCase, E, ?_⟩
   intro htrans
   have hba : E.Reaches .b .a :=
-    Reaches.single (m := m) (A := Component.singleton .a)
+    Reaches.single (rawM := m) (a := Component.singleton .a)
       ⟨rfl, rfl⟩ (by simp [m]) rfl
   have hbc : E.Reaches .b .c :=
-    Reaches.single (m := m) (A := Component.singleton .c)
+    Reaches.single (rawM := m) (a := Component.singleton .c)
       ⟨rfl, rfl⟩ (by simp [m]) rfl
   have hab : E.Related .a .b :=
     ⟨RelatedNotTransitiveCase.a,
@@ -441,12 +449,13 @@ theorem Related.not_transitive :
     | step hE _ _ _ => simp [E] at hE
   exact (by decide : RelatedNotTransitiveCase.a ≠ .c) (hwa.symm.trans hwc)
 
-def Linked {D : Type u} (E : Elaboration D) (A B : Component D) : Prop :=
-  (∀ a ∈ A, ∃ b ∈ B, E.Related a b) ∧
-    (∀ b ∈ B, ∃ a ∈ A, E.Related a b)
+def Linked {D : Type u} (E : Elaboration D)
+    (c₁ c₂ : Component D) : Prop :=
+  (∀ a ∈ c₁, ∃ b ∈ c₂, E.Related a b) ∧
+    (∀ b ∈ c₂, ∃ a ∈ c₁, E.Related a b)
 
 theorem Linked.symm {D : Type u} {E : Elaboration D}
-    {A B : Component D} (h : E.Linked A B) : E.Linked B A := by
+    {c₁ c₂ : Component D} (h : E.Linked c₁ c₂) : E.Linked c₂ c₁ := by
   obtain ⟨h₁, h₂⟩ := h
   refine ⟨fun b hb => ?_, fun a ha => ?_⟩
   · obtain ⟨a, ha, hr⟩ := h₂ b hb
@@ -493,24 +502,24 @@ sanctioned route around the self-reference restriction. Certifying (i.e.
 producing a `MutualDependence`) additionally requires proving `Holds`
 under the derived linkage, which is genuine work per system. -/
 def certify {D : Type u} (E : Elaboration D)
-    (m : RawMutualDependence D) : RawMutualDependence D :=
-  { m with linkage := Linkage.ofElaboration E }
+    (rawM : RawMutualDependence D) : RawMutualDependence D :=
+  { rawM with linkage := Linkage.ofElaboration E }
 
 @[simp] theorem linkage_certify {D : Type u} (E : Elaboration D)
-    (m : RawMutualDependence D) :
-    (E.certify m).linkage = Linkage.ofElaboration E :=
+    (rawM : RawMutualDependence D) :
+    (E.certify rawM).linkage = Linkage.ofElaboration E :=
   rfl
 
 @[simp] theorem components_certify {D : Type u} (E : Elaboration D)
-    (m : RawMutualDependence D) :
-    (E.certify m).components = m.components :=
+    (rawM : RawMutualDependence D) :
+    (E.certify rawM).components = rawM.components :=
   rfl
 
 /-- Well-formedness of a completed system: every emitted raw dependence
 carries the linkage derived from the elaboration itself. Provable about a
 finished `E`; not expressible inside `E`'s own definition. -/
 def SelfCertified {D : Type u} (E : Elaboration D) : Prop :=
-  ∀ d m, E.Elab d m → m.linkage = Linkage.ofElaboration E
+  ∀ d rawM, E.Elab d rawM → rawM.linkage = Linkage.ofElaboration E
 
 end Elaboration
 
@@ -531,48 +540,53 @@ structure RawResonance (D : Type u) where
 
 namespace RawResonance
 
-def middle {D : Type u} (r : RawResonance D) : List (Component D) :=
-  [Component.singleton r.b₁, Component.singleton r.b₂]
+def middle {D : Type u} (rawR : RawResonance D) : List (Component D) :=
+  [Component.singleton rawR.b₁, Component.singleton rawR.b₂]
 
-def toRawMutualDependence {D : Type u} (r : RawResonance D) :
+def toRawMutualDependence {D : Type u} (rawR : RawResonance D) :
     RawMutualDependence D :=
-  RawMutualDependence.quad r.linkage r.calls (Component.singleton r.b₁)
-    (Component.singleton r.b₂) r.responses
+  RawMutualDependence.quad rawR.linkage rawR.calls
+    (Component.singleton rawR.b₁)
+    (Component.singleton rawR.b₂) rawR.responses
 
-def components {D : Type u} (r : RawResonance D) : List (Component D) :=
-  r.toRawMutualDependence.components
+def components {D : Type u} (rawR : RawResonance D) :
+    List (Component D) :=
+  rawR.toRawMutualDependence.components
 
 @[simp] theorem linkage_toRawMutualDependence {D : Type u}
-    (r : RawResonance D) :
-    r.toRawMutualDependence.linkage = r.linkage :=
+    (rawR : RawResonance D) :
+    rawR.toRawMutualDependence.linkage = rawR.linkage :=
   rfl
 
 @[simp] theorem middle_toRawMutualDependence {D : Type u}
-    (r : RawResonance D) :
-    r.toRawMutualDependence.middle = r.middle :=
+    (rawR : RawResonance D) :
+    rawR.toRawMutualDependence.middle = rawR.middle :=
   rfl
 
-@[simp] theorem components_eq {D : Type u} (r : RawResonance D) :
-    r.components =
-      [r.calls, Component.singleton r.b₁, Component.singleton r.b₂, r.responses] :=
+@[simp] theorem components_eq {D : Type u} (rawR : RawResonance D) :
+    rawR.components =
+      [rawR.calls, Component.singleton rawR.b₁,
+        Component.singleton rawR.b₂, rawR.responses] :=
   rfl
 
-theorem isResonance {D : Type u} (r : RawResonance D) :
-    r.toRawMutualDependence.IsResonance :=
-  ⟨r.b₁, r.b₂, rfl⟩
+theorem isResonance {D : Type u} (rawR : RawResonance D) :
+    rawR.toRawMutualDependence.IsResonance :=
+  ⟨rawR.b₁, rawR.b₂, rfl⟩
 
-def Holds {D : Type u} (r : RawResonance D) : Prop :=
-  r.toRawMutualDependence.Holds
+def Holds {D : Type u} (rawR : RawResonance D) : Prop :=
+  rawR.toRawMutualDependence.Holds
 
-@[simp] theorem holds_iff {D : Type u} {r : RawResonance D} :
-    r.Holds ↔
-      r.linkage.Linked r.calls (Component.singleton r.b₁) ∧
-        r.linkage.Linked (Component.singleton r.b₁)
-          (Component.singleton r.b₂) ∧
-          r.linkage.Linked (Component.singleton r.b₂) r.responses := by
+@[simp] theorem holds_iff {D : Type u} {rawR : RawResonance D} :
+    rawR.Holds ↔
+      rawR.linkage.Linked rawR.calls (Component.singleton rawR.b₁) ∧
+        rawR.linkage.Linked (Component.singleton rawR.b₁)
+          (Component.singleton rawR.b₂) ∧
+          rawR.linkage.Linked (Component.singleton rawR.b₂)
+            rawR.responses := by
   change
-    (RawMutualDependence.quad r.linkage r.calls (Component.singleton r.b₁)
-      (Component.singleton r.b₂) r.responses).Holds ↔ _
+    (RawMutualDependence.quad rawR.linkage rawR.calls
+      (Component.singleton rawR.b₁)
+      (Component.singleton rawR.b₂) rawR.responses).Holds ↔ _
   exact RawMutualDependence.holds_quad_iff
 
 end RawResonance
@@ -580,15 +594,16 @@ end RawResonance
 /-- Completeness at the raw level: every raw mutual dependence satisfying
 `IsResonance` is represented by some `RawResonance`. -/
 theorem RawMutualDependence.IsResonance.exists_rawResonance
-    {D : Type u} {m : RawMutualDependence D} (h : m.IsResonance) :
-    ∃ r : RawResonance D, r.toRawMutualDependence = m := by
-  cases m with
-  | mk linkage first middle last =>
+    {D : Type u} {rawM : RawMutualDependence D}
+    (h : rawM.IsResonance) :
+    ∃ rawR : RawResonance D, rawR.toRawMutualDependence = rawM := by
+  cases rawM with
+  | mk linkage c₁ middle cₙ =>
       obtain ⟨b₁, b₂, hmiddle⟩ := h
       change middle = [Component.singleton b₁, Component.singleton b₂]
         at hmiddle
       subst middle
-      exact ⟨⟨linkage, first, b₁, b₂, last⟩, rfl⟩
+      exact ⟨⟨linkage, c₁, b₁, b₂, cₙ⟩, rfl⟩
 
 /-- The certified counterpart to `RawResonance`, following the same
 raw/certified boundary as mutual dependence. -/
@@ -644,10 +659,10 @@ transported along the raw representation. -/
 theorem MutualDependence.IsResonance.exists_resonance
     {D : Type u} {m : MutualDependence D} (h : m.IsResonance) :
     ∃ r : Resonance D, r.toMutualDependence = m := by
-  obtain ⟨rr, hrr⟩ :=
+  obtain ⟨rawR, hrawR⟩ :=
     RawMutualDependence.IsResonance.exists_rawResonance h
-  exact ⟨⟨rr, (show rr.toRawMutualDependence.Holds from
-    hrr.symm ▸ m.holds)⟩, MutualDependence.ext hrr⟩
+  exact ⟨⟨rawR, (show rawR.toRawMutualDependence.Holds from
+    hrawR.symm ▸ m.holds)⟩, MutualDependence.ext hrawR⟩
 
 /-! ## Being -/
 
@@ -666,62 +681,62 @@ structure Being (D : Type u) where
 namespace Being
 
 private def rawOfComponents {D : Type u} (L : Linkage D)
-    (first second : Component D) :
+    (c₁ c₂ : Component D) :
     List (Component D) → RawMutualDependence D
-  | [] => RawMutualDependence.pair L first second
-  | third :: rest =>
-      let tail := rawOfComponents L second third rest
-      ⟨L, first, second :: tail.middle, tail.last⟩
+  | [] => RawMutualDependence.pair L c₁ c₂
+  | c₃ :: rest =>
+      let rawM := rawOfComponents L c₂ c₃ rest
+      ⟨L, c₁, c₂ :: rawM.middle, rawM.cₙ⟩
 
 private theorem linkage_rawOfComponents {D : Type u} (L : Linkage D)
-    (first second : Component D) (rest : List (Component D)) :
-    (rawOfComponents L first second rest).linkage = L := by
+    (c₁ c₂ : Component D) (rest : List (Component D)) :
+    (rawOfComponents L c₁ c₂ rest).linkage = L := by
   cases rest <;> rfl
 
-private theorem first_rawOfComponents {D : Type u} (L : Linkage D)
-    (first second : Component D) (rest : List (Component D)) :
-    (rawOfComponents L first second rest).first = first := by
+private theorem c₁_rawOfComponents {D : Type u} (L : Linkage D)
+    (c₁ c₂ : Component D) (rest : List (Component D)) :
+    (rawOfComponents L c₁ c₂ rest).c₁ = c₁ := by
   cases rest <;> rfl
 
 private theorem components_rawOfComponents {D : Type u} (L : Linkage D)
-    (first second : Component D) (rest : List (Component D)) :
-    (rawOfComponents L first second rest).components =
-      first :: second :: rest := by
-  induction rest generalizing first second with
+    (c₁ c₂ : Component D) (rest : List (Component D)) :
+    (rawOfComponents L c₁ c₂ rest).components =
+      c₁ :: c₂ :: rest := by
+  induction rest generalizing c₁ c₂ with
   | nil => rfl
-  | cons third rest ih =>
+  | cons c₃ rest ih =>
       change
-        first ::
-            (second :: (rawOfComponents L second third rest).middle) ++
-              [(rawOfComponents L second third rest).last] =
-          first :: second :: third :: rest
+        c₁ ::
+            (c₂ :: (rawOfComponents L c₂ c₃ rest).middle) ++
+              [(rawOfComponents L c₂ c₃ rest).cₙ] =
+          c₁ :: c₂ :: c₃ :: rest
       have tailComponents :
-          (second :: (rawOfComponents L second third rest).middle) ++
-              [(rawOfComponents L second third rest).last] =
-            second :: third :: rest := by
+          (c₂ :: (rawOfComponents L c₂ c₃ rest).middle) ++
+              [(rawOfComponents L c₂ c₃ rest).cₙ] =
+            c₂ :: c₃ :: rest := by
         calc
           _ =
-              (rawOfComponents L second third rest).first ::
-                  (rawOfComponents L second third rest).middle ++
-                    [(rawOfComponents L second third rest).last] := by
+              (rawOfComponents L c₂ c₃ rest).c₁ ::
+                  (rawOfComponents L c₂ c₃ rest).middle ++
+                    [(rawOfComponents L c₂ c₃ rest).cₙ] := by
                 exact congrArg
-                  (fun component =>
-                    (component ::
-                      (rawOfComponents L second third rest).middle) ++
-                        [(rawOfComponents L second third rest).last])
-                  (first_rawOfComponents L second third rest).symm
-          _ = (rawOfComponents L second third rest).components := rfl
-          _ = second :: third :: rest := ih second third
-      exact congrArg (List.cons first) tailComponents
+                  (fun c =>
+                    (c ::
+                      (rawOfComponents L c₂ c₃ rest).middle) ++
+                        [(rawOfComponents L c₂ c₃ rest).cₙ])
+                  (c₁_rawOfComponents L c₂ c₃ rest).symm
+          _ = (rawOfComponents L c₂ c₃ rest).components := rfl
+          _ = c₂ :: c₃ :: rest := ih c₂ c₃
+      exact congrArg (List.cons c₁) tailComponents
 
 private def mutualDependenceOfComponents {D : Type u} (L : Linkage D)
-    (first second : Component D) (rest : List (Component D))
-    (holds : L.ChainLinked (first :: second :: rest)) :
+    (c₁ c₂ : Component D) (rest : List (Component D))
+    (holds : L.ChainLinked (c₁ :: c₂ :: rest)) :
     MutualDependence D := by
-  refine ⟨rawOfComponents L first second rest, ?_⟩
+  refine ⟨rawOfComponents L c₁ c₂ rest, ?_⟩
   change
-    (rawOfComponents L first second rest).linkage.ChainLinked
-      (rawOfComponents L first second rest).components
+    (rawOfComponents L c₁ c₂ rest).linkage.ChainLinked
+      (rawOfComponents L c₁ c₂ rest).components
   rw [linkage_rawOfComponents, components_rawOfComponents]
   exact holds
 
@@ -832,9 +847,9 @@ def IsUngraded {D : Type u} {Grade : Type v} {PB : PreorderBot Grade}
   r.callsGrade = PB.bot ∧ r.responsesGrade = PB.bot
 
 def le {D : Type u} {Grade : Type v} {PB : PreorderBot Grade}
-    (r₁ r₂ : GradedResonance D PB) : Prop :=
-  PB.le r₁.callsGrade r₂.callsGrade ∧
-    PB.le r₁.responsesGrade r₂.responsesGrade
+    (a b : GradedResonance D PB) : Prop :=
+  PB.le a.callsGrade b.callsGrade ∧
+    PB.le a.responsesGrade b.responsesGrade
 
 end GradedResonance
 
