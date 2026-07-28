@@ -868,6 +868,9 @@ Bull 10 = Some <r1, r2>, r1 is Ungraded, r2 is graded, Being = [r1]
 Directed is not derived from the MutualDependence or Resonance,
 instead it's a fact among those - it just turns out that when thermodynamic gradient
 is possible, some designata sit at lower entropy than others; Directed specifies which.
+
+Causal comes with an assertion that there's a
+mutual dependence chain with x at one side and y at another.
 -/
 structure Directed (D : Type u) where
   Before : D → D → Prop
