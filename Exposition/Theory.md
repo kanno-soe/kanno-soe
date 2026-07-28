@@ -32,7 +32,7 @@ Designata elaborate to any mutual dependence you could name, so as well as the s
 
 The calls side and responses side may be graded for dis-resonance. In the example above, stone would have bottom value (ie. 0) for dis-resonance, whereas a grumpy person who has stubbed their toe can have a non-zero grade on either or both sides.
 
-A Being is defined a mutual dependence specifying a linkage of such b1, b2, ... moments.
+A Being is defined as a mutual dependence specifying a linkage of such b1, b2, ... moments.
 
 The system as defined doesn't have time directedness or causality in it. Those are assigned manually, stating that mutual dependence A is before mutual dependence B, or that A causes B. The latter implies the former, but not necessarily for the other way around.
 
