@@ -20,7 +20,7 @@ The project implements a simplified model of Mahayana Buddhism metaphysics. It *
 
 The basic concept for the model is Mutual Dependence (as defined by Nāgārjuna and Jizang).
 
-The simplified model is: for any group/component of designata, and any other component of designata, the two are mutually dependent on one another when they share a designata. The designata are allowed to be elaborated into none, one, or multiple alternative mutual dependences, which allows the definitions to expand and produce more possibilities of mutual dependence.
+The simplified model is: for any group/component of designata, and any other component of designata, the two are mutually dependent on one another when every designatum from the first component can reach a designatum that can also be reached from one of the designata from the other component, and the same idea from the other component to the first. The designata are allowed to be elaborated into none, one, or multiple alternative mutual dependences, which allows the definitions to expand and produce additional possibility for mutual dependence.
 
 Mutual dependence can chain to any length, as long as adjacent components satisfy that relatedness linkage.
 
