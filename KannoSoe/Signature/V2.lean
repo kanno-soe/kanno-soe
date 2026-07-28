@@ -519,7 +519,7 @@ end Elaboration
 /--
 Resonance data whose two middle components are forced to be singletons.
 
-b₁ is being receiving calls, b₂ is "same" being responding. The being's
+b₁ is the being receiving calls; b₂ is the "same" being responding. The being's
 receiving-stage and responding-stage share linkage despite the change.
 -/
 structure RawResonance (D : Type u) where
@@ -613,6 +613,10 @@ def b₂ {D : Type u} (r : Resonance D) : D :=
 def responses {D : Type u} (r : Resonance D) : Component D :=
   r.toRawResonance.responses
 
+def middleComponents {D : Type u} (r : Resonance D) :
+    List (Component D) :=
+  [Component.singleton r.b₁, Component.singleton r.b₂]
+
 def toMutualDependence {D : Type u} (r : Resonance D) :
     MutualDependence D :=
   ⟨r.toRawResonance.toRawMutualDependence, r.holds⟩
@@ -645,6 +649,119 @@ theorem MutualDependence.IsResonance.exists_resonance
   exact ⟨⟨rr, (show rr.toRawMutualDependence.Holds from
     hrr.symm ▸ m.holds)⟩, MutualDependence.ext hrr⟩
 
+/-! ## Being -/
+
+/--
+A nonempty collection of resonances whose singleton middle components form
+one certified mutual dependence.
+-/
+structure Being (D : Type u) where
+  resonances : List (Resonance D)
+  nonempty : resonances ≠ []
+  toMutualDependence : MutualDependence D
+  components_eq :
+    toMutualDependence.components =
+      resonances.flatMap Resonance.middleComponents
+
+namespace Being
+
+private def rawOfComponents {D : Type u} (L : Linkage D)
+    (first second : Component D) :
+    List (Component D) → RawMutualDependence D
+  | [] => RawMutualDependence.pair L first second
+  | third :: rest =>
+      let tail := rawOfComponents L second third rest
+      ⟨L, first, second :: tail.middle, tail.last⟩
+
+private theorem linkage_rawOfComponents {D : Type u} (L : Linkage D)
+    (first second : Component D) (rest : List (Component D)) :
+    (rawOfComponents L first second rest).linkage = L := by
+  cases rest <;> rfl
+
+private theorem first_rawOfComponents {D : Type u} (L : Linkage D)
+    (first second : Component D) (rest : List (Component D)) :
+    (rawOfComponents L first second rest).first = first := by
+  cases rest <;> rfl
+
+private theorem components_rawOfComponents {D : Type u} (L : Linkage D)
+    (first second : Component D) (rest : List (Component D)) :
+    (rawOfComponents L first second rest).components =
+      first :: second :: rest := by
+  induction rest generalizing first second with
+  | nil => rfl
+  | cons third rest ih =>
+      change
+        first ::
+            (second :: (rawOfComponents L second third rest).middle) ++
+              [(rawOfComponents L second third rest).last] =
+          first :: second :: third :: rest
+      have tailComponents :
+          (second :: (rawOfComponents L second third rest).middle) ++
+              [(rawOfComponents L second third rest).last] =
+            second :: third :: rest := by
+        calc
+          _ =
+              (rawOfComponents L second third rest).first ::
+                  (rawOfComponents L second third rest).middle ++
+                    [(rawOfComponents L second third rest).last] := by
+                exact congrArg
+                  (fun component =>
+                    (component ::
+                      (rawOfComponents L second third rest).middle) ++
+                        [(rawOfComponents L second third rest).last])
+                  (first_rawOfComponents L second third rest).symm
+          _ = (rawOfComponents L second third rest).components := rfl
+          _ = second :: third :: rest := ih second third
+      exact congrArg (List.cons first) tailComponents
+
+private def mutualDependenceOfComponents {D : Type u} (L : Linkage D)
+    (first second : Component D) (rest : List (Component D))
+    (holds : L.ChainLinked (first :: second :: rest)) :
+    MutualDependence D := by
+  refine ⟨rawOfComponents L first second rest, ?_⟩
+  change
+    (rawOfComponents L first second rest).linkage.ChainLinked
+      (rawOfComponents L first second rest).components
+  rw [linkage_rawOfComponents, components_rawOfComponents]
+  exact holds
+
+/--
+Certify a nonempty list of resonances as a being. Each resonance contributes
+its two singleton middle components, and `holds` certifies the resulting
+chain, including every join between consecutive resonances.
+-/
+def ofResonances {D : Type u}
+    (L : Linkage D)
+    (resonances : List (Resonance D))
+    (nonempty : resonances ≠ [])
+    (holds :
+      L.ChainLinked
+        (resonances.flatMap Resonance.middleComponents)) :
+    Being D := by
+  cases resonances with
+  | nil => exact (nonempty rfl).elim
+  | cons r rest =>
+      have chain :
+          L.ChainLinked
+            (Component.singleton r.b₁ :: Component.singleton r.b₂ ::
+              rest.flatMap Resonance.middleComponents) := by
+        simpa [Resonance.middleComponents] using holds
+      refine
+        ⟨r :: rest, by simp,
+          mutualDependenceOfComponents L
+            (Component.singleton r.b₁) (Component.singleton r.b₂)
+            (rest.flatMap Resonance.middleComponents) chain, ?_⟩
+      simpa [mutualDependenceOfComponents, MutualDependence.components,
+        Resonance.middleComponents] using
+        (components_rawOfComponents L
+          (Component.singleton r.b₁) (Component.singleton r.b₂)
+          (rest.flatMap Resonance.middleComponents))
+
+instance {D : Type u} : Coe (Being D) (MutualDependence D) :=
+  ⟨toMutualDependence⟩
+
+end Being
+
 /-! ## Grading -/
 
 structure PreorderBot (Grade : Type v) where
@@ -656,7 +773,8 @@ structure PreorderBot (Grade : Type v) where
 
 structure GradedResonance (D : Type u) {Grade : Type v}
     (PB : PreorderBot Grade) extends Resonance D where
-  grade : Grade
+  callsGrade : Grade
+  responsesGrade : Grade
 
 namespace GradedResonance
 
@@ -675,17 +793,48 @@ theorem isResonance {D : Type u} {Grade : Type v}
   r.toResonance.isResonance
 
 def ofResonance {D : Type u} {Grade : Type v} {PB : PreorderBot Grade}
-    (r : Resonance D) (grade : Grade) : GradedResonance D PB where
+    (r : Resonance D) (callsGrade responsesGrade : Grade) :
+    GradedResonance D PB where
   toResonance := r
-  grade := grade
+  callsGrade := callsGrade
+  responsesGrade := responsesGrade
+
+@[simp] theorem callsGrade_ofResonance {D : Type u} {Grade : Type v}
+    {PB : PreorderBot Grade} (r : Resonance D)
+    (callsGrade responsesGrade : Grade) :
+    (ofResonance (PB := PB) r callsGrade responsesGrade).callsGrade =
+      callsGrade :=
+  rfl
+
+@[simp] theorem responsesGrade_ofResonance {D : Type u} {Grade : Type v}
+    {PB : PreorderBot Grade} (r : Resonance D)
+    (callsGrade responsesGrade : Grade) :
+    (ofResonance (PB := PB) r callsGrade responsesGrade).responsesGrade =
+      responsesGrade :=
+  rfl
+
+def ungraded {D : Type u} {Grade : Type v} {PB : PreorderBot Grade}
+    (r : Resonance D) : GradedResonance D PB :=
+  ofResonance r PB.bot PB.bot
+
+@[simp] theorem callsGrade_ungraded {D : Type u} {Grade : Type v}
+    {PB : PreorderBot Grade} (r : Resonance D) :
+    (ungraded (PB := PB) r).callsGrade = PB.bot :=
+  rfl
+
+@[simp] theorem responsesGrade_ungraded {D : Type u} {Grade : Type v}
+    {PB : PreorderBot Grade} (r : Resonance D) :
+    (ungraded (PB := PB) r).responsesGrade = PB.bot :=
+  rfl
 
 def IsUngraded {D : Type u} {Grade : Type v} {PB : PreorderBot Grade}
     (r : GradedResonance D PB) : Prop :=
-  r.grade = PB.bot
+  r.callsGrade = PB.bot ∧ r.responsesGrade = PB.bot
 
 def le {D : Type u} {Grade : Type v} {PB : PreorderBot Grade}
     (r₁ r₂ : GradedResonance D PB) : Prop :=
-  PB.le r₁.grade r₂.grade
+  PB.le r₁.callsGrade r₂.callsGrade ∧
+    PB.le r₁.responsesGrade r₂.responsesGrade
 
 end GradedResonance
 
@@ -732,69 +881,3 @@ end Directed
 structure Causal (D : Type u) extends Directed D where
   Causes : D → D → Prop
   causes_before : ∀ {x y : D}, Causes x y → Before x y
-
-/-! ## Example: galactic tea drinking -/
-
-namespace GalacticTea
-
-inductive GalacticTeaCase where
-  | bigBang
-  | localTea
-  | remoteTea
-  deriving DecidableEq, Repr
-
-open GalacticTeaCase
-
-inductive TeaBefore : GalacticTeaCase → GalacticTeaCase → Prop where
-  | bigBang_local : TeaBefore bigBang localTea
-  | bigBang_remote : TeaBefore bigBang remoteTea
-
-def teaRank : GalacticTeaCase → Nat
-  | bigBang => 0
-  | localTea => 1
-  | remoteTea => 1
-
-theorem teaBefore_rank_lt {x y : GalacticTeaCase} (h : TeaBefore x y) :
-    teaRank x < teaRank y := by
-  cases h <;> decide
-
-def teaDirection : Directed GalacticTeaCase :=
-  Directed.ofBaseRank TeaBefore teaRank teaBefore_rank_lt
-
-inductive TeaCauses : GalacticTeaCase → GalacticTeaCase → Prop where
-  | bigBang_local : TeaCauses bigBang localTea
-  | bigBang_remote : TeaCauses bigBang remoteTea
-
-def teaCausal : Causal GalacticTeaCase where
-  toDirected := teaDirection
-  Causes := TeaCauses
-  causes_before := fun h => by
-    cases h with
-    | bigBang_local =>
-        exact Relation.TransGen.single TeaBefore.bigBang_local
-    | bigBang_remote =>
-        exact Relation.TransGen.single TeaBefore.bigBang_remote
-
-theorem localRemote_not_before :
-    ¬ teaDirection.Before localTea remoteTea := by
-  intro h
-  change Relation.TransGen TeaBefore localTea remoteTea at h
-  exact Nat.lt_irrefl 1
-    (Directed.rank_lt_of_transGen
-      (base := TeaBefore) (rank := teaRank) teaBefore_rank_lt h)
-
-theorem remoteLocal_not_before :
-    ¬ teaDirection.Before remoteTea localTea := by
-  intro h
-  change Relation.TransGen TeaBefore remoteTea localTea at h
-  exact Nat.lt_irrefl 1
-    (Directed.rank_lt_of_transGen
-      (base := TeaBefore) (rank := teaRank) teaBefore_rank_lt h)
-
-theorem tea_not_before_bigBang :
-    ¬ teaDirection.Before localTea bigBang := by
-  apply teaDirection.asymm
-  change Relation.TransGen TeaBefore bigBang localTea
-  exact Relation.TransGen.single TeaBefore.bigBang_local
-
-end GalacticTea
