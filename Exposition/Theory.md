@@ -38,7 +38,7 @@ The system as defined doesn't have time directedness or causality in it. Those a
 
 That's... basically it. Feel free to copy the code into a chatbot context and ask it to respond in simple terms and examples.
 
-The older theory (which has an interesting but somewhat orthogonal error generator concept, but tends to overstate its contribution in many ways) follows below.
+The older theory (which has an interesting but somewhat orthogonal grid and error generator concept, but tends to overstate its contribution in many ways) follows below.
 
 ## The rules, each preceded by what motivated it
 
