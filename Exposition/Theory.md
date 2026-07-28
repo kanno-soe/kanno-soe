@@ -34,7 +34,7 @@ The calls side and responses side may be graded for dis-resonance. In the exampl
 
 A Being is defined as a mutual dependence specifying a linkage of such b1, b2, ... moments.
 
-The system as defined doesn't have time directedness or causality in it. Those are assigned manually, stating that mutual dependence A is before mutual dependence B, or that A causes B. The latter implies the former, but not necessarily for the other way around.
+The system as defined doesn't have time directedness or causality in it. Those are assigned manually, stating that mutual dependence A is before mutual dependence B, or that A causes B. The latter implies the former, but not necessarily for the other way around. Causal comes with an assertion there's a mutual dependence chain with x at one side and y at another.
 
 That's... basically it. Feel free to copy the code into a chatbot context and ask it to respond about V2 in simple terms and examples.
 
