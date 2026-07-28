@@ -28,7 +28,7 @@ A resonance is a special case of mutual dependence with 4 linked components, the
 
 This would naturally be viewed as b1 receiving calls, and b2 (considered a different view on the same being) responding with responses.
 
-Designata elaborate to any mutual dependence you could name, so as well as the standard interpretation of a person receiving a call and answering, it's valid in this system to consider it a stone as b1 and b2 - perhaps the wind calls at it, and it responds by rolling downhill.
+Designata elaborate to any mutual dependence you could name, so as well as the standard interpretation of a person receiving a call and answering, it's valid in this system to consider a stone in the position of b1 and b2 - perhaps the wind calls at it, and it responds by rolling downhill.
 
 The calls side and responses side may be graded for dis-resonance. In the example above, stone would have bottom value (ie. 0) for dis-resonance, whereas a grumpy person who has stubbed their toe can have a non-zero grade on either or both sides.
 
