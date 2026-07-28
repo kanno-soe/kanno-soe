@@ -905,6 +905,11 @@ def ofBaseRank {D : Type u} (base : D → D → Prop) (rank : D → Nat)
 
 end Directed
 
+inductive Causation (D : Type u) (x y : D) : Prop where
+  | ofMutualDependence (m : MutualDependence D)
+      (mem_c₁ : x ∈ m.c₁) (mem_cₙ : y ∈ m.cₙ)
+
 structure Causal (D : Type u) extends Directed D where
   Causes : D → D → Prop
   causes_before : ∀ {x y : D}, Causes x y → Before x y
+  certify : ∀ {x y : D}, Causes x y → Causation D x y

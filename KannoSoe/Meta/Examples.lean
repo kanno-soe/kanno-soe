@@ -131,6 +131,18 @@ theorem teaBefore_rank_lt {x y : GalacticTeaCase} (h : TeaBefore x y) :
 def teaDirection : Directed GalacticTeaCase :=
   Directed.ofBaseRank TeaBefore teaRank teaBefore_rank_lt
 
+def teaLinkage : Linkage GalacticTeaCase where
+  Linked := fun _ _ => True
+  symm := fun _ => trivial
+
+def bigBangLocalDependence : MutualDependence GalacticTeaCase :=
+  MutualDependence.pair teaLinkage
+    (Component.singleton bigBang) (Component.singleton localTea) trivial
+
+def bigBangRemoteDependence : MutualDependence GalacticTeaCase :=
+  MutualDependence.pair teaLinkage
+    (Component.singleton bigBang) (Component.singleton remoteTea) trivial
+
 inductive TeaCauses : GalacticTeaCase → GalacticTeaCase → Prop where
   | bigBang_local : TeaCauses bigBang localTea
   | bigBang_remote : TeaCauses bigBang remoteTea
@@ -144,6 +156,18 @@ def teaCausal : Causal GalacticTeaCase where
         exact Relation.TransGen.single TeaBefore.bigBang_local
     | bigBang_remote =>
         exact Relation.TransGen.single TeaBefore.bigBang_remote
+  certify := fun h => by
+    cases h with
+    | bigBang_local =>
+        exact .ofMutualDependence bigBangLocalDependence rfl rfl
+    | bigBang_remote =>
+        exact .ofMutualDependence bigBangRemoteDependence rfl rfl
+
+example : Causation GalacticTeaCase bigBang localTea :=
+  teaCausal.certify TeaCauses.bigBang_local
+
+example : Causation GalacticTeaCase bigBang remoteTea :=
+  teaCausal.certify TeaCauses.bigBang_remote
 
 theorem localRemote_not_before :
     ¬ teaDirection.Before localTea remoteTea := by
