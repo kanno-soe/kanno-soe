@@ -1,3 +1,4 @@
+import KannoSoe.Signature.V2
 import KannoSoe.Signature.Order
 import KannoSoe.Signature.Readings
 import KannoSoe.Signature.Grid
