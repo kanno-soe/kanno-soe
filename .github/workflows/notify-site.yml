@@ -18,12 +18,12 @@ jobs:
         with:
           app-id: ${{ env.SITE_APP_ID }}
           private-key: ${{ env.SITE_APP_PRIVATE_KEY }}
-          repositories: weld-and-arrow-site
+          repositories: kanno-soe-site
       - name: Dispatch site rebuild
         if: ${{ env.SITE_APP_ID != '' && env.SITE_APP_PRIVATE_KEY != '' }}
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          SITE_REPO: ${{ github.repository_owner }}/weld-and-arrow-site
+          SITE_REPO: ${{ github.repository_owner }}/kanno-soe-site
           SOURCE_SHA: ${{ github.sha }}
         run: |
           gh api "repos/${SITE_REPO}/dispatches" \
