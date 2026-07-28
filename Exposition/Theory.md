@@ -38,7 +38,7 @@ The system as defined doesn't have time directedness or causality in it. Those a
 
 That's... basically it. Feel free to copy the code into a chatbot context and ask it to respond about V2 in simple terms and examples.
 
-The theory below describes the philosophical motivation behind this work, elucidates a 3 row "act-grammar" (mutual dependence alone being row 1, resonance alone being row 2, and causality alone being row 3), and defines a collapse/freeze error generator, which fruitfully describes errors predicted by the grid and many other floor/act-time distinctions that can be made.
+The theory below describes the philosophical motivation behind this work, elucidates a 3 row "act-grammar" (mutual dependence alone being row 1, graded resonance being row 2, and causality being row 3), and defines a collapse/freeze error generator, which fruitfully describes errors predicted by the grid and many other floor/act-time distinctions that can be made.
 
 *However*, it was written about V1 code, which was over-complicated and seemed more impressive than it actually was. So as it currently stands, the exposition sometimes overstates the meaningfulness of what the formalism implies. Please bear that in mind, but otherwise I hope you find the rest of it helpful despite that.
 
