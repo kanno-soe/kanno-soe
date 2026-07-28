@@ -1,7 +1,7 @@
 [![Lean Action CI](https://github.com/kanno-soe/kanno-soe/actions/workflows/lean_action_ci.yml/badge.svg)](https://github.com/kanno-soe/kanno-soe/actions/workflows/lean_action_ci.yml)
 [![DOI](https://zenodo.org/badge/1285260842.svg)](https://zenodo.org/badge/latestdoi/1285260842)
 
-[Website](https://weldandarrow.org/) · [Reading order](Exposition/Contents.md)
+[Website](https://ksmd-theory.org/) · [Reading order](Exposition/Contents.md)
 
 ## Abstract
 
