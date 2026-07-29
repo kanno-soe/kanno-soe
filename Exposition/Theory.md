@@ -83,7 +83,7 @@ Nothing in the ungraded structure privileges the person. Nor does the stone exam
 
 ### Graded Resonance and Being
 
-A **Graded Resonance** adds two independent grades to an Encounter: a calls-side grade and a responses-side grade. The grade type need only be a preorder with a bottom element. It need not be numerical, total, or metrically spaced. The intended reading is **dis-resonance**, so bottom means no dis-resonance; `0` is only the familiar numerical example.
+A **Graded Resonance** adds two independent grades to an Encounter: a calls-side grade and a responses-side grade. The grade type need only be a preorder with a bottom element. It need not be numerical, total, or metrically spaced. The intended reading is **dis-resonance**: volition insofar as it is *sāsrava*—with outflows, ripening in further becoming. Bottom is *anāsrava* at this Encounter: the act is not productive of further becoming, without implying either the absence of volition or the global attainment of arhatship. `0` is only the familiar numerical example.
 
 ```text
                     one Encounter
