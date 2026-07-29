@@ -16,31 +16,185 @@ The layered library — Signature → Consequences → Doctrines → Identificat
 
 ## What the V2 formal model is
 
-The project implements a simplified model of Mahayana Buddhism metaphysics. It *is not* that useful for proving anything interesting about Buddhism, except perhaps independence results - insofar as you accept the model as valid, proving something within it shows that it needn't be more complicated than that. But *insofar* is doing all the work there - over-simplify something that's actually complex, and you have only proved something about the simplification, not about the complex thing.
+The project implements a deliberately simplified model for discussing Mahayana Buddhist metaphysics. It is most useful for conditional and independence results: *if* one accepts the model's translation of a claim, a proof can show that the translated claim needs no richer machinery. The conditional matters. Oversimplifying the object proves something about the simplification, not automatically about Buddhism, Nāgārjuna, Jizang, or the world. The account below therefore marks three statuses throughout: **formal V2 structure**, **a manually supplied interpretation**, and **the philosophical act-grammar laid over that structure**.
 
-The basic concept for the model is Mutual Dependence (as defined by Nāgārjuna and Jizang).
+### The formal core: designata, elaboration, and Mutual Dependence
 
-The simplified model is: for any group/component of designata, and any other component of designata, the two are mutually dependent on one another when every designatum from the first component can reach a designatum that can also be reached from one of the designata from the other component, and the same idea from the other component to the first. The designata are allowed to be elaborated into none, one, or multiple alternative mutual dependences, which allows the definitions to expand and produce additional possibility for mutual dependence.
+A **designatum** is simply something the model can designate. V2 does not first divide designata into people, objects, events, thoughts, or times. A **component** is a nonempty group of designata. An **elaboration** is a relation saying that a designatum may be expanded into a raw Mutual Dependence; because it is a relation rather than a function, one designatum may have no stated elaboration, one elaboration, or several alternatives.
 
-Mutual dependence can chain to any length, as long as adjacent components satisfy that relatedness linkage.
+Elaboration induces **reach**. A designatum reaches itself, and it reaches anything occurring in any component of one of its elaborations; elaborations of those reached designata may then be followed again. Two designata are **related** when their reach-trees have some designatum in common:
 
-A resonance is a special case of mutual dependence with 4 linked components, the middle two having only a singleton designatum each. As convention, we name the first component "calls", the second designatum b1, the third designatum b2, and the final component "responses".
+```text
+                           +--> p --+
+                          /         |
+    designatum a --elaborates       +--> common witness w
+                          \         |
+                           +--> q --+
 
-This would naturally be viewed as b1 receiving calls, and b2 (considered a different view on the same being) responding with responses.
+    designatum b --elaborates --> r ----> common witness w
 
-Designata elaborate to any mutual dependence you could name, so as well as the standard interpretation of a person receiving a call and answering, it's valid in this system to consider a stone in the position of b1 and b2 - perhaps the wind calls at it, and it responds by rolling downhill.
+    Related(a,b)  :=  there is some w reached from both a and b
+```
 
-The calls side and responses side may be graded for dis-resonance. In the example above, stone would have bottom value (ie. 0) for dis-resonance, whereas a grumpy person who has stubbed their toe can have a non-zero grade on either or both sides.
+This relatedness is reflexive and symmetric, but V2 expressly shows that it need not be transitive. A linkage between two components is stronger than finding one attractive pair: every designatum in the first component must have a related partner in the second, and every designatum in the second must have a related partner in the first.
 
-A Being is defined as a mutual dependence specifying a linkage of such b1, b2, ... moments.
+```text
+    component C                         component D
+    +---------+                         +---------+
+    | c1      | ---- related partner -> | d?      |
+    | c2      | ---- related partner -> | d?      |
+    | c?      | <- related partner ---- | d1      |
+    | ...     |                         | ...     |
+    +---------+                         +---------+
 
-The system as defined doesn't have time directedness or causality in it. Those are assigned manually, stating that mutual dependence A is before mutual dependence B, or that A causes B. The latter implies the former, but not necessarily for the other way around. Causal comes with an assertion there's a mutual dependence chain with x at one side and y at another.
+    Linked(C,D) requires coverage in both directions.
+```
 
-That's... basically it. Feel free to copy the code into a chatbot context and ask it to respond about V2 in simple terms and examples.
+A raw Mutual Dependence is a list of at least two components carrying one such symmetric linkage. A certified **Mutual Dependence** adds the proof that every adjacent pair is linked:
 
-The theory below describes the philosophical motivation behind this work, elucidates a 3 row "act-grammar" (mutual dependence alone being row 1, graded resonance being row 2, and causality being row 3), and defines a collapse/freeze error generator, which fruitfully describes errors predicted by the grid and many other floor/act-time distinctions that can be made.
+```text
+    C1 <--> C2 <--> C3 <--> ... <--> Cn
 
-*However*, it was written about V1 code, which was over-complicated and seemed more impressive than it actually was. So as it currently stands, the exposition sometimes overstates the meaningfulness of what the formalism implies. Please bear that in mind, but otherwise I hope you find the rest of it helpful despite that.
+    required: Linked(Ci, C(i+1)) for every adjacent pair
+    not required: a temporal order, a causal arrow, or direct C1/Cn linkage
+```
+
+The chain may be any finite length. It can be sliced and compatible chains can be joined, but the word *chain* must not smuggle in time: these arrows display symmetric linkage, not before and after. This is the minimal formal sense of **Mutual Dependence** used by V2 and the sense associated philosophically with Nāgārjuna and Jizang: neither side supplies a self-standing substrate for the other.
+
+### Encounter: Resonance viewed as one Mutual Dependence
+
+A **Resonance** is not a second kind of structure. It is the following four-component special case of Mutual Dependence, with its middle components forced to be singletons:
+
+```text
+    calls <--> {b1} <--> {b2} <--> responses
+```
+
+The intended reading is that `b1` is the receiving view or moment of a being and `b2` is its responding view or moment. Formally, however, `b1` and `b2` are two designata joined in the same certified dependence. V2 does not prove that they are numerically identical, temporally successive, conscious, or personal. The names **calls**, **receiving**, **responding**, and **responses** are role-readings of the shape.
+
+For clarity, this exposition will sometimes call a Resonance an **Encounter** when it is being discussed merely as another Mutual Dependence. *Encounter* is an expository alias, not a new Lean type: it means that we retain the concrete `calls--b1--b2--responses` shape while temporarily forgetting grades, direction, causality, awakening, and value. Every Encounter is a Mutual Dependence; not every Mutual Dependence has the four-component singleton-middle shape needed to be an Encounter.
+
+Because designata may elaborate into any raw dependence the modeler supplies and later certifies, the same Encounter shape can be used for a person answering a question or a stone answering the wind by rolling downhill:
+
+```text
+    {wind} <--> {stone-receiving} <--> {stone-responding} <--> {rolling}
+```
+
+Nothing in the ungraded structure privileges the person. Nor does the stone example prove a doctrine about sentience: it proves only that the Resonance constructor asks for linked designata, not a prior metaphysical kind called *person*.
+
+### Graded Resonance and Being
+
+A **Graded Resonance** adds two independent grades to an Encounter: a calls-side grade and a responses-side grade. The grade type need only be a preorder with a bottom element. It need not be numerical, total, or metrically spaced. The intended reading is **dis-resonance**, so bottom means no dis-resonance; `0` is only the familiar numerical example.
+
+```text
+                    one Encounter
+
+    calls --[callsGrade]--> b1 <--> b2 --[responsesGrade]--> responses
+
+    callsGrade and responsesGrade are independent coordinates.
+```
+
+Thus a stone may be *assigned* bottom on both sides, while a grumpy person who has stubbed a toe may be *assigned* a non-bottom calls grade, a non-bottom responses grade, or both. Those are interpretations supplied to the model; V2 does not infer a grade from stonehood, pain, personality, or behavior. `IsUngraded` means exactly that both grades are bottom. “Ungraded” here therefore means no dis-resonance entered on either side, not absence from the Encounter and not absence of response.
+
+A **Being** is a nonempty list of Resonances whose singleton middle components flatten into one certified Mutual Dependence:
+
+```text
+    Encounter 1       Encounter 2                 Encounter n
+      b1 <--> b2  <-->  b1 <--> b2  <--> ... <-->  b1 <--> b2
+
+    Being = the certified linkage of these receiving/responding moments
+```
+
+The calls and responses surrounding each Resonance do not constitute the Being's formal spine; its `b1,b2,...` middle moments do. This is a conventional construction of a being out of linked moments, not a proof of a persisting owner behind them.
+
+### Direction and Causation are overlays
+
+Mutual Dependence and Resonance contain no time-directedness. A **Directed** interpretation is supplied separately as a strict transitive **Before** relation. A domain may then supply a **Causal** interpretation with a `Causes(x,y)` relation, a proof that causing implies `Before`, and, for every causal claim, a **Causation** certificate.
+
+That certificate is itself just another Mutual Dependence in a precise and limited sense: it exhibits some certified Mutual Dependence whose first component contains `x` and whose last component contains `y`.
+
+```text
+    dependence certificate:   {x,...} <--> ... <--> {...,y}
+    directed overlay:          x ----------------------> y
+    causal assertion:          Causes(x,y)
+
+    Causes(x,y)  =>  Before(x,y)
+    Causes(x,y)  =>  a Mutual Dependence joins endpoint-components
+```
+
+Forgetting the causal and temporal overlays leaves the underlying Mutual Dependence; adding the overlays is additional data. Therefore V2 does **not** say that every Mutual Dependence is causal, that symmetric linkage secretly points from cause to effect, or that every `Before` fact is causal. Causation as another Mutual Dependence names the certified dependence-skeleton of a causal claim, not a reduction of causality to symmetry.
+
+### How floor-face and act-time face relate
+
+The three-row **act-grammar** reads these formal shapes as three dependence/enactment faces of one Encounter, not as three events or three agents:
+
+| Row | Dependence reading | Enactment reading | Nearest V2 handle |
+|---|---|---|---|
+| 1 | **mujishō-sōe** — no-own-being as Mutual Dependence | **genjō** — manifestation in this particular case | Mutual Dependence |
+| 2 | **kannō-sōe** — responsive resonance graded for dis-resonance | **banpō susumite** — the myriad dharmas advancing, the being verified | Graded Resonance / Encounter |
+| 3 | **engi / inga** — dependent arising and cause/effect under an added direction | **shu** — practice, the concrete doing at act-time | Directed + Causal + Causation |
+
+The **floor** is not a first moment, a hidden base, or a final substance. It is the reading at which no deeper support is claimed and no separating claim is made. A **floor-face** is the Encounter read under that no-own-being condition. **Act-time** is the conventional diagnostic tier at which this call, this response, this receiving, this answering, and the distinctions needed to describe them are live. It is not a second Encounter after the floor-face.
+
+```text
+                         one Encounter
+
+    act-time face                                 floor-face
+    shu: concrete practice ---- shushō ---- shō: no attainment,
+    in receiving/responding                       the being-verified
+```
+
+The floor-face is **shō** (証), realization as no-own-being, no rank, and the passive *being-verified*. It is the **non-attaining middle**—also reasonably called the **unattaining middle** when the emphasis is that nothing is obtained or stored. Shō is not a still state behind an Encounter: it is agential only as the floor-face of the same receiving/responding whose enacted practice is **shu** (修) at act-time. Their compound is **shushō**; **shushō-ittō** says that practice and realization are non-dual because they are the act-time and floor faces of one Encounter, not two Encounters later joined.
+
+The word **pole** joins the grading vocabulary to this two-faced reading. Dis-resonance grades the placement between a selfward pole and a dharmasward pole. V2 places the same kind of grading at two locations in a Resonance:
+
+```text
+               calls-side location              responses-side location
+
+    calls <--- dis-resonance ---> {b1} <--> {b2} <--- dis-resonance ---> responses
+               callsGrade                           responsesGrade
+```
+
+The calls-side and responses-side grades are therefore not different kinds of pole. They are two placements of the same selfward/dharmasward grading, and they remain independent: either may be at bottom while the other is not. `b1` and `b2` are the singleton middle designata at which those respective placements are read, not extra poles or extra grades.
+
+At the bottom of either grading, no dis-resonance remains at that location. In the act-grammar reading, this is where the grading-pole and the two faces convene. Act-time names the concrete receiving at `b1` or responding at `b2`; the floor-face names that same middle without an independently standing receiver or responder. Shu and shō can accordingly be called reciprocal poles of the same Encounter at its grading-pole: one name follows the concrete enactment, the other its no-own-being, non-attaining face. Bottom permits the middle to be read without dis-resonance; it does not turn the middle into a stored entity.
+
+At act-time, the separate/fuse rule keeps a live distinction separate; at the floor the distinction fuses, meaning that it does no separating work there—not that both sides become one substance or that both propositions are asserted. The same rule says distinctions fuse at **genjō** as well, but floor and genjō are not synonyms. Floor names the no-claim, no-own-being reading. Genjō names the **provisional middle**: manifestation going out as this case, the concrete place where recursive emptying ceases to be another object one tries to possess.
+
+```text
+    act-time diagnosis:       A  |  B     distinction is usable and live
+    floor / genjō:            A  .  B     no separating claim is doing work
+
+    collapse operator:        A >< B      fused at act-time
+    freeze operator:          A || B      held apart at the floor
+```
+
+This yields the error generator used in [Theorems.md](Theorems.md): **collapse**, written `><`, is premature fusion under act-time diagnosis; **freeze**, written `||`, is a useful separation reified as a floor-claim. These are expository operators, not Lean syntax. The rule applies even to the floor/act-time vocabulary itself. “There is no time, no being, and no Encounter” is a collapse when offered where a response is occurring; a flowing time-container, substantial Being, or self-existing Encounter is the corresponding kind of freeze.
+
+### Genjō, shō, the row compounds, and the terminus
+
+The two middles answer different questions. **Genjō**, the provisional middle, asks how empty dependence manifests as this case. **Shō**, the non-attaining or unattaining middle, names the floor-face in which no rank or attainment is acquired. Under act-time diagnosis they must be distinguished: manifestation is not possession of realization, and realization is not a second activity alongside manifestation. At the floor and at genjō the distinction itself ceases to separate.
+
+The available cross-row compounds make the same point economically:
+
+- **genjōkōan** = genjō + kōan: Row 1 manifestation in a Row 2 particular case—this Encounter, this call, this being's capacity to listen.
+- **shugenjō** = shu + genjō: Row 3 practice as Row 1 manifestation—this directed Encounter manifesting without a retained scaffold. The compound reads practice as manifestation, not every manifestation as practice.
+- **shushō** = shu + shō: an Encounter's act-time practice and floor-face together.
+- **shushō-ittō**: the non-duality of those shushō faces, not their numerical identity as vocabulary and not a sequence in which practice later produces realization.
+- **kannō-sōe** itself names Row 2's dependence-face; **banpō susumite** names the same row's enactment-face. **Mujishō-sōe / genjō** and **engi or inga / shu** are the corresponding Row 1 and Row 3 pairs.
+
+In V2 vocabulary, a **terminus** is local to a grading: it names the bottom of the dis-resonance preorder at one of the two grading locations. There is consequently no single terminal object hidden behind an Encounter.
+
+```text
+    callsGrade = bottom       calls-side terminus
+    responsesGrade = bottom   responses-side terminus
+    both grades = bottom      IsUngraded; a two-sided terminus
+```
+
+The plural **termini** may therefore refer to the two local bottom placements within one Encounter, or to bottom placements across several Encounters. `IsUngraded` is their conjunction, not a third terminus above them. Bottom is also not a property of `b1`, `b2`, or a Being taken globally; it belongs to a specified grading of a specified Resonance.
+
+V2 has no sentience mark and no structural distinction between a marked buddha terminus and an unmarked stone terminus. Person and stone remain possible interpretations of designata, but neither interpretation adds a formal grade or kind. Under the local terminology above, the only terminus distinction is which grading is at bottom.
+
+The model can now be stated densely without adding another layer. Designata elaborate; shared reach supplies relatedness; two-way coverage links components; adjacent linked components form Mutual Dependences. A Resonance or Encounter is the four-component `calls--{b1}--{b2}--responses` case. A Graded Resonance places the same dis-resonance grading at its calls and responses locations, independently; bottom at either location is its terminus, and bottom at both is `IsUngraded`. A Being links the middle receiving/responding designata of one or more Resonances. Direction is supplied as `Before`; Causation adds `Causes`, implies `Before`, and certifies its endpoints with another Mutual Dependence. The act-grammar reads this one structure through mujishō-sōe/genjō, kannō-sōe/banpō susumite, and engi/inga/shu; shō is its non-attaining floor-face, shushō names the act-time and floor faces together, and genjōkōan and shugenjō name the available cross-row compositions. The error taxonomy then asks only whether a live distinction was collapsed (`><`) or a useful distinction was frozen (`||`).
 
 ## The rules, each preceded by what motivated it
 
