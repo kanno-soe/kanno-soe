@@ -156,11 +156,11 @@ The homophone matters: the *shō* in *mujishō* is 性, nature, while the **shō
 **Shushō** (修証) says practice-realization; **shushō-ittō** says that its practice and realization are non-dual. On this reconstruction, that cannot mean two events—practice first and an attained realization later—nor a still shō somehow acting by itself. It means one Encounter read in its doing and in its non-attaining realization:
 
 ```text
-                                one Encounter
+                               one Encounter
 
-    practice, the doing (shu) ---- shushō ---- (shō) realization without rank
+   practice, the doing (shu) ---- shushō ---- (shō) realization without rank
 
-                         shushō-ittō: not two events
+                        shushō-ittō: not two events
 ```
 
 The two middles can now be distinguished without making either mysterious. **Genjō**, the provisional middle, answers *how does empty dependence manifest as this case?* **Shō**, the non-attaining middle, answers *what is realization when no rank is acquired?* Manifestation is not possession of realization; realization is not a second activity alongside manifestation. Their distinction will remain live when the case is diagnosed, then lose its separating work at the floor and at genjō.
@@ -192,12 +192,12 @@ The **floor** is not a first moment, a hidden base, or a final substance. It is 
 The shushō reading introduced above is one example:
 
 ```text
-                              one Encounter
+                             one Encounter
 
-         act-time face                            floor-face
+        act-time face                            floor-face
 
-    concrete practice (shu) ---- shushō ---- (shō) no attainment,
-    in receiving/responding                  the being-verified
+   concrete practice (shu) ---- shushō ---- (shō) no attainment,
+   in receiving/responding                  the being-verified
 ```
 
 At a bottom placement, the two readings meet without becoming two formal coordinates. Act-time follows the concrete receiving at `b1` or responding at `b2`; the floor-face reads that same middle without an independently standing receiver or responder. Shu and shō are reciprocal faces of the Encounter at its pole: one name follows the enactment, the other its no-own-being, non-attaining realization. Bottom permits this reading; it does not manufacture or store a realized entity.
