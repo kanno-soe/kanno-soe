@@ -129,7 +129,7 @@ Accordingly, **mujishō-sōe** is the dependence-structure retained when either 
 
 The three-row **act-grammar** reads these formal shapes as three dependence/enactment faces of one Encounter, not as three events or three agents:
 
-| Row | Dependence reading | Enactment reading | Nearest V2 handle |
+| Row | Dependence reading | Enactment reading | Modelled as |
 |---|---|---|---|
 | 1 | **mujishō-sōe** — no-own-being as Mutual Dependence | **genjō** — manifestation in this particular case | Mutual Dependence |
 | 2 | **kannō-sōe** — responsive resonance graded for dis-resonance | **banpō susumite** — the myriad dharmas advancing, the being verified | Graded Resonance / Encounter |
