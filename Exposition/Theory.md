@@ -59,7 +59,7 @@ A raw Mutual Dependence is a list of at least two components carrying one such s
     not required: a temporal order, a causal arrow, or direct C1/Cn linkage
 ```
 
-The chain may be any finite length. It can be sliced and compatible chains can be joined, but the word *chain* must not smuggle in time: these arrows display symmetric linkage, not before and after. This is the minimal formal sense of **Mutual Dependence** used by V2 and the sense associated philosophically with Nāgārjuna and Jizang: neither side supplies a self-standing substrate for the other.
+The chain may be any finite length. It can be sliced and compatible chains can be joined, but the word *chain* must not smuggle in time: these arrows display symmetric linkage, not before and after. This is the minimal formal structure of **Mutual Dependence** (*sōe*) used by V2. Throughout, that structure is read as **mujishō-sōe**: mutual dependence without-own-being (*mujishō*), in which neither side supplies a self-standing substrate for the other.
 
 ### Encounter: Resonance viewed as one Mutual Dependence
 
@@ -123,6 +123,8 @@ That certificate is itself just another Mutual Dependence in a precise and limit
 
 Forgetting the causal and temporal overlays leaves the underlying Mutual Dependence; adding the overlays is additional data. Therefore V2 does **not** say that every Mutual Dependence is causal, that symmetric linkage secretly points from cause to effect, or that every `Before` fact is causal. Causation as another Mutual Dependence names the certified dependence-skeleton of a causal claim, not a reduction of causality to symmetry.
 
+Accordingly, **mujishō-sōe** is the dependence-structure retained when either grading or the causal and directional overlays are forgotten.
+
 ### How floor-face and act-time face relate
 
 The three-row **act-grammar** reads these formal shapes as three dependence/enactment faces of one Encounter, not as three events or three agents:
@@ -143,7 +145,7 @@ The **floor** is not a first moment, a hidden base, or a final substance. It is 
     in receiving/responding                       the being-verified
 ```
 
-The floor-face is **shō** (証), realization as no-own-being, no rank, and the passive *being-verified*. It is the **non-attaining middle**—also reasonably called the **unattaining middle** when the emphasis is that nothing is obtained or stored. Shō is not a still state behind an Encounter: it is agential only as the floor-face of the same receiving/responding whose enacted practice is **shu** (修) at act-time. Their compound is **shushō**; **shushō-ittō** says that practice and realization are non-dual because they are the act-time and floor faces of one Encounter, not two Encounters later joined.
+The floor-face is **shō** (証): realization under the governing *mujishō* reading—without-own-being, no rank, and the passive *being-verified*. It is the **non-attaining middle**—also reasonably called the **unattaining middle** when the emphasis is that nothing is obtained or stored. Shō is not a still state behind an Encounter: it is agential only as the floor-face of the same receiving/responding whose enacted practice is **shu** (修) at act-time. Their compound is **shushō**; **shushō-ittō** says that practice and realization are non-dual because they are the act-time and floor faces of one Encounter, not two Encounters later joined.
 
 The word **pole** joins the grading vocabulary to this two-faced reading. Dis-resonance grades the placement between a selfward pole and a dharmasward pole. V2 places the same kind of grading at two locations in a Resonance:
 
