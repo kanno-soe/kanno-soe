@@ -149,7 +149,9 @@ Genjō answers how groundless dependence comes forward as a case.
 
 Linji supplies its guard-image. The reconstruction reads 無位真人 along a seam: 無位, *no rank*, is non-attainment; 真人…出入, the true person going in and out through the face-gates, prevents no-rank from becoming inert; the whole figure holds no-rank and activity together. When the monk tries to identify the true person as something one could grasp, Linji's rebuff blocks precisely the resting-place the phrase might otherwise invite. The manuscript calls this no-rank, no-resting-place reading the **non-attaining middle**, or the **unattaining middle** when the emphasis falls on nothing being obtained or stored.
 
-The reconstruction states that reading in Dōgen's vocabulary. **Shu** (修) is practice, the concrete doing. **Shō** (証) is realization, read here under the governing *mujishō* condition: no own-being, no rank, nothing possessed.
+The reconstruction states that reading in Dōgen's vocabulary. **Shu** (修) is practice, the concrete doing. **Shō** (証) is realization: the non-attaining floor-face at a bottom placement in any given grading, read here under the governing *mujishō* condition—no own-being, no rank, nothing possessed.
+
+On this sentience-neutral reading, shō gains determinate content through a contrast within practice. At a bottom placement, practice has its shō face: the act's subject-position is ceded, with nothing in the doing answering to a self-pole. At a non-bottom placement, that same practice is delusive to the extent that it arrogates the subject-position. This does not identify shō with 悟 (*satori*); it gives the non-attaining floor-face its grading counterpart. Genjō has no corresponding delusion term: its contrast is empty dependence versus manifestation, not non-bottom versus bottom placement.
 
 The homophone matters: the *shō* in *mujishō* is 性, nature, while the **shō** in *shushō* is 証, realization. The argument relates them—a realization governed by the no-own-being reading—but they are neither the same word nor two pieces waiting to be joined.
 
@@ -185,7 +187,7 @@ The compound vocabulary marks crossings among these readings. The equations belo
 - **genjōkōan** = genjō + kōan: Row 1 manifestation in a Row 2 particular case—this Encounter, this call, this being's capacity to listen.
 - **shugenjō** = shu + genjō: Row 3 practice as Row 1 manifestation—a directed Encounter manifesting without a retained scaffold. This is the manuscript's compound, and the inclusion runs one way: practice run scaffold-free is genjō, but not every manifestation is practice.
 
-### Floor-face, act-time face, and separate/fuse
+### Floor-face and act-time face
 
 The **floor** is not a first moment, a hidden base, or a final substance. It is the tier at which no deeper support is claimed and no distinction is doing separating work. A **floor-face** is this Encounter read under that no-own-being, no-claim condition. **Act-time** is the conventional diagnostic tier at which this call, this receiving, this response, this practice, and the distinctions needed to describe them are live. It is not a second Encounter before or after the floor-face.
 
@@ -200,21 +202,25 @@ The shushō reading introduced above is one example:
    in receiving/responding                  the being-verified
 ```
 
-At a bottom placement, the two readings meet without becoming two formal coordinates. Act-time follows the concrete receiving at `b1` or responding at `b2`; the floor-face reads that same middle without an independently standing receiver or responder. Shu and shō are reciprocal faces of the Encounter at its pole: one name follows the enactment, the other its no-own-being, non-attaining realization. Bottom permits this reading; it does not manufacture or store a realized entity.
+At a bottom placement, the two readings meet without becoming two formal coordinates. Act-time follows the concrete receiving at `b1` or responding at `b2`; the floor-face reads that same middle without an independently standing receiver or responder. Shu and shō are reciprocal faces of that bottom-placed receiving or responding within the Encounter: one name follows the enactment, the other its no-own-being, non-attaining realization. Bottom permits this reading; it does not manufacture or store a realized entity.
+
+### Separate/fuse, utterances, and their offers
 
 The **separate/fuse rule** states how distinctions behave across those tiers. At act-time a useful distinction separates. At the floor it fuses, meaning that it makes no separating claim there—not that its two sides become one substance and not that both propositions are asserted.
 
 ```text
-    act-time diagnosis:       A  |  B     distinction is usable and live
-    floor / genjō:            A  .  B     no separating claim is doing work
-
-    collapse operator:        A >< B      fused at act-time
-    freeze operator:          A || B      held apart at the floor
+                         distinction separates      distinction fuses
+    act-time diagnosis   A | B   rule obeyed        A >< B  collapse
+    floor / genjō        A || B  freeze              A . B   rule obeyed
 ```
 
-The rule says that distinctions fuse at **genjō** as well, but floor and genjō are not synonyms. *Floor* names the status of claims when no deeper support is asserted. *Genjō* names the manifested case at the provisional middle, where recursive emptying is no longer retained as a scaffold. This is why genjō and shō must be distinguished under act-time diagnosis while their distinction itself ceases to separate at the floor and at genjō.
+The two error cells occupy one diagonal; the other diagonal is the rule obeyed. The rule says that distinctions fuse at **genjō** as well, but floor and genjō are not synonyms. *Floor* names the status of claims when no deeper support is asserted. *Genjō* names the manifested case at the provisional middle, where recursive emptying is no longer retained as a scaffold; it was introduced through the empty-dependence/manifestation pair, not through a delusion/realization pair. *Shō* is grading-relative: it names practice's non-attaining floor-face at bottom, against delusive practice at non-bottom. This is why genjō and shō must be distinguished under act-time diagnosis while their distinction itself ceases to separate at the floor and at genjō.
 
 The two violations generate the error taxonomy in [Theorems.md](Theorems.md). **Collapse**, written `><`, is premature fusion under act-time diagnosis; **freeze**, written `||`, is a useful separation reified as a floor-claim. These are expository operators, not Lean syntax. “There is no time, no being, and no Encounter” is a collapse when offered where a response is occurring. A flowing time-container, substantial Being, stored shō, or self-existing Encounter is the corresponding kind of freeze.
+
+An **utterance** here is not a sentence-shape in isolation. It is content carried by a resonance, with the call it answers and the tier at which it is offered. The taxonomy grades that offer, not the words alone: ordinary narration offered conventionally at act-time is declined as no error; the same words offered as ultimate furniture can freeze, while a denial offered as live diagnosis can collapse. Under another offer, the same words make another utterance; severed from call and tier, they remain quotable but ungradeable. The full scope fence is stated [beneath the taxonomy table](Theorems.md#a-taxonomy-of-error).
+
+### V2 Summary
 
 The model can now be restated densely without importing unexplained vocabulary. Designata elaborate; shared reach supplies relatedness; two-way coverage links components; adjacent linked components form Mutual Dependences. A Resonance or Encounter is the four-component `calls--{b1}--{b2}--responses` case. A Graded Resonance places independent dis-resonance grades at its calls and responses locations; bottom at both is `IsUngraded`. A Being links the middle receiving/responding designata of one or more Resonances. Direction is supplied as `Before`; Causation adds `Causes`, implies `Before`, and certifies its endpoints with another Mutual Dependence. The act-grammar reads this one structure through mujishō-sōe/genjō, kannō-sōe/banpō susumite, and engi/inga/shu. Shō is its non-attaining floor-face; shushō names the act-time and floor faces together. The taxonomy then asks whether a live distinction was collapsed (`><`) or a useful distinction was frozen (`||`).
 
