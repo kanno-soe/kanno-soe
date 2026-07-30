@@ -125,42 +125,82 @@ Forgetting the causal and temporal overlays leaves the underlying Mutual Depende
 
 Accordingly, **mujishō-sōe** is the dependence-structure retained when either grading or the causal and directional overlays are forgotten.
 
-### How floor-face and act-time face relate
+### From empty dependence to the provisional middle
 
-The three-row **act-grammar** reads these formal shapes as three dependence/enactment faces of one Encounter, not as three events or three agents:
+Remove grades from a Graded Resonance and the Encounter remains; remove direction and causation and its Mutual Dependence remains. That remainder does not by itself prove a Buddhist metaphysics. The philosophical bridge begins when the act-grammar reads it as **mujishō-sōe**: mutual dependence under the condition of no own-being.
 
-| Row | Dependence reading | Enactment reading | Modelled as |
+*Mujishō* (無自性) means without self-nature or own-being. V2's certified linkage is a deliberately small formal analogue: neither linked component is entered as the self-standing base of the other. This is an **interpretation of** Mutual Dependence, not a theorem extracted from `Linked`; supplied elaborations can encode many domains, and Lean does not turn a symmetric reach relation into Nāgārjuna by itself.
+
+The interpretive route begins with Nāgārjuna's *MMK* 24.18: what dependently originates is empty of own-being; that emptiness is itself dependently designated; just this is the middle way. Dependence therefore cannot mean relations among already self-subsisting things, while emptiness cannot become a deeper thing beneath them. Applied to the Encounter above, the point is not that `calls`, `b1`, `b2`, and `responses` vanish. It is that none supplies the final bearer of the answering.
+
+Jizang supplies the next turn. In the fourfold two truths, each stated ultimate—including the conventional/ultimate distinction itself—can become the conventional content of the next analysis. The iteration does not discover a fifth, finally unconditioned proposition. It ends at 言忘慮絶: not another claim, but the place where words and thought no longer do separating work. The manuscript calls that claimless place the **floor**. The middle can then manifest as this case instead of becoming another object of analysis. The manuscript calls this manifestation the **provisional middle**.
+
+The first pair can now be shown by itself:
+
+| Row | Dependence reading | Enactment reading |
+|---|---|---|
+| 1 | **mujishō-sōe** — Mutual Dependence without own-being | **genjō** — the dependence manifesting as this case |
+
+The **dependence-face** names the relation retained when additions are forgotten; the **enactment-face** names how that relation comes forward as a case. Mujishō-sōe is therefore the dependence-face of Row 1: this Encounter has no self-standing substrate. Genjō is its enactment-face: that empty dependence nevertheless manifests as this call, this receiving, this response. *Provisional* does not mean half-real or merely hypothetical. It says that the case is concrete without being promoted into a final ground. The move from Jizang's recursive discipline to *genjō* is the reconstruction's move into Dōgen's vocabulary, not a claim that Jizang himself supplied this grid.
+
+### From no rank to practice-realization
+
+Genjō answers how groundless dependence comes forward as a case.
+
+Linji supplies its guard-image. The reconstruction reads 無位真人 along a seam: 無位, *no rank*, is non-attainment; 真人…出入, the true person going in and out through the face-gates, prevents no-rank from becoming inert; the whole figure holds no-rank and activity together. When the monk tries to identify the true person as something one could grasp, Linji's rebuff blocks precisely the resting-place the phrase might otherwise invite. The manuscript calls this no-rank, no-resting-place reading the **non-attaining middle**, or the **unattaining middle** when the emphasis falls on nothing being obtained or stored.
+
+The reconstruction states that reading in Dōgen's vocabulary. **Shu** (修) is practice, the concrete doing. **Shō** (証) is realization, read here under the governing *mujishō* condition: no own-being, no rank, nothing possessed.
+
+The homophone matters: the *shō* in *mujishō* is 性, nature, while the **shō** in *shushō* is 証, realization. The argument relates them—a realization governed by the no-own-being reading—but they are neither the same word nor two pieces waiting to be joined.
+
+**Shushō** (修証) says practice-realization; **shushō-ittō** says that its practice and realization are non-dual. On this reconstruction, that cannot mean two events—practice first and an attained realization later—nor a still shō somehow acting by itself. It means one Encounter read in its doing and in its non-attaining realization:
+
+```text
+                              one Encounter
+
+    practice, the doing (shu) ---- shushō ---- (shō) realization without rank
+
+                         shushō-ittō: not two events
+```
+
+The two middles can now be distinguished without making either mysterious. **Genjō**, the provisional middle, answers *how does empty dependence manifest as this case?* **Shō**, the non-attaining middle, answers *what is realization when no rank is acquired?* Manifestation is not possession of realization; realization is not a second activity alongside manifestation. Their distinction will remain live when the case is diagnosed, then lose its separating work at the floor and at genjō.
+
+### Dōgen's sentence and the three-row grid
+
+> *Carrying the self forward to practice-realize the myriad dharmas is delusion; the myriad dharmas advancing to practice-realize the self is satori. To study the way is to study the self; to study the self is to forget the self; to forget the self is to be verified by the myriad dharmas.*
+
+The three-row **act-grammar** can now be shown whole. Each row pairs a dependence-reading with an enactment-reading of one Encounter. The last column identifies the V2 structure used for the modelling:
+
+| Row | Dependence reading | Enactment reading | V2 modelling |
 |---|---|---|---|
-| 1 | **mujishō-sōe** — no-own-being as Mutual Dependence | **genjō** — manifestation in this particular case | Mutual Dependence |
-| 2 | **kannō-sōe** — responsive resonance graded for dis-resonance | **banpō susumite** — the myriad dharmas advancing, the being verified | Graded Resonance / Encounter |
-| 3 | **engi / inga** — dependent arising and cause/effect under an added direction | **shu** — practice, the concrete doing at act-time | Directed + Causal + Causation |
+| 1 | **mujishō-sōe** — Mutual Dependence without own-being | **genjō** — the dependence manifesting as this case | Mutual Dependence |
+| 2 | **kannō-sōe** — responsive resonance placed under dis-resonance grading | **banpō susumite** — the myriad dharmas advancing, the being verified | Graded Resonance / Encounter |
+| 3 | **engi / inga** — dependent arising and cause/effect under an added direction | **shu** — practice, the concrete doing | Directed + Causal + Causation |
 
-The **floor** is not a first moment, a hidden base, or a final substance. It is the reading at which no deeper support is claimed and no separating claim is made. A **floor-face** is the Encounter read under that no-own-being condition. **Act-time** is the conventional diagnostic tier at which this call, this response, this receiving, this answering, and the distinctions needed to describe them are live. It is not a second Encounter after the floor-face.
+Read under the essay's title, the enactment cells pick out three aspects of the quoted passage: genjō is the actualizing of the case, banpō susumite is the dharmas advancing and the self being verified, and shu is the practice-realizing that occurs. These are not three events, three agents, or a chronology from Row 1 to Row 3. All concrete acting is Row 3: the one practice at act-time. Row 1 reads that act as manifestation without substrate; Row 2 reads it as this being's graded receiving and responding; Row 3 reads the doing under direction and causation. The passive 証せらるる fixes shō's grammar as the *being-verified* face, while Dōgen's 悟 (*satori*) remains the awakening named in the contrast and is not silently substituted for 証. Conversely, forgetting Row 3's overlays and Row 2's grades returns the Mutual Dependence with which the formal account began.
+
+The compound vocabulary marks crossings among these readings. The equations below state the reconstruction's compositions, not historical etymologies:
+
+- **genjōkōan** = genjō + kōan: Row 1 manifestation in a Row 2 particular case—this Encounter, this call, this being's capacity to listen.
+- **shugenjō** = shu + genjō: Row 3 practice as Row 1 manifestation—a directed Encounter manifesting without a retained scaffold. This is the manuscript's compound, and the inclusion runs one way: practice run scaffold-free is genjō, but not every manifestation is practice.
+
+### Floor-face, act-time face, and separate/fuse
+
+The **floor** is not a first moment, a hidden base, or a final substance. It is the tier at which no deeper support is claimed and no distinction is doing separating work. A **floor-face** is this Encounter read under that no-own-being, no-claim condition. **Act-time** is the conventional diagnostic tier at which this call, this receiving, this response, this practice, and the distinctions needed to describe them are live. It is not a second Encounter before or after the floor-face.
+
+The shushō reading introduced above is one example:
 
 ```text
                          one Encounter
 
     act-time face                                 floor-face
-    shu: concrete practice ---- shushō ---- shō: no attainment,
-    in receiving/responding                       the being-verified
+    concrete practice (shu) ---- shushō ---- (shō) no attainment,
+    in receiving/responding                        the being-verified
 ```
 
-The floor-face is **shō** (証): realization under the governing *mujishō* reading—without-own-being, no rank, and the passive *being-verified*. It is the **non-attaining middle**—also reasonably called the **unattaining middle** when the emphasis is that nothing is obtained or stored. Shō is not a still state behind an Encounter: it is agential only as the floor-face of the same receiving/responding whose enacted practice is **shu** (修) at act-time. Their compound is **shushō**; **shushō-ittō** says that practice and realization are non-dual because they are the act-time and floor faces of one Encounter, not two Encounters later joined.
+At a bottom placement, the two readings meet without becoming two formal coordinates. Act-time follows the concrete receiving at `b1` or responding at `b2`; the floor-face reads that same middle without an independently standing receiver or responder. Shu and shō are reciprocal faces of the Encounter at its pole: one name follows the enactment, the other its no-own-being, non-attaining realization. Bottom permits this reading; it does not manufacture or store a realized entity.
 
-The word **pole** joins the grading vocabulary to this two-faced reading. Dis-resonance grades the placement between a selfward pole and a dharmasward pole. V2 places the same kind of grading at two locations in a Resonance:
-
-```text
-               calls-side location              responses-side location
-
-    calls <--- dis-resonance ---> {b1} <--> {b2} <--- dis-resonance ---> responses
-               callsGrade                           responsesGrade
-```
-
-The calls-side and responses-side grades are therefore not different kinds of pole. They are two placements of the same selfward/dharmasward grading, and they remain independent: either may be at bottom while the other is not. `b1` and `b2` are the singleton middle designata at which those respective placements are read, not extra poles or extra grades.
-
-At the bottom of either grading, no dis-resonance remains at that location. In the act-grammar reading, this is where the grading-pole and the two faces convene. Act-time names the concrete receiving at `b1` or responding at `b2`; the floor-face names that same middle without an independently standing receiver or responder. Shu and shō can accordingly be called reciprocal poles of the same Encounter at its grading-pole: one name follows the concrete enactment, the other its no-own-being, non-attaining face. Bottom permits the middle to be read without dis-resonance; it does not turn the middle into a stored entity.
-
-At act-time, the separate/fuse rule keeps a live distinction separate; at the floor the distinction fuses, meaning that it does no separating work there—not that both sides become one substance or that both propositions are asserted. The same rule says distinctions fuse at **genjō** as well, but floor and genjō are not synonyms. Floor names the no-claim, no-own-being reading. Genjō names the **provisional middle**: manifestation going out as this case, the concrete place where recursive emptying ceases to be another object one tries to possess.
+The **separate/fuse rule** states how distinctions behave across those tiers. At act-time a useful distinction separates. At the floor it fuses, meaning that it makes no separating claim there—not that its two sides become one substance and not that both propositions are asserted.
 
 ```text
     act-time diagnosis:       A  |  B     distinction is usable and live
@@ -170,35 +210,15 @@ At act-time, the separate/fuse rule keeps a live distinction separate; at the fl
     freeze operator:          A || B      held apart at the floor
 ```
 
-This yields the error generator used in [Theorems.md](Theorems.md): **collapse**, written `><`, is premature fusion under act-time diagnosis; **freeze**, written `||`, is a useful separation reified as a floor-claim. These are expository operators, not Lean syntax. The rule applies even to the floor/act-time vocabulary itself. “There is no time, no being, and no Encounter” is a collapse when offered where a response is occurring; a flowing time-container, substantial Being, or self-existing Encounter is the corresponding kind of freeze.
+The rule says that distinctions fuse at **genjō** as well, but floor and genjō are not synonyms. *Floor* names the status of claims when no deeper support is asserted. *Genjō* names the manifested case at the provisional middle, where recursive emptying is no longer retained as a scaffold. This is why genjō and shō must be distinguished under act-time diagnosis while their distinction itself ceases to separate at the floor and at genjō.
 
-### Genjō, shō, the row compounds, and the terminus
+The two violations generate the error taxonomy in [Theorems.md](Theorems.md). **Collapse**, written `><`, is premature fusion under act-time diagnosis; **freeze**, written `||`, is a useful separation reified as a floor-claim. These are expository operators, not Lean syntax. “There is no time, no being, and no Encounter” is a collapse when offered where a response is occurring. A flowing time-container, substantial Being, stored shō, or self-existing Encounter is the corresponding kind of freeze.
 
-The two middles answer different questions. **Genjō**, the provisional middle, asks how empty dependence manifests as this case. **Shō**, the non-attaining or unattaining middle, names the floor-face in which no rank or attainment is acquired. Under act-time diagnosis they must be distinguished: manifestation is not possession of realization, and realization is not a second activity alongside manifestation. At the floor and at genjō the distinction itself ceases to separate.
-
-The available cross-row compounds make the same point economically:
-
-- **genjōkōan** = genjō + kōan: Row 1 manifestation in a Row 2 particular case—this Encounter, this call, this being's capacity to listen.
-- **shugenjō** = shu + genjō: Row 3 practice as Row 1 manifestation—this directed Encounter manifesting without a retained scaffold. The compound reads practice as manifestation, not every manifestation as practice.
-- **shushō** = shu + shō: an Encounter's act-time practice and floor-face together.
-- **shushō-ittō**: the non-duality of those shushō faces, not their numerical identity as vocabulary and not a sequence in which practice later produces realization.
-- **kannō-sōe** itself names Row 2's dependence-face; **banpō susumite** names the same row's enactment-face. **Mujishō-sōe / genjō** and **engi or inga / shu** are the corresponding Row 1 and Row 3 pairs.
-
-In V2 vocabulary, a **terminus** is local to a grading: it names the bottom of the dis-resonance preorder at one of the two grading locations. There is consequently no single terminal object hidden behind an Encounter.
-
-```text
-    callsGrade = bottom       calls-side terminus
-    responsesGrade = bottom   responses-side terminus
-    both grades = bottom      IsUngraded; a two-sided terminus
-```
-
-The plural **termini** may therefore refer to the two local bottom placements within one Encounter, or to bottom placements across several Encounters. `IsUngraded` is their conjunction, not a third terminus above them. Bottom is also not a property of `b1`, `b2`, or a Being taken globally; it belongs to a specified grading of a specified Resonance.
-
-V2 has no sentience mark and no structural distinction between a buddha terminus and a stone terminus. Person and stone remain possible interpretations of designata, but neither interpretation adds a formal grade or kind. Under the local terminology above, the only terminus distinction is which grading is at bottom.
-
-The model can now be stated densely without adding another layer. Designata elaborate; shared reach supplies relatedness; two-way coverage links components; adjacent linked components form Mutual Dependences. A Resonance or Encounter is the four-component `calls--{b1}--{b2}--responses` case. A Graded Resonance places the same dis-resonance grading at its calls and responses locations, independently; bottom at either location is its terminus, and bottom at both is `IsUngraded`. A Being links the middle receiving/responding designata of one or more Resonances. Direction is supplied as `Before`; Causation adds `Causes`, implies `Before`, and certifies its endpoints with another Mutual Dependence. The act-grammar reads this one structure through mujishō-sōe/genjō, kannō-sōe/banpō susumite, and engi/inga/shu; shō is its non-attaining floor-face, shushō names the act-time and floor faces together, and genjōkōan and shugenjō name the available cross-row compositions. The error taxonomy then asks only whether a live distinction was collapsed (`><`) or a useful distinction was frozen (`||`).
+The model can now be restated densely without importing unexplained vocabulary. Designata elaborate; shared reach supplies relatedness; two-way coverage links components; adjacent linked components form Mutual Dependences. A Resonance or Encounter is the four-component `calls--{b1}--{b2}--responses` case. A Graded Resonance places independent dis-resonance grades at its calls and responses locations; bottom at both is `IsUngraded`. A Being links the middle receiving/responding designata of one or more Resonances. Direction is supplied as `Before`; Causation adds `Causes`, implies `Before`, and certifies its endpoints with another Mutual Dependence. The act-grammar reads this one structure through mujishō-sōe/genjō, kannō-sōe/banpō susumite, and engi/inga/shu. Shō is its non-attaining floor-face; shushō names the act-time and floor faces together. The taxonomy then asks whether a live distinction was collapsed (`><`) or a useful distinction was frozen (`||`).
 
 ## The rules, each preceded by what motivated it
+
+The V2 bridge above fixed the formal handles and introduced the vocabulary in dependency order. This section now makes a second, source-led pass: it motivates each rule, then develops the soteriological readings that the compact V2 account deliberately left supplied.
 
 ### Not Nothing
 
@@ -222,7 +242,7 @@ Three rows, each a dependence/enactment pair; all three conventional.
 
 | Dependence | Enactment |
 |---|---|
-| **mujishō-sōe** — no-own-being as mutual-dependence; each-in-all, no substrate. | **genjō** — manifesting entire: the act out in its case with nothing of it claimed back; full = no remainder of arrogation, which is why one floor holds both arrivals.; the seam where the scaffold dissolves. |
+| **mujishō-sōe** — no-own-being as mutual-dependence; each-in-all, no substrate. | **genjō** — manifesting entire: the act out in its case with nothing of it claimed back; full = no remainder of arrogation, which is why one floor holds both arrivals; the seam where the scaffold dissolves. |
 | **kannō-sōe** — resonance as mutual-dependence; the placement of the act's index between the being and the dharmas (*how much of the listening to Hyakujō is the self doing?*). | **banpō susumite** — the myriad dharmas advancing — the reception practising, the self verified — one act, two poles of one placement. |
 | **engi / inga** — directedness with no moral ground; the blind arrow. | **shu** — practice (gyōji); the weld at act-time, direction bound along the blind arrow, *and the I-making that indexes it*; not-obscure (不昧). |
 
@@ -230,7 +250,7 @@ Three rows, each a dependence/enactment pair; all three conventional.
 
 The floor is emptiness that empties even itself (Jizang, 空空): the ultimate is never a thing, never a final substrate. Everything here is conventional — the path, the grid's distinctions, the two truths themselves — and no level stands as the last floor.
 
-The enactment column is not three agents. Its three cells are the three parts of one sentence of Dōgen's — *carrying the self forward to practice-realize the myriad dharmas is delusion; the myriad dharmas advancing (banpō susumite) to practice-realize the self is satori.* genjō (Row 1) is the actualizing; banpō susumite (Row 2) is the dharmas-forward that clarifies the self; shu (Row 3) is practice. And the sentence's sequel fixes shō's grammar: *to forget the self is to be verified by the myriad dharmas* — 万法に証せらるる, 証 in the **passive voice**. Realization, in the very line the grid mines, is objecthood — the self standing where the dharmas' advance certifies it. The grid spends this below. Dōgen's compounds then name the *relations* among the cells, not the cells:
+The enactment column is not three agents. Its three cells are the three parts of one sentence of Dōgen's — *carrying the self forward to practice-realize the myriad dharmas is delusion; the myriad dharmas advancing (banpō susumite) to practice-realize the self is satori.* genjō (Row 1) is the actualizing; banpō susumite (Row 2) is the dharmas-forward that clarifies the self; shu (Row 3) is practice. And the sentence's sequel fixes shō's grammar: *to forget the self is to be verified by the myriad dharmas* — 万法に証せらるる, 証 in the **passive voice**. Realization, in the very line the grid mines, is objecthood — the self standing where the dharmas' advance certifies it. The grid spends this below. The manuscript's compound vocabulary then names the *relations* among the cells, not the cells:
 
 - **genjōkōan** = genjō + kōan — Row 1's manifestation in Row 2's particular case (*can this being listen to Hyakujō?*).
 - **shugenjō** = shu + genjō — Row 3 practice as Row 1 manifestation: *practice run scaffold-free is nothing but genjō* — and not conversely, since genjō also holds unmarked pole acts (the current stone cell). The "nothing but" runs from the narrower to the wider: {practice run scaffold-free} ⊊ {genjō}.
