@@ -1,6 +1,6 @@
-# Kannō-Sōe Mutual Dependence — I. Theory
+# Kannō-Sōe Mutual Dependence
 
-*An axiomatic reconstruction of Zen sayings in an ontology-under-erasure act-grammar.
+An axiomatic reconstruction of Zen sayings in an ontology-under-erasure act-grammar.
 
 The project implements a deliberately simplified model for discussing Mahayana Buddhist metaphysics. It is most useful for conditional and independence results: *if* one accepts the model's translation of a claim, a proof can show that the translated claim needs no richer machinery. The conditional matters. Oversimplifying the object proves something about the simplification, not automatically about Buddhism, Nāgārjuna, Jizang, or the world. The account below therefore marks three statuses throughout: **formal V2 structure**, **a manually supplied interpretation**, and **the philosophical act-grammar laid over that structure**.
 
@@ -197,27 +197,29 @@ The **separate/fuse rule** states how distinctions behave across those tiers. At
 ```text
                          distinction separates      distinction fuses
     act-time diagnosis   A | B   rule obeyed        A >< B  collapse
-    floor / genjō        A || B  freeze             A . B   rule obeyed
+    floor                A || B  freeze             A . B   rule obeyed
 ```
 
-The two error cells occupy one diagonal; the other diagonal is the rule obeyed. The rule says that distinctions fuse at **genjō** as well, but floor and genjō are not synonyms. *Floor* names the status of claims when no deeper support is asserted. *Genjō* names the manifested case at the provisional middle, where recursive emptying is no longer retained as a scaffold; it was introduced through the empty-dependence/manifestation pair, not through a delusion/realization pair. *Shō* is grading-relative: it names practice's non-attaining floor-face at bottom, against delusive practice at non-bottom. This is why genjō and shō must be distinguished under act-time diagnosis while their distinction itself ceases to separate at the floor and at genjō.
+The two error cells occupy one diagonal; the other diagonal is the rule obeyed.
 
-The two violations generate the error taxonomy in [Theorems.md](Theorems.md). **Collapse**, written `><`, is premature fusion under act-time diagnosis; **freeze**, written `||`, is a useful separation reified as a floor-claim. These are expository operators, not Lean syntax. “There is no time, no being, and no Resonance” is a collapse when offered where a response is occurring. A flowing time-container, substantial Being, stored shō, or self-existing Resonance is the corresponding kind of freeze.
+**Collapse**, written `><`, is premature fusion under act-time diagnosis; **freeze**, written `||`, is a useful separation reified as a floor-claim. These are expository operators, not Lean syntax. “There is no time, no being, and no Resonance” is a collapse when offered where a response is occurring. A flowing time-container, substantial Being, stored shō, or self-existing Resonance is the corresponding kind of freeze.
 
-An **utterance** here is not a sentence-shape in isolation. It is content carried by a resonance, with the call it answers and the tier at which it is offered. The taxonomy grades that offer, not the words alone: ordinary narration offered conventionally at act-time is declined as no error; the same words offered as ultimate furniture can freeze, while a denial offered as live diagnosis can collapse. Under another offer, the same words make another utterance; severed from call and tier, they remain quotable but ungradeable. The full scope fence is stated [beneath the taxonomy table](Theorems.md#a-taxonomy-of-error).
+An **utterance** here is not a sentence-shape in isolation. It is content carried by a resonance, with the call it answers and the tier at which it is offered. The taxonomy (in the section below) grades that offer, not the words alone: ordinary narration offered conventionally at act-time is declined as no error; the same words offered as ultimate furniture can freeze, while a denial offered as live diagnosis can collapse.
 
 ## A taxonomy of error
 
+> This section still references the old version of the code, and *weld*, a conceptual fore-runner to (Graded) Resonance. The older model generally produces reasonable conclusions, however mostly as a result of structural artifact from reasonable modelling decisions as opposed to being meaningfully proven.
+
 Classical nihilism turns out to be a freeze, not a collapse: the void is emptiness reified as an *absence* — a snake wrongly grasped is still grasping. And mis-typing — the state-tool for an act-job, the faculty-reading of Row 2 — is the freeze applied to the act/state distinction specifically: an act frozen into a standing configuration.
 
-The no-value clause then forces **two grades of error**, which behave differently and must not be run together:
+The errors are categorised in two grades:
 
 1. **Grammatical errors** — tier-errors and typing-errors. These the system can *assert*, because a mis-feed is a conventional-tier logic verdict, not a value. The fox's mistake is assertable. (Assertable, note, *within the lens*: "tier-error" and "mis-feed" are verdicts of the two-truths machinery itself, compelled inside it and offered outside — the banner's clause governs the grid's own voice, and the asymmetry between the two grades is an asymmetry in that voice, not an appeal to lens-free logic.)
 2. **Soteriological shortfalls** — arrogation, self-forward, low resonance, failure to meet beings. These the system can only *display* — Row 2 placements and Row 3 directions, valence borrowed from the object. The five hundred fox lives were returns, not punishments; by the same token "he failed to act as a bodhisattva" is never an asserted wrong, only a displayed asymmetry.
 
 ### Grade 1: the generator's output
 
-| Distinction | Collapse `><` (fused at act-time) | Freeze `\|\|` (held at the floor) |
+| Distinction | Collapse (fused at act-time) | Freeze (distinction held at floor) |
 |---|---|---|
 | Being / non-being (Nishitani) | — | Nihilism: absolute non-being taken as privative void, one more member of the pair. It wears an epistemic face — skepticism, no-floor reified into no-warrant, as if conventional standing had ever rested on a final floor (the *sarvaṃ yujyate* reversal declined: it is *because* of emptiness that everything works) — and a practical face — annihilationism, death held as a floor-event, an exit the loop never had; the fox died five hundred times and no death was the release |
 | Level *n* / level *n*+1 (Jizang's fourfold — Nāgārjuna's 空空, iterated; Lean-generated by `ladder_obeys`) | Skipping the ladder — cheap transcendence, floor-talk without having emptied anything | Eternalism at level *n*: this pair is the final floor (`no_final_level_of_errorFree`, `ladder_obeys_of_errorFree`) |
