@@ -202,7 +202,7 @@ The shushō reading introduced above is one example:
    in receiving/responding                  the being-verified
 ```
 
-At a bottom placement, the two readings meet without becoming two formal coordinates. Act-time follows the concrete receiving at `b1` or responding at `b2`; the floor-face reads that same middle without an independently standing receiver or responder. Shu and shō are reciprocal faces of that bottom-placed receiving or responding within the Graded Resonance: one name follows the enactment, the other its no-own-being, non-attaining realization. Bottom permits this reading; it does not manufacture or store a realized entity.
+At a bottom placement, the two readings meet without becoming two formal coordinates. Act-time follows the concrete receiving at `b1` or responding at `b2`; the floor-face reads that same `b1` or `b2` without an independently standing receiver or responder. Shu and shō are reciprocal faces of that bottom-placed receiving or responding within the Graded Resonance: one name follows the enactment, the other its no-own-being, non-attaining realization. Bottom permits this reading; it does not manufacture or store a realized entity.
 
 ### Separate/fuse, utterances, and their offers
 
