@@ -1,9 +1,5 @@
 import KannoSoe.Signature
-import KannoSoe.Consequences
-import KannoSoe.Doctrines
-import KannoSoe.Identification
 import KannoSoe.Meta
-import KannoSoe.Exposition
 
 /-!
 Root module for the `KannoSoe` library.
