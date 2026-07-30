@@ -113,6 +113,13 @@ Accordingly, **mujishō-sōe** is the dependence-structure retained when either 
 
 ## From empty dependence to the provisional middle
 
+> Whatever is dependently co-arisen  
+> That is explained to be emptiness.  
+> That, being a dependent designation,  
+> Is itself the middle way.
+>
+> — Nāgārjuna, *Mūlamadhyamakakārikā* 24.18
+
 Remove grades from a Graded Resonance and everything else about it being a resonance and the Mutual Dependence remains. That remainder does not by itself prove a Buddhist metaphysics. The philosophical bridge begins when the act-grammar reads it as **mujishō-sōe**: mutual dependence under the condition of no own-being.
 
 *Mujishō* (無自性) means without self-nature or own-being. V2's certified linkage is a deliberately small formal analogue: neither linked component is entered as the self-standing base of the other. This is an **interpretation of** Mutual Dependence, not a theorem extracted from `Linked`; supplied elaborations can encode many domains, and Lean does not turn a symmetric reach relation into Nāgārjuna by itself.
@@ -131,9 +138,16 @@ The **dependence-face** names the relation retained when additions are forgotten
 
 ## From no rank to practice-realization
 
+> Monk: “What is the true person of no rank?”  
+> Linji: “Speak! Speak!”  
+> The monk hesitates.  
+> Linji pushes him away: “The true person of no rank—what a dried piece of shit!”
+>
+> — Linji Yixuan, *The Record of Linji*
+
 Genjō answers how groundless dependence comes forward as a case.
 
-Linji supplies its guard-image. The reconstruction reads 無位真人 along a seam: 無位, *no rank*, is non-attainment; 真人…出入, the true person going in and out through the face-gates, prevents no-rank from becoming inert; the whole figure holds no-rank and activity together. When the monk tries to identify the true person as something one could grasp, Linji's rebuff blocks precisely the resting-place the phrase might otherwise invite. The manuscript calls this no-rank, no-resting-place reading the **non-attaining middle**, or the **unattaining middle** when the emphasis falls on nothing being obtained or stored.
+Linji supplies its guard-image. The reconstruction reads 無位真人 along a seam: 無位, *no rank*, is non-attainment; 真人…出入, the true person going in and out through the face-gates, prevents no-rank from becoming inert; the whole figure holds no-rank and activity together. When the monk asks what the true person is—and then hesitates under Linji’s demand to speak—the phrase threatens to become a resting-place. Linji’s rebuff destroys that possibility, discarding even the “true person of no rank” once it begins to function as something identifiable or possessable. The manuscript calls this no-rank, no-resting-place reading the **non-attaining middle**, or the **unattaining middle** when the emphasis falls on nothing being obtained or stored.
 
 The reconstruction states that reading in Dōgen's vocabulary. **Shu** (修) is practice, the concrete doing. **Shō** (証) is realization: the non-attaining floor-face at a bottom placement in any given grading, read here under the governing *mujishō* condition—no own-being, no rank, nothing possessed.
 
@@ -156,7 +170,8 @@ The two middles can now be distinguished without making either mysterious. **Gen
 ## Dōgen's sentence and the three-row grid
 
 > *Carrying the self forward to practice-realize the myriad dharmas is delusion; the myriad dharmas advancing to practice-realize the self is satori. To study the way is to study the self; to study the self is to forget the self; to forget the self is to be verified by the myriad dharmas.*
-— Eihei Dōgen, *Genjōkōan*
+>
+> — Eihei Dōgen, *Genjōkōan*
 
 The three-row **act-grammar** can now be shown whole. Each row pairs a dependence-reading with an enactment-reading of one Resonance. The last column identifies the V2 structure used for the modelling:
 
