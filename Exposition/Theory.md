@@ -156,7 +156,7 @@ The homophone matters: the *shō* in *mujishō* is 性, nature, while the **shō
 **Shushō** (修証) says practice-realization; **shushō-ittō** says that its practice and realization are non-dual. On this reconstruction, that cannot mean two events—practice first and an attained realization later—nor a still shō somehow acting by itself. It means one Encounter read in its doing and in its non-attaining realization:
 
 ```text
-                              one Encounter
+                                one Encounter
 
     practice, the doing (shu) ---- shushō ---- (shō) realization without rank
 
