@@ -168,6 +168,7 @@ The two middles can now be distinguished without making either mysterious. **Gen
 ### Dōgen's sentence and the three-row grid
 
 > *Carrying the self forward to practice-realize the myriad dharmas is delusion; the myriad dharmas advancing to practice-realize the self is satori. To study the way is to study the self; to study the self is to forget the self; to forget the self is to be verified by the myriad dharmas.*
+— Eihei Dōgen, *Genjōkōan*
 
 The three-row **act-grammar** can now be shown whole. Each row pairs a dependence-reading with an enactment-reading of one Encounter. The last column identifies the V2 structure used for the modelling:
 
