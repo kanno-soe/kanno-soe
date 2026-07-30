@@ -61,9 +61,9 @@ A raw Mutual Dependence is a list of at least two components carrying one such s
 
 The chain may be any finite length. It can be sliced and compatible chains can be joined, but the word *chain* must not smuggle in time: these arrows display symmetric linkage, not before and after. This is the minimal formal structure of **Mutual Dependence** (*sōe*) used by V2. Throughout, that structure is read as **mujishō-sōe**: mutual dependence without-own-being (*mujishō*), in which neither side supplies a self-standing substrate for the other.
 
-### Encounter: Resonance viewed as one Mutual Dependence
+### Resonance as a Mutual Dependence
 
-A **Resonance** is not a second kind of structure. It is the following four-component special case of Mutual Dependence, with its middle components forced to be singletons:
+A **Resonance** is the following four-component special case of Mutual Dependence, with its middle components forced to be singletons:
 
 ```text
     calls <--> {b1} <--> {b2} <--> responses
@@ -71,9 +71,9 @@ A **Resonance** is not a second kind of structure. It is the following four-comp
 
 The intended reading is that `b1` is the receiving view or moment of a being and `b2` is its responding view or moment. Formally, however, `b1` and `b2` are two designata joined in the same certified dependence. V2 does not prove that they are numerically identical, temporally successive, conscious, or personal. The names **calls**, **receiving**, **responding**, and **responses** are role-readings of the shape.
 
-For clarity, this exposition will sometimes call a Resonance an **Encounter** when it is being discussed merely as another Mutual Dependence. *Encounter* is an expository alias, not a new Lean type: it means that we retain the concrete `calls--b1--b2--responses` shape while temporarily forgetting grades, direction, causality, awakening, and value. Every Encounter is a Mutual Dependence; not every Mutual Dependence has the four-component singleton-middle shape needed to be an Encounter.
+An **Encounter** is a Resonance viewed merely as a Mutual Dependence. It retains the concrete `calls--b1--b2--responses` shape while everything about it being a resonance is temporarily forgotten. *Encounter* is an expository alias, not a new Lean type. Every Encounter is a Mutual Dependence; not every Mutual Dependence has the four-component singleton-middle shape needed to be an Encounter.
 
-Because designata may elaborate into any raw dependence the modeler supplies and later certifies, the same Encounter shape can be used for a person answering a question or a stone answering the wind by rolling downhill:
+Because designata may elaborate into any raw dependence the modeler supplies and later certifies, the same Resonance shape can be used for a person answering a question or a stone answering the wind by rolling downhill:
 
 ```text
     {wind} <--> {stone-receiving} <--> {stone-responding} <--> {rolling}
@@ -83,22 +83,22 @@ Nothing in the ungraded structure privileges the person. Nor does the stone exam
 
 ### Graded Resonance and Being
 
-A **Graded Resonance** adds two independent grades to an Encounter: a calls-side grade and a responses-side grade. The grade type need only be a preorder with a bottom element. It need not be numerical, total, or metrically spaced. The intended reading is **dis-resonance**: volition insofar as it is *sāsrava*—with outflows, ripening in further becoming. Bottom is *anāsrava* at this Encounter: the act is not productive of further becoming, without implying either the absence of volition or the global attainment of arhatship. `0` is only the familiar numerical example.
+A **Graded Resonance** adds two independent grades to a Resonance: a calls-side grade and a responses-side grade. The grade type need only be a preorder with a bottom element. It need not be numerical, total, or metrically spaced. The intended reading is **dis-resonance**: volition insofar as it is *sāsrava*—with outflows, ripening in further becoming. Bottom is *anāsrava* at this Resonance: the act is not productive of further becoming, without implying either the absence of volition or the global attainment of arhatship. `0` is only the familiar numerical example.
 
 ```text
-                           one Encounter
+                       one Graded Resonance
 
     calls --[callsGrade]--> b1 <--> b2 --[responsesGrade]--> responses
 
     callsGrade and responsesGrade are independent coordinates.
 ```
 
-Thus a stone may be *assigned* bottom on both sides, while a grumpy person who has stubbed a toe may be *assigned* a non-bottom calls grade, a non-bottom responses grade, or both. Those are interpretations supplied to the model; V2 does not infer a grade from stonehood, pain, personality, or behavior. `IsUngraded` means exactly that both grades are bottom. “Ungraded” here therefore means no dis-resonance entered on either side, not absence from the Encounter and not absence of response.
+Thus a stone may be *assigned* bottom on both sides, while a grumpy person who has stubbed a toe may be *assigned* a non-bottom calls grade, a non-bottom responses grade, or both. Those are interpretations supplied to the model; V2 does not infer a grade from stonehood, pain, personality, or behavior. `IsUngraded` means exactly that both grades are bottom. “Ungraded” here therefore means no dis-resonance entered on either side, not absence from the Resonance and not absence of response.
 
 A **Being** is a nonempty list of Resonances whose singleton middle components flatten into one certified Mutual Dependence:
 
 ```text
-      Encounter 1       Encounter 2                Encounter n
+      Resonance 1       Resonance 2                Resonance n
       b1 <--> b2  <-->  b1 <--> b2  <--> ... <-->  b1 <--> b2
 
     Being = the certified linkage of these receiving/responding moments
@@ -127,7 +127,7 @@ Accordingly, **mujishō-sōe** is the dependence-structure retained when either 
 
 ### From empty dependence to the provisional middle
 
-Remove grades from a Graded Resonance and the Encounter remains; remove direction and causation and its Mutual Dependence remains. That remainder does not by itself prove a Buddhist metaphysics. The philosophical bridge begins when the act-grammar reads it as **mujishō-sōe**: mutual dependence under the condition of no own-being.
+Remove grades from a Graded Resonance and everything else about it being a resonance and the Mutual Dependence remains. That remainder does not by itself prove a Buddhist metaphysics. The philosophical bridge begins when the act-grammar reads it as **mujishō-sōe**: mutual dependence under the condition of no own-being.
 
 *Mujishō* (無自性) means without self-nature or own-being. V2's certified linkage is a deliberately small formal analogue: neither linked component is entered as the self-standing base of the other. This is an **interpretation of** Mutual Dependence, not a theorem extracted from `Linked`; supplied elaborations can encode many domains, and Lean does not turn a symmetric reach relation into Nāgārjuna by itself.
 
@@ -155,10 +155,10 @@ On this sentience-neutral reading, shō gains determinate content through a cont
 
 The homophone matters: the *shō* in *mujishō* is 性, nature, while the **shō** in *shushō* is 証, realization. The argument relates them—a realization governed by the no-own-being reading—but they are neither the same word nor two pieces waiting to be joined.
 
-**Shushō** (修証) says practice-realization; **shushō-ittō** says that its practice and realization are non-dual. On this reconstruction, that cannot mean two events—practice first and an attained realization later—nor a still shō somehow acting by itself. It means one Encounter read in its doing and in its non-attaining realization:
+**Shushō** (修証) says practice-realization; **shushō-ittō** says that its practice and realization are non-dual. On this reconstruction, that cannot mean two events—practice first and an attained realization later—nor a still shō somehow acting by itself. It means one bottom-placed Graded Resonance read in its doing and in its non-attaining realization:
 
 ```text
-                               one Encounter
+                     one bottom-placed Graded Resonance
 
    practice, the doing (shu) ---- shushō ---- (shō) realization without rank
 
@@ -172,29 +172,29 @@ The two middles can now be distinguished without making either mysterious. **Gen
 > *Carrying the self forward to practice-realize the myriad dharmas is delusion; the myriad dharmas advancing to practice-realize the self is satori. To study the way is to study the self; to study the self is to forget the self; to forget the self is to be verified by the myriad dharmas.*
 — Eihei Dōgen, *Genjōkōan*
 
-The three-row **act-grammar** can now be shown whole. Each row pairs a dependence-reading with an enactment-reading of one Encounter. The last column identifies the V2 structure used for the modelling:
+The three-row **act-grammar** can now be shown whole. Each row pairs a dependence-reading with an enactment-reading of one Resonance. The last column identifies the V2 structure used for the modelling:
 
 | Row | Dependence reading | Enactment reading | V2 modelling |
 |---|---|---|---|
 | 1 | **mujishō-sōe** — Mutual Dependence without own-being | **genjō** — the dependence manifesting as this case | Mutual Dependence |
-| 2 | **kannō-sōe** — responsive resonance placed under dis-resonance grading | **banpō susumite** — the myriad dharmas advancing, the being verified | Graded Resonance / Encounter |
+| 2 | **kannō-sōe** — responsive resonance placed under dis-resonance grading | **banpō susumite** — the myriad dharmas advancing, the being verified | Graded Resonance |
 | 3 | **engi / inga** — dependent arising and cause/effect under an added direction | **shu** — practice, the concrete doing | Directed + Causal + Causation |
 
 Read under the essay's title, the enactment cells pick out three aspects of the quoted passage: genjō is the actualizing of the case, banpō susumite is the dharmas advancing and the self being verified, and shu is the practice-realizing that occurs. These are not three events, three agents, or a chronology from Row 1 to Row 3. All concrete acting is Row 3: the one practice at act-time. Row 1 reads that act as manifestation without substrate; Row 2 reads it as this being's graded receiving and responding; Row 3 reads the doing under direction and causation. The passive 証せらるる fixes shō's grammar as the *being-verified* face, while Dōgen's 悟 (*satori*) remains the awakening named in the contrast and is not silently substituted for 証. Conversely, forgetting Row 3's overlays and Row 2's grades returns the Mutual Dependence with which the formal account began.
 
 The compound vocabulary marks crossings among these readings. The equations below state the reconstruction's compositions, not historical etymologies:
 
-- **genjōkōan** = genjō + kōan: Row 1 manifestation in a Row 2 particular case—this Encounter, this call, this being's capacity to listen.
-- **shugenjō** = shu + genjō: Row 3 practice as Row 1 manifestation—a directed Encounter manifesting without a retained scaffold. This is the manuscript's compound, and the inclusion runs one way: practice run scaffold-free is genjō, but not every manifestation is practice.
+- **genjōkōan** = genjō + kōan: Row 1 manifestation in a Row 2 particular case—this Resonance, this call, this being's capacity to listen.
+- **shugenjō** = shu + genjō: Row 3 practice as Row 1 manifestation—a directed Resonance manifesting without a retained scaffold. This is the manuscript's compound, and the inclusion runs one way: practice run scaffold-free is genjō, but not every manifestation is practice.
 
 ### Floor-face and act-time face
 
-The **floor** is not a first moment, a hidden base, or a final substance. It is the tier at which no deeper support is claimed and no distinction is doing separating work. A **floor-face** is this Encounter read under that no-own-being, no-claim condition. **Act-time** is the conventional diagnostic tier at which this call, this receiving, this response, this practice, and the distinctions needed to describe them are live. It is not a second Encounter before or after the floor-face.
+The **floor** is not a first moment, a hidden base, or a final substance. It is the tier at which no deeper support is claimed and no distinction is doing separating work. A **floor-face** is this Encounter read under that no-own-being, no-claim condition. **Act-time** is the conventional diagnostic tier at which this call, this receiving, this response, this practice, and the distinctions needed to describe them are live. It is not a second Resonance before or after the floor-face.
 
 The shushō reading introduced above is one example:
 
 ```text
-                             one Encounter
+                     one bottom-placed Graded Resonance
 
         act-time face                            floor-face
 
@@ -202,7 +202,7 @@ The shushō reading introduced above is one example:
    in receiving/responding                  the being-verified
 ```
 
-At a bottom placement, the two readings meet without becoming two formal coordinates. Act-time follows the concrete receiving at `b1` or responding at `b2`; the floor-face reads that same middle without an independently standing receiver or responder. Shu and shō are reciprocal faces of that bottom-placed receiving or responding within the Encounter: one name follows the enactment, the other its no-own-being, non-attaining realization. Bottom permits this reading; it does not manufacture or store a realized entity.
+At a bottom placement, the two readings meet without becoming two formal coordinates. Act-time follows the concrete receiving at `b1` or responding at `b2`; the floor-face reads that same middle without an independently standing receiver or responder. Shu and shō are reciprocal faces of that bottom-placed receiving or responding within the Graded Resonance: one name follows the enactment, the other its no-own-being, non-attaining realization. Bottom permits this reading; it does not manufacture or store a realized entity.
 
 ### Separate/fuse, utterances, and their offers
 
@@ -216,13 +216,13 @@ The **separate/fuse rule** states how distinctions behave across those tiers. At
 
 The two error cells occupy one diagonal; the other diagonal is the rule obeyed. The rule says that distinctions fuse at **genjō** as well, but floor and genjō are not synonyms. *Floor* names the status of claims when no deeper support is asserted. *Genjō* names the manifested case at the provisional middle, where recursive emptying is no longer retained as a scaffold; it was introduced through the empty-dependence/manifestation pair, not through a delusion/realization pair. *Shō* is grading-relative: it names practice's non-attaining floor-face at bottom, against delusive practice at non-bottom. This is why genjō and shō must be distinguished under act-time diagnosis while their distinction itself ceases to separate at the floor and at genjō.
 
-The two violations generate the error taxonomy in [Theorems.md](Theorems.md). **Collapse**, written `><`, is premature fusion under act-time diagnosis; **freeze**, written `||`, is a useful separation reified as a floor-claim. These are expository operators, not Lean syntax. “There is no time, no being, and no Encounter” is a collapse when offered where a response is occurring. A flowing time-container, substantial Being, stored shō, or self-existing Encounter is the corresponding kind of freeze.
+The two violations generate the error taxonomy in [Theorems.md](Theorems.md). **Collapse**, written `><`, is premature fusion under act-time diagnosis; **freeze**, written `||`, is a useful separation reified as a floor-claim. These are expository operators, not Lean syntax. “There is no time, no being, and no Resonance” is a collapse when offered where a response is occurring. A flowing time-container, substantial Being, stored shō, or self-existing Resonance is the corresponding kind of freeze.
 
 An **utterance** here is not a sentence-shape in isolation. It is content carried by a resonance, with the call it answers and the tier at which it is offered. The taxonomy grades that offer, not the words alone: ordinary narration offered conventionally at act-time is declined as no error; the same words offered as ultimate furniture can freeze, while a denial offered as live diagnosis can collapse. Under another offer, the same words make another utterance; severed from call and tier, they remain quotable but ungradeable. The full scope fence is stated [beneath the taxonomy table](Theorems.md#a-taxonomy-of-error).
 
 ### V2 Summary
 
-The model can now be restated densely without importing unexplained vocabulary. Designata elaborate; shared reach supplies relatedness; two-way coverage links components; adjacent linked components form Mutual Dependences. A Resonance or Encounter is the four-component `calls--{b1}--{b2}--responses` case. A Graded Resonance places independent dis-resonance grades at its calls and responses locations; bottom at both is `IsUngraded`. A Being links the middle receiving/responding designata of one or more Resonances. Direction is supplied as `Before`; Causation adds `Causes`, implies `Before`, and certifies its endpoints with another Mutual Dependence. The act-grammar reads this one structure through mujishō-sōe/genjō, kannō-sōe/banpō susumite, and engi/inga/shu. Shō is its non-attaining floor-face; shushō names the act-time and floor faces together. The taxonomy then asks whether a live distinction was collapsed (`><`) or a useful distinction was frozen (`||`).
+The model can now be restated densely without importing unexplained vocabulary. Designata elaborate; shared reach supplies relatedness; two-way coverage links components; adjacent linked components form Mutual Dependences. A Resonance is the four-component `calls--{b1}--{b2}--responses` case; viewed merely as a Mutual Dependence, it is called an Encounter. A Graded Resonance places independent dis-resonance grades at its calls and responses locations; bottom at both is `IsUngraded`. A Being links the middle receiving/responding designata of one or more Resonances. Direction is supplied as `Before`; Causation adds `Causes`, implies `Before`, and certifies its endpoints with another Mutual Dependence. The act-grammar reads this one structure through mujishō-sōe/genjō, kannō-sōe/banpō susumite, and engi/inga/shu. Shō is its non-attaining floor-face; shushō names the act-time and floor faces together. The taxonomy then asks whether a live distinction was collapsed (`><`) or a useful distinction was frozen (`||`).
 
 ## The rules, each preceded by what motivated it
 
