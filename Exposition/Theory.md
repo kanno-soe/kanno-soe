@@ -211,7 +211,7 @@ The **separate/fuse rule** states how distinctions behave across those tiers. At
 ```text
                          distinction separates      distinction fuses
     act-time diagnosis   A | B   rule obeyed        A >< B  collapse
-    floor / genjō        A || B  freeze              A . B   rule obeyed
+    floor / genjō        A || B  freeze             A . B   rule obeyed
 ```
 
 The two error cells occupy one diagonal; the other diagonal is the rule obeyed. The rule says that distinctions fuse at **genjō** as well, but floor and genjō are not synonyms. *Floor* names the status of claims when no deeper support is asserted. *Genjō* names the manifested case at the provisional middle, where recursive emptying is no longer retained as a scaffold; it was introduced through the empty-dependence/manifestation pair, not through a delusion/realization pair. *Shō* is grading-relative: it names practice's non-attaining floor-face at bottom, against delusive practice at non-bottom. This is why genjō and shō must be distinguished under act-time diagnosis while their distinction itself ceases to separate at the floor and at genjō.
