@@ -191,11 +191,12 @@ The **floor** is not a first moment, a hidden base, or a final substance. It is 
 The shushō reading introduced above is one example:
 
 ```text
-                         one Encounter
+                              one Encounter
 
-    act-time face                                 floor-face
+         act-time face                            floor-face
+
     concrete practice (shu) ---- shushō ---- (shō) no attainment,
-    in receiving/responding                        the being-verified
+    in receiving/responding                  the being-verified
 ```
 
 At a bottom placement, the two readings meet without becoming two formal coordinates. Act-time follows the concrete receiving at `b1` or responding at `b2`; the floor-face reads that same middle without an independently standing receiver or responder. Shu and shō are reciprocal faces of the Encounter at its pole: one name follows the enactment, the other its no-own-being, non-attaining realization. Bottom permits this reading; it does not manufacture or store a realized entity.
