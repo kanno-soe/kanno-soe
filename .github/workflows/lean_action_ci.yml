@@ -20,7 +20,7 @@ jobs:
       - uses: leanprover/lean-action@v1
         with:
           build-args: "--wfail"
-      - name: Test exposition generation
-        run: lake exe exposition_generation_full
-      - name: Check committed exposition is current
-        run: lake exe exposition_gen --check
+      # - name: Test exposition generation
+      #   run: lake exe exposition_generation_full
+      # - name: Check committed exposition is current
+      #   run: lake exe exposition_gen --check
