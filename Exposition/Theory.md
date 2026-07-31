@@ -2,11 +2,11 @@
 
 An axiomatic reconstruction of Zen sayings in an ontology-under-erasure act-grammar.
 
-The project implements a deliberately simplified model for discussing Mahayana Buddhist metaphysics. It is most useful for conditional and independence results: *if* one accepts the model's translation of a claim, a proof can show that the translated claim needs no richer machinery. The conditional matters. Oversimplifying the object proves something about the simplification, not automatically about Buddhism, Nāgārjuna, Jizang, or the world. The account below therefore marks three statuses throughout: **formal V2 structure**, **a manually supplied interpretation**, and **the philosophical act-grammar laid over that structure**.
+The project implements a deliberately simplified model for discussing Mahayana Buddhist metaphysics. It is most useful for conditional and independence results: *if* one accepts the model's translation of a claim, a proof can show that the translated claim needs no richer machinery. The conditional matters. Oversimplifying the object proves something about the simplification, not automatically about Buddhism, Nāgārjuna, Jizang, or the world. The account below therefore marks three statuses throughout: **formal model structure**, **a manually supplied interpretation**, and **the philosophical act-grammar laid over that structure**.
 
 ## The formal core: designata, elaboration, and Mutual Dependence
 
-A **designatum** is simply something the model can designate. V2 does not first divide designata into people, objects, events, thoughts, or times. A **component** is a nonempty group of designata. An **elaboration** is a relation saying that a designatum may be expanded into a raw Mutual Dependence; because it is a relation rather than a function, one designatum may have no stated elaboration, one elaboration, or several alternatives.
+A **designatum** is simply something the model can designate. It does not first divide designata into people, objects, events, thoughts, or times. A **component** is a nonempty group of designata. An **elaboration** is a relation saying that a designatum may be expanded into a raw Mutual Dependence; because it is a relation rather than a function, one designatum may have no stated elaboration, one elaboration, or several alternatives.
 
 Elaboration induces **reach**. A designatum reaches itself, and it reaches anything occurring in any component of one of its elaborations; elaborations of those reached designata may then be followed again. Two designata are **related** when their reach-trees have some designatum in common:
 
@@ -22,7 +22,7 @@ Elaboration induces **reach**. A designatum reaches itself, and it reaches anyth
     Related(a,b)  :=  there is some w reached from both a and b
 ```
 
-This relatedness is reflexive and symmetric, but V2 expressly shows that it need not be transitive. A linkage between two components is stronger than finding one attractive pair: every designatum in the first component must have a related partner in the second, and every designatum in the second must have a related partner in the first.
+This relatedness is reflexive and symmetric, but it need not be transitive. A linkage between two components is stronger than finding one attractive pair: every designatum in the first component must have a related partner in the second, and every designatum in the second must have a related partner in the first.
 
 ```text
     component C                         component D
@@ -45,7 +45,7 @@ A Mutual Dependence is a list of at least two components carrying one such symme
     not required: a temporal order, a causal arrow, or direct C1/Cn linkage
 ```
 
-The chain may be any finite length. It can be sliced and compatible chains can be joined, but the word *chain* must not smuggle in time: these arrows display symmetric linkage, not before and after. This is the minimal formal structure of **Mutual Dependence** (*sōe*) used by V2. Throughout, that structure is read as **mujishō-sōe**: mutual dependence without-own-being (*mujishō*), in which neither side supplies a self-standing substrate for the other.
+The chain may be any finite length. It can be sliced and compatible chains can be joined, but the word *chain* must not smuggle in time: these arrows display symmetric linkage, not before and after. This is the minimal formal structure of **Mutual Dependence** (*sōe*). Throughout, that structure is read as **mujishō-sōe**: mutual dependence without-own-being (*mujishō*), in which neither side supplies a self-standing substrate for the other.
 
 ## Resonance as a Mutual Dependence
 
@@ -55,7 +55,7 @@ A **Resonance** is the following four-component special case of Mutual Dependenc
     calls <--> {b1} <--> {b2} <--> responses
 ```
 
-The intended reading is that `b1` is the receiving view or moment of a being and `b2` is its responding view or moment. Formally, however, `b1` and `b2` are two designata joined in the same certified dependence. V2 does not prove that they are numerically identical, temporally successive, conscious, or personal. The names **calls**, **receiving**, **responding**, and **responses** are role-readings of the shape.
+The intended reading is that `b1` is the receiving view or moment of a being and `b2` is its responding view or moment. Formally, however, `b1` and `b2` are two designata joined in the same certified dependence. The model does not prove that they are numerically identical, temporally successive, conscious, or personal. The names **calls**, **receiving**, **responding**, and **responses** are role-readings of the shape.
 
 An **Encounter** is a Resonance viewed merely as a Mutual Dependence. It retains the concrete `calls--b1--b2--responses` shape while everything about it being a resonance is temporarily forgotten. *Encounter* is an expository alias, not a new Lean type. Every Encounter is a Mutual Dependence; not every Mutual Dependence has the four-component singleton-middle shape needed to be an Encounter.
 
@@ -79,7 +79,7 @@ A **Graded Resonance** adds two independent grades to a Resonance: a calls-side 
     callsGrade and responsesGrade are independent coordinates.
 ```
 
-Thus a stone may be *assigned* bottom on both sides, while a grumpy person who has stubbed a toe may be *assigned* a non-bottom calls grade, a non-bottom responses grade, or both. Those are interpretations supplied to the model; V2 does not infer a grade from stonehood, pain, personality, or behavior. `IsUngraded` means exactly that both grades are bottom. “Ungraded” here therefore means no dis-resonance entered on either side, not absence from the Resonance and not absence of response.
+Thus a stone may be *assigned* bottom on both sides, while a grumpy person who has stubbed a toe may be *assigned* a non-bottom calls grade, a non-bottom responses grade, or both. Those are interpretations supplied to the model; the model itself does not infer a grade from stonehood, pain, personality, or behavior. `IsUngraded` means exactly that both grades are bottom. “Ungraded” here therefore means no dis-resonance entered on either side, not absence from the Resonance and not absence of response.
 
 Grading is sentience-neutral. A sentience reading *could* be supplied as additional information, but it's not inherently required in the model.
 
@@ -109,7 +109,7 @@ That certificate is itself just another Mutual Dependence in a precise and limit
     Causes(x,y)  =>  a Mutual Dependence joins endpoint-components
 ```
 
-Forgetting the causal and temporal overlays leaves the underlying Mutual Dependence; adding the overlays is additional data. Therefore V2 does **not** say that every Mutual Dependence is causal, that symmetric linkage secretly points from cause to effect, or that every `Before` fact is causal. Causation as another Mutual Dependence names the certified dependence-skeleton of a causal claim, not a reduction of causality to symmetry.
+Forgetting the causal and temporal overlays leaves the underlying Mutual Dependence; adding the overlays is additional data. Therefore this does not say that every Mutual Dependence is causal, that symmetric linkage secretly points from cause to effect, or that every `Before` fact is causal. Causation as another Mutual Dependence names the certified dependence-skeleton of a causal claim, not a reduction of causality to symmetry.
 
 Accordingly, **mujishō-sōe** is the dependence-structure retained when either grading or the causal and directional overlays are forgotten.
 
@@ -124,7 +124,7 @@ Accordingly, **mujishō-sōe** is the dependence-structure retained when either 
 
 Remove grades from a Graded Resonance and everything else about it being a resonance and the Mutual Dependence remains. That remainder does not by itself prove a Buddhist metaphysics. The philosophical bridge begins when the act-grammar reads it as **mujishō-sōe**: mutual dependence under the condition of no own-being.
 
-*Mujishō* (無自性) means without self-nature or own-being. V2's certified linkage is a deliberately small formal analogue: neither linked component is entered as the self-standing base of the other. This is an **interpretation of** Mutual Dependence, not a theorem extracted from `Linked`; supplied elaborations can encode many domains, and Lean does not turn a symmetric reach relation into Nāgārjuna by itself.
+*Mujishō* (無自性) means without self-nature or own-being. The model's mutual dependence linkage is a simple formal analogue: neither linked component is entered as the self-standing base of the other. This is an **interpretation of** Mutual Dependence, not a theorem extracted from `Linked`; supplied elaborations can encode many domains, and Lean does not turn a symmetric reach relation into Nāgārjuna by itself.
 
 The interpretive route begins with Nāgārjuna's *MMK* 24.18: what dependently originates is empty of own-being; that emptiness is itself dependently designated; just this is the middle way. Dependence therefore cannot mean relations among already self-subsisting things, while emptiness cannot become a deeper thing beneath them. Applied to the Encounter above, the point is not that `calls`, `b1`, `b2`, and `responses` vanish. It is that none supplies the final bearer of the answering.
 
@@ -177,9 +177,9 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 >
 > — Hakuin Ekaku, *Orategama* I, quoting Dahui Zonggao
 
-The three-row **act-grammar** can now be shown whole. Each row pairs a dependence-reading with an enactment-reading of one Resonance. The last column identifies the V2 structure used for the modelling:
+The three-row **act-grammar** can now be shown whole. Each row pairs a dependence-reading with an enactment-reading of one Resonance.
 
-| Row | Dependence reading | Enactment reading | V2 modelling |
+| Row | Dependence reading | Enactment reading | Modelling |
 |---|---|---|---|
 | 1 | **mujishō-sōe** — Mutual Dependence without own-being | **genjō** — the dependence manifesting as this case | Mutual Dependence |
 | 2 | **kannō-sōe** — responsive resonance placed under dis-resonance grading | **banpō susumite** — the myriad dharmas advancing, the being verified | Graded Resonance |
