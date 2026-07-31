@@ -175,7 +175,7 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 
 > *Practice amid activity is immeasurably superior to practice amid stillness.*
 >
-> — Hakuin Ekaku, *Orategama* I, paraphrasing Dahui Zonggao
+> — Hakuin Ekaku, *Orategama* I, quoting Dahui Zonggao
 
 The three-row **act-grammar** can now be shown whole. Each row pairs a dependence-reading with an enactment-reading of one Resonance. The last column identifies the V2 structure used for the modelling:
 
