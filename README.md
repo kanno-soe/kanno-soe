@@ -1,8 +1,6 @@
 [![Lean Action CI](https://github.com/kanno-soe/kanno-soe/actions/workflows/lean_action_ci.yml/badge.svg)](https://github.com/kanno-soe/kanno-soe/actions/workflows/lean_action_ci.yml)
 
-[Website](https://ksmd-theory.org/)
-
-# Kannō-Sōe Mutual Dependence (KSMD)
+# [Kannō-Sōe Mutual Dependence (KSMD)](https://ksmd-theory.org/)
 
 An axiomatic reconstruction of Zen sayings in an ontology-under-erasure act-grammar.
 
