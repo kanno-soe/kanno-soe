@@ -854,14 +854,6 @@ def le {D : Type u} {Grade : Type v} {PB : PreorderBot Grade}
 
 end GradedResonance
 
-/-! ## 10 Bulls -/
-
-/-
-Nature/Bull 8/Arhat = Some r1, r1 is Ungraded, Being = [r1]
-Nature/Bull 9/Private Buddha = Some <r1, r2>, r1 is Ungraded, r2 is IsUngraded, Being = [r2]
-Bull 10 = Some <r1, r2>, r1 is Ungraded, r2 is graded, Being = [r1]
--/
-
 /-! ## Direction and causality -/
 
 /--
