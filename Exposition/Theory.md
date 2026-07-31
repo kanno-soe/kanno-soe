@@ -11,13 +11,13 @@ A **designatum** is simply something the model can designate. V2 does not first 
 Elaboration induces **reach**. A designatum reaches itself, and it reaches anything occurring in any component of one of its elaborations; elaborations of those reached designata may then be followed again. Two designata are **related** when their reach-trees have some designatum in common:
 
 ```text
-                           +--> p --+
-                          /         |
-    designatum a --elaborates       +--> common witness w
-                          \         |
-                           +--> q --+
+                              +--> p ---->
+                             /
+    designatum a --elaborates
+                             \
+                              +--> q ----> common witness w
 
-    designatum b --elaborates --> r ----> common witness w
+    designatum b --elaborates----> r ----> common witness w
 
     Related(a,b)  :=  there is some w reached from both a and b
 ```
