@@ -132,9 +132,9 @@ Jizang supplies the next turn. In the fourfold two truths, each stated ultimate�
 
 The first row of the act-grammar can now be shown:
 
-| Row | Dependence reading | Enactment reading |
-|---|---|---|
-| 1 | **mujishō-sōe** — Mutual Dependence without own-being | **genjō** — the dependence manifesting as this case |
+| Dependence reading | Enactment reading |
+|---|---|
+| **mujishō-sōe** — Mutual Dependence without own-being | **genjō** — the dependence manifesting as this case |
 
 The **dependence-face** names the relation retained when additions are forgotten; the **enactment-face** names how that relation comes forward as a case. Mujishō-sōe is therefore the dependence-face of Row 1: this Encounter has no self-standing substrate. Genjō is its enactment-face: that empty dependence nevertheless manifests as this call, this receiving, this response. *Provisional* does not mean half-real or merely hypothetical. It says that the case is concrete without being promoted into a final ground. The move from Jizang's recursive discipline to *genjō* is the reconstruction's move into Dōgen's vocabulary, not a claim that Jizang himself supplied this grid.
 
@@ -179,11 +179,11 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 
 The three-row **act-grammar** can now be shown whole. Each row pairs a dependence-reading with an enactment-reading of one Resonance.
 
-| Row | Dependence reading | Enactment reading | Modelling |
-|---|---|---|---|
-| 1 | **mujishō-sōe** — Mutual Dependence without own-being | **genjō** — the dependence manifesting as this case | Mutual Dependence |
-| 2 | **kannō-sōe** — responsive resonance placed under dis-resonance grading | **banpō susumite** — the myriad dharmas advancing, the being verified | Graded Resonance |
-| 3 | **engi / inga** — dependent arising and cause/effect under an added direction | **dōchū no kufū** — practice in the midst of activity | Directed + Causal + Causation |
+| Dependence reading | Enactment reading | Modelling |
+|---|---|---|
+| **mujishō-sōe** — Mutual Dependence without own-being | **genjō** — the dependence manifesting as this case | Mutual Dependence |
+| **kannō-sōe** — responsive resonance placed under dis-resonance grading | **banpō susumite** — the myriad dharmas advancing, the being verified | Graded Resonance |
+| **engi / inga** — dependent arising and cause/effect under an added direction | **dōchū no kufū** — practice in the midst of activity | Directed + Causal + Causation |
 
 Read under the essay's title, the enactment cells pick out three aspects of the quoted passage: genjō is the actualizing of the case, banpō susumite is the dharmas advancing and the self being verified, and shu is the practice-realizing that occurs. These are not three events, three agents, or a chronology from Row 1 to Row 3. Row 1 reads that act as manifestation without substrate; Row 2 reads it as this being's graded receiving and responding; Row 3 reads the doing under direction and causation. Conversely, forgetting Row 3's overlays and Row 2's grades returns the Mutual Dependence with which the formal account began.
 
