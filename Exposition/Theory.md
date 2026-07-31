@@ -36,7 +36,7 @@ This relatedness is reflexive and symmetric, but V2 expressly shows that it need
     Linked(C,D) requires coverage in both directions.
 ```
 
-A raw Mutual Dependence is a list of at least two components carrying one such symmetric linkage. A certified **Mutual Dependence** adds the proof that every adjacent pair is linked:
+A Mutual Dependence is a list of at least two components carrying one such symmetric linkage, where every adjacent pair is linked:
 
 ```text
     C1 <--> C2 <--> C3 <--> ... <--> Cn
