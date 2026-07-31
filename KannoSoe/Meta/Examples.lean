@@ -107,88 +107,164 @@ end BeingAndGrading
 
 namespace GalacticTea
 
-inductive GalacticTeaCase where
-  | bigBang
-  | localTea
-  | remoteTea
+inductive GalacticTeaDesignatum where
+  | bigBangProducingEarth
+  | bigBangProducingVesper
+  | meDrinkingTeaOnEarth
+  | someoneDrinkingTeaOnVesper
   deriving DecidableEq, Repr
 
-open GalacticTeaCase
+open GalacticTeaDesignatum
 
-inductive TeaBefore : GalacticTeaCase → GalacticTeaCase → Prop where
-  | bigBang_local : TeaBefore bigBang localTea
-  | bigBang_remote : TeaBefore bigBang remoteTea
+def bigBang : Component GalacticTeaDesignatum where
+  carrier := fun d =>
+    d = bigBangProducingEarth ∨ d = bigBangProducingVesper
+  nonempty := ⟨bigBangProducingEarth, Or.inl rfl⟩
 
-def teaRank : GalacticTeaCase → Nat
-  | bigBang => 0
-  | localTea => 1
-  | remoteTea => 1
+def earth : Component GalacticTeaDesignatum where
+  carrier := fun d =>
+    d = bigBangProducingEarth ∨ d = meDrinkingTeaOnEarth
+  nonempty := ⟨bigBangProducingEarth, Or.inl rfl⟩
 
-theorem teaBefore_rank_lt {x y : GalacticTeaCase} (h : TeaBefore x y) :
+def vesper : Component GalacticTeaDesignatum where
+  carrier := fun d =>
+    d = bigBangProducingVesper ∨ d = someoneDrinkingTeaOnVesper
+  nonempty := ⟨bigBangProducingVesper, Or.inl rfl⟩
+
+def meDrinkingTea : Component GalacticTeaDesignatum :=
+  Component.singleton meDrinkingTeaOnEarth
+
+def someoneDrinkingTea : Component GalacticTeaDesignatum :=
+  Component.singleton someoneDrinkingTeaOnVesper
+
+def teaLinkage : Linkage GalacticTeaDesignatum where
+  Linked := fun c₁ c₂ => ∃ d, d ∈ c₁ ∧ d ∈ c₂
+  symm := fun ⟨d, hc₁, hc₂⟩ => ⟨d, hc₂, hc₁⟩
+
+theorem meDrinkingTea_earth_linked :
+    teaLinkage.Linked meDrinkingTea earth :=
+  ⟨meDrinkingTeaOnEarth, rfl, Or.inr rfl⟩
+
+theorem earth_bigBang_linked : teaLinkage.Linked earth bigBang :=
+  ⟨bigBangProducingEarth, Or.inl rfl, Or.inl rfl⟩
+
+theorem bigBang_vesper_linked : teaLinkage.Linked bigBang vesper :=
+  ⟨bigBangProducingVesper, Or.inr rfl, Or.inl rfl⟩
+
+theorem vesper_someoneDrinkingTea_linked :
+    teaLinkage.Linked vesper someoneDrinkingTea :=
+  ⟨someoneDrinkingTeaOnVesper, Or.inr rfl, rfl⟩
+
+def galacticTeaDependence : MutualDependence GalacticTeaDesignatum where
+  toRaw :=
+    ⟨teaLinkage, meDrinkingTea, [earth, bigBang, vesper],
+      someoneDrinkingTea⟩
+  holds :=
+    .cons meDrinkingTea_earth_linked
+      (.cons earth_bigBang_linked
+        (.cons bigBang_vesper_linked
+          (.cons vesper_someoneDrinkingTea_linked (.single _))))
+
+theorem galacticTeaDependence_components :
+    galacticTeaDependence.components =
+      [meDrinkingTea, earth, bigBang, vesper, someoneDrinkingTea] :=
+  rfl
+
+def bigBangEarthTeaDependence : MutualDependence GalacticTeaDesignatum :=
+  MutualDependence.triple teaLinkage bigBang earth meDrinkingTea
+    (teaLinkage.symm earth_bigBang_linked)
+    (teaLinkage.symm meDrinkingTea_earth_linked)
+
+def bigBangVesperTeaDependence : MutualDependence GalacticTeaDesignatum :=
+  MutualDependence.triple teaLinkage bigBang vesper someoneDrinkingTea
+    bigBang_vesper_linked vesper_someoneDrinkingTea_linked
+
+inductive TeaBefore :
+    GalacticTeaDesignatum → GalacticTeaDesignatum → Prop where
+  | bigBang_earth :
+      TeaBefore bigBangProducingEarth meDrinkingTeaOnEarth
+  | bigBang_vesper :
+      TeaBefore bigBangProducingVesper someoneDrinkingTeaOnVesper
+
+def teaRank : GalacticTeaDesignatum → Nat
+  | bigBangProducingEarth => 0
+  | bigBangProducingVesper => 0
+  | meDrinkingTeaOnEarth => 1
+  | someoneDrinkingTeaOnVesper => 1
+
+theorem teaBefore_rank_lt {x y : GalacticTeaDesignatum} (h : TeaBefore x y) :
     teaRank x < teaRank y := by
   cases h <;> decide
 
-def teaDirection : Directed GalacticTeaCase :=
+def teaDirection : Directed GalacticTeaDesignatum :=
   Directed.ofBaseRank TeaBefore teaRank teaBefore_rank_lt
 
-def teaLinkage : Linkage GalacticTeaCase where
-  Linked := fun _ _ => True
-  symm := fun _ => trivial
+inductive TeaCauses :
+    GalacticTeaDesignatum → GalacticTeaDesignatum → Prop where
+  | bigBang_earth :
+      TeaCauses bigBangProducingEarth meDrinkingTeaOnEarth
+  | bigBang_vesper :
+      TeaCauses bigBangProducingVesper someoneDrinkingTeaOnVesper
 
-def bigBangLocalDependence : MutualDependence GalacticTeaCase :=
-  MutualDependence.pair teaLinkage
-    (Component.singleton bigBang) (Component.singleton localTea) trivial
-
-def bigBangRemoteDependence : MutualDependence GalacticTeaCase :=
-  MutualDependence.pair teaLinkage
-    (Component.singleton bigBang) (Component.singleton remoteTea) trivial
-
-inductive TeaCauses : GalacticTeaCase → GalacticTeaCase → Prop where
-  | bigBang_local : TeaCauses bigBang localTea
-  | bigBang_remote : TeaCauses bigBang remoteTea
-
-def teaCausal : Causal GalacticTeaCase where
+def teaCausal : Causal GalacticTeaDesignatum where
   toDirected := teaDirection
   Causes := TeaCauses
   causes_before := fun h => by
     cases h with
-    | bigBang_local =>
-        exact Relation.TransGen.single TeaBefore.bigBang_local
-    | bigBang_remote =>
-        exact Relation.TransGen.single TeaBefore.bigBang_remote
+    | bigBang_earth =>
+        exact Relation.TransGen.single TeaBefore.bigBang_earth
+    | bigBang_vesper =>
+        exact Relation.TransGen.single TeaBefore.bigBang_vesper
   certify := fun h => by
     cases h with
-    | bigBang_local =>
-        exact .ofMutualDependence bigBangLocalDependence rfl rfl
-    | bigBang_remote =>
-        exact .ofMutualDependence bigBangRemoteDependence rfl rfl
+    | bigBang_earth =>
+        exact .ofMutualDependence bigBangEarthTeaDependence
+          (Or.inl rfl) rfl
+    | bigBang_vesper =>
+        exact .ofMutualDependence bigBangVesperTeaDependence
+          (Or.inr rfl) rfl
 
-example : Causation GalacticTeaCase bigBang localTea :=
-  teaCausal.certify TeaCauses.bigBang_local
+example : Causation GalacticTeaDesignatum
+    bigBangProducingEarth meDrinkingTeaOnEarth :=
+  teaCausal.certify TeaCauses.bigBang_earth
 
-example : Causation GalacticTeaCase bigBang remoteTea :=
-  teaCausal.certify TeaCauses.bigBang_remote
+example : Causation GalacticTeaDesignatum
+    bigBangProducingVesper someoneDrinkingTeaOnVesper :=
+  teaCausal.certify TeaCauses.bigBang_vesper
 
-theorem localRemote_not_before :
-    ¬ teaDirection.Before localTea remoteTea := by
+theorem earthVesperTea_not_before :
+    ¬ teaDirection.Before
+      meDrinkingTeaOnEarth someoneDrinkingTeaOnVesper := by
   intro h
-  change Relation.TransGen TeaBefore localTea remoteTea at h
+  change Relation.TransGen TeaBefore
+    meDrinkingTeaOnEarth someoneDrinkingTeaOnVesper at h
   exact Nat.lt_irrefl 1
     (Directed.rank_lt_of_transGen
       (base := TeaBefore) (rank := teaRank) teaBefore_rank_lt h)
 
-theorem remoteLocal_not_before :
-    ¬ teaDirection.Before remoteTea localTea := by
+theorem vesperEarthTea_not_before :
+    ¬ teaDirection.Before
+      someoneDrinkingTeaOnVesper meDrinkingTeaOnEarth := by
   intro h
-  change Relation.TransGen TeaBefore remoteTea localTea at h
+  change Relation.TransGen TeaBefore
+    someoneDrinkingTeaOnVesper meDrinkingTeaOnEarth at h
   exact Nat.lt_irrefl 1
     (Directed.rank_lt_of_transGen
       (base := TeaBefore) (rank := teaRank) teaBefore_rank_lt h)
 
-theorem tea_not_before_bigBang :
-    ¬ teaDirection.Before localTea bigBang := by
+theorem earthTea_not_before_bigBang :
+    ¬ teaDirection.Before meDrinkingTeaOnEarth bigBangProducingEarth := by
   apply teaDirection.asymm
-  change Relation.TransGen TeaBefore bigBang localTea
-  exact Relation.TransGen.single TeaBefore.bigBang_local
+  change Relation.TransGen TeaBefore
+    bigBangProducingEarth meDrinkingTeaOnEarth
+  exact Relation.TransGen.single TeaBefore.bigBang_earth
+
+theorem vesperTea_not_before_bigBang :
+    ¬ teaDirection.Before
+      someoneDrinkingTeaOnVesper bigBangProducingVesper := by
+  apply teaDirection.asymm
+  change Relation.TransGen TeaBefore
+    bigBangProducingVesper someoneDrinkingTeaOnVesper
+  exact Relation.TransGen.single TeaBefore.bigBang_vesper
 
 end GalacticTea
