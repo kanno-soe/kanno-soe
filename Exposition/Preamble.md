@@ -11,5 +11,3 @@ The monk said, “If I do not, people will laugh at me.”
 Jingqing said, “You too are a man in the weeds.”
 
 — *Blue Cliff Record*, Case 16, “Jingqing’s Peck and Tap”
-
-*(rendered from the Chinese)*
