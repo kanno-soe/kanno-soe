@@ -116,20 +116,14 @@ inductive GalacticTeaDesignatum where
 
 open GalacticTeaDesignatum
 
-def bigBang : Component GalacticTeaDesignatum where
-  carrier := fun d =>
-    d = bigBangProducingEarth ∨ d = bigBangProducingVesper
-  nonempty := ⟨bigBangProducingEarth, Or.inl rfl⟩
+def bigBang : Component GalacticTeaDesignatum :=
+  Component.pair bigBangProducingEarth bigBangProducingVesper
 
-def earth : Component GalacticTeaDesignatum where
-  carrier := fun d =>
-    d = bigBangProducingEarth ∨ d = meDrinkingTeaOnEarth
-  nonempty := ⟨bigBangProducingEarth, Or.inl rfl⟩
+def earth : Component GalacticTeaDesignatum :=
+  Component.pair bigBangProducingEarth meDrinkingTeaOnEarth
 
-def vesper : Component GalacticTeaDesignatum where
-  carrier := fun d =>
-    d = bigBangProducingVesper ∨ d = someoneDrinkingTeaOnVesper
-  nonempty := ⟨bigBangProducingVesper, Or.inl rfl⟩
+def vesper : Component GalacticTeaDesignatum :=
+  Component.pair bigBangProducingVesper someoneDrinkingTeaOnVesper
 
 def meDrinkingTea : Component GalacticTeaDesignatum :=
   Component.singleton meDrinkingTeaOnEarth
@@ -142,18 +136,18 @@ def teaLinkage : Linkage GalacticTeaDesignatum where
   symm := fun ⟨d, hc₁, hc₂⟩ => ⟨d, hc₂, hc₁⟩
 
 theorem meDrinkingTea_earth_linked :
-    teaLinkage.Linked meDrinkingTea earth :=
-  ⟨meDrinkingTeaOnEarth, rfl, Or.inr rfl⟩
+    teaLinkage.Linked meDrinkingTea earth := by
+  simp [teaLinkage, meDrinkingTea, earth]
 
-theorem earth_bigBang_linked : teaLinkage.Linked earth bigBang :=
-  ⟨bigBangProducingEarth, Or.inl rfl, Or.inl rfl⟩
+theorem earth_bigBang_linked : teaLinkage.Linked earth bigBang := by
+  simp [teaLinkage, earth, bigBang]
 
-theorem bigBang_vesper_linked : teaLinkage.Linked bigBang vesper :=
-  ⟨bigBangProducingVesper, Or.inr rfl, Or.inl rfl⟩
+theorem bigBang_vesper_linked : teaLinkage.Linked bigBang vesper := by
+  simp [teaLinkage, bigBang, vesper]
 
 theorem vesper_someoneDrinkingTea_linked :
-    teaLinkage.Linked vesper someoneDrinkingTea :=
-  ⟨someoneDrinkingTeaOnVesper, Or.inr rfl, rfl⟩
+    teaLinkage.Linked vesper someoneDrinkingTea := by
+  simp [teaLinkage, vesper, someoneDrinkingTea]
 
 def galacticTeaDependence : MutualDependence GalacticTeaDesignatum where
   toRaw :=
@@ -219,10 +213,20 @@ def teaCausal : Causal GalacticTeaDesignatum where
     cases h with
     | bigBang_earth =>
         exact .ofMutualDependence bigBangEarthTeaDependence
-          (Or.inl rfl) rfl
+          (by
+            change bigBangProducingEarth ∈ bigBang
+            simp [bigBang])
+          (by
+            change meDrinkingTeaOnEarth ∈ meDrinkingTea
+            simp [meDrinkingTea])
     | bigBang_vesper =>
         exact .ofMutualDependence bigBangVesperTeaDependence
-          (Or.inr rfl) rfl
+          (by
+            change bigBangProducingVesper ∈ bigBang
+            simp [bigBang])
+          (by
+            change someoneDrinkingTeaOnVesper ∈ someoneDrinkingTea
+            simp [someoneDrinkingTea])
 
 example : Causation GalacticTeaDesignatum
     bigBangProducingEarth meDrinkingTeaOnEarth :=

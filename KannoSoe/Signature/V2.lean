@@ -32,13 +32,32 @@ instance {D : Type u} : CoeFun (Component D) (fun _ => D → Prop) :=
 
 namespace Component
 
-def singleton {D : Type u} (d : D) : Component D where
-  carrier := fun x => x = d
-  nonempty := ⟨d, rfl⟩
+def ofDesignata {D : Type u} (designata : List D)
+    (nonempty : designata ≠ []) : Component D where
+  carrier := fun d => d ∈ designata
+  nonempty := by
+    cases designata with
+    | nil => exact (nonempty rfl).elim
+    | cons d rest => exact ⟨d, by simp⟩
+
+@[simp] theorem mem_ofDesignata_iff {D : Type u} {designata : List D}
+    {nonempty : designata ≠ []} {d : D} :
+    d ∈ ofDesignata designata nonempty ↔ d ∈ designata :=
+  Iff.rfl
+
+def singleton {D : Type u} (d : D) : Component D :=
+  ofDesignata [d] (by simp)
 
 @[simp] theorem mem_singleton_iff {D : Type u} {d x : D} :
-    x ∈ singleton d ↔ x = d :=
-  Iff.rfl
+    x ∈ singleton d ↔ x = d := by
+  simp [singleton]
+
+def pair {D : Type u} (d₁ d₂ : D) : Component D :=
+  ofDesignata [d₁, d₂] (by simp)
+
+@[simp] theorem mem_pair_iff {D : Type u} {d₁ d₂ x : D} :
+    x ∈ pair d₁ d₂ ↔ x = d₁ ∨ x = d₂ := by
+  simp [pair]
 
 theorem exists_mem {D : Type u} (a : Component D) : ∃ d, d ∈ a :=
   a.nonempty
@@ -428,10 +447,10 @@ theorem Related.not_transitive :
   intro htrans
   have hba : E.Reaches .b .a :=
     Reaches.single (rawM := m) (a := Component.singleton .a)
-      ⟨rfl, rfl⟩ (by simp [m]) rfl
+      ⟨rfl, rfl⟩ (by simp [m]) (by simp)
   have hbc : E.Reaches .b .c :=
     Reaches.single (rawM := m) (a := Component.singleton .c)
-      ⟨rfl, rfl⟩ (by simp [m]) rfl
+      ⟨rfl, rfl⟩ (by simp [m]) (by simp)
   have hab : E.Related .a .b :=
     ⟨RelatedNotTransitiveCase.a,
       Reaches.refl RelatedNotTransitiveCase.a, hba⟩
@@ -469,18 +488,18 @@ theorem Linked.symm {D : Type u} {E : Elaboration D}
       E.Related a b := by
   constructor
   · intro h
-    obtain ⟨b', hb', hr⟩ := h.1 a rfl
-    have hb : b' = b := hb'
+    obtain ⟨b', hb', hr⟩ := h.1 a (by simp)
+    have hb : b' = b := by simpa using hb'
     subst hb
     exact hr
   · intro h
     refine ⟨fun a' ha' => ?_, fun b' hb' => ?_⟩
-    · have ha : a' = a := ha'
+    · have ha : a' = a := by simpa using ha'
       subst ha
-      exact ⟨b, rfl, h⟩
-    · have hb : b' = b := hb'
+      exact ⟨b, by simp, h⟩
+    · have hb : b' = b := by simpa using hb'
       subst hb
-      exact ⟨a, rfl, h⟩
+      exact ⟨a, by simp, h⟩
 
 end Elaboration
 
