@@ -511,49 +511,131 @@ private inductive RelatedNotTransitiveCase where
   | a
   | b
   | c
+  | moreA
+  | abWitness
+  | moreB
+  | bcWitness
+  | moreC
   deriving DecidableEq
 
-/-- `Related` is not transitive: `b` elaborates to the raw dependence
-`[{a}, {c}]`, so `b` reaches both `a` and `c`, yet `a` and `c` share no
-common witness. The raw dependence carries the genuine derived linkage
-`Linkage.ofElaboration E`. Its `Holds` is necessarily false — by
-`holds_pair_iff` and `linked_singleton_iff` it reduces to exactly the
-`E.Related a c` being refuted — which is inherent to any such
-counterexample; `Reaches` and `Related` never consult `Holds`. -/
+/-- A certified mutual dependence can exhibit the failure of transitivity of
+`Related`. Here `a` and `b` share `abWitness`, while `b` and `c` share the
+distinct `bcWitness`; the reachable sets of `a` and `c` are disjoint. Thus the
+singleton triple `[{a}, {b}, {c}]` genuinely holds under
+`Linkage.ofElaboration E`, although its endpoint designata are not related. -/
+theorem Related.exists_nontransitive_mutualDependence :
+    ∃ (D : Type) (E : Elaboration D) (a b c : D)
+        (m : MutualDependence D),
+      m.linkage = Linkage.ofElaboration E ∧
+        m.components =
+          [Component.singleton a, Component.singleton b,
+            Component.singleton c] ∧
+        E.Related a b ∧ E.Related b c ∧ ¬ E.Related a c := by
+  let E : Elaboration RelatedNotTransitiveCase :=
+    ⟨fun d rawM =>
+      (d = .a ∧
+        rawM.components =
+          [Component.singleton .moreA,
+            Component.singleton .abWitness]) ∨
+      (d = .b ∧
+        rawM.components =
+          [Component.singleton .abWitness,
+            Component.singleton .moreB,
+            Component.singleton .bcWitness]) ∨
+      (d = .c ∧
+        rawM.components =
+          [Component.singleton .bcWitness,
+            Component.singleton .moreC])⟩
+  let mA : RawMutualDependence RelatedNotTransitiveCase :=
+    .pair E (Component.singleton .moreA)
+      (Component.singleton .abWitness)
+  let mB : RawMutualDependence RelatedNotTransitiveCase :=
+    .triple E (Component.singleton .abWitness)
+      (Component.singleton .moreB) (Component.singleton .bcWitness)
+  let mC : RawMutualDependence RelatedNotTransitiveCase :=
+    .pair E (Component.singleton .bcWitness)
+      (Component.singleton .moreC)
+  have hEa : E.Elab .a mA := by
+    simp [E, mA]
+  have hEb : E.Elab .b mB := by
+    simp [E, mB]
+  have hEc : E.Elab .c mC := by
+    simp [E, mC]
+  have haab : E.Reaches .a .abWitness :=
+    Reaches.single (rawM := mA) (a := Component.singleton .abWitness)
+      hEa (by simp [mA]) (by simp)
+  have hbab : E.Reaches .b .abWitness :=
+    Reaches.single (rawM := mB) (a := Component.singleton .abWitness)
+      hEb (by simp [mB]) (by simp)
+  have hbbc : E.Reaches .b .bcWitness :=
+    Reaches.single (rawM := mB) (a := Component.singleton .bcWitness)
+      hEb (by simp [mB]) (by simp)
+  have hcbc : E.Reaches .c .bcWitness :=
+    Reaches.single (rawM := mC) (a := Component.singleton .bcWitness)
+      hEc (by simp [mC]) (by simp)
+  have hab : E.Related .a .b :=
+    ⟨RelatedNotTransitiveCase.abWitness, haab, hbab⟩
+  have hbc' : E.Related .b .c :=
+    ⟨RelatedNotTransitiveCase.bcWitness, hbbc, hcbc⟩
+  have reachesA {w : RelatedNotTransitiveCase} (h : E.Reaches .a w) :
+      w = .a ∨ w = .moreA ∨ w = .abWitness := by
+    cases h with
+    | refl _ => simp
+    | step hE hcomponent he htail =>
+        simp [E] at hE
+        simp [hE] at hcomponent
+        rcases hcomponent with rfl | rfl
+        · simp at he
+          cases he
+          cases htail with
+          | refl _ => simp
+          | step hE' _ _ _ => simp [E] at hE'
+        · simp at he
+          cases he
+          cases htail with
+          | refl _ => simp
+          | step hE' _ _ _ => simp [E] at hE'
+  have reachesC {w : RelatedNotTransitiveCase} (h : E.Reaches .c w) :
+      w = .c ∨ w = .bcWitness ∨ w = .moreC := by
+    cases h with
+    | refl _ => simp
+    | step hE hcomponent he htail =>
+        simp [E] at hE
+        simp [hE] at hcomponent
+        rcases hcomponent with rfl | rfl
+        · simp at he
+          cases he
+          cases htail with
+          | refl _ => simp
+          | step hE' _ _ _ => simp [E] at hE'
+        · simp at he
+          cases he
+          cases htail with
+          | refl _ => simp
+          | step hE' _ _ _ => simp [E] at hE'
+  have hnac : ¬ E.Related .a .c := by
+    rintro ⟨w, haw, hcw⟩
+    rcases reachesA haw with hwa | hwa | hwa <;>
+      rcases reachesC hcw with hwc | hwc | hwc <;>
+      simp_all
+  let m : MutualDependence RelatedNotTransitiveCase :=
+    MutualDependence.triple E
+      (Component.singleton .a) (Component.singleton .b)
+      (Component.singleton .c)
+      (linked_singleton_iff.mpr hab) (linked_singleton_iff.mpr hbc')
+  exact ⟨RelatedNotTransitiveCase, E, .a, .b, .c, m,
+    rfl, rfl, hab, hbc', hnac⟩
+
+/-- `Related` is not transitive, even among the components of a certified
+mutual dependence carrying the linkage derived from its elaboration. -/
 theorem Related.not_transitive :
     ∃ (D : Type) (E : Elaboration D),
       ¬ ∀ ⦃a b c⦄, E.Related a b → E.Related b c → E.Related a c := by
-  let E : Elaboration RelatedNotTransitiveCase :=
-    ⟨fun d rawM => d = .b ∧
-      rawM.components =
-        [Component.singleton .a, Component.singleton .c]⟩
-  let m : RawMutualDependence RelatedNotTransitiveCase :=
-    .pair E (Component.singleton .a) (Component.singleton .c)
-  refine ⟨RelatedNotTransitiveCase, E, ?_⟩
+  obtain ⟨D, E, _, _, _, _, _, _, hab, hbc, hnac⟩ :=
+    Related.exists_nontransitive_mutualDependence
+  refine ⟨D, E, ?_⟩
   intro htrans
-  have hEb : E.Elab .b m := ⟨rfl, by simp [m]⟩
-  have hba : E.Reaches .b .a :=
-    Reaches.single (rawM := m) (a := Component.singleton .a)
-      hEb (by simp [m]) (by simp)
-  have hbc : E.Reaches .b .c :=
-    Reaches.single (rawM := m) (a := Component.singleton .c)
-      hEb (by simp [m]) (by simp)
-  have hab : E.Related .a .b :=
-    ⟨RelatedNotTransitiveCase.a,
-      Reaches.refl RelatedNotTransitiveCase.a, hba⟩
-  have hbc' : E.Related .b .c :=
-    ⟨RelatedNotTransitiveCase.c, hbc,
-      Reaches.refl RelatedNotTransitiveCase.c⟩
-  obtain ⟨w, haw, hcw⟩ := htrans hab hbc'
-  have hwa : w = .a := by
-    cases haw with
-    | refl _ => rfl
-    | step hE _ _ _ => simp [E] at hE
-  have hwc : w = .c := by
-    cases hcw with
-    | refl _ => rfl
-    | step hE _ _ _ => simp [E] at hE
-  exact (by decide : RelatedNotTransitiveCase.a ≠ .c) (hwa.symm.trans hwc)
+  exact hnac (htrans hab hbc)
 
 end Elaboration
 
