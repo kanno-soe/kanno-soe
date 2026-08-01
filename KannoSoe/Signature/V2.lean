@@ -427,6 +427,14 @@ theorem Related.symm {D : Type u} {E : Elaboration D} {a b : D}
   obtain ⟨w, ha, hb⟩ := h
   exact ⟨w, hb, ha⟩
 
+theorem Reaches.related {D : Type u} {E : Elaboration D} {a b : D}
+    (h : E.Reaches a b) : E.Related a b :=
+  ⟨b, h, Reaches.refl b⟩
+
+theorem Reaches.related_symm {D : Type u} {E : Elaboration D} {a b : D}
+    (h : E.Reaches a b) : E.Related b a :=
+  h.related.symm
+
 private inductive RelatedNotTransitiveCase where
   | a
   | b

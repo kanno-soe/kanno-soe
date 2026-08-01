@@ -108,50 +108,209 @@ end BeingAndGrading
 namespace GalacticTea
 
 inductive GalacticTeaDesignatum where
+  | bigBang
+  | earth
+  | vesper
+  | meDrinkingTea
+  | someoneDrinkingTea
   | bigBangProducingEarth
+  | moreBigBang
   | bigBangProducingVesper
+  | moreEarth
+  | meOnEarth
   | meDrinkingTeaOnEarth
+  | moreVesper
+  | someoneOnVesper
   | someoneDrinkingTeaOnVesper
   deriving DecidableEq, Repr
 
 open GalacticTeaDesignatum
 
 def bigBang : Component GalacticTeaDesignatum :=
-  Component.pair bigBangProducingEarth bigBangProducingVesper
+  Component.singleton GalacticTeaDesignatum.bigBang
 
 def earth : Component GalacticTeaDesignatum :=
-  Component.pair bigBangProducingEarth meDrinkingTeaOnEarth
+  Component.singleton GalacticTeaDesignatum.earth
 
 def vesper : Component GalacticTeaDesignatum :=
-  Component.pair bigBangProducingVesper someoneDrinkingTeaOnVesper
+  Component.singleton GalacticTeaDesignatum.vesper
 
 def meDrinkingTea : Component GalacticTeaDesignatum :=
-  Component.singleton meDrinkingTeaOnEarth
+  Component.singleton GalacticTeaDesignatum.meDrinkingTea
 
 def someoneDrinkingTea : Component GalacticTeaDesignatum :=
-  Component.singleton someoneDrinkingTeaOnVesper
+  Component.singleton GalacticTeaDesignatum.someoneDrinkingTea
 
-def teaLinkage : Linkage GalacticTeaDesignatum where
-  Linked := fun c₁ c₂ => ∃ d, d ∈ c₁ ∧ d ∈ c₂
-  symm := fun ⟨d, hc₁, hc₂⟩ => ⟨d, hc₂, hc₁⟩
+theorem bigBang_designatum_mem :
+    GalacticTeaDesignatum.bigBang ∈ bigBang := by
+  simp [bigBang]
 
-theorem meDrinkingTea_earth_linked :
-    teaLinkage.Linked meDrinkingTea earth := by
-  simp [teaLinkage, meDrinkingTea, earth]
+theorem meDrinkingTea_designatum_mem :
+    GalacticTeaDesignatum.meDrinkingTea ∈ meDrinkingTea := by
+  simp [meDrinkingTea]
 
-theorem earth_bigBang_linked : teaLinkage.Linked earth bigBang := by
-  simp [teaLinkage, earth, bigBang]
+theorem someoneDrinkingTea_designatum_mem :
+    GalacticTeaDesignatum.someoneDrinkingTea ∈ someoneDrinkingTea := by
+  simp [someoneDrinkingTea]
 
-theorem bigBang_vesper_linked : teaLinkage.Linked bigBang vesper := by
-  simp [teaLinkage, bigBang, vesper]
+def teaElaboration : Elaboration GalacticTeaDesignatum where
+  Elab d rawM :=
+    (d = GalacticTeaDesignatum.bigBang ∧
+        rawM.components =
+          [Component.singleton bigBangProducingVesper,
+            Component.singleton moreBigBang,
+            Component.singleton bigBangProducingEarth]) ∨
+      (d = GalacticTeaDesignatum.earth ∧
+        rawM.components =
+          [Component.singleton bigBangProducingEarth,
+            Component.singleton moreEarth,
+            Component.singleton meOnEarth]) ∨
+      (d = GalacticTeaDesignatum.vesper ∧
+        rawM.components =
+          [Component.singleton bigBangProducingVesper,
+            Component.singleton moreVesper,
+            Component.singleton someoneOnVesper]) ∨
+      (d = GalacticTeaDesignatum.meDrinkingTea ∧
+        rawM.components =
+          [Component.singleton meOnEarth,
+            Component.singleton meDrinkingTeaOnEarth]) ∨
+      (d = GalacticTeaDesignatum.someoneDrinkingTea ∧
+        rawM.components =
+          [Component.singleton someoneOnVesper,
+            Component.singleton someoneDrinkingTeaOnVesper])
+
+def bigBangElaborationTarget :
+    RawMutualDependence GalacticTeaDesignatum :=
+  RawMutualDependence.triple teaElaboration
+    (Component.singleton bigBangProducingVesper)
+    (Component.singleton moreBigBang)
+    (Component.singleton bigBangProducingEarth)
+
+def earthElaborationTarget : RawMutualDependence GalacticTeaDesignatum :=
+  RawMutualDependence.triple teaElaboration
+    (Component.singleton bigBangProducingEarth)
+    (Component.singleton moreEarth)
+    (Component.singleton meOnEarth)
+
+def vesperElaborationTarget : RawMutualDependence GalacticTeaDesignatum :=
+  RawMutualDependence.triple teaElaboration
+    (Component.singleton bigBangProducingVesper)
+    (Component.singleton moreVesper)
+    (Component.singleton someoneOnVesper)
+
+def meDrinkingTeaElaborationTarget :
+    RawMutualDependence GalacticTeaDesignatum :=
+  RawMutualDependence.pair teaElaboration
+    (Component.singleton meOnEarth)
+    (Component.singleton meDrinkingTeaOnEarth)
+
+def someoneDrinkingTeaElaborationTarget :
+    RawMutualDependence GalacticTeaDesignatum :=
+  RawMutualDependence.pair teaElaboration
+    (Component.singleton someoneOnVesper)
+    (Component.singleton someoneDrinkingTeaOnVesper)
+
+theorem bigBang_elaborates :
+    teaElaboration.Elab
+      GalacticTeaDesignatum.bigBang bigBangElaborationTarget := by
+  simp [teaElaboration, bigBangElaborationTarget]
+
+theorem earth_elaborates :
+    teaElaboration.Elab
+      GalacticTeaDesignatum.earth earthElaborationTarget := by
+  simp [teaElaboration, earthElaborationTarget]
+
+theorem vesper_elaborates :
+    teaElaboration.Elab
+      GalacticTeaDesignatum.vesper vesperElaborationTarget := by
+  simp [teaElaboration, vesperElaborationTarget]
+
+theorem meDrinkingTea_elaborates :
+    teaElaboration.Elab GalacticTeaDesignatum.meDrinkingTea
+      meDrinkingTeaElaborationTarget := by
+  simp [teaElaboration, meDrinkingTeaElaborationTarget]
+
+theorem someoneDrinkingTea_elaborates :
+    teaElaboration.Elab GalacticTeaDesignatum.someoneDrinkingTea
+      someoneDrinkingTeaElaborationTarget := by
+  simp [teaElaboration, someoneDrinkingTeaElaborationTarget]
+
+theorem bigBang_vesper_related :
+    teaElaboration.Related
+      GalacticTeaDesignatum.bigBang GalacticTeaDesignatum.vesper :=
+  ⟨bigBangProducingVesper,
+    Elaboration.Reaches.single bigBang_elaborates
+      (rawM := bigBangElaborationTarget)
+      (a := Component.singleton bigBangProducingVesper)
+      (by simp [bigBangElaborationTarget]) (by simp),
+    Elaboration.Reaches.single vesper_elaborates
+      (rawM := vesperElaborationTarget)
+      (a := Component.singleton bigBangProducingVesper)
+      (by simp [vesperElaborationTarget]) (by simp)⟩
+
+theorem earth_bigBang_related :
+    teaElaboration.Related
+      GalacticTeaDesignatum.earth GalacticTeaDesignatum.bigBang :=
+  ⟨bigBangProducingEarth,
+    Elaboration.Reaches.single earth_elaborates
+      (rawM := earthElaborationTarget)
+      (a := Component.singleton bigBangProducingEarth)
+      (by simp [earthElaborationTarget]) (by simp),
+    Elaboration.Reaches.single bigBang_elaborates
+      (rawM := bigBangElaborationTarget)
+      (a := Component.singleton bigBangProducingEarth)
+      (by simp [bigBangElaborationTarget]) (by simp)⟩
+
+theorem vesper_someoneDrinkingTea_related :
+    teaElaboration.Related
+      GalacticTeaDesignatum.vesper
+        GalacticTeaDesignatum.someoneDrinkingTea :=
+  ⟨someoneOnVesper,
+    Elaboration.Reaches.single vesper_elaborates
+      (rawM := vesperElaborationTarget)
+      (a := Component.singleton someoneOnVesper)
+      (by simp [vesperElaborationTarget]) (by simp),
+    Elaboration.Reaches.single someoneDrinkingTea_elaborates
+      (rawM := someoneDrinkingTeaElaborationTarget)
+      (a := Component.singleton someoneOnVesper)
+      (by simp [someoneDrinkingTeaElaborationTarget]) (by simp)⟩
+
+theorem meDrinkingTea_earth_related :
+    teaElaboration.Related
+      GalacticTeaDesignatum.meDrinkingTea GalacticTeaDesignatum.earth :=
+  ⟨meOnEarth,
+    Elaboration.Reaches.single meDrinkingTea_elaborates
+      (rawM := meDrinkingTeaElaborationTarget)
+      (a := Component.singleton meOnEarth)
+      (by simp [meDrinkingTeaElaborationTarget]) (by simp),
+    Elaboration.Reaches.single earth_elaborates
+      (rawM := earthElaborationTarget)
+      (a := Component.singleton meOnEarth)
+      (by simp [earthElaborationTarget]) (by simp)⟩
+
+attribute [local simp] Elaboration.Related.refl
+  bigBang_vesper_related earth_bigBang_related
+  vesper_someoneDrinkingTea_related meDrinkingTea_earth_related
+
+theorem bigBang_vesper_linked :
+    teaElaboration.Linked bigBang vesper := by
+  simp [Elaboration.Linked, bigBang, vesper]
+
+theorem earth_bigBang_linked :
+    teaElaboration.Linked earth bigBang := by
+  simp [Elaboration.Linked, earth, bigBang]
 
 theorem vesper_someoneDrinkingTea_linked :
-    teaLinkage.Linked vesper someoneDrinkingTea := by
-  simp [teaLinkage, vesper, someoneDrinkingTea]
+    teaElaboration.Linked vesper someoneDrinkingTea := by
+  simp [Elaboration.Linked, vesper, someoneDrinkingTea]
+
+theorem meDrinkingTea_earth_linked :
+    teaElaboration.Linked meDrinkingTea earth := by
+  simp [Elaboration.Linked, meDrinkingTea, earth]
 
 def galacticTeaDependence : MutualDependence GalacticTeaDesignatum where
   toRaw :=
-    ⟨teaLinkage, meDrinkingTea, [earth, bigBang, vesper],
+    ⟨teaElaboration, meDrinkingTea, [earth, bigBang, vesper],
       someoneDrinkingTea⟩
   holds :=
     .cons meDrinkingTea_earth_linked
@@ -164,27 +323,38 @@ theorem galacticTeaDependence_components :
       [meDrinkingTea, earth, bigBang, vesper, someoneDrinkingTea] :=
   rfl
 
-def bigBangEarthTeaDependence : MutualDependence GalacticTeaDesignatum :=
-  MutualDependence.triple teaLinkage bigBang earth meDrinkingTea
-    (teaLinkage.symm earth_bigBang_linked)
-    (teaLinkage.symm meDrinkingTea_earth_linked)
-
 def bigBangVesperTeaDependence : MutualDependence GalacticTeaDesignatum :=
-  MutualDependence.triple teaLinkage bigBang vesper someoneDrinkingTea
+  MutualDependence.triple teaElaboration bigBang vesper someoneDrinkingTea
     bigBang_vesper_linked vesper_someoneDrinkingTea_linked
+
+def bigBangEarthTeaDependence : MutualDependence GalacticTeaDesignatum :=
+  MutualDependence.triple teaElaboration bigBang earth meDrinkingTea
+    earth_bigBang_linked.symm meDrinkingTea_earth_linked.symm
 
 inductive TeaBefore :
     GalacticTeaDesignatum → GalacticTeaDesignatum → Prop where
-  | bigBang_earth :
-      TeaBefore bigBangProducingEarth meDrinkingTeaOnEarth
   | bigBang_vesper :
-      TeaBefore bigBangProducingVesper someoneDrinkingTeaOnVesper
+      TeaBefore GalacticTeaDesignatum.bigBang
+        GalacticTeaDesignatum.someoneDrinkingTea
+  | bigBang_earth :
+      TeaBefore GalacticTeaDesignatum.bigBang
+        GalacticTeaDesignatum.meDrinkingTea
 
 def teaRank : GalacticTeaDesignatum → Nat
-  | bigBangProducingEarth => 0
+  | .bigBang => 0
+  | .vesper => 0
+  | .earth => 0
+  | .someoneDrinkingTea => 1
+  | .meDrinkingTea => 1
   | bigBangProducingVesper => 0
-  | meDrinkingTeaOnEarth => 1
+  | moreBigBang => 0
+  | bigBangProducingEarth => 0
+  | moreVesper => 0
+  | someoneOnVesper => 1
   | someoneDrinkingTeaOnVesper => 1
+  | moreEarth => 0
+  | meOnEarth => 1
+  | meDrinkingTeaOnEarth => 1
 
 theorem teaBefore_rank_lt {x y : GalacticTeaDesignatum} (h : TeaBefore x y) :
     teaRank x < teaRank y := by
@@ -195,80 +365,80 @@ def teaDirection : Directed GalacticTeaDesignatum :=
 
 inductive TeaCauses :
     GalacticTeaDesignatum → GalacticTeaDesignatum → Prop where
-  | bigBang_earth :
-      TeaCauses bigBangProducingEarth meDrinkingTeaOnEarth
   | bigBang_vesper :
-      TeaCauses bigBangProducingVesper someoneDrinkingTeaOnVesper
+      TeaCauses GalacticTeaDesignatum.bigBang
+        GalacticTeaDesignatum.someoneDrinkingTea
+  | bigBang_earth :
+      TeaCauses GalacticTeaDesignatum.bigBang
+        GalacticTeaDesignatum.meDrinkingTea
 
 def teaCausal : Causal GalacticTeaDesignatum where
   toDirected := teaDirection
   Causes := TeaCauses
   causes_before := fun h => by
     cases h with
-    | bigBang_earth =>
-        exact Relation.TransGen.single TeaBefore.bigBang_earth
     | bigBang_vesper =>
         exact Relation.TransGen.single TeaBefore.bigBang_vesper
+    | bigBang_earth =>
+        exact Relation.TransGen.single TeaBefore.bigBang_earth
   certify := fun h => by
     cases h with
-    | bigBang_earth =>
-        exact .ofMutualDependence bigBangEarthTeaDependence
-          (by
-            change bigBangProducingEarth ∈ bigBang
-            simp [bigBang])
-          (by
-            change meDrinkingTeaOnEarth ∈ meDrinkingTea
-            simp [meDrinkingTea])
     | bigBang_vesper =>
         exact .ofMutualDependence bigBangVesperTeaDependence
-          (by
-            change bigBangProducingVesper ∈ bigBang
-            simp [bigBang])
-          (by
-            change someoneDrinkingTeaOnVesper ∈ someoneDrinkingTea
-            simp [someoneDrinkingTea])
+          bigBang_designatum_mem someoneDrinkingTea_designatum_mem
+    | bigBang_earth =>
+        exact .ofMutualDependence bigBangEarthTeaDependence
+          bigBang_designatum_mem meDrinkingTea_designatum_mem
 
 example : Causation GalacticTeaDesignatum
-    bigBangProducingEarth meDrinkingTeaOnEarth :=
-  teaCausal.certify TeaCauses.bigBang_earth
-
-example : Causation GalacticTeaDesignatum
-    bigBangProducingVesper someoneDrinkingTeaOnVesper :=
+    GalacticTeaDesignatum.bigBang
+      GalacticTeaDesignatum.someoneDrinkingTea :=
   teaCausal.certify TeaCauses.bigBang_vesper
 
-theorem earthVesperTea_not_before :
-    ¬ teaDirection.Before
-      meDrinkingTeaOnEarth someoneDrinkingTeaOnVesper := by
-  intro h
-  change Relation.TransGen TeaBefore
-    meDrinkingTeaOnEarth someoneDrinkingTeaOnVesper at h
-  exact Nat.lt_irrefl 1
-    (Directed.rank_lt_of_transGen
-      (base := TeaBefore) (rank := teaRank) teaBefore_rank_lt h)
+example : Causation GalacticTeaDesignatum
+    GalacticTeaDesignatum.bigBang GalacticTeaDesignatum.meDrinkingTea :=
+  teaCausal.certify TeaCauses.bigBang_earth
 
 theorem vesperEarthTea_not_before :
     ¬ teaDirection.Before
-      someoneDrinkingTeaOnVesper meDrinkingTeaOnEarth := by
+      GalacticTeaDesignatum.someoneDrinkingTea
+        GalacticTeaDesignatum.meDrinkingTea := by
   intro h
   change Relation.TransGen TeaBefore
-    someoneDrinkingTeaOnVesper meDrinkingTeaOnEarth at h
+    GalacticTeaDesignatum.someoneDrinkingTea
+      GalacticTeaDesignatum.meDrinkingTea at h
   exact Nat.lt_irrefl 1
     (Directed.rank_lt_of_transGen
       (base := TeaBefore) (rank := teaRank) teaBefore_rank_lt h)
 
-theorem earthTea_not_before_bigBang :
-    ¬ teaDirection.Before meDrinkingTeaOnEarth bigBangProducingEarth := by
-  apply teaDirection.asymm
+theorem earthVesperTea_not_before :
+    ¬ teaDirection.Before
+      GalacticTeaDesignatum.meDrinkingTea
+        GalacticTeaDesignatum.someoneDrinkingTea := by
+  intro h
   change Relation.TransGen TeaBefore
-    bigBangProducingEarth meDrinkingTeaOnEarth
-  exact Relation.TransGen.single TeaBefore.bigBang_earth
+    GalacticTeaDesignatum.meDrinkingTea
+      GalacticTeaDesignatum.someoneDrinkingTea at h
+  exact Nat.lt_irrefl 1
+    (Directed.rank_lt_of_transGen
+      (base := TeaBefore) (rank := teaRank) teaBefore_rank_lt h)
 
 theorem vesperTea_not_before_bigBang :
     ¬ teaDirection.Before
-      someoneDrinkingTeaOnVesper bigBangProducingVesper := by
+      GalacticTeaDesignatum.someoneDrinkingTea
+        GalacticTeaDesignatum.bigBang := by
   apply teaDirection.asymm
   change Relation.TransGen TeaBefore
-    bigBangProducingVesper someoneDrinkingTeaOnVesper
+    GalacticTeaDesignatum.bigBang
+      GalacticTeaDesignatum.someoneDrinkingTea
   exact Relation.TransGen.single TeaBefore.bigBang_vesper
+
+theorem earthTea_not_before_bigBang :
+    ¬ teaDirection.Before GalacticTeaDesignatum.meDrinkingTea
+      GalacticTeaDesignatum.bigBang := by
+  apply teaDirection.asymm
+  change Relation.TransGen TeaBefore
+    GalacticTeaDesignatum.bigBang GalacticTeaDesignatum.meDrinkingTea
+  exact Relation.TransGen.single TeaBefore.bigBang_earth
 
 end GalacticTea
