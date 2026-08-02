@@ -307,78 +307,251 @@ The taxonomy is not a map of places on a path. Immunity is checked per productio
 
 ## From mutual dependence to interpenetration
 
-The diagrams below give a supplied philosophical closure-reading of Mutual Dependence: any stated dependence may be expanded at either end, and any dependence-whole may itself be designated as one. The priming and conservativity results named below are formal model structure; reading their fresh designatum as a “web” with “all in each / each in all” is manually supplied interpretation; aligning the base and primed systems with act-time and floor-face is the philosophical act-grammar. Lean does not prove either reading. One or more letters written together name a single designatum. In these diagrams, a designatum-expression occupying a component-position abbreviates the singleton component containing it; thus `a <--> bc` abbreviates `{a} <--> {bc}`. The symbol `<-->` marks Mutual Dependence, `[ ... ]` marks the enclosed dependence designated as one designatum, and `===` marks equivalent articulation by designation rather than numerical identity, time, or causation.
+This section has two layers. Lean proves facts about reachability, common
+witnesses, fresh designata, and conservative extensions. The exposition then
+supplies a philosophical reading of that structure as a dependence-web, and
+aligns the base and primed systems with act-time and floor-face. Lean does not
+prove that reading or the identification with Huayan.
 
-Any chosen dependence can be expanded at either end:
+The diagrams use the following shorthand:
 
-```text
-    chosen segment               n <--> o
-    expand left           m <--> n <--> o
-    expand right                 n <--> o <--> p
-    expand both  ... <--> m <--> n <--> o <--> p <--> ...
+- `a <--> b` displays Mutual Dependence between singleton components. At a
+  singleton join, certification reduces to `a Related b`; `<-->` does not mean
+  two directed `Reaches` arrows.
+- `[a <--> b]` designates the displayed dependence-whole as one new thing.
+- `--->` shows the direction of a reachability connection.
+- `-->*` means zero or more directed elaboration steps.
+- Letters written together, such as `ab`, name one designatum rather than two.
 
-    no displayed end is final
-```
-
-Either end-pair can instead be designated as one, contracting the displayed chain by one unit:
-
-```text
-    [a <--> b] <--> c   ===   a <--> b <--> c   ===   a <--> [b <--> c]
-
-     left contracted            articulated            right contracted
-```
-
-Taken in isolation, adjoining `[a <--> b]` as a fresh designatum asserts no new `Related` fact among the old designata. Given the stated relation `a <--> b`, the bracket designates that dependence-whole as the single designatum `ab`. The displayed outer articulation does more, however: `[a <--> b] <--> c` puts that fresh bracket in a component-position of a further dependence; similarly, `a <--> [b <--> c]` puts `bc` in one.
-
-`contract E a b` formalizes only the isolated adjoining. Its fresh point is a source, while every lifted old-sourced clause contains only `some` images; `contract_related_iff` therefore preserves `Related` on the embedded old domain. The general fresh-source conservativity proof places no restriction on what fresh-sourced clauses may target; `contract` instantiates one such clause with the two embedded constituents. The load-bearing restriction is instead that the fresh point cannot occur among the targets of an old source. Making the displayed outer articulation available to old-source elaboration removes that restriction.
-
-Even before such a substitution operation is added, contraction does not preserve certifiability of the displayed joins. `contract_related_none_iff` computes the contracted condition exactly: the fresh point is related to embedded `c` iff `a` is related to `c` **or** `b` is. Hence every holding articulated singleton triple contracts to a holding outer pair (`contract_pair_holds_of_singleton_triple`), but not conversely. In `contract_not_chain_invariant`, `b <--> a <--> c` fails at the articulated adjacency `a <--> c`, while `[b <--> a] <--> c` holds by using `b`'s reach-cone. Contraction can therefore weaken the certification condition at a displayed join even while preserving every `Related` fact between embedded old points.
-
-The present result licenses only old-domain extensional invariance for an unused bracket, not substitution through a chain or invariance of chain-certifiability. A first-class `===` calculus would need an operation substituting the bracket into component lists and an invariant strong enough to control the new common witnesses — a form of `Related`-bisimulation — rather than fresh-source conservativity alone. The source/target asymmetry is decisive: `prime E`, introduced below, makes the fresh point a target of every embedded old designatum and thereby crosses the conservative boundary.
-
-In the intended diagrammatic calculus, repeated expansion and contraction present one dependence-web through equivalent articulations:
+The two formal relations used below are easiest to read as paths and a meeting
+point:
 
 ```text
-    ...    <--> a <--> b <--> c <--> ...               fully articulated
-    ===
-    ...  <--> [a <--> b] <--> c <--> ...
-    ===
-    ... <--> [[a <--> b] <--> c] <--> ...
-    ===
-    [          ... whole dependence-web ...         ]   one designatum
+  a Reaches w       means       a --->* w
 
-    expand upward; contract downward
+  a Related b       means       a --->* w <---* b
+                                  for some common w
 ```
 
-At the limit of repeated contraction, one endpoint may be kept explicit while the remainder of the already stated web is designated as one. The same dependence-web can therefore be articulated with either endpoint explicit:
+`Related` asks only for a common destination. One thing need not reach the
+other in either direction.
+
+### Chains and brackets
+
+The supplied closure-reading says that no displayed end of a dependence is
+final. A chosen segment may be articulated farther in either direction:
 
 ```text
-    a <--> bcde...wxyz   ===   abcd...vwxy <--> z
-
-    viewed from a                   viewed from z
+  chosen:                    n <--> o
+  extend left:       m <-->  n <--> o
+  extend right:              n <--> o  <--> p
+  extend both:  ... <--> m <--> n <--> o <--> p <--> ...
 ```
 
-Here `bcde...wxyz` names `[b <--> c <--> ... <--> y <--> z]`, while `abcd...vwxy` names `[a <--> b <--> ... <--> x <--> y]`. These are two contractions of expanded dependences in common.
-
-Writing `web` as a designatum for that whole, either articulation designates it:
+A dependence-whole may also be given a single bracket-name. The important
+formal result is one-way:
 
 ```text
-    web  ===  [a <--> bcde...wxyz]
-         ===  [abcd...vwxy <--> z]
+  a <--> b <--> c   ==>   [a <--> b] <--> c       SAFE
+
+  [a <--> b] <--> c   =/=>   a <--> b <--> c     NOT GENERALLY SAFE
 ```
 
-Keeping `a` explicit presents the rest of the web together as its mutually dependent counterpart; keeping `z` explicit does the same from the other end.
+Why does the reverse direction fail? The bracket forgets which enclosed member
+supplies its connection to the outside:
 
-Formally, `prime E` moves an elaboration on `D` to one on `Option D`: `some d` embeds each old designatum and `none` is fresh. Priming retains every lifted base clause and adds, for each `d`, a clause in which `some d` elaborates into the two singleton components `{some d}` and `{none}`. Every primed designatum consequently reaches `none`, so `prime_related_total` makes `Related` total and `prime_related_transitive` makes explicit that the primed relation is transitive. The same saturation makes every two components `Linked` (`prime_linked_total`) and makes every dependence re-tagged by the primed linkage hold (`prime_certification_trivial`). This does not erase the base system: `exists_tier_noncollapse` exhibits a base pair that is not related although its primed images are.
+```text
+  [a,b] Related c   <==>   a Related c  OR  b Related c
+```
 
-In the closed `prime`, `none` has no elaboration clauses: every primed designatum reaches the web, but the web does not open back toward its embedded members. On the supplied slogan-reading, this gives “each in all” at the `Reaches` tier; “all in each” is represented only at the coarser `Related` tier, where every pair meets at `none`. `primeOpen` adds clauses from the web back to every member, so `Reaches` itself becomes total. Opening can therefore change `Reaches` (`exists_prime_open_reaches_distinction`) while remaining invisible to the already-total `Related` (`primeOpen_related_iff_prime`). Reachability here is formal structure; web, containment, and interpenetration remain supplied readings.
+In ordinary language, “Team AB is related to Carol” says that Alice or Bob
+supplies the connection. It does not say which member may be placed next to
+Carol when the team-name is expanded back into a chain.
 
-The supplied interpretation calls `none` the dependence-web and calls the added clause the all-clause. The act-grammar may then read the lifted base system at act-time and its priming at the floor-face; that alignment is not a Lean theorem. Under it, saturation is the formal shape supplied to fusion: importing primed saturation into base diagnosis is collapse, while insisting that a base separation remain final at the floor is freeze. The witness in `exists_tier_noncollapse` is why the two elaborations must coexist rather than one replacing the other.
+This is exactly `contract_related_none_iff`. For example, suppose `b` is
+related to both `a` and `c`, while `a` is not related to `c`:
 
-`contract` remains conservative only while its fresh point is a source excluded from lifted old-sourced component lists. Substituting the bracket into an old-sourced elaboration clause crosses that boundary: the fresh point becomes a target of an old source. `prime` isolates that targetward move; `primeOpen` supplies the reverse clauses too, making the web both target and source. On the supplied act-grammar, this non-conservative tier-change is where Huayan reciprocity is located, not an incidental cost imposed by the formalization, and it is why the closing must remain marked as a floor offer. Lean proves the source/target boundary and tier noncollapse, not their identification with Huayan.
+```text
+  b Related a       b Related c       NOT (a Related c)
 
-Diagrammatically, that reciprocal reading says `a` is implicated in `abcd...vwxy` and thereby in the web, while the whole web is implicated at `a` through stated Mutual Dependence; the same holds from `z`.
+  [b,a] Related c                         HOLDS through b
+  b <--> a <--> c                         FAILS at a <--> c
+```
 
-These reciprocal articulations supply the intended **all in each / each in all** reading. No further connective or container is introduced: “in” marks reciprocal implication through stated dependence.
+Thus a holding singleton chain contracts to a holding outer pair
+(`contract_pair_holds_of_singleton_triple`), but a holding contracted pair does
+not determine a valid expansion. `contract_not_chain_invariant` supplies the
+counterexample. Contraction is an information-losing interface here, not an
+equality or a freely reversible abbreviation.
 
-When designating `a` in future, the designator may instead designate its primed image `a' := some a`, changing the mode of designation without withdrawing the lifted base clauses. **Read at the floor**, that designation may carry the supplied role-reading *with understanding all in each / each in all*. The slogan is a role-reading of the closed or opened clause-structure just distinguished; “understanding” belongs to the designation, not as sentience or nature possessed by `a'`. The floor-face offer does not replace act-time articulation (`exists_tier_noncollapse`).
+This failure does not disturb old facts. `contract E a b` adds a fresh
+bracket-point which can elaborate to the embedded `a` and `b`, while lifted
+old-sourced clauses still mention only embedded old designata:
+
+```text
+  fresh [a,b]  --->  a
+       |
+       +------->  b
+
+  old x  cannot Reach  fresh [a,b]
+```
+
+Consequently, merely adjoining the unused bracket preserves both `Reaches`
+and `Related` between every pair of old points (`contract_reaches_iff`,
+`contract_related_iff`). The constructor itself can be formed for any `a` and
+`b`; the notation `[a <--> b]` is used when their enclosed dependence has
+actually been stated.
+
+The load-bearing condition is not a restriction on where fresh-sourced clauses
+may point. It is the ban on the fresh point appearing in an old-sourced
+component list. As long as old paths cannot enter the fresh point, its outgoing
+clauses cannot alter old-started paths (`freshSource_reaches_iff`,
+`freshSource_related_iff`). Putting a bracket into an old-sourced clause crosses
+that boundary.
+
+The intended diagrammatic calculus would coordinate several views of one
+already stated dependence-web:
+
+```text
+  fully shown:       a <--> b <--> c <--> ... <--> y <--> z
+
+  viewed from a:     a <--> [b <--> c <--> ... <--> y <--> z]
+  viewed from z:    [a <--> b <--> ... <--> x <--> y] <--> z
+
+  whole-name:       web := [a <--> b <--> ... <--> y <--> z]
+```
+
+These lines state the intended articulation, not a proved substitution
+equivalence. To make brackets safely reversible, the code would need a
+substitution rule and a proof that substitution preserves which outside points
+can share a meeting point. The current fresh-name theorem does not prove that.
+
+### The common web
+
+Formally, `prime E` embeds every old `d` as `some d`, written below as `d'`,
+and uses the fresh `none` as the web. It retains every lifted base clause and
+adds a clause from each embedded old point to itself and the web. The
+definition specifies these component lists only; whether a raw dependence
+certifies remains a separate question.
+
+The closed prime has this shape:
+
+```text
+  a'  ------>  web  <------  b'
+
+  web cannot Reach a' or b'   no outgoing elaboration clauses;
+                              web still Reaches itself by reflexivity
+```
+
+Every primed point reaches the web (`prime_reaches_web`), so every pair has the
+same common witness. Hence `Related` is total and therefore transitive
+(`prime_related_total`, `prime_related_transitive`). Every pair of nonempty
+components is `Linked` (`prime_linked_total`), and every raw dependence
+re-tagged with this primed linkage holds (`prime_certification_trivial`). The
+last result says that the primed linkage is saturated; it does not say that
+every arbitrary assertion is true.
+
+Closed priming adds no new old-to-old reachability:
+
+```text
+  a' Reaches b'   <==>   a Reaches b
+```
+
+This is `prime_reaches_some_iff`. The base system therefore remains available
+with all of its distinctions. `exists_tier_noncollapse` supplies an example of
+a base elaboration with the following shape:
+
+```text
+  base:      NOT (a Related b)
+  primed:         a' Related b'       because both reach web
+```
+
+Priming is a new saturated presentation, not a derivation showing that the
+base relation was already total.
+
+The open prime retains all closed-prime clauses and adds the missing clauses
+from the web back to every member:
+
+```text
+  members to web:    a' ------> web <------ b'
+  web to members:    a' <------ web ------> b'
+
+  therefore:         a' ------> web ------> b'
+```
+
+Now `Reaches` itself is total (`primeOpen_reaches_total`). Opening can genuinely
+change reachability (`exists_prime_open_reaches_distinction`), although it is
+invisible to `Related`, which was already total in the closed prime
+(`primeOpen_related_iff_prime`).
+
+```text
+                             CLOSED PRIME        OPEN PRIME
+
+  member Reaches web             yes                yes
+  web Reaches member             no                 yes
+  a' Reaches b'                  as at base          always
+  a' Related b'                  always              always
+```
+
+### Supplied philosophical reading
+
+The supplied reading calls `none` the dependence-web and the added clause the
+all-clause. It then aligns the structures as follows:
+
+```text
+  base elaboration        act-time articulation; local differences remain
+  closed prime            every member reaches the common web
+  open prime              members reach web; web reaches every member
+  primed designation      floor-face offer; not a replacement for the base
+```
+
+Here the labels follow what each directed path makes available:
+
+```text
+  CLOSED PRIME
+
+  each member  ------>  web (= all)              ALL IN EACH
+
+  OPEN PRIME
+
+  each member  ------>  web (= all)              ALL IN EACH
+  each member  <------  web (= all)              EACH IN ALL
+```
+
+In the closed prime, every member reaches the web. Since the web designates the
+all, this is **all in each**: start from any one member and its elaboration
+implicates the whole (`prime_reaches_web`). The open prime adds the other half,
+**each in all**, by making the web reach every member
+(`primeOpen_reaches_from_web`). It therefore supplies both halves as directed
+`Reaches` facts. The paths compose, so every primed designatum reaches every
+other one (`primeOpen_reaches_total`):
+
+```text
+  any a'  ------>  web  ------>  any b'
+```
+
+At the coarser `Related` level, the directional distinction has already
+disappeared in the closed prime: `Related` is total and symmetric because every
+pair shares the web. It records universal mutual relation, not which direction
+of implication supplies it. Here “in” means implication through stated
+dependence, not spatial containment.
+
+The source/target boundary marks the formal transition. `contract` is
+conservative while its fresh point is only a source which old paths cannot
+enter. `prime` makes the fresh web a target of every old image; `primeOpen`
+makes it both target and source. The act-grammar locates Huayan reciprocity in
+that non-conservative tier-change. Lean proves the boundary and tier
+noncollapse, not their philosophical identification.
+
+The two presentations must therefore coexist. Importing primed saturation into
+base diagnosis is collapse; insisting that a base separation remain final at
+the floor is freeze. The web is a designated formal witness for the supplied
+whole-reading, not an independently existing ground underneath the old
+designata.
+
+When designating `a`, the designator may instead designate its primed image
+`a' := some a` without withdrawing the lifted base clauses. **Read at the
+floor**, that designation may carry the role-reading *with understanding all in
+each / each in all*. “Understanding” belongs to the role supplied in
+designation, not to a sentience or nature possessed by `a'`. The floor-face
+offer does not replace act-time articulation (`exists_tier_noncollapse`).
