@@ -352,7 +352,7 @@ At the limit of repeated contraction, one endpoint may be kept explicit while th
     viewed from a                   viewed from z
 ```
 
-Here `bcde...wxyz` names `[b <--> c <--> ... <--> y <--> z]`, while `abcd...vwxy` names `[a <--> b <--> ... <--> x <--> y]`. These are two contractions of expanded dependences.
+Here `bcde...wxyz` names `[b <--> c <--> ... <--> y <--> z]`, while `abcd...vwxy` names `[a <--> b <--> ... <--> x <--> y]`. These are two contractions of expanded dependences in common.
 
 Writing `web` as a designatum for that whole, either articulation designates it:
 
