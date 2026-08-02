@@ -361,4 +361,8 @@ Writing `web` for that whole designatum, either articulation designates it:
          ===  [abcd...vwxy <--> z]
 ```
 
-Keeping `a` explicit presents the rest of the web together as its mutually dependent counterpart; keeping `z` explicit does the same from the other end. These reciprocal articulations supply the intended **all in each / each in all** reading. No further connective or container is introduced: “in” marks perspective within the stated dependence, not containment or enlargement of an endpoint's designatum.
+Keeping `a` explicit presents the rest of the web together as its mutually dependent counterpart; keeping `z` explicit does the same from the other end.
+
+The Huayan step is then to read the implication reciprocally: `a` is implicated in `abcd...vwxy` and thereby in the web, while the whole web is implicated at `a` through stated Mutual Dependence; the same holds from `z`.
+
+These reciprocal articulations supply the intended **all in each / each in all** reading. No further connective or container is introduced: “in” marks reciprocal implication through stated dependence, without making either endpoint designate the web.
