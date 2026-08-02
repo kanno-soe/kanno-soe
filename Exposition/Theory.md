@@ -365,4 +365,7 @@ Keeping `a` explicit presents the rest of the web together as its mutually depen
 
 The Huayan step is then to read the implication reciprocally: `a` is implicated in `abcd...vwxy` and thereby in the web, while the whole web is implicated at `a` through stated Mutual Dependence; the same holds from `z`.
 
-These reciprocal articulations supply the intended **all in each / each in all** reading. No further connective or container is introduced: “in” marks reciprocal implication through stated dependence, without making either endpoint designate the web.
+These reciprocal articulations supply the intended **all in each / each in all** reading. No further connective or container is introduced: “in” marks reciprocal implication through stated dependence.
+
+When designating `a` in future, we can now do so *with understanding all in each / each in all*. `a` is not merely some mutual dependence. It is that mutual dependence fully understanding how it relates to all and how all relates to it.
+
