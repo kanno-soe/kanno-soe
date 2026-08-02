@@ -72,11 +72,11 @@ Nothing in the ungraded structure privileges the person. Nor does the stone exam
 A **Graded Resonance** adds two independent grades to a Resonance: a calls-side grade and a responses-side grade. The grade type need only be a preorder with a bottom element. It need not be numerical, total, or metrically spaced. The intended reading is **dis-resonance**: volition insofar as it is *sāsrava*—with outflows, ripening in further becoming. Bottom is *anāsrava* at this Resonance: the act is not productive of further becoming, without implying either the absence of volition or the global attainment of arhatship. `0` is only the familiar numerical example. How a bottom grading relates in the world is a functional question about the relating of such moments.
 
 ```text
-                         one Graded Resonance
+                        one Graded Resonance
 
-    calls <--(callsGrade)--> {b1} <--> {b2} <--(responsesGrade)--> responses
+  calls <--(callsGrade)--> {b1} <--> {b2} <--(responsesGrade)--> responses
 
-           callsGrade and responsesGrade are independent coordinates.
+         callsGrade and responsesGrade are independent coordinates.
 ```
 
 Thus a stone may be *assigned* bottom on both sides, while a grumpy person who has stubbed a toe may be *assigned* a non-bottom calls grade, a non-bottom responses grade, or both. Those are interpretations supplied to the model; the model itself does not infer a grade from stonehood, pain, personality, or behavior. `IsUngraded` means exactly that both grades are bottom. “Ungraded” here therefore means no dis-resonance entered on either side, not absence from the Resonance and not absence of response.
@@ -86,10 +86,10 @@ Grading is sentience-neutral. A sentience reading *could* be supplied as additio
 A **Being** is a nonempty list of Resonances whose singleton middle components flatten into one certified Mutual Dependence:
 
 ```text
-  Resonance 1               Resonance 2                        Resonance n
-  {r1b1} <--> {r1b2}  <-->  {r2b1} <--> {r2b2}  <--> ... <-->  {rnb1} <--> {rnb2}
+Resonance 1               Resonance 2                        Resonance n
+{r1b1} <--> {r1b2}  <-->  {r2b1} <--> {r2b2}  <--> ... <-->  {rnb1} <--> {rnb2}
 
-   Being = the certified linkage of these receiving/responding moments
+    Being = the certified linkage of these receiving/responding moments
 ```
 
 The calls and responses surrounding each Resonance do not constitute the Being's formal spine; its `b1,b2,...` middle moments do. This is a conventional construction of a being out of linked moments, not a proof of a persisting owner behind them.
@@ -158,11 +158,11 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 **Shushō** (修証) says practice-realization; **shushō-ittō** says that its practice and realization are non-dual. That cannot mean two events—practice first and an attained realization later—nor a still shō somehow acting by itself.
 
 ```text
-                           one Graded Resonance
+                         one Graded Resonance
 
-   practice, the doing (shu) ---- shushō ---- (shō) realization, as verified
+ practice, the doing (shu) ---- shushō ---- (shō) realization, as verified
 
-                        shushō-ittō: not two events
+                      shushō-ittō: not two events
 ```
 
 **Genjō**, the provisional middle, answers *how does empty dependence manifest as this case?* **Shō** answers *what is realization as verified?* Manifestation is not possession of realization; realization is not a second activity alongside manifestation. Their distinction will remain live when the grading is diagnosed and lose its separating work where not.
@@ -312,10 +312,10 @@ The diagrams below give a supplied philosophical closure-reading of Mutual Depen
 Any chosen dependence can be expanded at either end:
 
 ```text
-    chosen segment               n <--> p
-    expand left           m <--> n <--> p
-    expand right                 n <--> p <--> q
-    expand both  ... <--> m <--> n <--> p <--> q <--> ...
+    chosen segment               n <--> o
+    expand left           m <--> n <--> o
+    expand right                 n <--> o <--> p
+    expand both  ... <--> m <--> n <--> o <--> p <--> ...
 
     no displayed end is final
 ```
@@ -325,7 +325,7 @@ Either end-pair can instead be designated as one, contracting the displayed chai
 ```text
     [a <--> b] <--> c   ===   a <--> b <--> c   ===   a <--> [b <--> c]
 
-       left contracted             articulated             right contracted
+     left contracted            articulated            right contracted
 ```
 
 The brackets add no new dependence. Given the stated relation `a <--> b`, `[a <--> b]` designates that dependence-whole as the single designatum `ab`; thus `[a <--> b] <--> c` reads `ab <--> c`, and `a <--> [b <--> c]` reads `a <--> bc`.
@@ -333,7 +333,7 @@ The brackets add no new dependence. Given the stated relation `a <--> b`, `[a <-
 Repeated expansion and contraction present one dependence-web through equivalent articulations:
 
 ```text
-    ...   <--> a <--> b <--> c <--> ...                fully articulated
+    ...    <--> a <--> b <--> c <--> ...               fully articulated
     ===
     ...  <--> [a <--> b] <--> c <--> ...
     ===
