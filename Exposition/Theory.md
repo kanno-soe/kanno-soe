@@ -329,7 +329,7 @@ point:
 ```text
   a Reaches w       means       a --->* w
 
-  a Related b       means       a --->* w <---* b
+  a Related b       means       a --->* w *<--- b
                                   for some common w
 ```
 
