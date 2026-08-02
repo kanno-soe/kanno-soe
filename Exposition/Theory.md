@@ -342,9 +342,9 @@ The supplied closure-reading says that no displayed end of a dependence is
 final. A chosen segment may be articulated farther in either direction:
 
 ```text
-  chosen:                    n <--> o
-  extend left:       m <-->  n <--> o
-  extend right:              n <--> o  <--> p
+  chosen:                       n <--> o
+  extend left:           m <--> n <--> o
+  extend right:                 n <--> o <--> p
   extend both:  ... <--> m <--> n <--> o <--> p <--> ...
 ```
 
@@ -374,8 +374,8 @@ related to both `a` and `c`, while `a` is not related to `c`:
 ```text
   b Related a       b Related c       NOT (a Related c)
 
-  [b,a] Related c                         HOLDS through b
-  b <--> a <--> c                         FAILS at a <--> c
+  [b,a] Related c                     HOLDS through b
+  b <--> a <--> c                     FAILS at a <--> c
 ```
 
 Thus a holding singleton chain contracts to a holding outer pair
@@ -489,8 +489,8 @@ invisible to `Related`, which was already total in the closed prime
 
   member Reaches web             yes                yes
   web Reaches member             no                 yes
-  a' Reaches b'                  as at base          always
-  a' Related b'                  always              always
+  a' Reaches b'                  as at base         always
+  a' Related b'                  always             always
 ```
 
 ### Supplied philosophical reading
