@@ -72,11 +72,11 @@ Nothing in the ungraded structure privileges the person. Nor does the stone exam
 A **Graded Resonance** adds two independent grades to a Resonance: a calls-side grade and a responses-side grade. The grade type need only be a preorder with a bottom element. It need not be numerical, total, or metrically spaced. The intended reading is **dis-resonance**: volition insofar as it is *sāsrava*—with outflows, ripening in further becoming. Bottom is *anāsrava* at this Resonance: the act is not productive of further becoming, without implying either the absence of volition or the global attainment of arhatship. `0` is only the familiar numerical example. How a bottom grading relates in the world is a functional question about the relating of such moments.
 
 ```text
-                       one Graded Resonance
+                         one Graded Resonance
 
-    calls --[callsGrade]--> b1 <--> b2 --[responsesGrade]--> responses
+    calls <--(callsGrade)--> {b1} <--> {b2} <--(responsesGrade)--> responses
 
-    callsGrade and responsesGrade are independent coordinates.
+           callsGrade and responsesGrade are independent coordinates.
 ```
 
 Thus a stone may be *assigned* bottom on both sides, while a grumpy person who has stubbed a toe may be *assigned* a non-bottom calls grade, a non-bottom responses grade, or both. Those are interpretations supplied to the model; the model itself does not infer a grade from stonehood, pain, personality, or behavior. `IsUngraded` means exactly that both grades are bottom. “Ungraded” here therefore means no dis-resonance entered on either side, not absence from the Resonance and not absence of response.
@@ -86,10 +86,10 @@ Grading is sentience-neutral. A sentience reading *could* be supplied as additio
 A **Being** is a nonempty list of Resonances whose singleton middle components flatten into one certified Mutual Dependence:
 
 ```text
-      Resonance 1       Resonance 2                Resonance n
-      b1 <--> b2  <-->  b1 <--> b2  <--> ... <-->  b1 <--> b2
+  Resonance 1               Resonance 2                        Resonance n
+  {r1b1} <--> {r1b2}  <-->  {r2b1} <--> {r2b2}  <--> ... <-->  {rnb1} <--> {rnb2}
 
-    Being = the certified linkage of these receiving/responding moments
+   Being = the certified linkage of these receiving/responding moments
 ```
 
 The calls and responses surrounding each Resonance do not constitute the Being's formal spine; its `b1,b2,...` middle moments do. This is a conventional construction of a being out of linked moments, not a proof of a persisting owner behind them.
@@ -312,10 +312,10 @@ The diagrams below give a supplied philosophical closure-reading of Mutual Depen
 Any chosen dependence can be expanded at either end:
 
 ```text
-    chosen segment       a <--> b
-    expand left      d <--> a <--> b
-    expand right         a <--> b <--> c
-    expand both  ... <--> d <--> a <--> b <--> c <--> ...
+    chosen segment               n <--> p
+    expand left           m <--> n <--> p
+    expand right                 n <--> p <--> q
+    expand both  ... <--> m <--> n <--> p <--> q <--> ...
 
     no displayed end is final
 ```
@@ -333,13 +333,13 @@ The brackets add no new dependence. Given the stated relation `a <--> b`, `[a <-
 Repeated expansion and contraction present one dependence-web through equivalent articulations:
 
 ```text
-    ... <--> a <--> b <--> c <--> ...                 fully articulated
+    ...   <--> a <--> b <--> c <--> ...                fully articulated
     ===
-    ... <--> [a <--> b] <--> c <--> ...
+    ...  <--> [a <--> b] <--> c <--> ...
     ===
     ... <--> [[a <--> b] <--> c] <--> ...
     ===
-    [          ... whole dependence-web ...          ]   one designatum
+    [          ... whole dependence-web ...         ]   one designatum
 
     expand upward; contract downward
 ```
@@ -349,12 +349,12 @@ At the limit of repeated contraction, one endpoint may be kept explicit while th
 ```text
     a <--> bcde...wxyz   ===   abcd...vwxy <--> z
 
-       viewed from a                  viewed from z
+    viewed from a                   viewed from z
 ```
 
-Here `bcde...wxyz` names `[b <--> c <--> ... <--> y <--> z]`, while `abcd...vwxy` names `[a <--> b <--> ... <--> x <--> y]`. These are two contractions of the same prior web, not expansions of `a` or `z`: neither endpoint, merely by being designated, designates the whole.
+Here `bcde...wxyz` names `[b <--> c <--> ... <--> y <--> z]`, while `abcd...vwxy` names `[a <--> b <--> ... <--> x <--> y]`. These are two contractions of expanded dependences.
 
-Writing `web` for that whole designatum, either articulation designates it:
+Writing `web` as a designatum for that whole, either articulation designates it:
 
 ```text
     web  ===  [a <--> bcde...wxyz]
