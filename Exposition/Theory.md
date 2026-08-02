@@ -307,7 +307,7 @@ The taxonomy is not a map of places on a path. Immunity is checked per productio
 
 ## From mutual dependence to interpenetration
 
-The diagrams below give a supplied philosophical closure-reading of Mutual Dependence, not a theorem of the formal core: any stated dependence may be expanded at either end, and any dependence-whole may itself be designated as one. Letters name designata; `<-->` marks Mutual Dependence, `[ ... ]` marks the enclosed dependence designated as one designatum, and `===` marks equivalent designation rather than numerical identity, time, or causation.
+The diagrams below give a supplied philosophical closure-reading of Mutual Dependence, not a theorem of the formal core: any stated dependence may be expanded at either end, and any dependence-whole may itself be designated as one. Letters name designata; `<-->` marks Mutual Dependence, `[ ... ]` marks the enclosed dependence designated as one designatum, and `===` marks equivalent articulation by designation rather than numerical identity, time, or causation.
 
 Any chosen dependence can be expanded at either end:
 
@@ -328,9 +328,9 @@ Either end-pair can instead be designated as one, contracting the displayed chai
        left contracted             articulated             right contracted
 ```
 
-The brackets add no new content. On this reading, designating `a` already implicates `b` and their dependence; `[a <--> b]` merely makes that scope explicit. The same holds from either end.
+The brackets add no new dependence. Given the stated relation `a <--> b`, `[a <--> b]` designates that dependence-whole as the single designatum `ab`; thus `[a <--> b] <--> c` reads `ab <--> c`, and `a <--> [b <--> c]` reads `a <--> bc`.
 
-Repeated expansion and contraction traverse one class of equivalent designata:
+Repeated expansion and contraction present one dependence-web through equivalent articulations:
 
 ```text
     ... <--> a <--> b <--> c <--> ...                 fully articulated
@@ -344,21 +344,21 @@ Repeated expansion and contraction traverse one class of equivalent designata:
     expand upward; contract downward
 ```
 
-At the limits of that shift, the same equivalence reads in both directions:
+At the limit of repeated contraction, one endpoint may be kept explicit while the remainder of the already stated web is designated as one. The same dependence-web can therefore be articulated with either endpoint explicit:
 
 ```text
-    ALL IN EACH
+    a <--> bcde...wxyz   ===   abcd...vwxy <--> z
 
-    any a  ===  [ ... whole dependence-web implicated by a ... ]
-
-
-    EACH IN ALL
-
-    [ ... whole dependence-web ... ]
-                    |
-                    | expand
-                    v
-           ... <--> a <--> ...
+       viewed from a                  viewed from z
 ```
 
-Read toward the encompassing designation, this is **all in each**; read back by an expansion, **each in all**. No further connective or container is introduced: “containing” names the scope of the designation, and only the equivalent designatum shifts.
+Here `bcde...wxyz` names `[b <--> c <--> ... <--> y <--> z]`, while `abcd...vwxy` names `[a <--> b <--> ... <--> x <--> y]`. These are two contractions of the same prior web, not expansions of `a` or `z`: neither endpoint, merely by being designated, designates the whole.
+
+Writing `web` for that whole designatum, either articulation designates it:
+
+```text
+    web  ===  [a <--> bcde...wxyz]
+         ===  [abcd...vwxy <--> z]
+```
+
+Keeping `a` explicit presents the rest of the web together as its mutually dependent counterpart; keeping `z` explicit does the same from the other end. These reciprocal articulations supply the intended **all in each / each in all** reading. No further connective or container is introduced: “in” marks perspective within the stated dependence, not containment or enlargement of an endpoint's designatum.
