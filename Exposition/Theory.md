@@ -348,45 +348,88 @@ final. A chosen segment may be articulated farther in either direction:
   extend both:  ... <--> m <--> n <--> o <--> p <--> ...
 ```
 
-A dependence-whole may also be given a single bracket-name. The important
-formal result is one-way:
+A dependence-whole may also be retained behind a designatum. Every such
+designatum first occupies a component slot: `ab` by itself is placed in
+`{ab}`. A component with no slots opened is immediately a one-position
+`Segment`; its left and right interfaces are both the original component
+(`Segment.left_ofComponent`, `Segment.right_ofComponent`). There is no
+separate kind of “whole-name.”
+
+**Work in progress: the Segment layer described below is not yet used by the
+operative formal system. `RawMutualDependence` and its downstream consumers
+still take Components directly; Segment currently records the intended
+endpoint-sensitive semantics without integrating them into that machinery.**
+
+If an occurrence of `ab` designates a raw mutual dependence which certifies
+under the current elaboration, that slot may instead be opened with an
+`Elaboration.Resolution`. The source component and the designatum `ab` remain
+stored in the shell, as does the complete selected body. What changes is the
+interface exposed by that occurrence:
 
 ```text
-  a <--> b <--> c   ==>   [a <--> b] <--> c       SAFE
+  ab designates [a <--> b]
 
-  [a <--> b] <--> c   =/=>   a <--> b <--> c     NOT GENERALLY SAFE
+                  left interface    right interface
+  unopened {ab}:       {ab}              {ab}
+  opened   {ab}:        {a}               {b}
 ```
 
-Why does the reverse direction fail? The bracket forgets which enclosed member
-supplies its connection to the outside:
+These are `Segment.left_ofResolution` and
+`Segment.right_ofResolution`. Consequently the displayed composition
 
 ```text
-  [a,b] Related c   <==>   a Related c  OR  b Related c
+  [a <--> b] <--> c
 ```
 
-In ordinary language, “Team AB is related to Carol” says that Alice or Bob
-supplies the connection. It does not say which member may be placed next to
-Carol when the team-name is expanded back into a chain.
+retains the certified inner `a <--> b` and checks only the adjacent outer
+join `Linked {b} {c}`. With singleton interfaces this is exactly `b Related
+c` (`joined_resolution_designatum_iff`). The source remains `{ab}`, and its
+stored body remains the certified `a <--> b`; the outer join is simply made
+against that body's exposed right interface.
 
-This is exactly `contract_related_none_iff`. For example, suppose `b` is
-related to both `a` and `c`, while `a` is not related to `c`:
+A component may contain several slots, and they open in parallel rather than
+acquiring an arbitrary serial order. For example, if `ab` opens as
+`[a <--> b]` while `x` remains a leaf, then
 
 ```text
-  b Related a       b Related c       NOT (a Related c)
-
-  [b,a] Related c                     HOLDS through b
-  b <--> a <--> c                     FAILS at a <--> c
+  source component:   {ab, x}
+  left interface:      {a, x}
+  right interface:     {b, x}
 ```
 
-Thus a holding singleton chain contracts to a holding outer pair
-(`contract_pair_holds_of_singleton_triple`), but a holding contracted pair does
-not determine a valid expansion. `contract_not_chain_invariant` supplies the
-counterexample. Contraction is an information-losing interface here, not an
-equality or a freely reversible abbreviation.
+This is checked by `mem_parallelShell_left_iff` and
+`mem_parallelShell_right_iff`. The ordinary strong rule is unchanged at the
+next join: every member exposed on each side must find a related member on the
+other. Opening a slot therefore preserves the expressive force of
+multi-member components rather than admitting irrelevant passengers.
 
-This failure does not disturb old facts. `contract E a b` adds a fresh
-bracket-point which can elaborate to the embedded `a` and `b`, while lifted
-old-sourced clauses still mention only embedded old designata:
+Resolution is positive, finite, and local to an occurrence. A leaf means
+“not opened here”; it need not carry a global proof that no body exists.
+Where a name has several certified bodies, each resolution selects one whole
+body, whose first and last components supply both interfaces together. The
+alternatives remain alternative segment presentations: a left endpoint from
+one body cannot be combined with a right endpoint from another. No eager
+recursive normalization is attempted, so cyclic elaborations remain usable.
+
+The older `contract` construction remains useful, but it states a different,
+deliberately coarser fact. `contract E a b` adds a fresh designatum which can
+reach both embedded members. If that fresh point is left unopened and tested
+through ordinary `Related`, its external connection is disjunctive:
+
+```text
+  contracted-name Related c   <==>   a Related c  OR  b Related c
+```
+
+This is `contract_related_none_iff`. It explains why merely treating a
+bracket-name as one black-box designatum loses the endpoint. For example, if
+`b` is related to `c` but `a` is not, the contracted name for `[b,a]` is
+related to `c` through `b`, whereas a resolved `[b <--> a] <--> c` exposes
+`a` on its right and correctly fails. `contract_not_chain_invariant` records
+the black-box failure; it is not a failure of resolved Segment composition.
+
+The contraction itself does not disturb old facts. Its fresh bracket-point
+can elaborate to the embedded `a` and `b`, while lifted old-sourced clauses
+still mention only embedded old designata:
 
 ```text
   fresh [a,b]  --->  a
@@ -409,8 +452,11 @@ clauses cannot alter old-started paths (`freshSource_reaches_iff`,
 `freshSource_related_iff`). Putting a bracket into an old-sourced clause crosses
 that boundary.
 
-The intended diagrammatic calculus would coordinate several views of one
-already stated dependence-web:
+Segments now supply the endpoint-sensitive part of the intended diagrammatic
+calculus. A direct certified mutual dependence can occupy a Segment position
+(`Segment.ofMutualDependence`), and `Segment.append` retains both sides while
+checking just their touching interfaces. Thus several views of one already
+stated dependence-web can preserve their internal bodies:
 
 ```text
   fully shown:       a <--> b <--> c <--> ... <--> y <--> z
@@ -421,10 +467,10 @@ already stated dependence-web:
   whole-name:       web := [a <--> b <--> ... <--> y <--> z]
 ```
 
-These lines state the intended articulation, not a proved substitution
-equivalence. To make brackets safely reversible, the code would need a
-substitution rule and a proof that substitution preserves which outside points
-can share a meeting point. The current fresh-name theorem does not prove that.
+Left and right here are diagrammatic interfaces, not a temporal or causal
+direction. Reversing a display must reverse its retained bodies as well:
+the reverse of `[a <--> b] <--> c` is `c <--> [b <--> a]`, not a naïve swap
+which leaves the inner orientation unchanged.
 
 ### The common web
 

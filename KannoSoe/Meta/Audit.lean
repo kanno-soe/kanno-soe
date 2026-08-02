@@ -1,8 +1,10 @@
 import Lean
 import KannoSoe.Signature.V2
+import KannoSoe.Signature.Segment
 import KannoSoe.Signature.Interpenetration
 import KannoSoe.Meta.Examples
 import KannoSoe.Meta.InterpenetrationExamples
+import KannoSoe.Meta.SegmentExamples
 
 /-!
 # Audit: signature and example modules
@@ -22,9 +24,12 @@ The exact module-level trust boundaries are:
 
 * KannoSoe.Signature.V2: propext, plus the known private partial helper
   generated for Being.rawOfComponents.
+* KannoSoe.Signature.Segment: propext, plus the three private helpers generated
+  for recursion over retained Segment shapes.
 * KannoSoe.Signature.Interpenetration: propext.
 * KannoSoe.Meta.Examples: propext and Quot.sound.
 * KannoSoe.Meta.InterpenetrationExamples: propext.
+* KannoSoe.Meta.SegmentExamples: propext.
 
 In particular, sorry and admit (which elaborate through sorryAx), declared
 axioms, and classical choice are rejected.
@@ -216,6 +221,13 @@ elab "#audit_signature_and_examples" : command => do
       allowedAxioms := ["propext"]
       expectedPartials :=
         ["_private.KannoSoe.Signature.V2.0.Being.rawOfComponents._unsafe_rec"] },
+    { moduleName := "KannoSoe.Signature.Segment"
+      sourcePath := packageDir / "Signature" / "Segment.lean"
+      allowedAxioms := ["propext"]
+      expectedPartials :=
+        ["Segment.Shape.Holds._unsafe_rec",
+          "Segment.Shape.left._unsafe_rec",
+          "Segment.Shape.right._unsafe_rec"] },
     { moduleName := "KannoSoe.Signature.Interpenetration"
       sourcePath := packageDir / "Signature" / "Interpenetration.lean"
       allowedAxioms := ["propext"] },
@@ -224,6 +236,9 @@ elab "#audit_signature_and_examples" : command => do
       allowedAxioms := ["propext", "Quot.sound"] },
     { moduleName := "KannoSoe.Meta.InterpenetrationExamples"
       sourcePath := auditDir / "InterpenetrationExamples.lean"
+      allowedAxioms := ["propext"] },
+    { moduleName := "KannoSoe.Meta.SegmentExamples"
+      sourcePath := auditDir / "SegmentExamples.lean"
       allowedAxioms := ["propext"] }
   ]
 
