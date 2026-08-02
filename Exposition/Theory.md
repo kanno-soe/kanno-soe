@@ -307,7 +307,7 @@ The taxonomy is not a map of places on a path. Immunity is checked per productio
 
 ## From mutual dependence to interpenetration
 
-The diagrams below give a supplied philosophical closure-reading of Mutual Dependence, not a theorem of the formal core: any stated dependence may be expanded at either end, and any dependence-whole may itself be designated as one. Letters name designata; `<-->` marks Mutual Dependence, `[ ... ]` marks the enclosed dependence designated as one designatum, and `===` marks equivalent articulation by designation rather than numerical identity, time, or causation.
+The diagrams below give a supplied philosophical closure-reading of Mutual Dependence, not a theorem of the formal core: any stated dependence may be expanded at either end, and any dependence-whole may itself be designated as one. One or more letters written together name a single designatum. In these diagrams, a designatum-expression occupying a component-position abbreviates the singleton component containing it; thus `a <--> bc` abbreviates `{a} <--> {bc}`. The symbol `<-->` marks Mutual Dependence, `[ ... ]` marks the enclosed dependence designated as one designatum, and `===` marks equivalent articulation by designation rather than numerical identity, time, or causation.
 
 Any chosen dependence can be expanded at either end:
 
