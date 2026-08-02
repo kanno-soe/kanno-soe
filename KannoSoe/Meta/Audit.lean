@@ -1,9 +1,11 @@
 import Lean
 import KannoSoe.Signature.V2
+import KannoSoe.Signature.Interpenetration
 import KannoSoe.Meta.Examples
+import KannoSoe.Meta.InterpenetrationExamples
 
 /-!
-# Audit: V2 and Examples
+# Audit: signature and example modules
 
 This standalone audit is intentionally not imported by the library. Run it
 from the repository root with:
@@ -20,7 +22,9 @@ The exact module-level trust boundaries are:
 
 * KannoSoe.Signature.V2: propext, plus the known private partial helper
   generated for Being.rawOfComponents.
+* KannoSoe.Signature.Interpenetration: propext.
 * KannoSoe.Meta.Examples: propext and Quot.sound.
+* KannoSoe.Meta.InterpenetrationExamples: propext.
 
 In particular, sorry and admit (which elaborate through sorryAx), declared
 axioms, and classical choice are rejected.
@@ -198,7 +202,7 @@ private def auditModule
 
   logInfo m!"module audit passed: {moduleName}"
 
-elab "#audit_v2_and_examples" : command => do
+elab "#audit_signature_and_examples" : command => do
   let env ← getEnv
   let auditPath := System.FilePath.mk (← read).fileName
   let some auditDir := auditPath.parent
@@ -212,12 +216,18 @@ elab "#audit_v2_and_examples" : command => do
       allowedAxioms := ["propext"]
       expectedPartials :=
         ["_private.KannoSoe.Signature.V2.0.Being.rawOfComponents._unsafe_rec"] },
+    { moduleName := "KannoSoe.Signature.Interpenetration"
+      sourcePath := packageDir / "Signature" / "Interpenetration.lean"
+      allowedAxioms := ["propext"] },
     { moduleName := "KannoSoe.Meta.Examples"
       sourcePath := auditDir / "Examples.lean"
-      allowedAxioms := ["propext", "Quot.sound"] }
+      allowedAxioms := ["propext", "Quot.sound"] },
+    { moduleName := "KannoSoe.Meta.InterpenetrationExamples"
+      sourcePath := auditDir / "InterpenetrationExamples.lean"
+      allowedAxioms := ["propext"] }
   ]
 
   for config in configs do
     auditModule env config
 
-#audit_v2_and_examples
+#audit_signature_and_examples
