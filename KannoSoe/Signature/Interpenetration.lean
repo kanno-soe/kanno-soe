@@ -19,11 +19,12 @@ target.
 lifted old designatum.  The closed and open systems can differ for `Reaches`,
 as the witness below shows, but not for `Related`.
 
-Finally, `freshSourceExtension` isolates the conservative direction of the
-construction.  It adds arbitrary clauses only at a source that old designata
-cannot reach.  This is stronger than requiring the new clauses' targets to be
-old: target restrictions are unnecessary once source freshness is enforced
-by the `Option` embedding.
+Finally, `freshSourceExtension` isolates a conservative shape.  Clauses
+sourced at `none` may target arbitrary designata; their targets need no
+restriction.  Conservativity instead relies on every clause sourced at an
+embedded old designatum containing only `some` images, so no old-started path
+can enter `none`.  Allowing `none` in an old-sourced component list — as
+`prime` does — is precisely what can destroy conservativity.
 -/
 
 universe u v
@@ -344,8 +345,19 @@ theorem exists_prime_open_reaches_distinction :
 /-! ## One-prime exhaustion -/
 
 /--
-After one priming, a second priming adds names but no `Related` content when
-restricted along the second `some` embedding.
+After one closed priming, a second closed priming adds no `Reaches` content
+between first-tier designata.  It adds a further name and hub, but no path
+between the points embedded by the second `some`.
+-/
+theorem prime_reaches_exhausted_on_image {D : Type u} (E : Elaboration D)
+    (a b : Option D) :
+    (prime (prime E)).Reaches (some a) (some b) ↔
+      (prime E).Reaches a b :=
+  prime_reaches_some_iff (prime E) a b
+
+/--
+The analogous image statement for `Related` is only a corollary-level fact:
+both sides are already total after their first respective priming.
 -/
 theorem prime_related_exhausted_on_image {D : Type u} (E : Elaboration D)
     (a b : Option D) :
@@ -358,8 +370,9 @@ theorem prime_related_exhausted_on_image {D : Type u} (E : Elaboration D)
 
 /--
 Lift the old system to `some` and add arbitrary clauses at the fresh source
-`none`.  The fresh clauses may mention any designata.  They remain invisible
-from old starts because lifted old clauses contain only `some` images.
+`none`.  No restriction is placed on fresh-clause targets.  The load-bearing
+restriction is that lifted old-sourced clauses cannot contain `none`, so the
+fresh clauses remain invisible from old starts.
 -/
 def freshSourceExtension {D : Type u} (E : Elaboration D)
     (fresh : RawMutualDependence (Option D) → Prop) :
@@ -473,5 +486,111 @@ theorem contract_related_iff {D : Type u} (E : Elaboration D)
     (a b x y : D) :
     (contract E a b).Related (some x) (some y) ↔ E.Related x y :=
   freshSource_related_iff E _ x y
+
+/--
+The fresh contraction-point is related to an embedded old point exactly when
+at least one constituent is.  Thus the contracted join condition is
+disjunctive, even though old-domain relatedness itself is preserved exactly.
+-/
+theorem contract_related_none_iff {D : Type u} (E : Elaboration D)
+    (a b c : D) :
+    (contract E a b).Related none (some c) ↔
+      E.Related a c ∨ E.Related b c := by
+  constructor
+  · rintro ⟨w, hnw, hcw⟩
+    obtain ⟨w', hw, hcw'⟩ := freshSource_reaches_old hcw
+    subst w
+    cases hnw with
+    | @step _ e _ rawM component hElab hcomponent hmem htail =>
+        have hcomponents : rawM.components =
+            [Component.singleton (some a), Component.singleton (some b)] := by
+          simpa [contract, freshSourceExtension] using hElab
+        rw [hcomponents] at hcomponent
+        simp at hcomponent
+        rcases hcomponent with hleft | hright
+        · subst component
+          have he : e = some a := by simpa using hmem
+          subst e
+          exact Or.inl ⟨w',
+            (contract_reaches_iff E a b a w').mp htail, hcw'⟩
+        · subst component
+          have he : e = some b := by simpa using hmem
+          subst e
+          exact Or.inr ⟨w',
+            (contract_reaches_iff E a b b w').mp htail, hcw'⟩
+  · rintro (⟨w, haw, hcw⟩ | ⟨w, hbw, hcw⟩)
+    · let rawM : RawMutualDependence (Option D) :=
+        .pair (contract E a b) (Component.singleton (some a))
+          (Component.singleton (some b))
+      have hnone : (contract E a b).Reaches none (some a) :=
+        Reaches.single (rawM := rawM)
+          (a := Component.singleton (some a))
+          (by simp [contract, freshSourceExtension, rawM])
+          (by simp [rawM]) (by simp)
+      exact ⟨some w, hnone.trans
+        ((contract_reaches_iff E a b a w).mpr haw),
+        (contract_reaches_iff E a b c w).mpr hcw⟩
+    · let rawM : RawMutualDependence (Option D) :=
+        .pair (contract E a b) (Component.singleton (some a))
+          (Component.singleton (some b))
+      have hnone : (contract E a b).Reaches none (some b) :=
+        Reaches.single (rawM := rawM)
+          (a := Component.singleton (some b))
+          (by simp [contract, freshSourceExtension, rawM])
+          (by simp [rawM]) (by simp)
+      exact ⟨some w, hnone.trans
+        ((contract_reaches_iff E a b b w).mpr hbw),
+        (contract_reaches_iff E a b c w).mpr hcw⟩
+
+/--
+A holding articulated singleton triple can be contracted at its left pair.
+This is the monotone direction of contraction at that displayed join.
+-/
+theorem contract_pair_holds_of_singleton_triple {D : Type u}
+    (E : Elaboration D)
+    (a b c : D)
+    (h : (RawMutualDependence.triple E
+      (Component.singleton a) (Component.singleton b)
+      (Component.singleton c)).Holds) :
+    (RawMutualDependence.pair (contract E a b)
+      (Component.singleton none)
+      (Component.singleton (some c))).Holds := by
+  rw [RawMutualDependence.holds_pair_iff]
+  change (contract E a b).Linked (Component.singleton none)
+    (Component.singleton (some c))
+  rw [linked_singleton_iff, contract_related_none_iff]
+  rw [RawMutualDependence.holds_triple_iff] at h
+  change E.Linked (Component.singleton a) (Component.singleton b) ∧
+    E.Linked (Component.singleton b) (Component.singleton c) at h
+  rw [linked_singleton_iff, linked_singleton_iff] at h
+  exact Or.inr h.2
+
+/--
+Contraction does not preserve chain-certifiability in the reverse direction.
+For the nontransitivity witness, `b <--> a <--> c` fails at its second join,
+while `[b <--> a] <--> c` holds because the fresh point can use `b`'s cone.
+-/
+theorem contract_not_chain_invariant :
+    ∃ (D : Type) (E : Elaboration D) (a b c : D),
+      E.Related a b ∧ E.Related b c ∧ ¬ E.Related a c ∧
+        ¬ (RawMutualDependence.triple E
+          (Component.singleton b) (Component.singleton a)
+          (Component.singleton c)).Holds ∧
+        (RawMutualDependence.pair (contract E b a)
+          (Component.singleton none)
+          (Component.singleton (some c))).Holds := by
+  obtain ⟨D, E, a, b, c, _, _, _, hab, hbc, hnac⟩ :=
+    Related.exists_nontransitive_mutualDependence
+  refine ⟨D, E, a, b, c, hab, hbc, hnac, ?_, ?_⟩
+  · rw [RawMutualDependence.holds_triple_iff]
+    change ¬ (E.Linked (Component.singleton b) (Component.singleton a) ∧
+      E.Linked (Component.singleton a) (Component.singleton c))
+    rw [linked_singleton_iff, linked_singleton_iff]
+    exact fun h => hnac h.2
+  · rw [RawMutualDependence.holds_pair_iff]
+    change (contract E b a).Linked (Component.singleton none)
+      (Component.singleton (some c))
+    rw [linked_singleton_iff]
+    exact (contract_related_none_iff E b a c).mpr (Or.inl hbc)
 
 end Elaboration
