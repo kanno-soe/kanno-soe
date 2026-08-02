@@ -304,3 +304,61 @@ Two remainders. **Pre-grid ignorance** — svabhāva realism, the provisional mi
 ### Non-linearity
 
 The taxonomy is not a map of places on a path. Immunity is checked per production, not stored as a safe stage: arhat quiet excludes the live self-pole through all three doors, while buddha no-nescience additionally requires positive truth from each pole-share speech-or-mind production. The former can hold while the latter fails, so the old “no safe stage” future-work absence is retired as this production-level check, not converted into rank furniture. This is why the fox koan, a story about one sentence spoken once, can carry the whole system's diagnostics: the errors are not stations but ways the separate/fuse rule can be violated *now*. The taxonomy remains answerable in the other direction too: the deaf-blind case classifies as nothing, or else the generator would be a lens that finds error wherever it looks.
+
+## From mutual dependence to interpenetration
+
+The diagrams below give a supplied philosophical closure-reading of Mutual Dependence, not a theorem of the formal core: any stated dependence may be expanded at either end, and any dependence-whole may itself be designated as one. Letters name designata; `<-->` marks Mutual Dependence, `[ ... ]` marks the enclosed dependence designated as one designatum, and `===` marks equivalent designation rather than numerical identity, time, or causation.
+
+Any chosen dependence can be expanded at either end:
+
+```text
+    chosen segment       a <--> b
+    expand left      d <--> a <--> b
+    expand right         a <--> b <--> c
+    expand both  ... <--> d <--> a <--> b <--> c <--> ...
+
+    no displayed end is final
+```
+
+Either end-pair can instead be designated as one, contracting the displayed chain by one unit:
+
+```text
+    [a <--> b] <--> c   ===   a <--> b <--> c   ===   a <--> [b <--> c]
+
+       left contracted             articulated             right contracted
+```
+
+The brackets add no new content. On this reading, designating `a` already implicates `b` and their dependence; `[a <--> b]` merely makes that scope explicit. The same holds from either end.
+
+Repeated expansion and contraction traverse one class of equivalent designata:
+
+```text
+    ... <--> a <--> b <--> c <--> ...                 fully articulated
+    ===
+    ... <--> [a <--> b] <--> c <--> ...
+    ===
+    ... <--> [[a <--> b] <--> c] <--> ...
+    ===
+    [          ... whole dependence-web ...          ]   one designatum
+
+    expand upward; contract downward
+```
+
+At the limits of that shift, the same equivalence reads in both directions:
+
+```text
+    ALL IN EACH
+
+    any a  ===  [ ... whole dependence-web implicated by a ... ]
+
+
+    EACH IN ALL
+
+    [ ... whole dependence-web ... ]
+                    |
+                    | expand
+                    v
+           ... <--> a <--> ...
+```
+
+Read toward the encompassing designation, this is **all in each**; read back by an expansion, **each in all**. No further connective or container is introduced: “containing” names the scope of the designation, and only the equivalent designatum shifts.
