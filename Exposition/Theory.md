@@ -474,6 +474,16 @@ which leaves the inner orientation unchanged.
 
 ### The common web
 
+What the code calls Prime is for the designator to designate under the new expansive
+understanding above, that to designate `a` is at the same moment to implicate the full
+web reachable from, and including `a`. The code calls this "closed prime" - the ability to
+start at `a` and directly reach the web implicated by `a`. In this Prime mode of
+designating, `a` "contains" the web. Going the opposite direction, from web to `a`, is
+very natural as we defined the web in terms of `a` initially. For analytic reasons,
+the code considers that case separately and calls it "open prime", but it is still the
+straightforward fact that having defined the web from `a`, the web "contains" `a`.
+These modes are called **all in each** and **each in all**, respectively.
+
 Formally, `prime E` embeds every old `d` as `some d`, written below as `d'`,
 and uses the fresh `none` as the web. It retains every lifted base clause and
 adds a clause from each embedded old point to itself and the web. The
