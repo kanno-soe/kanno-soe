@@ -1,4 +1,4 @@
-import KannoSoe.Signature.Segment
+import KannoSoe.Signature.V2
 
 /-!
 # Endpoint-sensitive segment examples
@@ -43,28 +43,23 @@ def resolutionAB :
   raw := rawAB
   isElaboration := trivial
   holds := by
-    change (RawMutualDependence.pair
-      (Linkage.ofElaboration parallelElaboration)
-      (Component.singleton ParallelDesignatum.a)
-      (Component.singleton ParallelDesignatum.b)).Holds
-    rw [RawMutualDependence.holds_pair_iff]
-    change parallelElaboration.Linked
-      (Component.singleton ParallelDesignatum.a)
-      (Component.singleton ParallelDesignatum.b)
-    rw [Elaboration.linked_singleton_iff]
-    exact parallel_related_total .a .b
+    simp only [rawAB, Elaboration.certify_pair,
+      RawMutualDependence.holds_pair_iff]
+    exact Elaboration.linked_singleton_iff.mpr
+      (parallel_related_total .a .b)
 
 /--
-The source has two slots.  `ab` opens as `[a <--> b]`, while `x` remains a
-leaf.  Pattern branches impossible under the source predicate still return a
-leaf, keeping the definition constructive.
+The total slot presentation opens `ab` as `[a <--> b]` and leaves every other
+designatum unopened.
 -/
+def parallelSlot :
+    (d : ParallelDesignatum) → Segment.Slot parallelElaboration d
+  | .ab => .resolved resolutionAB
+  | _ => .leaf
+
+/-- The source component selects the `ab` and `x` cases in parallel. -/
 def parallelShell : Segment.Shell parallelElaboration :=
-  .slots (Component.pair .ab .x) fun member =>
-    if h : member.1 = ParallelDesignatum.ab then
-      h.symm ▸ Segment.Slot.resolved resolutionAB
-    else
-      .leaf
+  Segment.Shell.ofSlots (Component.pair .ab .x) parallelSlot
 
 @[simp] theorem parallelShell_source :
     parallelShell.source = Component.pair ParallelDesignatum.ab
@@ -85,7 +80,7 @@ theorem mem_parallelShell_left_iff (d : ParallelDesignatum) :
       change d ∈ Component.singleton ParallelDesignatum.a at hd
       simpa using hd
     · right
-      simpa [parallelShell] using hd
+      simpa [parallelShell, parallelSlot] using hd
   · rintro (rfl | rfl)
     · exact ⟨⟨ParallelDesignatum.ab, by simp⟩,
         by
@@ -93,7 +88,7 @@ theorem mem_parallelShell_left_iff (d : ParallelDesignatum) :
             Component.singleton ParallelDesignatum.a
           simp⟩
     · exact ⟨⟨ParallelDesignatum.x, by simp⟩,
-        by simp⟩
+        by simp [parallelSlot]⟩
 
 /-- Opening the two source slots in parallel exposes `{b,x}` on the right. -/
 theorem mem_parallelShell_right_iff (d : ParallelDesignatum) :
@@ -109,7 +104,7 @@ theorem mem_parallelShell_right_iff (d : ParallelDesignatum) :
       change d ∈ Component.singleton ParallelDesignatum.b at hd
       simpa using hd
     · right
-      simpa [parallelShell] using hd
+      simpa [parallelShell, parallelSlot] using hd
   · rintro (rfl | rfl)
     · exact ⟨⟨ParallelDesignatum.ab, by simp⟩,
         by
@@ -117,7 +112,7 @@ theorem mem_parallelShell_right_iff (d : ParallelDesignatum) :
             Component.singleton ParallelDesignatum.b
           simp⟩
     · exact ⟨⟨ParallelDesignatum.x, by simp⟩,
-        by simp⟩
+        by simp [parallelSlot]⟩
 
 /-- A selected resolution keeps one body and exposes that body's endpoints. -/
 theorem resolvedAB_interfaces :
@@ -162,5 +157,188 @@ theorem resolvedABThenC_interfaces :
     rfl
   · rw [resolvedABThenC, Segment.right_append,
       Segment.right_ofDesignatum]
+
+/-! ## Endpoint sensitivity over a non-total elaboration -/
+
+namespace EndpointSensitivity
+
+inductive EndpointDesignatum where
+  | a
+  | b
+  | c
+  | ab
+  | moreA
+  | abWitness
+  | moreB
+  | bcWitness
+  | moreC
+  deriving DecidableEq
+
+/--
+`a` and `b` meet at `abWitness`, while `b` and `c` meet separately at
+`bcWitness`.  The extra source `ab` elaborates specifically as `[a,b]`.
+-/
+def endpointElaboration : Elaboration EndpointDesignatum where
+  Elab d rawM :=
+    (d = .ab ∧
+      rawM.components =
+        [Component.singleton .a, Component.singleton .b]) ∨
+    (d = .a ∧
+      rawM.components =
+        [Component.singleton .moreA,
+          Component.singleton .abWitness]) ∨
+    (d = .b ∧
+      rawM.components =
+        [Component.singleton .abWitness,
+          Component.singleton .moreB,
+          Component.singleton .bcWitness]) ∨
+    (d = .c ∧
+      rawM.components =
+        [Component.singleton .bcWitness,
+          Component.singleton .moreC])
+
+def endpointRawA : RawMutualDependence EndpointDesignatum :=
+  .pair endpointElaboration (Component.singleton .moreA)
+    (Component.singleton .abWitness)
+
+def endpointRawB : RawMutualDependence EndpointDesignatum :=
+  .triple endpointElaboration (Component.singleton .abWitness)
+    (Component.singleton .moreB) (Component.singleton .bcWitness)
+
+def endpointRawC : RawMutualDependence EndpointDesignatum :=
+  .pair endpointElaboration (Component.singleton .bcWitness)
+    (Component.singleton .moreC)
+
+def endpointRawAB : RawMutualDependence EndpointDesignatum :=
+  .pair endpointElaboration (Component.singleton .a)
+    (Component.singleton .b)
+
+theorem endpoint_elaborates_a : endpointElaboration.Elab .a endpointRawA := by
+  simp [endpointElaboration, endpointRawA]
+
+theorem endpoint_elaborates_b : endpointElaboration.Elab .b endpointRawB := by
+  simp [endpointElaboration, endpointRawB]
+
+theorem endpoint_elaborates_c : endpointElaboration.Elab .c endpointRawC := by
+  simp [endpointElaboration, endpointRawC]
+
+theorem endpoint_elaborates_ab :
+    endpointElaboration.Elab .ab endpointRawAB := by
+  simp [endpointElaboration, endpointRawAB]
+
+theorem endpoint_related_a_b : endpointElaboration.Related .a .b := by
+  have ha : endpointElaboration.Reaches .a .abWitness :=
+    Elaboration.Reaches.single (rawM := endpointRawA)
+      (a := Component.singleton .abWitness) endpoint_elaborates_a
+      (by simp [endpointRawA]) (by simp)
+  have hb : endpointElaboration.Reaches .b .abWitness :=
+    Elaboration.Reaches.single (rawM := endpointRawB)
+      (a := Component.singleton .abWitness) endpoint_elaborates_b
+      (by simp [endpointRawB]) (by simp)
+  exact ⟨.abWitness, ha, hb⟩
+
+theorem endpoint_related_b_c : endpointElaboration.Related .b .c := by
+  have hb : endpointElaboration.Reaches .b .bcWitness :=
+    Elaboration.Reaches.single (rawM := endpointRawB)
+      (a := Component.singleton .bcWitness) endpoint_elaborates_b
+      (by simp [endpointRawB]) (by simp)
+  have hc : endpointElaboration.Reaches .c .bcWitness :=
+    Elaboration.Reaches.single (rawM := endpointRawC)
+      (a := Component.singleton .bcWitness) endpoint_elaborates_c
+      (by simp [endpointRawC]) (by simp)
+  exact ⟨.bcWitness, hb, hc⟩
+
+private theorem reaches_a {w : EndpointDesignatum}
+    (h : endpointElaboration.Reaches .a w) :
+    w = .a ∨ w = .moreA ∨ w = .abWitness := by
+  cases h with
+  | refl _ => simp
+  | step hE hcomponent he htail =>
+      simp [endpointElaboration] at hE
+      simp [hE] at hcomponent
+      rcases hcomponent with rfl | rfl
+      · simp at he
+        cases he
+        cases htail with
+        | refl _ => simp
+        | step hE' _ _ _ => simp [endpointElaboration] at hE'
+      · simp at he
+        cases he
+        cases htail with
+        | refl _ => simp
+        | step hE' _ _ _ => simp [endpointElaboration] at hE'
+
+private theorem reaches_c {w : EndpointDesignatum}
+    (h : endpointElaboration.Reaches .c w) :
+    w = .c ∨ w = .bcWitness ∨ w = .moreC := by
+  cases h with
+  | refl _ => simp
+  | step hE hcomponent he htail =>
+      simp [endpointElaboration] at hE
+      simp [hE] at hcomponent
+      rcases hcomponent with rfl | rfl
+      · simp at he
+        cases he
+        cases htail with
+        | refl _ => simp
+        | step hE' _ _ _ => simp [endpointElaboration] at hE'
+      · simp at he
+        cases he
+        cases htail with
+        | refl _ => simp
+        | step hE' _ _ _ => simp [endpointElaboration] at hE'
+
+theorem endpoint_not_related_a_c : ¬ endpointElaboration.Related .a .c := by
+  rintro ⟨w, haw, hcw⟩
+  rcases reaches_a haw with hwa | hwa | hwa <;>
+    rcases reaches_c hcw with hwc | hwc | hwc <;>
+    simp_all
+
+def endpointResolutionAB :
+    Elaboration.Resolution endpointElaboration EndpointDesignatum.ab where
+  raw := endpointRawAB
+  isElaboration := endpoint_elaborates_ab
+  holds := by
+    simp only [endpointRawAB, Elaboration.certify_pair,
+      RawMutualDependence.holds_pair_iff]
+    exact Elaboration.linked_singleton_iff.mpr endpoint_related_a_b
+
+/-- The selected body exposes `b`, so `[a,b] <--> c` succeeds. -/
+theorem endpoint_resolution_join_c :
+    Segment.Joined endpointElaboration
+      (Segment.ofResolution endpointResolutionAB)
+      (Segment.ofDesignatum endpointElaboration .c) := by
+  exact (Segment.joined_resolution_designatum_iff endpointResolutionAB
+    rfl .c).mpr endpoint_related_b_c
+
+/-- Reversing only the outer order tests `c` against `a` and therefore fails. -/
+theorem endpoint_c_not_join_resolution :
+    ¬ Segment.Joined endpointElaboration
+      (Segment.ofDesignatum endpointElaboration .c)
+      (Segment.ofResolution endpointResolutionAB) := by
+  intro hjoined
+  have hca : endpointElaboration.Related .c .a :=
+    (Segment.joined_designatum_resolution_iff endpointResolutionAB
+      rfl .c).mp hjoined
+  exact endpoint_not_related_a_c hca.symm
+
+/-- The same certified `a <--> b <--> c` chain can occupy one Segment slot. -/
+def endpointMutualDependence : MutualDependence EndpointDesignatum :=
+  MutualDependence.triple (Linkage.ofElaboration endpointElaboration)
+    (Component.singleton .a) (Component.singleton .b)
+    (Component.singleton .c)
+    (Elaboration.linked_singleton_iff.mpr endpoint_related_a_b)
+    (Elaboration.linked_singleton_iff.mpr endpoint_related_b_c)
+
+def endpointDirectSegment : Segment endpointElaboration :=
+  Segment.ofMutualDependence endpointMutualDependence rfl
+
+@[simp] theorem endpointDirectSegment_interfaces :
+    endpointDirectSegment.left = Component.singleton EndpointDesignatum.a ∧
+      endpointDirectSegment.right =
+        Component.singleton EndpointDesignatum.c := by
+  constructor <;> rfl
+
+end EndpointSensitivity
 
 end SegmentExamples

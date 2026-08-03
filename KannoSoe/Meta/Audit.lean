@@ -1,6 +1,5 @@
 import Lean
 import KannoSoe.Signature.V2
-import KannoSoe.Signature.Segment
 import KannoSoe.Signature.Interpenetration
 import KannoSoe.Meta.Examples
 import KannoSoe.Meta.InterpenetrationExamples
@@ -22,10 +21,10 @@ kernel axiom dependency.
 
 The exact module-level trust boundaries are:
 
-* KannoSoe.Signature.V2: propext, plus the known private partial helper
-  generated for Being.rawOfComponents.
-* KannoSoe.Signature.Segment: propext, plus the three private helpers generated
-  for recursion over retained Segment shapes.
+* KannoSoe.Signature.V2: propext and Quot.sound. Quot.sound enters via funext,
+  required by Component.ext (extensionality of Component carriers) and the
+  reversal interface equalities; the generated recursion helpers for
+  component-list construction and retained Segment shapes are also expected.
 * KannoSoe.Signature.Interpenetration: propext.
 * KannoSoe.Meta.Examples: propext and Quot.sound.
 * KannoSoe.Meta.InterpenetrationExamples: propext.
@@ -218,16 +217,14 @@ elab "#audit_signature_and_examples" : command => do
   let configs : List ModuleAuditConfig := [
     { moduleName := "KannoSoe.Signature.V2"
       sourcePath := packageDir / "Signature" / "V2.lean"
-      allowedAxioms := ["propext"]
+      allowedAxioms := ["propext", "Quot.sound"]
       expectedPartials :=
-        ["_private.KannoSoe.Signature.V2.0.Being.rawOfComponents._unsafe_rec"] },
-    { moduleName := "KannoSoe.Signature.Segment"
-      sourcePath := packageDir / "Signature" / "Segment.lean"
-      allowedAxioms := ["propext"]
-      expectedPartials :=
-        ["Segment.Shape.Holds._unsafe_rec",
+        ["RawMutualDependence.ofComponents._unsafe_rec",
+          "Segment.Shape.Holds._unsafe_rec",
           "Segment.Shape.left._unsafe_rec",
-          "Segment.Shape.right._unsafe_rec"] },
+          "Segment.Shape.reverse._unsafe_rec",
+          "Segment.Shape.right._unsafe_rec",
+          "Segment.Shape.sourceComponents._unsafe_rec"] },
     { moduleName := "KannoSoe.Signature.Interpenetration"
       sourcePath := packageDir / "Signature" / "Interpenetration.lean"
       allowedAxioms := ["propext"] },

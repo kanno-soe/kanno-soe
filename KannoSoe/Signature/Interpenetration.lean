@@ -593,4 +593,70 @@ theorem contract_not_chain_invariant :
     rw [linked_singleton_iff]
     exact (contract_related_none_iff E b a c).mpr (Or.inl hbc)
 
+/-! ## Endpoint-sensitive contraction bridge -/
+
+/-- Open the fresh contraction point as its ordered two-component body. -/
+def contractResolution {D : Type u} {E : Elaboration D} {a b : D}
+    (hab : E.Related a b) : Resolution (contract E a b) none where
+  raw := RawMutualDependence.pair (contract E a b)
+    (Component.singleton (some a)) (Component.singleton (some b))
+  isElaboration := rfl
+  holds := by
+    rw [Elaboration.certify_pair, RawMutualDependence.holds_pair_iff]
+    exact Elaboration.linked_singleton_iff.mpr
+      ((contract_related_iff E a b a b).mpr hab)
+
+/-- Opening `[a,b]` on the left exposes only `b` at the right join. -/
+theorem contract_segment_joined_iff {D : Type u} {E : Elaboration D}
+    {a b : D} (hab : E.Related a b) (c : D) :
+    Segment.Joined (contract E a b)
+      (Segment.ofResolution (contractResolution hab))
+      (Segment.ofDesignatum (contract E a b) (some c)) ↔
+        E.Related b c := by
+  rw [Segment.joined_resolution_designatum_iff
+    (contractResolution hab) rfl (some c)]
+  exact contract_related_iff E a b b c
+
+/-- Opening `[a,b]` on the right exposes only `a` at the left join. -/
+theorem contract_segment_joined_left_iff {D : Type u}
+    {E : Elaboration D} {a b : D} (hab : E.Related a b) (c : D) :
+    Segment.Joined (contract E a b)
+      (Segment.ofDesignatum (contract E a b) (some c))
+      (Segment.ofResolution (contractResolution hab)) ↔
+        E.Related c a := by
+  rw [Segment.joined_designatum_resolution_iff
+    (contractResolution hab) rfl (some c)]
+  exact contract_related_iff E a b c a
+
+/-- The unopened fresh contraction point retains its disjunctive join. -/
+theorem contract_opaque_joined_iff {D : Type u} (E : Elaboration D)
+    (a b c : D) :
+    Segment.Joined (contract E a b)
+      (Segment.ofDesignatum (contract E a b) none)
+      (Segment.ofDesignatum (contract E a b) (some c)) ↔
+        E.Related a c ∨ E.Related b c := by
+  rw [Segment.Joined, Segment.right_ofDesignatum,
+    Segment.left_ofDesignatum, linked_singleton_iff]
+  exact contract_related_none_iff E a b c
+
+/--
+There is a contraction whose opaque name joins to `c` while its ordered,
+opened body does not: the latter exposes the unrelated right endpoint.
+-/
+theorem exists_contract_segment_endpoint_distinction :
+    ∃ (D : Type) (E : Elaboration D) (left right c : D)
+        (hlr : E.Related left right),
+      Segment.Joined (contract E left right)
+          (Segment.ofDesignatum (contract E left right) none)
+          (Segment.ofDesignatum (contract E left right) (some c)) ∧
+        ¬ Segment.Joined (contract E left right)
+          (Segment.ofResolution (contractResolution hlr))
+          (Segment.ofDesignatum (contract E left right) (some c)) := by
+  obtain ⟨D, E, a, b, c, _, _, _, hab, hbc, hnac⟩ :=
+    Related.exists_nontransitive_mutualDependence
+  refine ⟨D, E, b, a, c, hab.symm, ?_, ?_⟩
+  · exact (contract_opaque_joined_iff E b a c).mpr (Or.inl hbc)
+  · intro hjoined
+    exact hnac ((contract_segment_joined_iff hab.symm c).mp hjoined)
+
 end Elaboration

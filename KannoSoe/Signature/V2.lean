@@ -62,6 +62,38 @@ def pair {D : Type u} (d₁ d₂ : D) : Component D :=
 theorem exists_mem {D : Type u} (a : Component D) : ∃ d, d ∈ a :=
   a.nonempty
 
+/-- Components are equal when they have exactly the same members. -/
+theorem ext {D : Type u} {a b : Component D}
+    (h : ∀ d, d ∈ a ↔ d ∈ b) : a = b := by
+  cases a with
+  | mk carrierA nonemptyA =>
+      cases b with
+      | mk carrierB nonemptyB =>
+          have hcarrier : carrierA = carrierB :=
+            by
+              ext d
+              exact h d
+          cases hcarrier
+          rfl
+
+/--
+Replace each member of a component by a nonempty component and take their
+indexed union.  The subtype argument identifies the source slot while the
+union is built; the enclosing `Segment.Shell` retains the slot presentation.
+-/
+def bind {D : Type u} (source : Component D)
+    (part : (d : {d // d ∈ source}) → Component D) : Component D where
+  carrier := fun x => ∃ d, x ∈ part d
+  nonempty := by
+    obtain ⟨d, hd⟩ := source.nonempty
+    obtain ⟨x, hx⟩ := (part ⟨d, hd⟩).nonempty
+    exact ⟨x, ⟨⟨d, hd⟩, hx⟩⟩
+
+@[simp] theorem mem_bind_iff {D : Type u} {source : Component D}
+    {part : (d : {d // d ∈ source}) → Component D} {x : D} :
+    x ∈ source.bind part ↔ ∃ d, x ∈ part d :=
+  Iff.rfl
+
 end Component
 
 /-! ## Linkage -/
@@ -129,6 +161,38 @@ theorem ChainLinked.glue {D : Type u} {L : Linkage D} :
           | cons h₁₂ htail =>
               exact .cons h₁₂ (ih htail)
 
+/-- Join two nonempty linked chains by linking their exposed endpoints. -/
+theorem ChainLinked.append_of_linked {D : Type u} {L : Linkage D}
+    {l₁ l₂ : List (Component D)} {c₁ c₂ : Component D}
+    (h₁ : L.ChainLinked (l₁ ++ [c₁]))
+    (h₂ : L.ChainLinked (c₂ :: l₂))
+    (h₁₂ : L.Linked c₁ c₂) :
+    L.ChainLinked ((l₁ ++ [c₁]) ++ c₂ :: l₂) := by
+  have hthrough :
+      L.ChainLinked ((l₁ ++ [c₁]) ++ [c₂]) := by
+    simpa [List.append_assoc] using
+      (ChainLinked.glue (l₁ := l₁) (cₙ := c₁) (l₂ := [c₂])
+        h₁ (.cons h₁₂ (.single c₂)))
+  exact ChainLinked.glue (l₁ := l₁ ++ [c₁]) (cₙ := c₂)
+    (l₂ := l₂) hthrough h₂
+
+/-- Reversing a linked chain preserves it under a symmetric linkage. -/
+theorem ChainLinked.reverse {D : Type u} {L : Linkage D}
+    {components : List (Component D)}
+    (h : L.ChainLinked components) :
+    L.ChainLinked components.reverse := by
+  induction h with
+  | nil => exact .nil
+  | single c => exact .single c
+  | @cons c₁ c₂ rest h₁₂ htail ih =>
+      have htail' :
+          L.ChainLinked (rest.reverse ++ [c₂]) := by
+        simpa using ih
+      simpa [List.reverse_cons, List.append_assoc] using
+        (ChainLinked.glue (l₁ := rest.reverse) (cₙ := c₂)
+          (l₂ := [c₁]) htail'
+          (.cons (L.symm h₁₂) (.single c₁)))
+
 end Linkage
 
 /-! ## Raw mutual dependence: data only -/
@@ -151,6 +215,14 @@ def components {D : Type u} (rawM : RawMutualDependence D) :
     List (Component D) :=
   rawM.c₁ :: rawM.middle ++ [rawM.cₙ]
 
+@[simp] theorem c₁_mem_components {D : Type u}
+    (rawM : RawMutualDependence D) : rawM.c₁ ∈ rawM.components := by
+  simp [components]
+
+@[simp] theorem cₙ_mem_components {D : Type u}
+    (rawM : RawMutualDependence D) : rawM.cₙ ∈ rawM.components := by
+  simp [components]
+
 /-- The assertion: every two adjacent components are accepted by the
 bundled linkage. -/
 def Holds {D : Type u} (rawM : RawMutualDependence D) : Prop :=
@@ -167,6 +239,54 @@ def triple {D : Type u} (L : Linkage D) (c₁ c₂ c₃ : Component D) :
 def quad {D : Type u} (L : Linkage D) (c₁ c₂ c₃ c₄ : Component D) :
     RawMutualDependence D :=
   ⟨L, c₁, [c₂, c₃], c₄⟩
+
+/-- Build raw dependence data from an explicitly nontrivial component list. -/
+def ofComponents {D : Type u} (L : Linkage D)
+    (c₁ c₂ : Component D) :
+    List (Component D) → RawMutualDependence D
+  | [] => pair L c₁ c₂
+  | c₃ :: rest =>
+      let rawM := ofComponents L c₂ c₃ rest
+      ⟨L, c₁, c₂ :: rawM.middle, rawM.cₙ⟩
+
+@[simp] theorem linkage_ofComponents {D : Type u} (L : Linkage D)
+    (c₁ c₂ : Component D) (rest : List (Component D)) :
+    (ofComponents L c₁ c₂ rest).linkage = L := by
+  cases rest <;> rfl
+
+@[simp] theorem c₁_ofComponents {D : Type u} (L : Linkage D)
+    (c₁ c₂ : Component D) (rest : List (Component D)) :
+    (ofComponents L c₁ c₂ rest).c₁ = c₁ := by
+  cases rest <;> rfl
+
+@[simp] theorem components_ofComponents {D : Type u} (L : Linkage D)
+    (c₁ c₂ : Component D) (rest : List (Component D)) :
+    (ofComponents L c₁ c₂ rest).components = c₁ :: c₂ :: rest := by
+  induction rest generalizing c₁ c₂ with
+  | nil => rfl
+  | cons c₃ rest ih =>
+      change
+        c₁ ::
+            (c₂ :: (ofComponents L c₂ c₃ rest).middle) ++
+              [(ofComponents L c₂ c₃ rest).cₙ] =
+          c₁ :: c₂ :: c₃ :: rest
+      have tailComponents :
+          (c₂ :: (ofComponents L c₂ c₃ rest).middle) ++
+              [(ofComponents L c₂ c₃ rest).cₙ] =
+            c₂ :: c₃ :: rest := by
+        calc
+          _ =
+              (ofComponents L c₂ c₃ rest).c₁ ::
+                  (ofComponents L c₂ c₃ rest).middle ++
+                    [(ofComponents L c₂ c₃ rest).cₙ] := by
+                exact congrArg
+                  (fun c =>
+                    (c :: (ofComponents L c₂ c₃ rest).middle) ++
+                      [(ofComponents L c₂ c₃ rest).cₙ])
+                  (c₁_ofComponents L c₂ c₃ rest).symm
+          _ = (ofComponents L c₂ c₃ rest).components := rfl
+          _ = c₂ :: c₃ :: rest := ih c₂ c₃
+      exact congrArg (List.cons c₁) tailComponents
 
 @[simp] theorem linkage_pair {D : Type u} (L : Linkage D)
     (c₁ c₂ : Component D) : (pair L c₁ c₂).linkage = L :=
@@ -229,6 +349,48 @@ def quad {D : Type u} (L : Linkage D) (c₁ c₂ c₃ c₄ : Component D) :
   · intro h
     show L.ChainLinked [c₁, c₂, c₃, c₄]
     exact .cons h.1 (.cons h.2.1 (.cons h.2.2 (.single c₄)))
+
+/-- Reverse the displayed order while retaining the same symmetric linkage. -/
+def reverse {D : Type u} (rawM : RawMutualDependence D) :
+    RawMutualDependence D where
+  linkage := rawM.linkage
+  c₁ := rawM.cₙ
+  middle := rawM.middle.reverse
+  cₙ := rawM.c₁
+
+@[simp] theorem linkage_reverse {D : Type u}
+    (rawM : RawMutualDependence D) : rawM.reverse.linkage = rawM.linkage :=
+  rfl
+
+@[simp] theorem c₁_reverse {D : Type u} (rawM : RawMutualDependence D) :
+    rawM.reverse.c₁ = rawM.cₙ :=
+  rfl
+
+@[simp] theorem middle_reverse {D : Type u}
+    (rawM : RawMutualDependence D) :
+    rawM.reverse.middle = rawM.middle.reverse :=
+  rfl
+
+@[simp] theorem cₙ_reverse {D : Type u} (rawM : RawMutualDependence D) :
+    rawM.reverse.cₙ = rawM.c₁ :=
+  rfl
+
+@[simp] theorem components_reverse {D : Type u}
+    (rawM : RawMutualDependence D) :
+    rawM.reverse.components = rawM.components.reverse := by
+  simp [reverse, components, List.reverse_append]
+
+@[simp] theorem reverse_reverse {D : Type u}
+    (rawM : RawMutualDependence D) : rawM.reverse.reverse = rawM := by
+  cases rawM
+  simp [reverse]
+
+/-- A certified raw chain remains certified when its display is reversed. -/
+theorem Holds.reverse {D : Type u} {rawM : RawMutualDependence D}
+    (h : rawM.Holds) : rawM.reverse.Holds := by
+  change rawM.linkage.ChainLinked rawM.reverse.components
+  rw [components_reverse]
+  exact Linkage.ChainLinked.reverse h
 
 theorem holds_of_contiguous {D : Type u}
     {whole sub : RawMutualDependence D} {pre suf : List (Component D)}
@@ -296,6 +458,38 @@ theorem ext {D : Type u} {a b : MutualDependence D}
   cases h
   rfl
 
+/-- Reverse a certified dependence together with its holding proof. -/
+def reverse {D : Type u} (m : MutualDependence D) : MutualDependence D :=
+  ⟨m.toRaw.reverse, m.holds.reverse⟩
+
+@[simp] theorem toRaw_reverse {D : Type u} (m : MutualDependence D) :
+    m.reverse.toRaw = m.toRaw.reverse :=
+  rfl
+
+@[simp] theorem linkage_reverse {D : Type u} (m : MutualDependence D) :
+    m.reverse.linkage = m.linkage :=
+  rfl
+
+@[simp] theorem c₁_reverse {D : Type u} (m : MutualDependence D) :
+    m.reverse.c₁ = m.cₙ :=
+  rfl
+
+@[simp] theorem middle_reverse {D : Type u} (m : MutualDependence D) :
+    m.reverse.middle = m.middle.reverse :=
+  rfl
+
+@[simp] theorem cₙ_reverse {D : Type u} (m : MutualDependence D) :
+    m.reverse.cₙ = m.c₁ :=
+  rfl
+
+@[simp] theorem components_reverse {D : Type u} (m : MutualDependence D) :
+    m.reverse.components = m.components.reverse :=
+  RawMutualDependence.components_reverse m.toRaw
+
+@[simp] theorem reverse_reverse {D : Type u} (m : MutualDependence D) :
+    m.reverse.reverse = m :=
+  ext (RawMutualDependence.reverse_reverse m.toRaw)
+
 def pair {D : Type u} (L : Linkage D) (c₁ c₂ : Component D)
     (h : L.Linked c₁ c₂) : MutualDependence D :=
   ⟨RawMutualDependence.pair L c₁ c₂,
@@ -313,6 +507,19 @@ def quad {D : Type u} (L : Linkage D) (c₁ c₂ c₃ c₄ : Component D)
     MutualDependence D :=
   ⟨RawMutualDependence.quad L c₁ c₂ c₃ c₄,
     RawMutualDependence.holds_quad_iff.mpr ⟨h₁₂, h₂₃, h₃₄⟩⟩
+
+/-- Certify an explicitly nontrivial list of chain-linked components. -/
+def ofComponents {D : Type u} (L : Linkage D)
+    (c₁ c₂ : Component D) (rest : List (Component D))
+    (holds : L.ChainLinked (c₁ :: c₂ :: rest)) :
+    MutualDependence D := by
+  refine ⟨RawMutualDependence.ofComponents L c₁ c₂ rest, ?_⟩
+  change
+    (RawMutualDependence.ofComponents L c₁ c₂ rest).linkage.ChainLinked
+      (RawMutualDependence.ofComponents L c₁ c₂ rest).components
+  rw [RawMutualDependence.linkage_ofComponents,
+    RawMutualDependence.components_ofComponents]
+  exact holds
 
 /-- `holds_of_contiguous` as a slicing function: the sub-tuple copies the
 whole's linkage, so it comes back certified with no side conditions. -/
@@ -372,6 +579,15 @@ def mergeLinkedEndpoints {D : Type u} (m₁ m₂ : MutualDependence D)
     RawMutualDependence.Holds, RawMutualDependence.components,
     List.append_assoc] using h
 
+@[simp] theorem components_mergeLinkedEndpoints {D : Type u}
+    (m₁ m₂ : MutualDependence D) (hL : m₁.linkage = m₂.linkage)
+    (hJoin : m₁.linkage.Linked m₁.cₙ m₂.c₁) :
+    (mergeLinkedEndpoints m₁ m₂ hL hJoin).components =
+      m₁.components ++ m₂.components := by
+  simp [mergeLinkedEndpoints, MutualDependence.components,
+    MutualDependence.c₁, MutualDependence.middle, MutualDependence.cₙ,
+    RawMutualDependence.components, List.append_assoc]
+
 def IsResonance {D : Type u} (m : MutualDependence D) : Prop :=
   m.toRaw.IsResonance
 
@@ -426,6 +642,12 @@ theorem Related.symm {D : Type u} {E : Elaboration D} {a b : D}
     (h : E.Related a b) : E.Related b a := by
   obtain ⟨w, ha, hb⟩ := h
   exact ⟨w, hb, ha⟩
+
+/-- Reachability into one side of a relation transports that relation back. -/
+theorem Related.of_reaches {D : Type u} {E : Elaboration D} {d y x : D}
+    (hdy : E.Reaches d y) (hyx : E.Related y x) : E.Related d x := by
+  obtain ⟨w, hyw, hxw⟩ := hyx
+  exact ⟨w, hdy.trans hyw, hxw⟩
 
 theorem Reaches.related {D : Type u} {E : Elaboration D} {a b : D}
     (h : E.Reaches a b) : E.Related a b :=
@@ -501,11 +723,122 @@ def certify {D : Type u} (E : Elaboration D)
     (E.certify rawM).components = rawM.components :=
   rfl
 
+@[simp] theorem certify_pair {D : Type u} (E : Elaboration D)
+    (L : Linkage D) (c₁ c₂ : Component D) :
+    E.certify (RawMutualDependence.pair L c₁ c₂) =
+      RawMutualDependence.pair (Linkage.ofElaboration E) c₁ c₂ :=
+  rfl
+
+@[simp] theorem certify_triple {D : Type u} (E : Elaboration D)
+    (L : Linkage D) (c₁ c₂ c₃ : Component D) :
+    E.certify (RawMutualDependence.triple L c₁ c₂ c₃) =
+      RawMutualDependence.triple (Linkage.ofElaboration E) c₁ c₂ c₃ :=
+  rfl
+
+@[simp] theorem certify_quad {D : Type u} (E : Elaboration D)
+    (L : Linkage D) (c₁ c₂ c₃ c₄ : Component D) :
+    E.certify (RawMutualDependence.quad L c₁ c₂ c₃ c₄) =
+      RawMutualDependence.quad (Linkage.ofElaboration E) c₁ c₂ c₃ c₄ :=
+  rfl
+
+@[simp] theorem certify_reverse {D : Type u} (E : Elaboration D)
+    (rawM : RawMutualDependence D) :
+    E.certify rawM.reverse = (E.certify rawM).reverse :=
+  rfl
+
 /-- Well-formedness of a completed system: every emitted raw dependence
 carries the linkage derived from the elaboration itself. Provable about a
 finished `E`; not expressible inside `E`'s own definition. -/
 def SelfCertified {D : Type u} (E : Elaboration D) : Prop :=
   ∀ d rawM, E.Elab d rawM → rawM.linkage = Linkage.ofElaboration E
+
+/-- An elaboration system accepts the reversed display of every target. -/
+def ReversalClosed {D : Type u} (E : Elaboration D) : Prop :=
+  ∀ d rawM, E.Elab d rawM → E.Elab d rawM.reverse
+
+theorem ReversalClosed.elab_reverse_iff {D : Type u}
+    {E : Elaboration D} (hrc : E.ReversalClosed) {d : D}
+    {rawM : RawMutualDependence D} :
+    E.Elab d rawM.reverse ↔ E.Elab d rawM := by
+  constructor
+  · intro h
+    simpa using hrc d rawM.reverse h
+  · exact hrc d rawM
+
+/--
+A chosen elaboration body together with the proof that it certifies under the
+linkage derived from the same elaboration system.
+
+The raw target is retained because `Elab` may inspect its original linkage;
+`certify` is the sanctioned operation which retags that target with
+`Linkage.ofElaboration E`.
+-/
+structure Resolution {D : Type u} (E : Elaboration D) (d : D) where
+  raw : RawMutualDependence D
+  isElaboration : E.Elab d raw
+  holds : (E.certify raw).Holds
+
+namespace Resolution
+
+/-- Proof irrelevance reduces resolution equality to equality of raw bodies. -/
+theorem ext {D : Type u} {E : Elaboration D} {d : D}
+    {r₁ r₂ : Resolution E d} (h : r₁.raw = r₂.raw) : r₁ = r₂ := by
+  cases r₁
+  cases r₂
+  cases h
+  rfl
+
+/-- The certified mutual dependence selected by a resolution. -/
+def toMutualDependence {D : Type u} {E : Elaboration D} {d : D}
+    (r : Resolution E d) : MutualDependence D :=
+  ⟨E.certify r.raw, r.holds⟩
+
+@[simp] theorem toMutualDependence_toRaw {D : Type u}
+    {E : Elaboration D} {d : D} (r : Resolution E d) :
+    r.toMutualDependence.toRaw = E.certify r.raw :=
+  rfl
+
+@[simp] theorem toMutualDependence_linkage {D : Type u}
+    {E : Elaboration D} {d : D} (r : Resolution E d) :
+    r.toMutualDependence.linkage = Linkage.ofElaboration E :=
+  rfl
+
+@[simp] theorem toMutualDependence_c₁ {D : Type u}
+    {E : Elaboration D} {d : D} (r : Resolution E d) :
+    r.toMutualDependence.c₁ = r.raw.c₁ :=
+  rfl
+
+@[simp] theorem toMutualDependence_cₙ {D : Type u}
+    {E : Elaboration D} {d : D} (r : Resolution E d) :
+    r.toMutualDependence.cₙ = r.raw.cₙ :=
+  rfl
+
+/-- Reverse a selected body when the elaboration accepts reversed targets. -/
+def reverse {D : Type u} {E : Elaboration D} {d : D}
+    (r : Resolution E d) (hrc : E.ReversalClosed) : Resolution E d where
+  raw := r.raw.reverse
+  isElaboration := hrc d r.raw r.isElaboration
+  holds := by
+    rw [Elaboration.certify_reverse]
+    exact r.holds.reverse
+
+@[simp] theorem raw_reverse {D : Type u} {E : Elaboration D} {d : D}
+    (r : Resolution E d) (hrc : E.ReversalClosed) :
+    (r.reverse hrc).raw = r.raw.reverse :=
+  rfl
+
+@[simp] theorem toMutualDependence_reverse {D : Type u}
+    {E : Elaboration D} {d : D} (r : Resolution E d)
+    (hrc : E.ReversalClosed) :
+    (r.reverse hrc).toMutualDependence = r.toMutualDependence.reverse :=
+  MutualDependence.ext rfl
+
+@[simp] theorem reverse_reverse {D : Type u} {E : Elaboration D} {d : D}
+    (r : Resolution E d) (hrc : E.ReversalClosed) :
+    (r.reverse hrc).reverse hrc = r :=
+  ext (RawMutualDependence.reverse_reverse r.raw)
+
+end Resolution
 
 private inductive RelatedNotTransitiveCase where
   | a
@@ -796,66 +1129,6 @@ structure Being (D : Type u) where
 
 namespace Being
 
-private def rawOfComponents {D : Type u} (L : Linkage D)
-    (c₁ c₂ : Component D) :
-    List (Component D) → RawMutualDependence D
-  | [] => RawMutualDependence.pair L c₁ c₂
-  | c₃ :: rest =>
-      let rawM := rawOfComponents L c₂ c₃ rest
-      ⟨L, c₁, c₂ :: rawM.middle, rawM.cₙ⟩
-
-private theorem linkage_rawOfComponents {D : Type u} (L : Linkage D)
-    (c₁ c₂ : Component D) (rest : List (Component D)) :
-    (rawOfComponents L c₁ c₂ rest).linkage = L := by
-  cases rest <;> rfl
-
-private theorem c₁_rawOfComponents {D : Type u} (L : Linkage D)
-    (c₁ c₂ : Component D) (rest : List (Component D)) :
-    (rawOfComponents L c₁ c₂ rest).c₁ = c₁ := by
-  cases rest <;> rfl
-
-private theorem components_rawOfComponents {D : Type u} (L : Linkage D)
-    (c₁ c₂ : Component D) (rest : List (Component D)) :
-    (rawOfComponents L c₁ c₂ rest).components =
-      c₁ :: c₂ :: rest := by
-  induction rest generalizing c₁ c₂ with
-  | nil => rfl
-  | cons c₃ rest ih =>
-      change
-        c₁ ::
-            (c₂ :: (rawOfComponents L c₂ c₃ rest).middle) ++
-              [(rawOfComponents L c₂ c₃ rest).cₙ] =
-          c₁ :: c₂ :: c₃ :: rest
-      have tailComponents :
-          (c₂ :: (rawOfComponents L c₂ c₃ rest).middle) ++
-              [(rawOfComponents L c₂ c₃ rest).cₙ] =
-            c₂ :: c₃ :: rest := by
-        calc
-          _ =
-              (rawOfComponents L c₂ c₃ rest).c₁ ::
-                  (rawOfComponents L c₂ c₃ rest).middle ++
-                    [(rawOfComponents L c₂ c₃ rest).cₙ] := by
-                exact congrArg
-                  (fun c =>
-                    (c ::
-                      (rawOfComponents L c₂ c₃ rest).middle) ++
-                        [(rawOfComponents L c₂ c₃ rest).cₙ])
-                  (c₁_rawOfComponents L c₂ c₃ rest).symm
-          _ = (rawOfComponents L c₂ c₃ rest).components := rfl
-          _ = c₂ :: c₃ :: rest := ih c₂ c₃
-      exact congrArg (List.cons c₁) tailComponents
-
-private def mutualDependenceOfComponents {D : Type u} (L : Linkage D)
-    (c₁ c₂ : Component D) (rest : List (Component D))
-    (holds : L.ChainLinked (c₁ :: c₂ :: rest)) :
-    MutualDependence D := by
-  refine ⟨rawOfComponents L c₁ c₂ rest, ?_⟩
-  change
-    (rawOfComponents L c₁ c₂ rest).linkage.ChainLinked
-      (rawOfComponents L c₁ c₂ rest).components
-  rw [linkage_rawOfComponents, components_rawOfComponents]
-  exact holds
-
 /--
 Certify a nonempty list of resonances as a being. Each resonance contributes
 its two singleton middle components, and `holds` certifies the resulting
@@ -879,19 +1152,892 @@ def ofResonances {D : Type u}
         simpa [Resonance.middleComponents] using holds
       refine
         ⟨r :: rest, by simp,
-          mutualDependenceOfComponents L
+          MutualDependence.ofComponents L
             (Component.singleton r.b₁) (Component.singleton r.b₂)
             (rest.flatMap Resonance.middleComponents) chain, ?_⟩
-      simpa [mutualDependenceOfComponents, MutualDependence.components,
-        Resonance.middleComponents] using
-        (components_rawOfComponents L
-          (Component.singleton r.b₁) (Component.singleton r.b₂)
-          (rest.flatMap Resonance.middleComponents))
+      simp [MutualDependence.ofComponents, MutualDependence.components,
+        Resonance.middleComponents]
 
 instance {D : Type u} : Coe (Being D) (MutualDependence D) :=
   ⟨toMutualDependence⟩
 
 end Being
+
+/-! ## Segments
+
+`Component` remains the unit placed at each position of an ordinary mutual
+dependence.  A segment is a presentation layer in which a designatum in a
+component may be opened as one certified mutual dependence.  The opened body
+is retained, and its first and last components become that slot's left and
+right interfaces.  Slots in a multi-member component are combined in
+parallel; adjacent segments continue to use `Elaboration.Linked`.
+
+Opening is one level deep and local to an occurrence.  In particular, a leaf
+means "not opened here", not "provably has no elaboration".  This keeps every
+component immediately usable and does not demand a recursive normal form from
+possibly cyclic elaboration systems.
+-/
+
+namespace Segment
+
+/-! ## Component shells -/
+
+/--
+One designatum-slot in a component presentation.  A resolved slot stores one
+complete certified body, so its two interfaces cannot be selected from
+different elaboration alternatives.
+-/
+inductive Slot {D : Type u} (E : Elaboration D) (d : D) where
+  | leaf
+  | resolved (resolution : Elaboration.Resolution E d)
+
+namespace Slot
+
+/-- The interface exposed by a slot to its left. -/
+def left {D : Type u} {E : Elaboration D} {d : D} :
+    Slot E d → Component D
+  | .leaf => Component.singleton d
+  | .resolved r => r.toMutualDependence.c₁
+
+/-- The interface exposed by a slot to its right. -/
+def right {D : Type u} {E : Elaboration D} {d : D} :
+    Slot E d → Component D
+  | .leaf => Component.singleton d
+  | .resolved r => r.toMutualDependence.cₙ
+
+@[simp] theorem left_leaf {D : Type u} {E : Elaboration D} {d : D} :
+    (Slot.leaf : Slot E d).left = Component.singleton d :=
+  rfl
+
+@[simp] theorem right_leaf {D : Type u} {E : Elaboration D} {d : D} :
+    (Slot.leaf : Slot E d).right = Component.singleton d :=
+  rfl
+
+@[simp] theorem left_resolved {D : Type u} {E : Elaboration D} {d : D}
+    (r : Elaboration.Resolution E d) :
+    (Slot.resolved r).left = r.raw.c₁ :=
+  rfl
+
+@[simp] theorem right_resolved {D : Type u} {E : Elaboration D} {d : D}
+    (r : Elaboration.Resolution E d) :
+    (Slot.resolved r).right = r.raw.cₙ :=
+  rfl
+
+/-- Every member of a slot's right interface is reachable from its source. -/
+theorem reaches_of_mem_right {D : Type u} {E : Elaboration D} {d x : D}
+    (s : Slot E d) (hx : x ∈ s.right) : E.Reaches d x := by
+  cases s with
+  | leaf =>
+      have hxd : x = d := by simpa using hx
+      subst x
+      exact Elaboration.Reaches.refl d
+  | resolved r =>
+      exact Elaboration.Reaches.single r.isElaboration
+        r.raw.cₙ_mem_components hx
+
+/-- Every member of a slot's left interface is reachable from its source. -/
+theorem reaches_of_mem_left {D : Type u} {E : Elaboration D} {d x : D}
+    (s : Slot E d) (hx : x ∈ s.left) : E.Reaches d x := by
+  cases s with
+  | leaf =>
+      have hxd : x = d := by simpa using hx
+      subst x
+      exact Elaboration.Reaches.refl d
+  | resolved r =>
+      exact Elaboration.Reaches.single r.isElaboration
+        r.raw.c₁_mem_components hx
+
+/-- Reverse a slot's retained body and exchange its two interfaces. -/
+def reverse {D : Type u} {E : Elaboration D} {d : D}
+    (s : Slot E d) (hrc : E.ReversalClosed) : Slot E d :=
+  match s with
+  | .leaf => .leaf
+  | .resolved r => .resolved (r.reverse hrc)
+
+@[simp] theorem left_reverse {D : Type u} {E : Elaboration D} {d : D}
+    (s : Slot E d) (hrc : E.ReversalClosed) :
+    (s.reverse hrc).left = s.right := by
+  cases s <;> rfl
+
+@[simp] theorem right_reverse {D : Type u} {E : Elaboration D} {d : D}
+    (s : Slot E d) (hrc : E.ReversalClosed) :
+    (s.reverse hrc).right = s.left := by
+  cases s <;> rfl
+
+@[simp] theorem reverse_reverse {D : Type u} {E : Elaboration D} {d : D}
+    (s : Slot E d) (hrc : E.ReversalClosed) :
+    (s.reverse hrc).reverse hrc = s := by
+  cases s <;> simp [reverse]
+
+end Slot
+
+/--
+A component position with a finite, occurrence-local presentation.  The
+specialized `component` and `resolution` cases make their interfaces reduce
+definitionally; `slots` opens the members of a multi-member source in
+parallel.
+-/
+inductive Shell {D : Type u} (E : Elaboration D) where
+  | component (source : Component D)
+  | slots (source : Component D)
+      (slot : (d : {d // d ∈ source}) → Slot E d.1)
+  | resolution {d : D} (value : Elaboration.Resolution E d)
+
+namespace Shell
+
+/-- The source component retained by a shell. -/
+def source {D : Type u} {E : Elaboration D} : Shell E → Component D
+  | .component c => c
+  | .slots c _ => c
+  | .resolution (d := d) _ => Component.singleton d
+
+/-- The parallel union of all left slot-interfaces. -/
+def left {D : Type u} {E : Elaboration D} : Shell E → Component D
+  | .component c => c
+  | .slots c slot => c.bind fun d => (slot d).left
+  | .resolution r => r.toMutualDependence.c₁
+
+/-- The parallel union of all right slot-interfaces. -/
+def right {D : Type u} {E : Elaboration D} : Shell E → Component D
+  | .component c => c
+  | .slots c slot => c.bind fun d => (slot d).right
+  | .resolution r => r.toMutualDependence.cₙ
+
+/-- A component used without opening any of its occurrences. -/
+def ofComponent {D : Type u} (E : Elaboration D)
+    (source : Component D) : Shell E :=
+  .component source
+
+/-- Open source slots with a total designatum-indexed presentation. -/
+def ofSlots {D : Type u} {E : Elaboration D} (source : Component D)
+    (slot : (d : D) → Slot E d) : Shell E :=
+  .slots source fun d => slot d.1
+
+/-- A singleton component used without opening its designatum. -/
+def ofDesignatum {D : Type u} (E : Elaboration D) (d : D) : Shell E :=
+  ofComponent E (Component.singleton d)
+
+/--
+Place a designatum in its singleton source component and open that occurrence
+as the selected certified body.
+-/
+def ofResolution {D : Type u} {E : Elaboration D} {d : D}
+    (r : Elaboration.Resolution E d) : Shell E :=
+  .resolution r
+
+@[simp] theorem source_ofComponent {D : Type u} (E : Elaboration D)
+    (source : Component D) : (ofComponent E source).source = source :=
+  rfl
+
+@[simp] theorem left_ofComponent {D : Type u} (E : Elaboration D)
+    (source : Component D) : (ofComponent E source).left = source :=
+  rfl
+
+@[simp] theorem right_ofComponent {D : Type u} (E : Elaboration D)
+    (source : Component D) : (ofComponent E source).right = source :=
+  rfl
+
+@[simp] theorem source_ofResolution {D : Type u} {E : Elaboration D} {d : D}
+    (r : Elaboration.Resolution E d) :
+    (ofResolution r).source = Component.singleton d :=
+  rfl
+
+@[simp] theorem left_ofResolution {D : Type u} {E : Elaboration D} {d : D}
+    (r : Elaboration.Resolution E d) :
+    (ofResolution r).left = r.raw.c₁ :=
+  rfl
+
+@[simp] theorem right_ofResolution {D : Type u} {E : Elaboration D} {d : D}
+    (r : Elaboration.Resolution E d) :
+    (ofResolution r).right = r.raw.cₙ :=
+  rfl
+
+@[simp] theorem mem_left_slots_iff {D : Type u} {E : Elaboration D}
+    {source : Component D}
+    {slot : (d : {d // d ∈ source}) → Slot E d.1} {x : D} :
+    x ∈ (Shell.slots source slot).left ↔
+      ∃ d, x ∈ (slot d).left :=
+  Iff.rfl
+
+@[simp] theorem mem_right_slots_iff {D : Type u} {E : Elaboration D}
+    {source : Component D}
+    {slot : (d : {d // d ∈ source}) → Slot E d.1} {x : D} :
+    x ∈ (Shell.slots source slot).right ↔
+      ∃ d, x ∈ (slot d).right :=
+  Iff.rfl
+
+/-- A right-interface member is reachable from some retained source member. -/
+theorem reaches_of_mem_right {D : Type u} {E : Elaboration D}
+    (s : Shell E) {x : D} (hx : x ∈ s.right) :
+    ∃ d, d ∈ s.source ∧ E.Reaches d x := by
+  cases s with
+  | component source =>
+      exact ⟨x, hx, Elaboration.Reaches.refl x⟩
+  | slots source slot =>
+      obtain ⟨d, hdx⟩ := hx
+      exact ⟨d.1, d.2, (slot d).reaches_of_mem_right hdx⟩
+  | resolution r =>
+      rename_i d
+      exact ⟨d, (show d ∈ Component.singleton d by simp),
+        Elaboration.Reaches.single r.isElaboration
+        r.raw.cₙ_mem_components hx⟩
+
+/-- Every retained source member reaches some right-interface member. -/
+theorem exists_mem_right_reaches {D : Type u} {E : Elaboration D}
+    (s : Shell E) {d : D} (hd : d ∈ s.source) :
+    ∃ x, x ∈ s.right ∧ E.Reaches d x := by
+  cases s with
+  | component source =>
+      exact ⟨d, hd, Elaboration.Reaches.refl d⟩
+  | slots source slot =>
+      let sourceMember : {x // x ∈ source} := ⟨d, hd⟩
+      obtain ⟨x, hx⟩ := (slot sourceMember).right.exists_mem
+      exact ⟨x, ⟨sourceMember, hx⟩,
+        (slot sourceMember).reaches_of_mem_right hx⟩
+  | resolution r =>
+      rename_i sourceD
+      change d ∈ Component.singleton sourceD at hd
+      have hsource : d = sourceD := by simpa using hd
+      subst d
+      obtain ⟨x, hx⟩ := r.raw.cₙ.exists_mem
+      exact ⟨x, hx, Elaboration.Reaches.single r.isElaboration
+        r.raw.cₙ_mem_components hx⟩
+
+/-- A left-interface member is reachable from some retained source member. -/
+theorem reaches_of_mem_left {D : Type u} {E : Elaboration D}
+    (s : Shell E) {x : D} (hx : x ∈ s.left) :
+    ∃ d, d ∈ s.source ∧ E.Reaches d x := by
+  cases s with
+  | component source =>
+      exact ⟨x, hx, Elaboration.Reaches.refl x⟩
+  | slots source slot =>
+      obtain ⟨d, hdx⟩ := hx
+      exact ⟨d.1, d.2, (slot d).reaches_of_mem_left hdx⟩
+  | resolution r =>
+      rename_i d
+      exact ⟨d, (show d ∈ Component.singleton d by simp),
+        Elaboration.Reaches.single r.isElaboration
+        r.raw.c₁_mem_components hx⟩
+
+/-- Every retained source member reaches some left-interface member. -/
+theorem exists_mem_left_reaches {D : Type u} {E : Elaboration D}
+    (s : Shell E) {d : D} (hd : d ∈ s.source) :
+    ∃ x, x ∈ s.left ∧ E.Reaches d x := by
+  cases s with
+  | component source =>
+      exact ⟨d, hd, Elaboration.Reaches.refl d⟩
+  | slots source slot =>
+      let sourceMember : {x // x ∈ source} := ⟨d, hd⟩
+      obtain ⟨x, hx⟩ := (slot sourceMember).left.exists_mem
+      exact ⟨x, ⟨sourceMember, hx⟩,
+        (slot sourceMember).reaches_of_mem_left hx⟩
+  | resolution r =>
+      rename_i sourceD
+      change d ∈ Component.singleton sourceD at hd
+      have hsource : d = sourceD := by simpa using hd
+      subst d
+      obtain ⟨x, hx⟩ := r.raw.c₁.exists_mem
+      exact ⟨x, hx, Elaboration.Reaches.single r.isElaboration
+        r.raw.c₁_mem_components hx⟩
+
+/-- A join from the right interface is sound for the retained source. -/
+theorem linked_of_linked_right {D : Type u} {E : Elaboration D}
+    (s : Shell E) {c : Component D} (h : E.Linked s.right c) :
+    E.Linked s.source c := by
+  constructor
+  · intro d hd
+    obtain ⟨x, hx, hdx⟩ := s.exists_mem_right_reaches hd
+    obtain ⟨y, hy, hxy⟩ := h.1 x hx
+    exact ⟨y, hy, Elaboration.Related.of_reaches hdx hxy⟩
+  · intro y hy
+    obtain ⟨x, hx, hxy⟩ := h.2 y hy
+    obtain ⟨d, hd, hdx⟩ := s.reaches_of_mem_right hx
+    exact ⟨d, hd, Elaboration.Related.of_reaches hdx hxy⟩
+
+/-- A join from the left interface is sound for the retained source. -/
+theorem linked_of_linked_left {D : Type u} {E : Elaboration D}
+    (s : Shell E) {c : Component D} (h : E.Linked s.left c) :
+    E.Linked s.source c := by
+  constructor
+  · intro d hd
+    obtain ⟨x, hx, hdx⟩ := s.exists_mem_left_reaches hd
+    obtain ⟨y, hy, hxy⟩ := h.1 x hx
+    exact ⟨y, hy, Elaboration.Related.of_reaches hdx hxy⟩
+  · intro y hy
+    obtain ⟨x, hx, hxy⟩ := h.2 y hy
+    obtain ⟨d, hd, hdx⟩ := s.reaches_of_mem_left hx
+    exact ⟨d, hd, Elaboration.Related.of_reaches hdx hxy⟩
+
+/-- Opening every source member as a leaf preserves the left component. -/
+@[simp] theorem left_slots_all_leaf {D : Type u} {E : Elaboration D}
+    (c : Component D) :
+    (Shell.slots c fun _ => (Slot.leaf : Slot E _)).left = c := by
+  apply Component.ext
+  intro x
+  constructor
+  · rintro ⟨member, hx⟩
+    have hxm : x = member.1 := by simpa using hx
+    rw [hxm]
+    exact member.2
+  · intro hx
+    exact ⟨⟨x, hx⟩, by simp⟩
+
+/-- Opening every source member as a leaf preserves the right component. -/
+@[simp] theorem right_slots_all_leaf {D : Type u} {E : Elaboration D}
+    (c : Component D) :
+    (Shell.slots c fun _ => (Slot.leaf : Slot E _)).right = c := by
+  apply Component.ext
+  intro x
+  constructor
+  · rintro ⟨member, hx⟩
+    have hxm : x = member.1 := by simpa using hx
+    rw [hxm]
+    exact member.2
+  · intro hx
+    exact ⟨⟨x, hx⟩, by simp⟩
+
+/-- A singleton shell's left interface is its sole slot's left interface. -/
+@[simp] theorem left_slots_singleton {D : Type u} {E : Elaboration D}
+    (d : D)
+    (slot : (x : {x // x ∈ Component.singleton d}) → Slot E x.1) :
+    (Shell.slots (Component.singleton d) slot).left =
+      (slot ⟨d, by simp⟩).left := by
+  apply Component.ext
+  intro x
+  constructor
+  · rintro ⟨member, hx⟩
+    have hmember : member = (⟨d, by simp⟩ :
+        {x // x ∈ Component.singleton d}) := by
+      apply Subtype.ext
+      simpa using member.2
+    subst member
+    exact hx
+  · intro hx
+    exact ⟨⟨d, by simp⟩, hx⟩
+
+/-- A singleton shell's right interface is its sole slot's right interface. -/
+@[simp] theorem right_slots_singleton {D : Type u} {E : Elaboration D}
+    (d : D)
+    (slot : (x : {x // x ∈ Component.singleton d}) → Slot E x.1) :
+    (Shell.slots (Component.singleton d) slot).right =
+      (slot ⟨d, by simp⟩).right := by
+  apply Component.ext
+  intro x
+  constructor
+  · rintro ⟨member, hx⟩
+    have hmember : member = (⟨d, by simp⟩ :
+        {x // x ∈ Component.singleton d}) := by
+      apply Subtype.ext
+      simpa using member.2
+    subst member
+    exact hx
+  · intro hx
+    exact ⟨⟨d, by simp⟩, hx⟩
+
+/-- The general `slots` encoding of one resolved singleton occurrence. -/
+def singleResolvedSlot {D : Type u} {E : Elaboration D} {d : D}
+    (r : Elaboration.Resolution E d) : Shell E :=
+  .slots (Component.singleton d) fun member =>
+    have hmember : member.1 = d := by simpa using member.2
+    hmember.symm ▸ Slot.resolved r
+
+@[simp] theorem source_singleResolvedSlot {D : Type u}
+    {E : Elaboration D} {d : D} (r : Elaboration.Resolution E d) :
+    (singleResolvedSlot r).source = Component.singleton d :=
+  rfl
+
+@[simp] theorem left_singleResolvedSlot {D : Type u}
+    {E : Elaboration D} {d : D} (r : Elaboration.Resolution E d) :
+    (singleResolvedSlot r).left = (ofResolution r).left := by
+  rw [singleResolvedSlot, left_slots_singleton]
+  rfl
+
+@[simp] theorem right_singleResolvedSlot {D : Type u}
+    {E : Elaboration D} {d : D} (r : Elaboration.Resolution E d) :
+    (singleResolvedSlot r).right = (ofResolution r).right := by
+  rw [singleResolvedSlot, right_slots_singleton]
+  rfl
+
+/-- The general and specialized encodings agree on source and interfaces. -/
+theorem singleResolvedSlot_ofResolution {D : Type u}
+    {E : Elaboration D} {d : D} (r : Elaboration.Resolution E d) :
+    (singleResolvedSlot r).source = (ofResolution r).source ∧
+      (singleResolvedSlot r).left = (ofResolution r).left ∧
+        (singleResolvedSlot r).right = (ofResolution r).right := by
+  simp
+
+/-- Reverse every opened body in a shell while retaining its source. -/
+def reverse {D : Type u} {E : Elaboration D}
+    (s : Shell E) (hrc : E.ReversalClosed) : Shell E :=
+  match s with
+  | .component c => .component c
+  | .slots c slot => .slots c fun d => (slot d).reverse hrc
+  | .resolution r => .resolution (r.reverse hrc)
+
+@[simp] theorem source_reverse {D : Type u} {E : Elaboration D}
+    (s : Shell E) (hrc : E.ReversalClosed) :
+    (s.reverse hrc).source = s.source := by
+  cases s <;> rfl
+
+@[simp] theorem left_reverse {D : Type u} {E : Elaboration D}
+    (s : Shell E) (hrc : E.ReversalClosed) :
+    (s.reverse hrc).left = s.right := by
+  cases s <;> simp [reverse, Shell.left, Shell.right]
+
+@[simp] theorem right_reverse {D : Type u} {E : Elaboration D}
+    (s : Shell E) (hrc : E.ReversalClosed) :
+    (s.reverse hrc).right = s.left := by
+  cases s <;> simp [reverse, Shell.left, Shell.right]
+
+@[simp] theorem reverse_reverse {D : Type u} {E : Elaboration D}
+    (s : Shell E) (hrc : E.ReversalClosed) :
+    (s.reverse hrc).reverse hrc = s := by
+  cases s <;> simp [reverse]
+
+end Shell
+
+/-! ## Serial segment presentations -/
+
+/--
+The retained shape of a segment.  `append` records serial composition without
+discarding either side; a direct mutual dependence may also occupy a segment
+position when its linkage is the one induced by `E`.
+-/
+inductive Shape {D : Type u} (E : Elaboration D) where
+  | shell (value : Shell E)
+  | dependence (value : MutualDependence D)
+      (compatible : value.linkage = Linkage.ofElaboration E)
+  | append (left right : Shape E)
+
+namespace Shape
+
+/-- The left interface of a retained segment shape. -/
+def left {D : Type u} {E : Elaboration D} : Shape E → Component D
+  | .shell s => s.left
+  | .dependence m _ => m.c₁
+  | .append l _ => l.left
+
+/-- The right interface of a retained segment shape. -/
+def right {D : Type u} {E : Elaboration D} : Shape E → Component D
+  | .shell s => s.right
+  | .dependence m _ => m.cₙ
+  | .append _ r => r.right
+
+@[simp] theorem left_shell {D : Type u} {E : Elaboration D}
+    (s : Shell E) : (Shape.shell s).left = s.left :=
+  rfl
+
+@[simp] theorem right_shell {D : Type u} {E : Elaboration D}
+    (s : Shell E) : (Shape.shell s).right = s.right :=
+  rfl
+
+@[simp] theorem left_dependence {D : Type u} {E : Elaboration D}
+    (m : MutualDependence D)
+    (compatible : m.linkage = Linkage.ofElaboration E) :
+    (Shape.dependence m compatible).left = m.c₁ :=
+  rfl
+
+@[simp] theorem right_dependence {D : Type u} {E : Elaboration D}
+    (m : MutualDependence D)
+    (compatible : m.linkage = Linkage.ofElaboration E) :
+    (Shape.dependence m compatible).right = m.cₙ :=
+  rfl
+
+@[simp] theorem left_append {D : Type u} {E : Elaboration D}
+    (s₁ s₂ : Shape E) : (Shape.append s₁ s₂).left = s₁.left :=
+  rfl
+
+@[simp] theorem right_append {D : Type u} {E : Elaboration D}
+    (s₁ s₂ : Shape E) : (Shape.append s₁ s₂).right = s₂.right :=
+  rfl
+
+/--
+Internal validity of a shape.  Shells contain only leaves or certified
+resolutions, and compatible mutual dependences are already certified.  An
+append adds exactly the strong join between the exposed adjacent interfaces.
+-/
+def Holds {D : Type u} {E : Elaboration D} : Shape E → Prop
+  | .shell _ => True
+  | .dependence _ _ => True
+  | .append l r => l.Holds ∧ r.Holds ∧ E.Linked l.right r.left
+
+@[simp] theorem holds_append_iff {D : Type u} {E : Elaboration D}
+    (s₁ s₂ : Shape E) :
+    (Shape.append s₁ s₂).Holds ↔
+      s₁.Holds ∧ s₂.Holds ∧ E.Linked s₁.right s₂.left :=
+  Iff.rfl
+
+/-- The retained source components, in serial display order. -/
+def sourceComponents {D : Type u} {E : Elaboration D} :
+    Shape E → List (Component D)
+  | .shell s => [s.source]
+  | .dependence m _ => m.components
+  | .append s₁ s₂ => s₁.sourceComponents ++ s₂.sourceComponents
+
+@[simp] theorem sourceComponents_shell {D : Type u} {E : Elaboration D}
+    (s : Shell E) : (Shape.shell s).sourceComponents = [s.source] :=
+  rfl
+
+@[simp] theorem sourceComponents_dependence {D : Type u}
+    {E : Elaboration D} (m : MutualDependence D)
+    (compatible : m.linkage = Linkage.ofElaboration E) :
+    (Shape.dependence m compatible).sourceComponents = m.components :=
+  rfl
+
+@[simp] theorem sourceComponents_append {D : Type u}
+    {E : Elaboration D} (s₁ s₂ : Shape E) :
+    (Shape.append s₁ s₂).sourceComponents =
+      s₁.sourceComponents ++ s₂.sourceComponents :=
+  rfl
+
+theorem sourceComponents_ne_nil {D : Type u} {E : Elaboration D}
+    (sh : Shape E) : sh.sourceComponents ≠ [] := by
+  induction sh with
+  | shell s => simp
+  | dependence m compatible =>
+      simp [MutualDependence.components, RawMutualDependence.components]
+  | append s₁ s₂ ih₁ ih₂ =>
+      cases hsource : s₁.sourceComponents with
+      | nil => exact (ih₁ hsource).elim
+      | cons c rest => simp [hsource]
+
+/--
+Decompose the retained sources at the right edge and transport any join from
+the exposed interface back to that last source component.
+-/
+theorem exists_last_source {D : Type u} {E : Elaboration D}
+    (sh : Shape E) :
+    ∃ before last,
+      sh.sourceComponents = before ++ [last] ∧
+        ∀ c, E.Linked sh.right c → E.Linked last c := by
+  induction sh with
+  | shell s =>
+      exact ⟨[], s.source, rfl, fun _ h => s.linked_of_linked_right h⟩
+  | dependence m compatible =>
+      exact ⟨m.c₁ :: m.middle, m.cₙ, rfl, fun _ h => h⟩
+  | append s₁ s₂ ih₁ ih₂ =>
+      obtain ⟨before, last, hsources, htransport⟩ := ih₂
+      refine ⟨s₁.sourceComponents ++ before, last, ?_, ?_⟩
+      · simp [hsources]
+      · exact htransport
+
+/--
+Decompose the retained sources at the left edge and transport any join from
+the exposed interface back to that first source component.
+-/
+theorem exists_head_source {D : Type u} {E : Elaboration D}
+    (sh : Shape E) :
+    ∃ first after,
+      sh.sourceComponents = first :: after ∧
+        ∀ c, E.Linked c sh.left → E.Linked c first := by
+  induction sh with
+  | shell s =>
+      exact ⟨s.source, [], rfl,
+        fun _ h => (s.linked_of_linked_left h.symm).symm⟩
+  | dependence m compatible =>
+      exact ⟨m.c₁, m.middle ++ [m.cₙ], rfl, fun _ h => h⟩
+  | append s₁ s₂ ih₁ ih₂ =>
+      obtain ⟨first, after, hsources, htransport⟩ := ih₁
+      refine ⟨first, after ++ s₂.sourceComponents, ?_, ?_⟩
+      · simp [hsources]
+      · exact htransport
+
+/-- Every holding retained shape flattens to a linked source-component chain. -/
+theorem chainLinked_sourceComponents {D : Type u} {E : Elaboration D}
+    (sh : Shape E) (h : sh.Holds) :
+    (Linkage.ofElaboration E).ChainLinked sh.sourceComponents := by
+  induction sh with
+  | shell s => exact .single s.source
+  | dependence m compatible =>
+      change (Linkage.ofElaboration E).ChainLinked m.components
+      rw [← compatible]
+      exact m.holds
+  | append s₁ s₂ ih₁ ih₂ =>
+      obtain ⟨h₁, h₂, hjoin⟩ := h
+      have hchain₁ := ih₁ h₁
+      have hchain₂ := ih₂ h₂
+      obtain ⟨before, last, hsources₁, hlast⟩ :=
+        exists_last_source s₁
+      obtain ⟨first, after, hsources₂, hfirst⟩ :=
+        exists_head_source s₂
+      have hlastFirst : E.Linked last first :=
+        hfirst last (hlast s₂.left hjoin)
+      rw [hsources₁] at hchain₁
+      rw [hsources₂] at hchain₂
+      rw [sourceComponents_append, hsources₁, hsources₂]
+      exact Linkage.ChainLinked.append_of_linked
+        hchain₁ hchain₂ hlastFirst
+
+/-- Reverse retained bodies and reverse the order of serial composition. -/
+def reverse {D : Type u} {E : Elaboration D}
+    (sh : Shape E) (hrc : E.ReversalClosed) : Shape E :=
+  match sh with
+  | .shell s => .shell (s.reverse hrc)
+  | .dependence m compatible =>
+      .dependence m.reverse (by simpa using compatible)
+  | .append s₁ s₂ => .append (s₂.reverse hrc) (s₁.reverse hrc)
+
+@[simp] theorem left_reverse {D : Type u} {E : Elaboration D}
+    (sh : Shape E) (hrc : E.ReversalClosed) :
+    (sh.reverse hrc).left = sh.right := by
+  induction sh <;> simp [reverse, *]
+
+@[simp] theorem right_reverse {D : Type u} {E : Elaboration D}
+    (sh : Shape E) (hrc : E.ReversalClosed) :
+    (sh.reverse hrc).right = sh.left := by
+  induction sh <;> simp [reverse, *]
+
+@[simp] theorem sourceComponents_reverse {D : Type u}
+    {E : Elaboration D} (sh : Shape E) (hrc : E.ReversalClosed) :
+    (sh.reverse hrc).sourceComponents = sh.sourceComponents.reverse := by
+  induction sh <;> simp [reverse, *, List.reverse_append]
+
+/-- Internal validity is preserved by reversing the complete retained shape. -/
+theorem Holds.reverse {D : Type u} {E : Elaboration D} {sh : Shape E}
+    (h : sh.Holds) (hrc : E.ReversalClosed) : (sh.reverse hrc).Holds := by
+  induction sh with
+  | shell s => trivial
+  | dependence m compatible => trivial
+  | append s₁ s₂ ih₁ ih₂ =>
+      obtain ⟨h₁, h₂, hjoin⟩ := h
+      exact ⟨ih₂ h₂, ih₁ h₁, by simpa using hjoin.symm⟩
+
+@[simp] theorem reverse_reverse {D : Type u} {E : Elaboration D}
+    (sh : Shape E) (hrc : E.ReversalClosed) :
+    (sh.reverse hrc).reverse hrc = sh := by
+  induction sh <;> simp [reverse, *]
+
+end Shape
+
+end Segment
+
+/-- A retained endpoint-sensitive shape together with all of its joins. -/
+structure Segment {D : Type u} (E : Elaboration D) where
+  shape : Segment.Shape E
+  holds : shape.Holds
+
+namespace Segment
+
+/-- Proof irrelevance reduces segment equality to equality of retained shapes. -/
+theorem ext {D : Type u} {E : Elaboration D} {s₁ s₂ : Segment E}
+    (h : s₁.shape = s₂.shape) : s₁ = s₂ := by
+  cases s₁
+  cases s₂
+  cases h
+  rfl
+
+/-- The component exposed at the left edge of a segment. -/
+def left {D : Type u} {E : Elaboration D} (s : Segment E) : Component D :=
+  s.shape.left
+
+/-- The component exposed at the right edge of a segment. -/
+def right {D : Type u} {E : Elaboration D} (s : Segment E) : Component D :=
+  s.shape.right
+
+/-- A component shell is already a valid one-position segment. -/
+def ofShell {D : Type u} {E : Elaboration D} (s : Shell E) : Segment E :=
+  ⟨.shell s, trivial⟩
+
+/-- Every component becomes a segment immediately, with equal interfaces. -/
+def ofComponent {D : Type u} (E : Elaboration D)
+    (c : Component D) : Segment E :=
+  ofShell (Shell.ofComponent E c)
+
+/-- Every designatum first becomes a singleton-component segment. -/
+def ofDesignatum {D : Type u} (E : Elaboration D) (d : D) : Segment E :=
+  ofComponent E (Component.singleton d)
+
+/-- Open one singleton occurrence as its selected certified resolution. -/
+def ofResolution {D : Type u} {E : Elaboration D} {d : D}
+    (r : Elaboration.Resolution E d) : Segment E :=
+  ofShell (Shell.ofResolution r)
+
+/-- A compatible certified mutual dependence used directly as a segment. -/
+def ofMutualDependence {D : Type u} {E : Elaboration D}
+    (m : MutualDependence D)
+    (compatible : m.linkage = Linkage.ofElaboration E) : Segment E :=
+  ⟨.dependence m compatible, trivial⟩
+
+/-- The endpoint-sensitive join required between two oriented segments. -/
+def Joined {D : Type u} (E : Elaboration D)
+    (s₁ s₂ : Segment E) : Prop :=
+  E.Linked s₁.right s₂.left
+
+/--
+Compose two segments while retaining both shapes.  Only the left segment's
+right interface and the right segment's left interface are checked.
+-/
+def append {D : Type u} {E : Elaboration D} (s₁ s₂ : Segment E)
+    (joined : Joined E s₁ s₂) : Segment E :=
+  ⟨.append s₁.shape s₂.shape, ⟨s₁.holds, s₂.holds, joined⟩⟩
+
+/-- Flatten a segment with at least two retained sources to a certified chain. -/
+def toMutualDependence {D : Type u} {E : Elaboration D}
+    (s : Segment E) {c₁ c₂ : Component D}
+    {rest : List (Component D)}
+    (hdecomp : s.shape.sourceComponents = c₁ :: c₂ :: rest) :
+    MutualDependence D := by
+  apply MutualDependence.ofComponents (Linkage.ofElaboration E) c₁ c₂ rest
+  rw [← hdecomp]
+  exact s.shape.chainLinked_sourceComponents s.holds
+
+@[simp] theorem components_toMutualDependence {D : Type u}
+    {E : Elaboration D} (s : Segment E) {c₁ c₂ : Component D}
+    {rest : List (Component D)}
+    (hdecomp : s.shape.sourceComponents = c₁ :: c₂ :: rest) :
+    (s.toMutualDependence hdecomp).components = c₁ :: c₂ :: rest := by
+  simp [toMutualDependence, MutualDependence.ofComponents,
+    MutualDependence.components]
+
+/-- Reverse the complete retained segment and its validity proof. -/
+def reverse {D : Type u} {E : Elaboration D}
+    (s : Segment E) (hrc : E.ReversalClosed) : Segment E :=
+  ⟨s.shape.reverse hrc, s.holds.reverse hrc⟩
+
+@[simp] theorem left_reverse {D : Type u} {E : Elaboration D}
+    (s : Segment E) (hrc : E.ReversalClosed) :
+    (s.reverse hrc).left = s.right :=
+  Shape.left_reverse s.shape hrc
+
+@[simp] theorem right_reverse {D : Type u} {E : Elaboration D}
+    (s : Segment E) (hrc : E.ReversalClosed) :
+    (s.reverse hrc).right = s.left :=
+  Shape.right_reverse s.shape hrc
+
+@[simp] theorem reverse_reverse {D : Type u} {E : Elaboration D}
+    (s : Segment E) (hrc : E.ReversalClosed) :
+    (s.reverse hrc).reverse hrc = s :=
+  ext (Shape.reverse_reverse s.shape hrc)
+
+/-- A joined display reverses by reversing and exchanging both sides. -/
+theorem Joined.reverse {D : Type u} {E : Elaboration D}
+    {s₁ s₂ : Segment E} (h : Joined E s₁ s₂)
+    (hrc : E.ReversalClosed) :
+    Joined E (s₂.reverse hrc) (s₁.reverse hrc) := by
+  simpa [Joined] using h.symm
+
+@[simp] theorem reverse_append {D : Type u} {E : Elaboration D}
+    (s₁ s₂ : Segment E) (h : Joined E s₁ s₂)
+    (hrc : E.ReversalClosed) :
+    (append s₁ s₂ h).reverse hrc =
+      append (s₂.reverse hrc) (s₁.reverse hrc) (h.reverse hrc) :=
+  ext rfl
+
+/-- A join at a left shell's interface implies the corresponding source join. -/
+theorem linked_source_of_joined_left {D : Type u} {E : Elaboration D}
+    (s₁ : Shell E) (s₂ : Segment E) (h : Joined E (ofShell s₁) s₂) :
+    E.Linked s₁.source s₂.left :=
+  s₁.linked_of_linked_right h
+
+/-- A join at a right shell's interface implies the corresponding source join. -/
+theorem linked_source_of_joined_right {D : Type u} {E : Elaboration D}
+    (s₁ : Segment E) (s₂ : Shell E) (h : Joined E s₁ (ofShell s₂)) :
+    E.Linked s₁.right s₂.source :=
+  (s₂.linked_of_linked_left h.symm).symm
+
+/-- Joining two shells through their interfaces implies their source join. -/
+theorem linked_sources_of_joined {D : Type u} {E : Elaboration D}
+    (s₁ s₂ : Shell E) (h : Joined E (ofShell s₁) (ofShell s₂)) :
+    E.Linked s₁.source s₂.source := by
+  have hleft : E.Linked s₁.source s₂.left :=
+    linked_source_of_joined_left s₁ (ofShell s₂) h
+  exact (s₂.linked_of_linked_left hleft.symm).symm
+
+@[simp] theorem left_ofShell {D : Type u} {E : Elaboration D}
+    (s : Shell E) : (ofShell s).left = s.left :=
+  rfl
+
+@[simp] theorem right_ofShell {D : Type u} {E : Elaboration D}
+    (s : Shell E) : (ofShell s).right = s.right :=
+  rfl
+
+@[simp] theorem left_ofComponent {D : Type u} (E : Elaboration D)
+    (c : Component D) : (ofComponent E c).left = c := by
+  simp [ofComponent]
+
+@[simp] theorem right_ofComponent {D : Type u} (E : Elaboration D)
+    (c : Component D) : (ofComponent E c).right = c := by
+  simp [ofComponent]
+
+@[simp] theorem left_ofDesignatum {D : Type u} (E : Elaboration D) (d : D) :
+    (ofDesignatum E d).left = Component.singleton d := by
+  simp [ofDesignatum]
+
+@[simp] theorem right_ofDesignatum {D : Type u} (E : Elaboration D) (d : D) :
+    (ofDesignatum E d).right = Component.singleton d := by
+  simp [ofDesignatum]
+
+@[simp] theorem left_ofResolution {D : Type u} {E : Elaboration D} {d : D}
+    (r : Elaboration.Resolution E d) :
+    (ofResolution r).left = r.raw.c₁ := by
+  simp [ofResolution]
+
+@[simp] theorem right_ofResolution {D : Type u} {E : Elaboration D} {d : D}
+    (r : Elaboration.Resolution E d) :
+    (ofResolution r).right = r.raw.cₙ := by
+  simp [ofResolution]
+
+@[simp] theorem left_ofMutualDependence {D : Type u}
+    {E : Elaboration D} (m : MutualDependence D)
+    (compatible : m.linkage = Linkage.ofElaboration E) :
+    (ofMutualDependence m compatible).left = m.c₁ :=
+  rfl
+
+@[simp] theorem right_ofMutualDependence {D : Type u}
+    {E : Elaboration D} (m : MutualDependence D)
+    (compatible : m.linkage = Linkage.ofElaboration E) :
+    (ofMutualDependence m compatible).right = m.cₙ :=
+  rfl
+
+@[simp] theorem left_append {D : Type u} {E : Elaboration D}
+    (l r : Segment E) (h : Joined E l r) :
+    (append l r h).left = l.left :=
+  rfl
+
+@[simp] theorem right_append {D : Type u} {E : Elaboration D}
+    (l r : Segment E) (h : Joined E l r) :
+    (append l r h).right = r.right :=
+  rfl
+
+@[simp] theorem joined_resolution_component_iff {D : Type u}
+    {E : Elaboration D} {d : D} (r : Elaboration.Resolution E d)
+    (c : Component D) :
+    Joined E (ofResolution r) (ofComponent E c) ↔
+      E.Linked r.raw.cₙ c := by
+  simp [Joined]
+
+@[simp] theorem joined_component_resolution_iff {D : Type u}
+    {E : Elaboration D} (c : Component D) {d : D}
+    (r : Elaboration.Resolution E d) :
+    Joined E (ofComponent E c) (ofResolution r) ↔
+      E.Linked c r.raw.c₁ := by
+  simp [Joined]
+
+/--
+For singleton interfaces, a resolved `[a <--> b] <--> c` occurrence checks
+only `b Related c`; the stored `a <--> b` body remains internal to its shell.
+-/
+theorem joined_resolution_designatum_iff {D : Type u}
+    {E : Elaboration D} {d b : D}
+    (r : Elaboration.Resolution E d)
+    (hright : r.raw.cₙ = Component.singleton b) (c : D) :
+    Joined E (ofResolution r) (ofDesignatum E c) ↔ E.Related b c := by
+  rw [Joined, right_ofResolution, left_ofDesignatum, hright]
+  exact Elaboration.linked_singleton_iff
+
+/--
+The left mirror of `joined_resolution_designatum_iff`: a designatum joined to
+an opened body is checked only against that body's exposed left endpoint.
+-/
+theorem joined_designatum_resolution_iff {D : Type u}
+    {E : Elaboration D} {d a : D}
+    (r : Elaboration.Resolution E d)
+    (hleft : r.raw.c₁ = Component.singleton a) (c : D) :
+    Joined E (ofDesignatum E c) (ofResolution r) ↔ E.Related c a := by
+  rw [Joined, right_ofDesignatum, left_ofResolution, hleft]
+  exact Elaboration.linked_singleton_iff
+
+end Segment
 
 /-! ## Grading -/
 

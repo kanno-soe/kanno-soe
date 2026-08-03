@@ -355,10 +355,15 @@ designatum first occupies a component slot: `ab` by itself is placed in
 (`Segment.left_ofComponent`, `Segment.right_ofComponent`). There is no
 separate kind of “whole-name.”
 
-**Work in progress: the Segment layer described below is not yet used by the
-operative formal system. `RawMutualDependence` and its downstream consumers
-still take Components directly; Segment currently records the intended
-endpoint-sensitive semantics without integrating them into that machinery.**
+The endpoint-sensitive Segment layer is now part of the operative signature
+API. `Segment.linked_sources_of_joined` proves that joining two opened shell
+interfaces entails the corresponding source-component join.
+`Segment.Shape.chainLinked_sourceComponents` validates the retained flattened
+chain, and `Segment.toMutualDependence` packages any decomposition with at
+least two source components as a certified `MutualDependence`. Interpenetration
+connects this presentation to contraction through
+`Elaboration.contractResolution`, `Elaboration.contract_segment_joined_iff`,
+and `Elaboration.contract_opaque_joined_iff`.
 
 If an occurrence of `ab` designates a raw mutual dependence which certifies
 under the current elaboration, that slot may instead be opened with an
@@ -420,12 +425,16 @@ through ordinary `Related`, its external connection is disjunctive:
   contracted-name Related c   <==>   a Related c  OR  b Related c
 ```
 
-This is `contract_related_none_iff`. It explains why merely treating a
-bracket-name as one black-box designatum loses the endpoint. For example, if
-`b` is related to `c` but `a` is not, the contracted name for `[b,a]` is
-related to `c` through `b`, whereas a resolved `[b <--> a] <--> c` exposes
-`a` on its right and correctly fails. `contract_not_chain_invariant` records
-the black-box failure; it is not a failure of resolved Segment composition.
+This is `contract_related_none_iff`. The Segment bridge states the contrast
+inside one formal interface: `Elaboration.contract_opaque_joined_iff` retains
+that disjunction, while `Elaboration.contract_segment_joined_iff` exposes only
+the opened body's right endpoint. Its left-hand mirror is
+`Elaboration.contract_segment_joined_left_iff`. For example, if `b` is related
+to `c` but `a` is not, the contracted name for `[b,a]` is related to `c`
+through `b`, whereas a resolved `[b <--> a] <--> c` exposes `a` on its right
+and correctly fails. `Elaboration.exists_contract_segment_endpoint_distinction`
+packages such a witness. `contract_not_chain_invariant` records the black-box
+failure; it is not a failure of resolved Segment composition.
 
 The contraction itself does not disturb old facts. Its fresh bracket-point
 can elaborate to the embedded `a` and `b`, while lifted old-sourced clauses
@@ -470,7 +479,10 @@ stated dependence-web can preserve their internal bodies:
 Left and right here are diagrammatic interfaces, not a temporal or causal
 direction. Reversing a display must reverse its retained bodies as well:
 the reverse of `[a <--> b] <--> c` is `c <--> [b <--> a]`, not a naïve swap
-which leaves the inner orientation unchanged.
+which leaves the inner orientation unchanged. This is realized by
+`Segment.reverse`, `Segment.Joined.reverse`, and `Segment.reverse_append`
+under `Elaboration.ReversalClosed`, the condition that elaboration is closed
+under reversal of its raw mutual-dependence bodies.
 
 ### The common web
 
