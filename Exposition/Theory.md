@@ -8,7 +8,26 @@ The project implements a deliberately simplified model for discussing Mahayana B
 
 A **designatum** is simply something the model can designate. It does not first divide designata into people, objects, events, thoughts, or times. A **component** is a nonempty group of designata. An **elaboration** is a relation saying that a designatum may be expanded into a raw Mutual Dependence; because it is a relation rather than a function, one designatum may have no stated elaboration, one elaboration, or several alternatives.
 
-Elaboration induces **reach**. A designatum reaches itself, and it reaches anything occurring in any component of one of its elaborations; elaborations of those reached designata may then be followed again. Two designata are **related** when their reach-trees have some designatum in common:
+The basic shape of a Mutual Dependence is a list of at least two components where every adjacent pair is symmetrically linked:
+
+```text
+    m = C1 ⇄ C2 ⇄ C3 ⇄ ... ⇄ Cn
+
+    required: Linked(Ci, C(i+1)) for every adjacent pair
+    not required: a temporal order, a causal arrow, or direct C1/Cn linkage
+```
+
+As components may contain designata, and a designatum may be expanded into a mutual dependence, the expanded shape can look like:
+
+```text
+  ab = a ⇄ b
+  ef = e ⇄ f
+  m  = {ab, m, n} ⇄ {d} ⇄ {ef} ⇄ {g}
+```
+
+Here the first component of `m` has 3 designata, `ab` which designates (elaborates to) a mutual dependence, and `m`, and `n`, which each are designata without defined elaboration.
+
+Designata of neighbouring components **reach** if there is a shared designatum that both can elaborate towards (or directly reach without further elaboration). The mutual dependences elaborated may be further elaborated upon, but only within the components facing one another. For example `ab` is on the left side of `{d}`, so the rightmost component of its mutual dependence, `b`, is the side considered in terms of reach, while `a` is not considered in that case. Elaborations of those reached designata may then be followed again. Two designata are **related** when their reach-trees have some designatum in common:
 
 ```text
                               +--> p ---->
@@ -36,15 +55,6 @@ This relatedness is reflexive and symmetric, but it need not be transitive. A li
     Linked(C,D) requires coverage in both directions.
 ```
 
-A Mutual Dependence is a list of at least two components carrying one such symmetric linkage, where every adjacent pair is linked:
-
-```text
-    C1 <--> C2 <--> C3 <--> ... <--> Cn
-
-    required: Linked(Ci, C(i+1)) for every adjacent pair
-    not required: a temporal order, a causal arrow, or direct C1/Cn linkage
-```
-
 The chain may be any finite length. It can be sliced and compatible chains can be joined, but the word *chain* must not smuggle in time: these arrows display symmetric linkage, not before and after. This is the minimal formal structure of **Mutual Dependence** (*sōe*). Throughout, that structure is read as **mujishō-sōe**: mutual dependence without-own-being (*mujishō*), in which neither side supplies a self-standing substrate for the other.
 
 ## Resonance as a Mutual Dependence
@@ -52,7 +62,7 @@ The chain may be any finite length. It can be sliced and compatible chains can b
 A **Resonance** is the following four-component special case of Mutual Dependence, with its middle components forced to be singletons:
 
 ```text
-    calls <--> {b1} <--> {b2} <--> responses
+    calls ⇄ {b1} ⇄ {b2} ⇄ responses
 ```
 
 The intended reading is that `b1` is the receiving view or moment of a being and `b2` is its responding view or moment. Formally, however, `b1` and `b2` are two designata joined in the same certified dependence. The model does not prove that they are numerically identical, temporally successive, conscious, or personal. The names **calls**, **receiving**, **responding**, and **responses** are role-readings of the shape.
@@ -62,7 +72,7 @@ An **Encounter** is a Resonance viewed merely as a Mutual Dependence. It retains
 Because designata may elaborate into any raw dependence the modeler supplies and later certifies, the same Resonance shape can be used for a person answering a question or a stone answering the wind by rolling downhill:
 
 ```text
-    {wind} <--> {stone-receiving} <--> {stone-responding} <--> {rolling}
+    {wind} ⇄ {stone-receiving} ⇄ {stone-responding} ⇄ {rolling}
 ```
 
 Nothing in the ungraded structure privileges the person. Nor does the stone example prove a doctrine about sentience: it proves only that the Resonance constructor asks for linked designata, not a prior metaphysical kind called *person*.
@@ -72,11 +82,11 @@ Nothing in the ungraded structure privileges the person. Nor does the stone exam
 A **Graded Resonance** adds two independent grades to a Resonance: a calls-side grade and a responses-side grade. The grade type need only be a preorder with a bottom element. It need not be numerical, total, or metrically spaced. The intended reading is **dis-resonance**: volition insofar as it is *sāsrava*—with outflows, ripening in further becoming. Bottom is *anāsrava* at this Resonance: the act is not productive of further becoming, without implying either the absence of volition or the global attainment of arhatship. `0` is only the familiar numerical example. How a bottom grading relates in the world is left as a functional question about the relating of such moments, and could be modelled by downstream effects on other resonances.
 
 ```text
-                        one Graded Resonance
+                    one Graded Resonance
 
-  calls <--(callsGrade)--> {b1} <--> {b2} <--(responsesGrade)--> responses
+   calls ⇄ (callsGrade) {b1} ⇄ {b2} (responsesGrade) ⇄ responses
 
-         callsGrade and responsesGrade are independent coordinates.
+     callsGrade and responsesGrade are independent coordinates.
 ```
 
 Thus a stone may be *assigned* bottom on both sides, while a grumpy person who has stubbed a toe may be *assigned* a non-bottom calls grade, a non-bottom responses grade, or both. Those are interpretations supplied to the model; the model itself does not infer a grade from stonehood, pain, personality, or behavior. `IsUngraded` means exactly that both grades are bottom. “Ungraded” here therefore means no dis-resonance entered on either side, not absence from the Resonance and not absence of response.
@@ -87,7 +97,7 @@ A **Being** is a nonempty list of Resonances whose singleton middle components f
 
 ```text
 Resonance 1               Resonance 2                        Resonance n
-{r1b1} <--> {r1b2}  <-->  {r2b1} <--> {r2b2}  <--> ... <-->  {rnb1} <--> {rnb2}
+{r1b1} ⇄ {r1b2}  ⇄  {r2b1} ⇄ {r2b2}  ⇄ ... ⇄  {rnb1} ⇄ {rnb2}
 
     Being = the certified linkage of these receiving/responding moments
 ```
@@ -101,8 +111,8 @@ Mutual Dependence and Resonance contain no time-directedness. A **Directed** int
 That certificate is itself just another Mutual Dependence in a precise and limited sense: it exhibits some certified Mutual Dependence whose first component contains `x` and whose last component contains `y`.
 
 ```text
-    dependence certificate:   {x,...} <--> ... <--> {...,y}
-    directed overlay:          x ----------------------> y
+    dependence certificate:   {x, ...} ⇄ ... ⇄ {..., y}
+    directed overlay:          x -------------------> y
     causal assertion:          Causes(x,y)
 
     Causes(x,y)  =>  Before(x,y)
@@ -315,10 +325,10 @@ prove that reading or the identification with Huayan.
 
 The diagrams use the following shorthand:
 
-- `a <--> b` displays Mutual Dependence between singleton components. At a
-  singleton join, certification reduces to `a Related b`; `<-->` does not mean
+- `a ⇄ b` displays Mutual Dependence between singleton components. At a
+  singleton join, certification reduces to `a Related b`; `⇄` does not mean
   two directed `Reaches` arrows.
-- `[a <--> b]` designates the displayed dependence-whole as one new thing.
+- `[a ⇄ b]` designates the displayed dependence-whole as one new thing.
 - `--->` shows the direction of a reachability connection.
 - `-->*` means zero or more directed elaboration steps.
 - Letters written together, such as `ab`, name one designatum rather than two.
@@ -342,10 +352,10 @@ The supplied closure-reading says that no displayed end of a dependence is
 final. A chosen segment may be articulated farther in either direction:
 
 ```text
-  chosen:                       n <--> o
-  extend left:           m <--> n <--> o
-  extend right:                 n <--> o <--> p
-  extend both:  ... <--> m <--> n <--> o <--> p <--> ...
+  chosen:                  n ⇄ o
+  extend left:      ⇄ m ⇄ n ⇄ o
+  extend right:            n ⇄ o ⇄ p ⇄
+  extend both:  ... ⇄ m ⇄ n ⇄ o ⇄ p ⇄ ...
 ```
 
 A dependence-whole may also be retained behind a designatum. Every such
@@ -373,7 +383,7 @@ stored in the shell, as does the complete selected body. What changes is the
 interface exposed by that occurrence:
 
 ```text
-  ab designates [a <--> b]
+  ab designates [a ⇄ b]
 
                   left interface    right interface
   unopened {ab}:       {ab}              {ab}
@@ -384,18 +394,18 @@ These are `Segment.left_ofResolution` and
 `Segment.right_ofResolution`. Consequently the displayed composition
 
 ```text
-  [a <--> b] <--> c
+  [a ⇄ b] ⇄ c
 ```
 
-retains the certified inner `a <--> b` and checks only the adjacent outer
+retains the certified inner `a ⇄ b` and checks only the adjacent outer
 join `Linked {b} {c}`. With singleton interfaces this is exactly `b Related
 c` (`joined_resolution_designatum_iff`). The source remains `{ab}`, and its
-stored body remains the certified `a <--> b`; the outer join is simply made
+stored body remains the certified `a ⇄ b`; the outer join is simply made
 against that body's exposed right interface.
 
 A component may contain several slots, and they open in parallel rather than
 acquiring an arbitrary serial order. For example, if `ab` opens as
-`[a <--> b]` while `x` remains a leaf, then
+`[a ⇄ b]` while `x` remains a leaf, then
 
 ```text
   source component:   {ab, x}
@@ -419,9 +429,9 @@ recursive normalization is attempted, so cyclic elaborations remain usable.
 
 Opening is a presentation operation, not a carrier extension. The designatum
 `ab` remains an ordinary member of the same `D`; its selected `Resolution`
-records the certified body `[a <--> b]`. `Segment.append` checks the outer join
+records the certified body `[a ⇄ b]`. `Segment.append` checks the outer join
 only at the exposed `{b}` and `{c}` interfaces. Flattening the retained segment
-then produces the ordinary mutual dependence `{ab} <--> {c}`. No `Option`
+then produces the ordinary mutual dependence `{ab} ⇄ {c}`. No `Option`
 wrapper, fresh `none`, or priming operation is involved. A designatum therefore
 does not become prime merely because its body is opened or retained, and
 Segment supplies no automatic total relatedness or linkage. In
@@ -444,17 +454,17 @@ checking just their touching interfaces. Thus several views of one already
 stated dependence-web can preserve their internal bodies:
 
 ```text
-  fully shown:       a <--> b <--> c <--> ... <--> y <--> z
+  fully shown:       a ⇄ b ⇄ c ⇄ ... ⇄ y ⇄ z
 
-  viewed from a:     a <--> [b <--> c <--> ... <--> y <--> z]
-  viewed from z:    [a <--> b <--> ... <--> x <--> y] <--> z
+  viewed from a:     a ⇄ [b ⇄ c ⇄ ... ⇄ y ⇄ z]
+  viewed from z:    [a ⇄ b ⇄ ... ⇄ x ⇄ y] ⇄ z
 
-  whole-name:       web := [a <--> b <--> ... <--> y <--> z]
+  whole-name:       web := [a ⇄ b ⇄ ... ⇄ y ⇄ z]
 ```
 
 Left and right here are diagrammatic interfaces, not a temporal or causal
 direction. Reversing a display must reverse its retained bodies as well:
-the reverse of `[a <--> b] <--> c` is `c <--> [b <--> a]`, not a naïve swap
+the reverse of `[a ⇄ b] ⇄ c` is `c ⇄ [b ⇄ a]`, not a naïve swap
 which leaves the inner orientation unchanged. This is realized by
 `Segment.reverse`, `Segment.Joined.reverse`, and `Segment.reverse_append`
 under `Elaboration.ReversalClosed`, the condition that elaboration is closed
