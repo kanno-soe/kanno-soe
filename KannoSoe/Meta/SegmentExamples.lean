@@ -311,6 +311,29 @@ theorem endpoint_resolution_join_c :
   exact (Segment.joined_resolution_designatum_iff endpointResolutionAB
     rfl .c).mpr endpoint_related_b_c
 
+/-- The retained nested segment denoted by `[a <--> b] <--> c`. -/
+def endpointResolvedABThenC : Segment endpointElaboration :=
+  Segment.append (Segment.ofResolution endpointResolutionAB)
+    (Segment.ofDesignatum endpointElaboration .c)
+    endpoint_resolution_join_c
+
+@[simp] theorem endpointResolvedABThenC_sourceComponents :
+    endpointResolvedABThenC.shape.sourceComponents =
+      [Component.singleton EndpointDesignatum.ab,
+        Component.singleton EndpointDesignatum.c] := by
+  rfl
+
+/-- Flattening retains the source designata, not the opened body's endpoints. -/
+def endpointNestedMutualDependence : MutualDependence EndpointDesignatum :=
+  endpointResolvedABThenC.toMutualDependence
+    endpointResolvedABThenC_sourceComponents
+
+@[simp] theorem endpointNestedMutualDependence_components :
+    endpointNestedMutualDependence.components =
+      [Component.singleton EndpointDesignatum.ab,
+        Component.singleton EndpointDesignatum.c] := by
+  simp [endpointNestedMutualDependence]
+
 /-- Reversing only the outer order tests `c` against `a` and therefore fails. -/
 theorem endpoint_c_not_join_resolution :
     ¬ Segment.Joined endpointElaboration

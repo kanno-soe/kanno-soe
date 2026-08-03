@@ -360,10 +360,11 @@ API. `Segment.linked_sources_of_joined` proves that joining two opened shell
 interfaces entails the corresponding source-component join.
 `Segment.Shape.chainLinked_sourceComponents` validates the retained flattened
 chain, and `Segment.toMutualDependence` packages any decomposition with at
-least two source components as a certified `MutualDependence`. Interpenetration
-connects this presentation to contraction through
-`Elaboration.contractResolution`, `Elaboration.contract_segment_joined_iff`,
-and `Elaboration.contract_opaque_joined_iff`.
+least two source components as a certified `MutualDependence`. The
+endpoint-sensitive `endpointResolvedABThenC` example constructs this
+composition directly in the original elaboration, and
+`endpointNestedMutualDependence_components` confirms that its flattened
+components are exactly `{ab}` and `{c}`.
 
 If an occurrence of `ab` designates a raw mutual dependence which certifies
 under the current elaboration, that slot may instead be opened with an
@@ -416,50 +417,25 @@ alternatives remain alternative segment presentations: a left endpoint from
 one body cannot be combined with a right endpoint from another. No eager
 recursive normalization is attempted, so cyclic elaborations remain usable.
 
-The older `contract` construction remains useful, but it states a different,
-deliberately coarser fact. `contract E a b` adds a fresh designatum which can
-reach both embedded members. If that fresh point is left unopened and tested
-through ordinary `Related`, its external connection is disjunctive:
+Opening is a presentation operation, not a carrier extension. The designatum
+`ab` remains an ordinary member of the same `D`; its selected `Resolution`
+records the certified body `[a <--> b]`. `Segment.append` checks the outer join
+only at the exposed `{b}` and `{c}` interfaces. Flattening the retained segment
+then produces the ordinary mutual dependence `{ab} <--> {c}`. No `Option`
+wrapper, fresh `none`, or priming operation is involved. A designatum therefore
+does not become prime merely because its body is opened or retained, and
+Segment supplies no automatic total relatedness or linkage. In
+Interpenetration, the corresponding primed-tier facts follow specifically from
+the explicit `prime` construction (`prime_related_total`,
+`prime_linked_total`).
 
-```text
-  contracted-name Related c   <==>   a Related c  OR  b Related c
-```
-
-This is `contract_related_none_iff`. The Segment bridge states the contrast
-inside one formal interface: `Elaboration.contract_opaque_joined_iff` retains
-that disjunction, while `Elaboration.contract_segment_joined_iff` exposes only
-the opened body's right endpoint. Its left-hand mirror is
-`Elaboration.contract_segment_joined_left_iff`. For example, if `b` is related
-to `c` but `a` is not, the contracted name for `[b,a]` is related to `c`
-through `b`, whereas a resolved `[b <--> a] <--> c` exposes `a` on its right
-and correctly fails. `Elaboration.exists_contract_segment_endpoint_distinction`
-packages such a witness. `contract_not_chain_invariant` records the black-box
-failure; it is not a failure of resolved Segment composition.
-
-The contraction itself does not disturb old facts. Its fresh bracket-point
-can elaborate to the embedded `a` and `b`, while lifted old-sourced clauses
-still mention only embedded old designata:
-
-```text
-  fresh [a,b]  --->  a
-       |
-       +------->  b
-
-  old x  cannot Reach  fresh [a,b]
-```
-
-Consequently, merely adjoining the unused bracket preserves both `Reaches`
-and `Related` between every pair of old points (`contract_reaches_iff`,
-`contract_related_iff`). The constructor itself can be formed for any `a` and
-`b`; the notation `[a <--> b]` is used when their enclosed dependence has
-actually been stated.
-
-The load-bearing condition is not a restriction on where fresh-sourced clauses
-may point. It is the ban on the fresh point appearing in an old-sourced
-component list. As long as old paths cannot enter the fresh point, its outgoing
-clauses cannot alter old-started paths (`freshSource_reaches_iff`,
-`freshSource_related_iff`). Putting a bracket into an old-sourced clause crosses
-that boundary.
+Carrier extension remains available separately through
+`freshSourceExtension`. It may add clauses sourced at a fresh `none`, but old
+paths cannot enter that fresh point because old-sourced component lists contain
+only embedded old designata. Its outgoing clauses therefore cannot alter
+old-started paths (`freshSource_reaches_iff`, `freshSource_related_iff`). This
+generic conservativity result is not needed to represent an opened dependence
+whole.
 
 Segments now supply the endpoint-sensitive part of the intended diagrammatic
 calculus. A direct certified mutual dependence can occupy a Segment position
@@ -604,12 +580,13 @@ pair shares the web. It records universal mutual relation, not which direction
 of implication supplies it. Here “in” means implication through stated
 dependence, not spatial containment.
 
-The source/target boundary marks the formal transition. `contract` is
-conservative while its fresh point is only a source which old paths cannot
-enter. `prime` makes the fresh web a target of every old image; `primeOpen`
-makes it both target and source. The act-grammar locates Huayan reciprocity in
-that non-conservative tier-change. Lean proves the boundary and tier
-noncollapse, not their philosophical identification.
+The source/target boundary marks the formal transition. A
+`freshSourceExtension` is conservative on old designata while its fresh point
+is only a source which old paths cannot enter. `prime` makes the fresh web a
+target of every old image; `primeOpen` makes it both target and source. The
+act-grammar locates Huayan reciprocity in that non-conservative tier-change.
+Lean proves the boundary and tier noncollapse, not their philosophical
+identification.
 
 The two presentations must therefore coexist. Importing primed saturation into
 base diagnosis is collapse; insisting that a base separation remain final at
