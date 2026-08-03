@@ -352,9 +352,9 @@ The supplied closure-reading says that no displayed end of a dependence is
 final. A chosen segment may be articulated farther in either direction:
 
 ```text
-  chosen:                  n ⇄ o
+  chosen:                 n ⇄ o
   extend left:      ⇄ m ⇄ n ⇄ o
-  extend right:            n ⇄ o ⇄ p ⇄
+  extend right:           n ⇄ o ⇄ p ⇄
   extend both:  ... ⇄ m ⇄ n ⇄ o ⇄ p ⇄ ...
 ```
 
@@ -454,12 +454,12 @@ checking just their touching interfaces. Thus several views of one already
 stated dependence-web can preserve their internal bodies:
 
 ```text
-  fully shown:       a ⇄ b ⇄ c ⇄ ... ⇄ y ⇄ z
+  fully shown:        a ⇄ b ⇄ c ⇄ ... ⇄ y ⇄ z
 
-  viewed from a:     a ⇄ [b ⇄ c ⇄ ... ⇄ y ⇄ z]
-  viewed from z:    [a ⇄ b ⇄ ... ⇄ x ⇄ y] ⇄ z
+  viewed from a:      a ⇄ [b ⇄ c ⇄ ... ⇄ y ⇄ z]
+  viewed from z:     [a ⇄ b ⇄ ... ⇄ x ⇄ y] ⇄ z
 
-  whole-name:       web := [a ⇄ b ⇄ ... ⇄ y ⇄ z]
+  whole-name: web := [a ⇄ b ⇄ ... ⇄ x ⇄ y ⇄ z]
 ```
 
 Left and right here are diagrammatic interfaces, not a temporal or causal
