@@ -376,7 +376,7 @@ interface exposed by that occurrence:
 
                   left interface    right interface
   unopened {ab}:       {ab}              {ab}
-  opened   {ab}:        {a}               {b}
+  opened   {ab}:       {a}                {b}
 ```
 
 These are `Segment.left_ofResolution` and
