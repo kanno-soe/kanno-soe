@@ -27,30 +27,32 @@ C_1 \bowtie \cdots \bowtie C_n
 \bigwedge_{i=1}^{n-1}(C_i\bowtie C_{i+1})
 ```
 
-As components may contain designata, and a designatum may be expanded into a mutual dependence, the expanded shape can look like:
+The mutual dependence, when considered as a shape, has a left side C1, and a right side Cn.
+
+As components may contain designata, and a designatum may be elaborated to a mutual dependence, the elaborated components can look like:
 
 ```text
   ab ⇓ [a ⋈ b]
-  ef ⇓ [e ⋈ f]
-  m  ⇓ [{ab, m, n} ⋈ {d} ⋈ {ef} ⋈ {g}]
+  fg ⇓ [f ⋈ g]
+  m  ⇓ [{ab, c, d} ⋈ {e} ⋈ {fg} ⋈ {h}]
 ```
 
-Here the first component of `m` has 3 designata, `ab` which designates (elaborates to) a mutual dependence, and `m`, and `n`, which each are designata without defined elaboration.
+Here the first component of `m` has 3 designata, `ab` which designates (elaborates to) a mutual dependence `[a ⋈ b]`, and `c`, and `d`, which each are designata without defined elaboration.
 
-A designata **reaches** (has focused reachability) (`x →* y`) if in zero or more steps of elaboration, `x` can elaborate to the another designatum `y`.
+A designata **reaches** (`d →* w`) if in zero or more steps of elaboration, `d` can elaborate toward another designatum `w`.
 
-Designata of neighbouring components are **joinable** (↓) if there is a shared designatum that both can reach. The mutual dependences elaborated may be further elaborated upon, but only within the components facing one another. For example `ab` is on the left side of `{d}`, so the rightmost component of its mutual dependence, `b`, is the side considered in terms of reach, while `a` is not considered in that case. Elaborations of those reached designata may then be followed again. Two designata are **joinable** when their reach-trees have some designatum in common:
+Designata of neighbouring components are **joinable** (↓) if there is a shared designatum `w` that both can reach (it is focused reachability, explanation follows). The shape of the elaborated mutual dependences is considered relevant when elaborating on each side of the neighbouring components. If we consider the first and second components of `m` above, `ab` is in the first component, and we only consider the right side of its shape, `b`, in terms of reach with the neighbouring component to its right, `{e}`. Elaborations of those reached designata may then be followed again. The designata are **joinable** when their reach-trees have some designatum in common:
 
 ```text
                               +--> p ---->
                              /
-    designatum a --elaborates
+    designatum b --elaborates
                              \
                               +--> q ----> common witness w
 
-    designatum b --elaborates----> r ----> common witness w
+    designatum e --elaborates----> r ----> common witness w
 
-    Joinable(a,b)  :=  there is some w reached from both a and b
+    b ↓ e  :=  there is some w reached from both b and e
 ```
 
 as an equation:
@@ -60,16 +62,16 @@ d \downarrow e
 \exists w.\; d \to^{*} w \leftarrow^{*} e
 ```
 
-This joinability is reflexive and symmetric, but it need not be transitive. An interdependence (⋈) between two components is stronger than finding one attractive pair: every designatum in the first component must have a joinable partner in the second, and every designatum in the second must have a joinable partner in the first.
+This joinability is reflexive and symmetric, but it need not be transitive. An interdependence (⋈) between two components is a stronger requirement than just finding a joinable pair: every designatum in the first component must have a joinable partner in the second, and every designatum in the second must have a joinable partner in the first.
 
 ```text
-    component C                         component D
-    +---------+                         +---------+
-    | c1      | ---- joinable partner -> | d?      |
-    | c2      | ---- joinable partner -> | d?      |
-    | c?      | <- joinable partner ---- | d1      |
-    | ...     |                         | ...     |
-    +---------+                         +---------+
+    component C                       component D
+    +---------+                       +---------+
+    | c1      | -- joinable partner ↓ | d?      |
+    | c2      | -- joinable partner ↓ | d?      |
+    | c?      | ↓ joinable partner -- | d1      |
+    | ...     |                       | ...     |
+    +---------+                       +---------+
 
     Interdependent(C,D) requires coverage in both directions.
 ```
@@ -88,7 +90,7 @@ A\bowtie B
 A\;\overline{\downarrow}\;B
 ```
 
-The chain may be any finite length. It can be sliced and compatible chains can be catenated, but the word *chain* must not smuggle in time: these arrows display symmetric interdependence, not before and after. Also note that althought the examples in this exposition involve linear chains, two chains may include the same component. Taken together then it is really a chain network, with components having a "valency". An interior component of a chain has valency 2, while a junction in a chain network can have valency >2.
+The chain may be any finite length. It can be sliced and compatible chains can be catenated, but the word *chain* must not smuggle in time: these arrows display symmetric interdependence, not before and after. Also note that although the examples in this exposition involve linear chains, two chains may include the same component. Taken together then it is really a chain network, with components having a "valency". An interior component of a chain has valency 2, while a junction in a chain network can have valency >2.
 
 This is the minimal formal structure of **Mutual Dependence** (*sōe*). Throughout, that structure is read as **mujishō-sōe**: mutual dependence without-own-being (*mujishō*), in which neither side supplies a self-standing substrate for the other.
 
