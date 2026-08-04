@@ -143,7 +143,7 @@ The calls and responses surrounding each Resonance do not constitute the Being's
 
 ## Direction and Causation are overlays
 
-Mutual Dependence and Resonance contain no time-directedness. A **Directed** interpretation is supplied separately as a strict transitive **Before** relation. A domain may then supply a **Causal** interpretation with a `Causes(x,y)` relation (↝), a proof that causing implies `Before` (≺), and, for every causal claim, a **Causation** certificate.
+Mutual Dependence and Resonance contain no time-directedness. A **Directed** interpretation is supplied separately as a strict transitive **Before** (≺) relation. A domain may then supply a **Causal** (↝) interpretation with a `x ↝ y` relation, a proof that causing implies `x ≺ y`, and, for every causal claim, a **Causation** certificate.
 
 That certificate is itself just another Mutual Dependence in a precise and limited sense: it exhibits some certified Mutual Dependence whose first component contains `x` and whose last component contains `y`.
 
@@ -153,10 +153,10 @@ That certificate is itself just another Mutual Dependence in a precise and limit
     causal assertion:          x ↝ y
 
     x ↝ y  =>  x ≺ y
-    x ↝ y  =>  a Mutual Dependence whose endpoint-components interdepend
+    x ↝ y  =>  a Mutual Dependence with `x` in the left and `y` in the right of its shape
 ```
 
-Forgetting the causal and temporal overlays leaves the underlying Mutual Dependence; adding the overlays is additional data. Therefore this does not say that every Mutual Dependence is causal, that symmetric interdependence secretly points from cause to effect, or that every `Before` fact is causal. Causation as another Mutual Dependence names the certified dependence-skeleton of a causal claim, not a reduction of causality to symmetry.
+Forgetting the causal and temporal overlays leaves the underlying Mutual Dependence; adding the overlays is additional data. Therefore this does not say that every Mutual Dependence is causal, that symmetric interdependence secretly points from cause to effect, or that every Directed fact is causal. Causation as another Mutual Dependence names the certified dependence-skeleton of a causal claim, not a reduction of causality to symmetry.
 
 Accordingly, **mujishō-sōe** is the dependence-structure retained when either grading or the causal and directional overlays are forgotten.
 
