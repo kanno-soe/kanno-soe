@@ -74,6 +74,8 @@ This joinability is reflexive and symmetric, but it need not be transitive. An i
     +---------+                       +---------+
 
     C ⋈ D  requires coverage in both directions.
+
+    For singleton interdependence, C ⋈ D is true iff c ↓ d
 ```
 
 as an equation (interdependence is the Egli–Milner lifting of joinability):
@@ -362,28 +364,6 @@ supplies a philosophical reading of that structure as a dependence-web, and
 aligns the base and primed systems with act-time and floor-face. Lean does not
 prove that reading or the identification with Huayan.
 
-The diagrams use the following shorthand:
-
-- `a ⋈ b` displays Mutual Dependence between singleton components. For
-  singleton interdependence, certification reduces to whether `a` and `b` are
-  joinable.
-- `[a ⋈ b]` designates the displayed dependence-whole as one new thing.
-- `→*` means reachability with zero or more elaboration steps.
-- Letters written together, such as `ab`, name one designatum rather than two.
-
-The two formal relations used below are easiest to read as paths and a meeting
-point:
-
-```text
-  a Reaches w       means       a →* w
-
-  Joinable(a,b)     means       a →* w ←* b
-                                 for some common w
-```
-
-The `Joinable` predicate asks only for a common destination. One thing need not
-reach the other in either direction.
-
 ### Chains and brackets
 
 The supplied closure-reading says that no displayed end of a dependence is
@@ -391,9 +371,9 @@ final. A chosen segment may be articulated farther in either direction:
 
 ```text
   chosen:                 n ⋈ o
-  extend left:      ⋈ m ⋈ n ⋈ o
-  extend right:           n ⋈ o ⋈ p ⋈
-  extend both:  ... ⋈ m ⋈ n ⋈ o ⋈ p ⋈ ...
+  extend left:        m ⋈ n ⋈ o
+  extend right:           n ⋈ o ⋈ p
+  extend both:  ...   m ⋈ n ⋈ o ⋈ p
 ```
 
 A dependence-whole may also be retained behind a designatum. Every such
