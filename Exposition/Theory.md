@@ -6,9 +6,13 @@ The project implements a deliberately simplified model for discussing Mahayana B
 
 ## The formal core: designata, elaboration, and Mutual Dependence
 
-A **designatum** is simply something the model can designate. It does not first divide designata into people, objects, events, thoughts, or times. A **component** is a nonempty group of designata. An **elaboration** is a relation saying that a designatum may be expanded into a raw Mutual Dependence; because it is a relation rather than a function, one designatum may have no stated elaboration, one elaboration, or several alternatives.
+A **designatum** is simply something the model can designate. It does not first divide designata into people, objects, events, thoughts, or times.
 
-The basic shape of a Mutual Dependence is a list of at least two components where every adjacent pair is symmetrically linked:
+A **component** is a nonempty group of designata.
+
+An **elaboration** is a relation saying that a designatum may be expanded into a raw Mutual Dependence; because it is a relation rather than a function, one designatum may have no stated elaboration, one elaboration, or several alternatives.
+
+The basic shape of a Mutual Dependence `m` is a list of at least two components where every adjacent pair are symmetrically interdepending:
 
 ```text
     m ⇓ [C1 ⋈ C2 ⋈ C3 ⋈ ... ⋈ Cn]
