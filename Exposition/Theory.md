@@ -33,7 +33,7 @@ As components may contain designata, and a designatum may be expanded into a mut
 
 Here the first component of `m` has 3 designata, `ab` which designates (elaborates to) a mutual dependence, and `m`, and `n`, which each are designata without defined elaboration.
 
-A designata **reaches** (`x →* y`) if in zero or more steps of elaboration, `x` can elaborate to the another designatum `y`.
+A designata **reaches** (has focused reachability) (`x →* y`) if in zero or more steps of elaboration, `x` can elaborate to the another designatum `y`.
 
 Designata of neighbouring components are **joinable** (↓) if there is a shared designatum that both can reach. The mutual dependences elaborated may be further elaborated upon, but only within the components facing one another. For example `ab` is on the left side of `{d}`, so the rightmost component of its mutual dependence, `b`, is the side considered in terms of reach, while `a` is not considered in that case. Elaborations of those reached designata may then be followed again. Two designata are **joinable** when their reach-trees have some designatum in common:
 
