@@ -485,12 +485,12 @@ checking just their touching interfaces. Thus several views of one already
 stated dependence-web can preserve their internal bodies:
 
 ```text
-  fully shown:        a ⋈ b ⋈ c ⋈ ... ⋈ y ⋈ z
+  fully shown:          a ⋈ b ⋈ c ⋈ ... ⋈ y ⋈ z
 
-  viewed from a:      a ⋈ [b ⋈ c ⋈ ... ⋈ y ⋈ z]
-  viewed from z:     [a ⋈ b ⋈ ... ⋈ x ⋈ y] ⋈ z
+  viewed from a:        a ⋈ [b ⋈ c ⋈ ... ⋈ y ⋈ z]
+  viewed from z:       [a ⋈ b ⋈ ... ⋈ x ⋈ y] ⋈ z
 
-  whole-name: web := [a ⋈ b ⋈ ... ⋈ x ⋈ y ⋈ z]
+  whole-name: web :=  ⋊ a ⋈ b ⋈ ... ⋈ x ⋈ y ⋈ z ⋉
 ```
 
 Left and right here are diagrammatic interfaces, not a temporal or causal
