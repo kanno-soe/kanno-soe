@@ -73,7 +73,7 @@ This joinability is reflexive and symmetric, but it need not be transitive. An i
     | ...     |                       | ...     |
     +---------+                       +---------+
 
-    Interdependent(C,D) requires coverage in both directions.
+    C ⋈ D  requires coverage in both directions.
 ```
 
 as an equation (interdependence is the Egli–Milner lifting of joinability):
