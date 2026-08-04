@@ -90,7 +90,7 @@ A\bowtie B
 A\;\overline{\downarrow}\;B
 ```
 
-The chain may be any finite length. It can be sliced and compatible chains can be catenated, but the word *chain* must not smuggle in time: these arrows display symmetric interdependence, not before and after. Also note that although the examples in this exposition involve linear chains, two chains may include the same component. Taken together then it is really a chain network, with components having a "valency". An interior component of a chain has valency 2, while a junction in a chain network can have valency >2.
+The chain may be any finite length. It can be sliced and compatible chains can be catenated, but the word *chain* must not smuggle in time: these arrows display symmetric interdependence, not before and after. Also note that although the examples in this exposition involve linear chains, two chains may include the same component. Taken together then it is really a chain network (net for short), with components having a "valency". An interior component of a chain has valency 2, while a junction in a chain network can have valency >2.
 
 This is the minimal formal structure of **Mutual Dependence** (*sōe*). Throughout, that structure is read as **mujishō-sōe**: mutual dependence without-own-being (*mujishō*), in which neither side supplies a self-standing substrate for the other.
 
