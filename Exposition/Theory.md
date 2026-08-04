@@ -158,6 +158,9 @@ That certificate is itself just another Mutual Dependence in a precise and limit
     x ↝ y  =>  a Mutual Dependence with `x` in the left and `y` in the right of its shape
 ```
 
+Because `Before` is strict, causal direction is asymmetric:
+`Causal.causes_asymm` rules out `y ↝ x` whenever `x ↝ y`.
+
 Forgetting the causal and temporal overlays leaves the underlying Mutual Dependence; adding the overlays is additional data. Therefore this does not say that every Mutual Dependence is causal, that symmetric interdependence secretly points from cause to effect, or that every Directed fact is causal. Causation as another Mutual Dependence names the certified dependence-skeleton of a causal claim, not a reduction of causality to symmetry.
 
 Accordingly, **mujishō-sōe** is the dependence-structure retained when either grading or the causal and directional overlays are forgotten.
@@ -506,6 +509,10 @@ adds a clause from each embedded old point to itself and the web. The
 definition specifies these component lists only; whether a raw dependence
 certifies remains a separate question.
 
+Neither `prime` nor `primeOpen` supplies a `Directed` or `Causal`
+interpretation. Unless stated otherwise, the arrows in this section abbreviate
+`Reaches`, not `Before` or `Causes`.
+
 The closed prime has this shape:
 
 ```text
@@ -521,7 +528,8 @@ same common witness. Hence `Joinable` is total and therefore transitive
 components is `Interdependent` (`prime_interdependent_total`), and every raw dependence
 re-tagged with this primed interdependence holds (`prime_certification_trivial`). The
 last result says that the primed interdependence is saturated; it does not say that
-every arbitrary assertion is true.
+every arbitrary assertion is true. In particular, a Mutual Dependence certificate
+may mention the web without making it a temporal or causal intermediary.
 
 Closed priming adds no new old-to-old reachability:
 
@@ -540,6 +548,12 @@ a base elaboration with the following shape:
 
 Priming is a new saturated presentation, not a derivation showing that the
 base relation was already total.
+
+Direction, when wanted, is carried separately. `Directed.liftOption DA`
+agrees with `DA.Before` between `some` images and makes every `Before` claim
+involving `none` false. It therefore preserves base direction without treating
+the web as a first or last moment; this is a chosen overlay, not a consequence
+of priming.
 
 The open prime retains all closed-prime clauses and adds the missing clauses
 from the web back to every member:

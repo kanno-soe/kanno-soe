@@ -2169,6 +2169,11 @@ def ofBaseRank {D : Type u} (base : D → D → Prop) (rank : D → Nat)
 
 end Directed
 
+/--
+The undirected dependence certificate carried by a causal claim.  It singles
+out `x` in the first component and `y` in the last; the certified mutual
+dependence does not itself assert that either designatum is before the other.
+-/
 inductive Causation (D : Type u) (x y : D) : Prop where
   | ofMutualDependence (m : MutualDependence D)
       (mem_c₁ : x ∈ m.c₁) (mem_cₙ : y ∈ m.cₙ)
@@ -2177,3 +2182,12 @@ structure Causal (D : Type u) extends Directed D where
   Causes : D → D → Prop
   causes_before : ∀ {x y : D}, Causes x y → Before x y
   certify : ∀ {x y : D}, Causes x y → Causation D x y
+
+namespace Causal
+
+/-- Causal claims inherit asymmetry from their strict `Before` overlay. -/
+theorem causes_asymm {D : Type u} (C : Causal D) {x y : D}
+    (h : C.Causes x y) : ¬ C.Causes y x :=
+  fun h' => C.toDirected.asymm (C.causes_before h) (C.causes_before h')
+
+end Causal

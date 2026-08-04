@@ -19,6 +19,10 @@ target.
 lifted old designatum.  The closed and open systems can differ for `Reaches`,
 as the witness below shows, but not for `Joinable`.
 
+`Directed.liftOption DA` separately preserves a supplied direction between
+embedded old designata while leaving `none` outside that direction.  It is an
+optional overlay on the primed carrier, not direction derived by priming.
+
 Finally, `freshSourceExtension` isolates a conservative shape.  Clauses
 sourced at `none` may target arbitrary designata; their targets need no
 restriction.  Conservativity instead relies on every clause sourced at an
@@ -466,3 +470,53 @@ theorem freshSource_joinable_iff {D : Type u} (E : Elaboration D)
     exact ⟨some w, haw.freshSource, hbw.freshSource⟩
 
 end Elaboration
+
+/-! ## Conservative direction on a primed carrier -/
+
+namespace Directed
+
+/--
+Preserve a base direction between `some` images while leaving the fresh
+`none` designatum direction-isolated.  This is an optional overlay for the
+carrier used by priming; `Elaboration.prime` itself supplies no direction.
+-/
+def liftOption {D : Type u} (DA : Directed D) : Directed (Option D) where
+  Before
+    | some x, some y => DA.Before x y
+    | _, _ => False
+  trans := by
+    intro x y z hxy hyz
+    cases x with
+    | none => exact False.elim hxy
+    | some x =>
+        cases y with
+        | none => exact False.elim hxy
+        | some y =>
+            cases z with
+            | none => exact False.elim hyz
+            | some z => exact DA.trans hxy hyz
+  irrefl := by
+    intro x
+    cases x with
+    | none => exact fun h => h
+    | some x => exact DA.irrefl x
+
+/-- The lifted direction agrees exactly with the base direction on old images. -/
+@[simp] theorem liftOption_before_some_some_iff {D : Type u}
+    (DA : Directed D) {x y : D} :
+    (liftOption DA).Before (some x) (some y) ↔ DA.Before x y :=
+  Iff.rfl
+
+/-- No designatum precedes `none` in the conservative lift. -/
+@[simp] theorem liftOption_not_before_none {D : Type u}
+    (DA : Directed D) (x : Option D) :
+    ¬ (liftOption DA).Before x none := by
+  cases x <;> exact fun h => h
+
+/-- `none` precedes no designatum in the conservative lift. -/
+@[simp] theorem liftOption_not_none_before {D : Type u}
+    (DA : Directed D) (y : Option D) :
+    ¬ (liftOption DA).Before none y := by
+  cases y <;> exact fun h => h
+
+end Directed
