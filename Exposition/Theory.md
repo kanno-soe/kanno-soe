@@ -11,23 +11,31 @@ A **designatum** is simply something the model can designate. It does not first 
 The basic shape of a Mutual Dependence is a list of at least two components where every adjacent pair is symmetrically linked:
 
 ```text
-    m = C1 ⇄ C2 ⇄ C3 ⇄ ... ⇄ Cn
+    m ⇓ [C1 ⋈ C2 ⋈ C3 ⋈ ... ⋈ Cn]
 
-    required: Linked(Ci, C(i+1)) for every adjacent pair
     not required: a temporal order, a causal arrow, or direct C1/Cn linkage
+```
+
+as an equation:
+```math
+C_1 \bowtie \cdots \bowtie C_n
+\quad\Longleftrightarrow\quad
+\bigwedge_{i=1}^{n-1}(C_i\bowtie C_{i+1})
 ```
 
 As components may contain designata, and a designatum may be expanded into a mutual dependence, the expanded shape can look like:
 
 ```text
-  ab = a ⇄ b
-  ef = e ⇄ f
-  m  = {ab, m, n} ⇄ {d} ⇄ {ef} ⇄ {g}
+  ab ⇓ [a ⋈ b]
+  ef ⇓ [e ⋈ f]
+  m  ⇓ [{ab, m, n} ⋈ {d} ⋈ {ef} ⋈ {g}]
 ```
 
 Here the first component of `m` has 3 designata, `ab` which designates (elaborates to) a mutual dependence, and `m`, and `n`, which each are designata without defined elaboration.
 
-Designata of neighbouring components **reach** if there is a shared designatum that both can elaborate towards (or directly reach without further elaboration). The mutual dependences elaborated may be further elaborated upon, but only within the components facing one another. For example `ab` is on the left side of `{d}`, so the rightmost component of its mutual dependence, `b`, is the side considered in terms of reach, while `a` is not considered in that case. Elaborations of those reached designata may then be followed again. Two designata are **related** when their reach-trees have some designatum in common:
+A designata **reaches** (`x →* y`) if in zero or more steps of elaboration, `x` can elaborate to the another designatum `y`.
+
+Designata of neighbouring components are **joinable** (↓) if there is a shared designatum that both can reach. The mutual dependences elaborated may be further elaborated upon, but only within the components facing one another. For example `ab` is on the left side of `{d}`, so the rightmost component of its mutual dependence, `b`, is the side considered in terms of reach, while `a` is not considered in that case. Elaborations of those reached designata may then be followed again. Two designata are **joinable** when their reach-trees have some designatum in common:
 
 ```text
                               +--> p ---->
@@ -41,7 +49,14 @@ Designata of neighbouring components **reach** if there is a shared designatum t
     Related(a,b)  :=  there is some w reached from both a and b
 ```
 
-This relatedness is reflexive and symmetric, but it need not be transitive. A linkage between two components is stronger than finding one attractive pair: every designatum in the first component must have a related partner in the second, and every designatum in the second must have a related partner in the first.
+as an equation:
+```math
+d \downarrow e
+\quad\Longleftrightarrow\quad
+\exists w.\; d \to^{*} w \leftarrow^{*} e
+```
+
+This relatedness is reflexive and symmetric, but it need not be transitive. A linkage (⋈) between two components is stronger than finding one attractive pair: every designatum in the first component must have a related partner in the second, and every designatum in the second must have a related partner in the first.
 
 ```text
     component C                         component D
@@ -55,6 +70,20 @@ This relatedness is reflexive and symmetric, but it need not be transitive. A li
     Linked(C,D) requires coverage in both directions.
 ```
 
+as an equation (linkage is Egli–Milner lifting of joinability):
+```math
+A\;\overline{\downarrow}\;B
+\iff
+\bigl(\forall d\in A\,\exists e\in B.\;d\downarrow e\bigr)
+\land
+\bigl(\forall e\in B\,\exists d\in A.\;e\downarrow d\bigr)
+```
+```math
+A\bowtie B
+\quad\overset{\mathrm{def}}{\Longleftrightarrow}\quad
+A\;\overline{\downarrow}\;B
+```
+
 The chain may be any finite length. It can be sliced and compatible chains can be joined, but the word *chain* must not smuggle in time: these arrows display symmetric linkage, not before and after. This is the minimal formal structure of **Mutual Dependence** (*sōe*). Throughout, that structure is read as **mujishō-sōe**: mutual dependence without-own-being (*mujishō*), in which neither side supplies a self-standing substrate for the other.
 
 ## Resonance as a Mutual Dependence
@@ -62,7 +91,7 @@ The chain may be any finite length. It can be sliced and compatible chains can b
 A **Resonance** is the following four-component special case of Mutual Dependence, with its middle components forced to be singletons:
 
 ```text
-    calls ⇄ {b1} ⇄ {b2} ⇄ responses
+    calls ⋈ {b1} ⋈ {b2} ⋈ responses
 ```
 
 The intended reading is that `b1` is the receiving view or moment of a being and `b2` is its responding view or moment. Formally, however, `b1` and `b2` are two designata joined in the same certified dependence. The model does not prove that they are numerically identical, temporally successive, conscious, or personal. The names **calls**, **receiving**, **responding**, and **responses** are role-readings of the shape.
@@ -72,7 +101,7 @@ An **Encounter** is a Resonance viewed merely as a Mutual Dependence. It retains
 Because designata may elaborate into any raw dependence the modeler supplies and later certifies, the same Resonance shape can be used for a person answering a question or a stone answering the wind by rolling downhill:
 
 ```text
-    {wind} ⇄ {stone-receiving} ⇄ {stone-responding} ⇄ {rolling}
+    {wind} ⋈ {stone-receiving} ⋈ {stone-responding} ⋈ {rolling}
 ```
 
 Nothing in the ungraded structure privileges the person. Nor does the stone example prove a doctrine about sentience: it proves only that the Resonance constructor asks for linked designata, not a prior metaphysical kind called *person*.
@@ -84,7 +113,7 @@ A **Graded Resonance** adds two independent grades to a Resonance: a calls-side 
 ```text
                     one Graded Resonance
 
-   calls ⇄ (callsGrade) {b1} ⇄ {b2} (responsesGrade) ⇄ responses
+   calls ⋈ (callsGrade) {b1} ⋈ {b2} (responsesGrade) ⋈ responses
 
      callsGrade and responsesGrade are independent coordinates.
 ```
@@ -97,7 +126,7 @@ A **Being** is a nonempty list of Resonances whose singleton middle components f
 
 ```text
 Resonance 1               Resonance 2                        Resonance n
-{r1b1} ⇄ {r1b2}  ⇄  {r2b1} ⇄ {r2b2}  ⇄ ... ⇄  {rnb1} ⇄ {rnb2}
+{r1b1} ⋈ {r1b2}  ⋈  {r2b1} ⋈ {r2b2}  ⋈ ... ⋈  {rnb1} ⋈ {rnb2}
 
     Being = the certified linkage of these receiving/responding moments
 ```
@@ -106,17 +135,17 @@ The calls and responses surrounding each Resonance do not constitute the Being's
 
 ## Direction and Causation are overlays
 
-Mutual Dependence and Resonance contain no time-directedness. A **Directed** interpretation is supplied separately as a strict transitive **Before** relation. A domain may then supply a **Causal** interpretation with a `Causes(x,y)` relation, a proof that causing implies `Before`, and, for every causal claim, a **Causation** certificate.
+Mutual Dependence and Resonance contain no time-directedness. A **Directed** interpretation is supplied separately as a strict transitive **Before** relation. A domain may then supply a **Causal** interpretation with a `Causes(x,y)` relation (↝), a proof that causing implies `Before` (≺), and, for every causal claim, a **Causation** certificate.
 
 That certificate is itself just another Mutual Dependence in a precise and limited sense: it exhibits some certified Mutual Dependence whose first component contains `x` and whose last component contains `y`.
 
 ```text
-    dependence certificate:   {x, ...} ⇄ ... ⇄ {..., y}
-    directed overlay:          x -------------------> y
-    causal assertion:          Causes(x,y)
+    dependence certificate:   {x, ...} ⋈ ... ⋈ {..., y}
+    directed overlay:          x ≺ y
+    causal assertion:          x ↝ y
 
-    Causes(x,y)  =>  Before(x,y)
-    Causes(x,y)  =>  a Mutual Dependence joins endpoint-components
+    x ↝ y  =>  x ≺ y
+    x ↝ y  =>  a Mutual Dependence joins endpoint-components
 ```
 
 Forgetting the causal and temporal overlays leaves the underlying Mutual Dependence; adding the overlays is additional data. Therefore this does not say that every Mutual Dependence is causal, that symmetric linkage secretly points from cause to effect, or that every `Before` fact is causal. Causation as another Mutual Dependence names the certified dependence-skeleton of a causal claim, not a reduction of causality to symmetry.
@@ -325,21 +354,20 @@ prove that reading or the identification with Huayan.
 
 The diagrams use the following shorthand:
 
-- `a ⇄ b` displays Mutual Dependence between singleton components. At a
-  singleton join, certification reduces to `a Related b`; `⇄` does not mean
+- `a ⋈ b` displays Mutual Dependence between singleton components. At a
+  singleton join, certification reduces to `a Related b`; `⋈` does not mean
   two directed `Reaches` arrows.
-- `[a ⇄ b]` designates the displayed dependence-whole as one new thing.
-- `--->` shows the direction of a reachability connection.
-- `-->*` means zero or more directed elaboration steps.
+- `[a ⋈ b]` designates the displayed dependence-whole as one new thing.
+- `→*` means reachability with zero or more elaboration steps.
 - Letters written together, such as `ab`, name one designatum rather than two.
 
 The two formal relations used below are easiest to read as paths and a meeting
 point:
 
 ```text
-  a Reaches w       means       a --->* w
+  a Reaches w       means       a →* w
 
-  a Related b       means       a --->* w *<--- b
+  a Related b       means       a →* w ←* b
                                   for some common w
 ```
 
@@ -352,10 +380,10 @@ The supplied closure-reading says that no displayed end of a dependence is
 final. A chosen segment may be articulated farther in either direction:
 
 ```text
-  chosen:                 n ⇄ o
-  extend left:      ⇄ m ⇄ n ⇄ o
-  extend right:           n ⇄ o ⇄ p ⇄
-  extend both:  ... ⇄ m ⇄ n ⇄ o ⇄ p ⇄ ...
+  chosen:                 n ⋈ o
+  extend left:      ⋈ m ⋈ n ⋈ o
+  extend right:           n ⋈ o ⋈ p ⋈
+  extend both:  ... ⋈ m ⋈ n ⋈ o ⋈ p ⋈ ...
 ```
 
 A dependence-whole may also be retained behind a designatum. Every such
@@ -383,7 +411,7 @@ stored in the shell, as does the complete selected body. What changes is the
 interface exposed by that occurrence:
 
 ```text
-  ab designates [a ⇄ b]
+  ab designates [a ⋈ b]
 
                   left interface    right interface
   unopened {ab}:       {ab}              {ab}
@@ -394,18 +422,18 @@ These are `Segment.left_ofResolution` and
 `Segment.right_ofResolution`. Consequently the displayed composition
 
 ```text
-  [a ⇄ b] ⇄ c
+  [a ⋈ b] ⋈ c
 ```
 
-retains the certified inner `a ⇄ b` and checks only the adjacent outer
+retains the certified inner `a ⋈ b` and checks only the adjacent outer
 join `Linked {b} {c}`. With singleton interfaces this is exactly `b Related
 c` (`joined_resolution_designatum_iff`). The source remains `{ab}`, and its
-stored body remains the certified `a ⇄ b`; the outer join is simply made
+stored body remains the certified `a ⋈ b`; the outer join is simply made
 against that body's exposed right interface.
 
 A component may contain several slots, and they open in parallel rather than
 acquiring an arbitrary serial order. For example, if `ab` opens as
-`[a ⇄ b]` while `x` remains a leaf, then
+`[a ⋈ b]` while `x` remains a leaf, then
 
 ```text
   source component:   {ab, x}
@@ -429,9 +457,9 @@ recursive normalization is attempted, so cyclic elaborations remain usable.
 
 Opening is a presentation operation, not a carrier extension. The designatum
 `ab` remains an ordinary member of the same `D`; its selected `Resolution`
-records the certified body `[a ⇄ b]`. `Segment.append` checks the outer join
+records the certified body `[a ⋈ b]`. `Segment.append` checks the outer join
 only at the exposed `{b}` and `{c}` interfaces. Flattening the retained segment
-then produces the ordinary mutual dependence `{ab} ⇄ {c}`. No `Option`
+then produces the ordinary mutual dependence `{ab} ⋈ {c}`. No `Option`
 wrapper, fresh `none`, or priming operation is involved. A designatum therefore
 does not become prime merely because its body is opened or retained, and
 Segment supplies no automatic total relatedness or linkage. In
@@ -454,17 +482,17 @@ checking just their touching interfaces. Thus several views of one already
 stated dependence-web can preserve their internal bodies:
 
 ```text
-  fully shown:        a ⇄ b ⇄ c ⇄ ... ⇄ y ⇄ z
+  fully shown:        a ⋈ b ⋈ c ⋈ ... ⋈ y ⋈ z
 
-  viewed from a:      a ⇄ [b ⇄ c ⇄ ... ⇄ y ⇄ z]
-  viewed from z:     [a ⇄ b ⇄ ... ⇄ x ⇄ y] ⇄ z
+  viewed from a:      a ⋈ [b ⋈ c ⋈ ... ⋈ y ⋈ z]
+  viewed from z:     [a ⋈ b ⋈ ... ⋈ x ⋈ y] ⋈ z
 
-  whole-name: web := [a ⇄ b ⇄ ... ⇄ x ⇄ y ⇄ z]
+  whole-name: web := [a ⋈ b ⋈ ... ⋈ x ⋈ y ⋈ z]
 ```
 
 Left and right here are diagrammatic interfaces, not a temporal or causal
 direction. Reversing a display must reverse its retained bodies as well:
-the reverse of `[a ⇄ b] ⇄ c` is `c ⇄ [b ⇄ a]`, not a naïve swap
+the reverse of `[a ⋈ b] ⋈ c` is `c ⋈ [b ⋈ a]`, not a naïve swap
 which leaves the inner orientation unchanged. This is realized by
 `Segment.reverse`, `Segment.Joined.reverse`, and `Segment.reverse_append`
 under `Elaboration.ReversalClosed`, the condition that elaboration is closed
@@ -491,7 +519,7 @@ certifies remains a separate question.
 The closed prime has this shape:
 
 ```text
-  a'  ------>  web  <------  b'
+  a' → web ← b'
 
   web cannot Reach a' or b'   no outgoing elaboration clauses;
                               web still Reaches itself by reflexivity
@@ -527,10 +555,10 @@ The open prime retains all closed-prime clauses and adds the missing clauses
 from the web back to every member:
 
 ```text
-  members to web:    a' ------> web <------ b'
-  web to members:    a' <------ web ------> b'
+  members to web:    a' → web ← b'
+  web to members:    a' ← web → b'
 
-  therefore:         a' ------> web ------> b'
+  therefore:         a' → web → b'
 ```
 
 Now `Reaches` itself is total (`primeOpen_reaches_total`). Opening can genuinely
@@ -564,12 +592,12 @@ Here the labels follow what each directed path makes available:
 ```text
   CLOSED PRIME
 
-  each member  ------>  web (= all)              ALL IN EACH
+  each member  →  web (= all)              ALL IN EACH
 
   OPEN PRIME
 
-  each member  ------>  web (= all)              ALL IN EACH
-  each member  <------  web (= all)              EACH IN ALL
+  each member  →  web (= all)              ALL IN EACH
+  each member  ←  web (= all)              EACH IN ALL
 ```
 
 In the closed prime, every member reaches the web. Since the web designates the
@@ -581,7 +609,7 @@ implicates the whole (`prime_reaches_web`). The open prime adds the other half,
 other one (`primeOpen_reaches_total`):
 
 ```text
-  any a'  ------>  web  ------>  any b'
+  any a'  →  web  →  any b'
 ```
 
 At the coarser `Related` level, the directional distinction has already
