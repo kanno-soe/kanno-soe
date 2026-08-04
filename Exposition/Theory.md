@@ -10,7 +10,7 @@ A **designatum** is simply something the model can designate. It does not first 
 
 A **component** is a nonempty group of designata.
 
-An **elaboration** is a relation saying that a designatum may be expanded into a raw Mutual Dependence; because it is a relation rather than a function, one designatum may have no stated elaboration, one elaboration, or several alternatives.
+An **elaboration** (⇓ reads as "elaborates to") is a relation saying that a designatum may be expanded into a raw Mutual Dependence; because it is a relation rather than a function, one designatum may have no stated elaboration, one elaboration, or several alternatives.
 
 The basic shape of a Mutual Dependence `m` is a list of at least two components where every adjacent pair are symmetrically interdepending:
 
@@ -129,7 +129,7 @@ Grading is sentience-neutral. A sentience reading *could* be supplied as additio
 A **Being** is a nonempty list of Resonances whose singleton middle components flatten into one certified Mutual Dependence:
 
 ```text
-Resonance 1               Resonance 2                        Resonance n
+of Resonance 1       of Resonance 2              of Resonance n
 {r1b1} ⋈ {r1b2}  ⋈  {r2b1} ⋈ {r2b2}  ⋈ ... ⋈  {rnb1} ⋈ {rnb2}
 
     Being = the certified linkage of these receiving/responding moments
