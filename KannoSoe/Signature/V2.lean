@@ -593,7 +593,7 @@ def IsResonance {D : Type u} (m : MutualDependence D) : Prop :=
 
 end MutualDependence
 
-/-! ## Elaboration and relatedness -/
+/-! ## Elaboration and joinability -/
 
 /--
 An elaboration system. `Elab d rawM` asserts that designatum `d` *may be
@@ -631,36 +631,36 @@ theorem Reaches.single {D : Type u} {E : Elaboration D} {d e : D}
     E.Reaches d e :=
   Reaches.step hE ha he (Reaches.refl e)
 
-def Related {D : Type u} (E : Elaboration D) (a b : D) : Prop :=
+def Joinable {D : Type u} (E : Elaboration D) (a b : D) : Prop :=
   ∃ w, E.Reaches a w ∧ E.Reaches b w
 
-theorem Related.refl {D : Type u} (E : Elaboration D) (a : D) :
-    E.Related a a :=
+theorem Joinable.refl {D : Type u} (E : Elaboration D) (a : D) :
+    E.Joinable a a :=
   ⟨a, Reaches.refl a, Reaches.refl a⟩
 
-theorem Related.symm {D : Type u} {E : Elaboration D} {a b : D}
-    (h : E.Related a b) : E.Related b a := by
+theorem Joinable.symm {D : Type u} {E : Elaboration D} {a b : D}
+    (h : E.Joinable a b) : E.Joinable b a := by
   obtain ⟨w, ha, hb⟩ := h
   exact ⟨w, hb, ha⟩
 
-/-- Reachability into one side of a relation transports that relation back. -/
-theorem Related.of_reaches {D : Type u} {E : Elaboration D} {d y x : D}
-    (hdy : E.Reaches d y) (hyx : E.Related y x) : E.Related d x := by
+/-- Reachability into one side of joinability transports joinability back. -/
+theorem Joinable.of_reaches {D : Type u} {E : Elaboration D} {d y x : D}
+    (hdy : E.Reaches d y) (hyx : E.Joinable y x) : E.Joinable d x := by
   obtain ⟨w, hyw, hxw⟩ := hyx
   exact ⟨w, hdy.trans hyw, hxw⟩
 
-theorem Reaches.related {D : Type u} {E : Elaboration D} {a b : D}
-    (h : E.Reaches a b) : E.Related a b :=
+theorem Reaches.joinable {D : Type u} {E : Elaboration D} {a b : D}
+    (h : E.Reaches a b) : E.Joinable a b :=
   ⟨b, h, Reaches.refl b⟩
 
-theorem Reaches.related_symm {D : Type u} {E : Elaboration D} {a b : D}
-    (h : E.Reaches a b) : E.Related b a :=
-  h.related.symm
+theorem Reaches.joinable_symm {D : Type u} {E : Elaboration D} {a b : D}
+    (h : E.Reaches a b) : E.Joinable b a :=
+  h.joinable.symm
 
 def Linked {D : Type u} (E : Elaboration D)
     (c₁ c₂ : Component D) : Prop :=
-  (∀ a ∈ c₁, ∃ b ∈ c₂, E.Related a b) ∧
-    (∀ b ∈ c₂, ∃ a ∈ c₁, E.Related a b)
+  (∀ a ∈ c₁, ∃ b ∈ c₂, E.Joinable a b) ∧
+    (∀ b ∈ c₂, ∃ a ∈ c₁, E.Joinable a b)
 
 theorem Linked.symm {D : Type u} {E : Elaboration D}
     {c₁ c₂ : Component D} (h : E.Linked c₁ c₂) : E.Linked c₂ c₁ := by
@@ -674,7 +674,7 @@ theorem Linked.symm {D : Type u} {E : Elaboration D}
 @[simp] theorem linked_singleton_iff {D : Type u} {E : Elaboration D}
     {a b : D} :
     E.Linked (Component.singleton a) (Component.singleton b) ↔
-      E.Related a b := by
+      E.Joinable a b := by
   constructor
   · intro h
     obtain ⟨b', hb', hr⟩ := h.1 a (by simp)
@@ -840,7 +840,7 @@ def reverse {D : Type u} {E : Elaboration D} {d : D}
 
 end Resolution
 
-private inductive RelatedNotTransitiveCase where
+private inductive JoinabilityNotTransitiveCase where
   | a
   | b
   | c
@@ -852,19 +852,19 @@ private inductive RelatedNotTransitiveCase where
   deriving DecidableEq
 
 /-- A certified mutual dependence can exhibit the failure of transitivity of
-`Related`. Here `a` and `b` share `abWitness`, while `b` and `c` share the
+`Joinable`. Here `a` and `b` share `abWitness`, while `b` and `c` share the
 distinct `bcWitness`; the reachable sets of `a` and `c` are disjoint. Thus the
 singleton triple `[{a}, {b}, {c}]` genuinely holds under
-`Linkage.ofElaboration E`, although its endpoint designata are not related. -/
-theorem Related.exists_nontransitive_mutualDependence :
+`Linkage.ofElaboration E`, although its endpoint designata are not joinable. -/
+theorem Joinable.exists_nontransitive_mutualDependence :
     ∃ (D : Type) (E : Elaboration D) (a b c : D)
         (m : MutualDependence D),
       m.linkage = Linkage.ofElaboration E ∧
         m.components =
           [Component.singleton a, Component.singleton b,
             Component.singleton c] ∧
-        E.Related a b ∧ E.Related b c ∧ ¬ E.Related a c := by
-  let E : Elaboration RelatedNotTransitiveCase :=
+        E.Joinable a b ∧ E.Joinable b c ∧ ¬ E.Joinable a c := by
+  let E : Elaboration JoinabilityNotTransitiveCase :=
     ⟨fun d rawM =>
       (d = .a ∧
         rawM.components =
@@ -879,13 +879,13 @@ theorem Related.exists_nontransitive_mutualDependence :
         rawM.components =
           [Component.singleton .bcWitness,
             Component.singleton .moreC])⟩
-  let mA : RawMutualDependence RelatedNotTransitiveCase :=
+  let mA : RawMutualDependence JoinabilityNotTransitiveCase :=
     .pair E (Component.singleton .moreA)
       (Component.singleton .abWitness)
-  let mB : RawMutualDependence RelatedNotTransitiveCase :=
+  let mB : RawMutualDependence JoinabilityNotTransitiveCase :=
     .triple E (Component.singleton .abWitness)
       (Component.singleton .moreB) (Component.singleton .bcWitness)
-  let mC : RawMutualDependence RelatedNotTransitiveCase :=
+  let mC : RawMutualDependence JoinabilityNotTransitiveCase :=
     .pair E (Component.singleton .bcWitness)
       (Component.singleton .moreC)
   have hEa : E.Elab .a mA := by
@@ -906,11 +906,11 @@ theorem Related.exists_nontransitive_mutualDependence :
   have hcbc : E.Reaches .c .bcWitness :=
     Reaches.single (rawM := mC) (a := Component.singleton .bcWitness)
       hEc (by simp [mC]) (by simp)
-  have hab : E.Related .a .b :=
-    ⟨RelatedNotTransitiveCase.abWitness, haab, hbab⟩
-  have hbc' : E.Related .b .c :=
-    ⟨RelatedNotTransitiveCase.bcWitness, hbbc, hcbc⟩
-  have reachesA {w : RelatedNotTransitiveCase} (h : E.Reaches .a w) :
+  have hab : E.Joinable .a .b :=
+    ⟨JoinabilityNotTransitiveCase.abWitness, haab, hbab⟩
+  have hbc' : E.Joinable .b .c :=
+    ⟨JoinabilityNotTransitiveCase.bcWitness, hbbc, hcbc⟩
+  have reachesA {w : JoinabilityNotTransitiveCase} (h : E.Reaches .a w) :
       w = .a ∨ w = .moreA ∨ w = .abWitness := by
     cases h with
     | refl _ => simp
@@ -928,7 +928,7 @@ theorem Related.exists_nontransitive_mutualDependence :
           cases htail with
           | refl _ => simp
           | step hE' _ _ _ => simp [E] at hE'
-  have reachesC {w : RelatedNotTransitiveCase} (h : E.Reaches .c w) :
+  have reachesC {w : JoinabilityNotTransitiveCase} (h : E.Reaches .c w) :
       w = .c ∨ w = .bcWitness ∨ w = .moreC := by
     cases h with
     | refl _ => simp
@@ -946,26 +946,26 @@ theorem Related.exists_nontransitive_mutualDependence :
           cases htail with
           | refl _ => simp
           | step hE' _ _ _ => simp [E] at hE'
-  have hnac : ¬ E.Related .a .c := by
+  have hnac : ¬ E.Joinable .a .c := by
     rintro ⟨w, haw, hcw⟩
     rcases reachesA haw with hwa | hwa | hwa <;>
       rcases reachesC hcw with hwc | hwc | hwc <;>
       simp_all
-  let m : MutualDependence RelatedNotTransitiveCase :=
+  let m : MutualDependence JoinabilityNotTransitiveCase :=
     MutualDependence.triple E
       (Component.singleton .a) (Component.singleton .b)
       (Component.singleton .c)
       (linked_singleton_iff.mpr hab) (linked_singleton_iff.mpr hbc')
-  exact ⟨RelatedNotTransitiveCase, E, .a, .b, .c, m,
+  exact ⟨JoinabilityNotTransitiveCase, E, .a, .b, .c, m,
     rfl, rfl, hab, hbc', hnac⟩
 
-/-- `Related` is not transitive, even among the components of a certified
+/-- `Joinable` is not transitive, even among the components of a certified
 mutual dependence carrying the linkage derived from its elaboration. -/
-theorem Related.not_transitive :
+theorem Joinable.not_transitive :
     ∃ (D : Type) (E : Elaboration D),
-      ¬ ∀ ⦃a b c⦄, E.Related a b → E.Related b c → E.Related a c := by
+      ¬ ∀ ⦃a b c⦄, E.Joinable a b → E.Joinable b c → E.Joinable a c := by
   obtain ⟨D, E, _, _, _, _, _, _, hab, hbc, hnac⟩ :=
-    Related.exists_nontransitive_mutualDependence
+    Joinable.exists_nontransitive_mutualDependence
   refine ⟨D, E, ?_⟩
   intro htrans
   exact hnac (htrans hab hbc)
@@ -1448,11 +1448,11 @@ theorem linked_of_linked_right {D : Type u} {E : Elaboration D}
   · intro d hd
     obtain ⟨x, hx, hdx⟩ := s.exists_mem_right_reaches hd
     obtain ⟨y, hy, hxy⟩ := h.1 x hx
-    exact ⟨y, hy, Elaboration.Related.of_reaches hdx hxy⟩
+    exact ⟨y, hy, Elaboration.Joinable.of_reaches hdx hxy⟩
   · intro y hy
     obtain ⟨x, hx, hxy⟩ := h.2 y hy
     obtain ⟨d, hd, hdx⟩ := s.reaches_of_mem_right hx
-    exact ⟨d, hd, Elaboration.Related.of_reaches hdx hxy⟩
+    exact ⟨d, hd, Elaboration.Joinable.of_reaches hdx hxy⟩
 
 /-- A join from the left interface is sound for the retained source. -/
 theorem linked_of_linked_left {D : Type u} {E : Elaboration D}
@@ -1462,11 +1462,11 @@ theorem linked_of_linked_left {D : Type u} {E : Elaboration D}
   · intro d hd
     obtain ⟨x, hx, hdx⟩ := s.exists_mem_left_reaches hd
     obtain ⟨y, hy, hxy⟩ := h.1 x hx
-    exact ⟨y, hy, Elaboration.Related.of_reaches hdx hxy⟩
+    exact ⟨y, hy, Elaboration.Joinable.of_reaches hdx hxy⟩
   · intro y hy
     obtain ⟨x, hx, hxy⟩ := h.2 y hy
     obtain ⟨d, hd, hdx⟩ := s.reaches_of_mem_left hx
-    exact ⟨d, hd, Elaboration.Related.of_reaches hdx hxy⟩
+    exact ⟨d, hd, Elaboration.Joinable.of_reaches hdx hxy⟩
 
 /-- Opening every source member as a leaf preserves the left component. -/
 @[simp] theorem left_slots_all_leaf {D : Type u} {E : Elaboration D}
@@ -2015,13 +2015,14 @@ theorem linked_sources_of_joined {D : Type u} {E : Elaboration D}
 
 /--
 For singleton interfaces, a resolved `[a <--> b] <--> c` occurrence checks
-only `b Related c`; the stored `a <--> b` body remains internal to its shell.
+only whether `b` and `c` are joinable; the stored `a <--> b` body remains
+internal to its shell.
 -/
 theorem joined_resolution_designatum_iff {D : Type u}
     {E : Elaboration D} {d b : D}
     (r : Elaboration.Resolution E d)
     (hright : r.raw.cₙ = Component.singleton b) (c : D) :
-    Joined E (ofResolution r) (ofDesignatum E c) ↔ E.Related b c := by
+    Joined E (ofResolution r) (ofDesignatum E c) ↔ E.Joinable b c := by
   rw [Joined, right_ofResolution, left_ofDesignatum, hright]
   exact Elaboration.linked_singleton_iff
 
@@ -2033,7 +2034,7 @@ theorem joined_designatum_resolution_iff {D : Type u}
     {E : Elaboration D} {d a : D}
     (r : Elaboration.Resolution E d)
     (hleft : r.raw.c₁ = Component.singleton a) (c : D) :
-    Joined E (ofDesignatum E c) (ofResolution r) ↔ E.Related c a := by
+    Joined E (ofDesignatum E c) (ofResolution r) ↔ E.Joinable c a := by
   rw [Joined, right_ofDesignatum, left_ofResolution, hleft]
   exact Elaboration.linked_singleton_iff
 

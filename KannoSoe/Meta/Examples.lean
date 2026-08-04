@@ -235,8 +235,8 @@ theorem someoneDrinkingTea_elaborates :
       someoneDrinkingTeaElaborationTarget := by
   simp [teaElaboration, someoneDrinkingTeaElaborationTarget]
 
-theorem bigBang_vesper_related :
-    teaElaboration.Related
+theorem bigBang_vesper_joinable :
+    teaElaboration.Joinable
       GalacticTeaDesignatum.bigBang GalacticTeaDesignatum.vesper :=
   ⟨bigBangProducingVesper,
     Elaboration.Reaches.single bigBang_elaborates
@@ -248,8 +248,8 @@ theorem bigBang_vesper_related :
       (a := Component.singleton bigBangProducingVesper)
       (by simp [vesperElaborationTarget]) (by simp)⟩
 
-theorem earth_bigBang_related :
-    teaElaboration.Related
+theorem earth_bigBang_joinable :
+    teaElaboration.Joinable
       GalacticTeaDesignatum.earth GalacticTeaDesignatum.bigBang :=
   ⟨bigBangProducingEarth,
     Elaboration.Reaches.single earth_elaborates
@@ -261,8 +261,8 @@ theorem earth_bigBang_related :
       (a := Component.singleton bigBangProducingEarth)
       (by simp [bigBangElaborationTarget]) (by simp)⟩
 
-theorem vesper_someoneDrinkingTea_related :
-    teaElaboration.Related
+theorem vesper_someoneDrinkingTea_joinable :
+    teaElaboration.Joinable
       GalacticTeaDesignatum.vesper
         GalacticTeaDesignatum.someoneDrinkingTea :=
   ⟨someoneOnVesper,
@@ -275,8 +275,8 @@ theorem vesper_someoneDrinkingTea_related :
       (a := Component.singleton someoneOnVesper)
       (by simp [someoneDrinkingTeaElaborationTarget]) (by simp)⟩
 
-theorem meDrinkingTea_earth_related :
-    teaElaboration.Related
+theorem meDrinkingTea_earth_joinable :
+    teaElaboration.Joinable
       GalacticTeaDesignatum.meDrinkingTea GalacticTeaDesignatum.earth :=
   ⟨meOnEarth,
     Elaboration.Reaches.single meDrinkingTea_elaborates
@@ -288,9 +288,9 @@ theorem meDrinkingTea_earth_related :
       (a := Component.singleton meOnEarth)
       (by simp [earthElaborationTarget]) (by simp)⟩
 
-attribute [local simp] Elaboration.Related.refl
-  bigBang_vesper_related earth_bigBang_related
-  vesper_someoneDrinkingTea_related meDrinkingTea_earth_related
+attribute [local simp] Elaboration.Joinable.refl
+  bigBang_vesper_joinable earth_bigBang_joinable
+  vesper_someoneDrinkingTea_joinable meDrinkingTea_earth_joinable
 
 theorem bigBang_vesper_linked :
     teaElaboration.Linked bigBang vesper := by

@@ -24,15 +24,15 @@ inductive ParallelDesignatum where
 def parallelElaboration : Elaboration ParallelDesignatum where
   Elab := fun _ _ => True
 
-theorem parallel_related_total (p q : ParallelDesignatum) :
-    parallelElaboration.Related p q := by
+theorem parallel_joinable_total (p q : ParallelDesignatum) :
+    parallelElaboration.Joinable p q := by
   let raw : RawMutualDependence ParallelDesignatum :=
     .pair parallelElaboration (Component.singleton q)
       (Component.singleton q)
   have hpq : parallelElaboration.Reaches p q :=
     Elaboration.Reaches.single (rawM := raw)
       (a := Component.singleton q) trivial (by simp [raw]) (by simp)
-  exact hpq.related
+  exact hpq.joinable
 
 def rawAB : RawMutualDependence ParallelDesignatum :=
   .pair parallelElaboration
@@ -46,7 +46,7 @@ def resolutionAB :
     simp only [rawAB, Elaboration.certify_pair,
       RawMutualDependence.holds_pair_iff]
     exact Elaboration.linked_singleton_iff.mpr
-      (parallel_related_total .a .b)
+      (parallel_joinable_total .a .b)
 
 /--
 The total slot presentation opens `ab` as `[a <--> b]` and leaves every other
@@ -139,7 +139,7 @@ theorem resolvedAB_join_c :
       (Segment.ofDesignatum parallelElaboration ParallelDesignatum.c) := by
   apply (Segment.joined_resolution_designatum_iff resolutionAB
     rfl ParallelDesignatum.c).mpr
-  exact parallel_related_total .b .c
+  exact parallel_joinable_total .b .c
 
 /-- The retained nested segment denoted by `[a <--> b] <--> c`. -/
 def resolvedABThenC : Segment parallelElaboration :=
@@ -226,7 +226,7 @@ theorem endpoint_elaborates_ab :
     endpointElaboration.Elab .ab endpointRawAB := by
   simp [endpointElaboration, endpointRawAB]
 
-theorem endpoint_related_a_b : endpointElaboration.Related .a .b := by
+theorem endpoint_joinable_a_b : endpointElaboration.Joinable .a .b := by
   have ha : endpointElaboration.Reaches .a .abWitness :=
     Elaboration.Reaches.single (rawM := endpointRawA)
       (a := Component.singleton .abWitness) endpoint_elaborates_a
@@ -237,7 +237,7 @@ theorem endpoint_related_a_b : endpointElaboration.Related .a .b := by
       (by simp [endpointRawB]) (by simp)
   exact ⟨.abWitness, ha, hb⟩
 
-theorem endpoint_related_b_c : endpointElaboration.Related .b .c := by
+theorem endpoint_joinable_b_c : endpointElaboration.Joinable .b .c := by
   have hb : endpointElaboration.Reaches .b .bcWitness :=
     Elaboration.Reaches.single (rawM := endpointRawB)
       (a := Component.singleton .bcWitness) endpoint_elaborates_b
@@ -288,7 +288,7 @@ private theorem reaches_c {w : EndpointDesignatum}
         | refl _ => simp
         | step hE' _ _ _ => simp [endpointElaboration] at hE'
 
-theorem endpoint_not_related_a_c : ¬ endpointElaboration.Related .a .c := by
+theorem endpoint_not_joinable_a_c : ¬ endpointElaboration.Joinable .a .c := by
   rintro ⟨w, haw, hcw⟩
   rcases reaches_a haw with hwa | hwa | hwa <;>
     rcases reaches_c hcw with hwc | hwc | hwc <;>
@@ -301,7 +301,7 @@ def endpointResolutionAB :
   holds := by
     simp only [endpointRawAB, Elaboration.certify_pair,
       RawMutualDependence.holds_pair_iff]
-    exact Elaboration.linked_singleton_iff.mpr endpoint_related_a_b
+    exact Elaboration.linked_singleton_iff.mpr endpoint_joinable_a_b
 
 /-- The selected body exposes `b`, so `[a,b] <--> c` succeeds. -/
 theorem endpoint_resolution_join_c :
@@ -309,7 +309,7 @@ theorem endpoint_resolution_join_c :
       (Segment.ofResolution endpointResolutionAB)
       (Segment.ofDesignatum endpointElaboration .c) := by
   exact (Segment.joined_resolution_designatum_iff endpointResolutionAB
-    rfl .c).mpr endpoint_related_b_c
+    rfl .c).mpr endpoint_joinable_b_c
 
 /-- The retained nested segment denoted by `[a <--> b] <--> c`. -/
 def endpointResolvedABThenC : Segment endpointElaboration :=
@@ -340,18 +340,18 @@ theorem endpoint_c_not_join_resolution :
       (Segment.ofDesignatum endpointElaboration .c)
       (Segment.ofResolution endpointResolutionAB) := by
   intro hjoined
-  have hca : endpointElaboration.Related .c .a :=
+  have hca : endpointElaboration.Joinable .c .a :=
     (Segment.joined_designatum_resolution_iff endpointResolutionAB
       rfl .c).mp hjoined
-  exact endpoint_not_related_a_c hca.symm
+  exact endpoint_not_joinable_a_c hca.symm
 
 /-- The same certified `a <--> b <--> c` chain can occupy one Segment slot. -/
 def endpointMutualDependence : MutualDependence EndpointDesignatum :=
   MutualDependence.triple (Linkage.ofElaboration endpointElaboration)
     (Component.singleton .a) (Component.singleton .b)
     (Component.singleton .c)
-    (Elaboration.linked_singleton_iff.mpr endpoint_related_a_b)
-    (Elaboration.linked_singleton_iff.mpr endpoint_related_b_c)
+    (Elaboration.linked_singleton_iff.mpr endpoint_joinable_a_b)
+    (Elaboration.linked_singleton_iff.mpr endpoint_joinable_b_c)
 
 def endpointDirectSegment : Segment endpointElaboration :=
   Segment.ofMutualDependence endpointMutualDependence rfl

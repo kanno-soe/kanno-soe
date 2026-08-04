@@ -17,7 +17,7 @@ target.
 
 `Elaboration.primeOpen E` additionally lets `none` elaborate back to every
 lifted old designatum.  The closed and open systems can differ for `Reaches`,
-as the witness below shows, but not for `Related`.
+as the witness below shows, but not for `Joinable`.
 
 Finally, `freshSourceExtension` isolates a conservative shape.  Clauses
 sourced at `none` may target arbitrary designata; their targets need no
@@ -113,9 +113,9 @@ theorem Reaches.mono {D : Type u} {E E' : Elaboration D}
   | step hElab hcomponent hmem _ ih =>
       exact .step (hExt hElab) hcomponent hmem ih
 
-/-- Adding elaboration clauses can only add relatedness. -/
-theorem Related.mono {D : Type u} {E E' : Elaboration D}
-    (hExt : E ≤ E') {a b : D} (h : E.Related a b) : E'.Related a b := by
+/-- Adding elaboration clauses can only add joinability. -/
+theorem Joinable.mono {D : Type u} {E E' : Elaboration D}
+    (hExt : E ≤ E') {a b : D} (h : E.Joinable a b) : E'.Joinable a b := by
   obtain ⟨w, ha, hb⟩ := h
   exact ⟨w, ha.mono hExt, hb.mono hExt⟩
 
@@ -168,18 +168,18 @@ theorem prime_reaches_web {D : Type u} (E : Elaboration D)
       exact Reaches.single (rawM := rawM) (a := Component.singleton none)
         (Or.inr (by simp [rawM])) (by simp [rawM]) (by simp)
 
-/-- `Related` is total after one priming. -/
-theorem prime_related_total {D : Type u} (E : Elaboration D)
-    (a b : Option D) : (prime E).Related a b :=
+/-- `Joinable` is total after one priming. -/
+theorem prime_joinable_total {D : Type u} (E : Elaboration D)
+    (a b : Option D) : (prime E).Joinable a b :=
   ⟨none, prime_reaches_web E a, prime_reaches_web E b⟩
 
-/-- Total relatedness makes `Related` transitive in the primed tier. -/
-theorem prime_related_transitive {D : Type u} (E : Elaboration D) :
+/-- Total joinability makes `Joinable` transitive in the primed tier. -/
+theorem prime_joinable_transitive {D : Type u} (E : Elaboration D) :
     ∀ ⦃a b c : Option D⦄,
-      (prime E).Related a b → (prime E).Related b c →
-        (prime E).Related a c := by
+      (prime E).Joinable a b → (prime E).Joinable b c →
+        (prime E).Joinable a c := by
   intro a _ c _ _
-  exact prime_related_total E a c
+  exact prime_joinable_total E a c
 
 /-- Every pair of nonempty components is linked in the primed tier. -/
 theorem prime_linked_total {D : Type u} (E : Elaboration D)
@@ -187,8 +187,8 @@ theorem prime_linked_total {D : Type u} (E : Elaboration D)
   obtain ⟨a, ha⟩ := c₁.nonempty
   obtain ⟨b, hb⟩ := c₂.nonempty
   exact
-    ⟨fun x _ => ⟨b, hb, prime_related_total E x b⟩,
-      fun y _ => ⟨a, ha, prime_related_total E a y⟩⟩
+    ⟨fun x _ => ⟨b, hb, prime_joinable_total E x b⟩,
+      fun y _ => ⟨a, ha, prime_joinable_total E a y⟩⟩
 
 private theorem chainLinked_of_total {D : Type u} {L : Linkage D}
     (h : ∀ c₁ c₂, L.Linked c₁ c₂) :
@@ -211,16 +211,16 @@ theorem prime_certification_trivial {D : Type u} (E : Elaboration D)
   exact prime_linked_total E c₁ c₂
 
 /--
-There is an elaboration with a genuinely unrelated old pair whose images are
-related after priming.  Thus the saturated tier cannot replace the diagnostic
+There is an elaboration with a genuinely non-joinable old pair whose images are
+joinable after priming.  Thus the saturated tier cannot replace the diagnostic
 base tier without losing information.
 -/
 theorem exists_tier_noncollapse :
     ∃ (D : Type) (E : Elaboration D) (a b : D),
-      ¬ E.Related a b ∧ (prime E).Related (some a) (some b) := by
+      ¬ E.Joinable a b ∧ (prime E).Joinable (some a) (some b) := by
   obtain ⟨D, E, a, _, c, _, _, _, _, _, hnac⟩ :=
-    Related.exists_nontransitive_mutualDependence
-  exact ⟨D, E, a, c, hnac, prime_related_total E (some a) (some c)⟩
+    Joinable.exists_nontransitive_mutualDependence
+  exact ⟨D, E, a, c, hnac, prime_joinable_total E (some a) (some c)⟩
 
 /-! ## Closed and open brackets -/
 
@@ -315,16 +315,16 @@ theorem primeOpen_reaches_total {D : Type u} (E : Elaboration D)
   (prime_reaches_web E a).mono (prime_le_primeOpen E) |>.trans
     (primeOpen_reaches_from_web E b)
 
-/-- `Related` is total in the open prime as well. -/
-theorem primeOpen_related_total {D : Type u} (E : Elaboration D)
-    (a b : Option D) : (primeOpen E).Related a b :=
-  (primeOpen_reaches_total E a b).related
+/-- `Joinable` is total in the open prime as well. -/
+theorem primeOpen_joinable_total {D : Type u} (E : Elaboration D)
+    (a b : Option D) : (primeOpen E).Joinable a b :=
+  (primeOpen_reaches_total E a b).joinable
 
-/-- Opening or closing the bracket is invisible to `Related`. -/
-theorem primeOpen_related_iff_prime {D : Type u} (E : Elaboration D)
+/-- Opening or closing the bracket is invisible to `Joinable`. -/
+theorem primeOpen_joinable_iff_prime {D : Type u} (E : Elaboration D)
     (a b : Option D) :
-    (primeOpen E).Related a b ↔ (prime E).Related a b :=
-  ⟨fun _ => prime_related_total E a b,
+    (primeOpen E).Joinable a b ↔ (prime E).Joinable a b :=
+  ⟨fun _ => prime_joinable_total E a b,
     fun h => h.mono (prime_le_primeOpen E)⟩
 
 /--
@@ -337,10 +337,10 @@ theorem exists_prime_open_reaches_distinction :
       ¬ (prime E).Reaches (some a) (some b) ∧
         (primeOpen E).Reaches (some a) (some b) := by
   obtain ⟨D, E, a, _, c, _, _, _, _, _, hnac⟩ :=
-    Related.exists_nontransitive_mutualDependence
+    Joinable.exists_nontransitive_mutualDependence
   refine ⟨D, E, a, c, ?_, primeOpen_reaches_total E (some a) (some c)⟩
   rw [prime_reaches_some_iff]
-  exact fun h => hnac h.related
+  exact fun h => hnac h.joinable
 
 /-! ## One-prime exhaustion -/
 
@@ -356,15 +356,15 @@ theorem prime_reaches_exhausted_on_image {D : Type u} (E : Elaboration D)
   prime_reaches_some_iff (prime E) a b
 
 /--
-The analogous image statement for `Related` is only a corollary-level fact:
+The analogous image statement for `Joinable` is only a corollary-level fact:
 both sides are already total after their first respective priming.
 -/
-theorem prime_related_exhausted_on_image {D : Type u} (E : Elaboration D)
+theorem prime_joinable_exhausted_on_image {D : Type u} (E : Elaboration D)
     (a b : Option D) :
-    (prime (prime E)).Related (some a) (some b) ↔
-      (prime E).Related a b :=
-  ⟨fun _ => prime_related_total E a b,
-    fun _ => prime_related_total (prime E) (some a) (some b)⟩
+    (prime (prime E)).Joinable (some a) (some b) ↔
+      (prime E).Joinable a b :=
+  ⟨fun _ => prime_joinable_total E a b,
+    fun _ => prime_joinable_total (prime E) (some a) (some b)⟩
 
 /-! ## Conservative fresh-source extension -/
 
@@ -449,11 +449,11 @@ theorem freshSource_reaches_iff {D : Type u} (E : Elaboration D)
   · intro h
     exact h.freshSource
 
-/-- Fresh-source extension preserves `Related` on the old domain exactly. -/
-theorem freshSource_related_iff {D : Type u} (E : Elaboration D)
+/-- Fresh-source extension preserves `Joinable` on the old domain exactly. -/
+theorem freshSource_joinable_iff {D : Type u} (E : Elaboration D)
     (fresh : RawMutualDependence (Option D) → Prop) (a b : D) :
-    (freshSourceExtension E fresh).Related (some a) (some b) ↔
-      E.Related a b := by
+    (freshSourceExtension E fresh).Joinable (some a) (some b) ↔
+      E.Joinable a b := by
   constructor
   · rintro ⟨w, haw, hbw⟩
     obtain ⟨wa, hwa, ha⟩ := freshSource_reaches_old haw

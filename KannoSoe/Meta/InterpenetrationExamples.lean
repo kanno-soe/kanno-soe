@@ -29,55 +29,60 @@ private theorem tea_reaches_eq_of_no_elaboration
   | refl _ => rfl
   | step hElab _ _ _ => exact (hnone _ hElab).elim
 
-/-- Two distinct terminal designata are unrelated in the base elaboration. -/
-private theorem tea_not_related_of_no_elaboration
+/-- Two distinct terminal designata are not joinable in the base elaboration. -/
+private theorem tea_not_joinable_of_no_elaboration
     {a b : GalacticTeaDesignatum}
     (ha : ∀ rawM, ¬ teaElaboration.Elab a rawM)
     (hb : ∀ rawM, ¬ teaElaboration.Elab b rawM)
-    (hne : a ≠ b) : ¬ teaElaboration.Related a b := by
+    (hne : a ≠ b) : ¬ teaElaboration.Joinable a b := by
   rintro ⟨w, haw, hbw⟩
   apply hne
   exact
     (tea_reaches_eq_of_no_elaboration ha haw).symm.trans
       (tea_reaches_eq_of_no_elaboration hb hbw)
 
-/-- The terminal tea-drinking results are unrelated in the base system. -/
-theorem tea_drinkingResults_not_related :
-    ¬ teaElaboration.Related
+/-- The terminal tea-drinking results are not joinable in the base system. -/
+theorem tea_drinkingResults_not_joinable :
+    ¬ teaElaboration.Joinable
       GalacticTeaDesignatum.meDrinkingTeaOnEarth
       GalacticTeaDesignatum.someoneDrinkingTeaOnVesper := by
-  apply tea_not_related_of_no_elaboration
+  apply tea_not_joinable_of_no_elaboration
   · intro rawM
     simp [teaElaboration]
   · intro rawM
     simp [teaElaboration]
   · simp
 
-/-- Priming relates the previously unrelated terminal tea-drinking results. -/
-theorem primedTea_drinkingResults_related :
-    primedTeaElaboration.Related
+/--
+Priming makes the previously non-joinable terminal tea-drinking results
+joinable.
+-/
+theorem primedTea_drinkingResults_joinable :
+    primedTeaElaboration.Joinable
       (some GalacticTeaDesignatum.meDrinkingTeaOnEarth)
       (some GalacticTeaDesignatum.someoneDrinkingTeaOnVesper) :=
-  Elaboration.prime_related_total teaElaboration _ _
+  Elaboration.prime_joinable_total teaElaboration _ _
 
-/-- The terminal `moreEarth` and `moreVesper` residues are unrelated at base. -/
-theorem tea_moreEarth_moreVesper_not_related :
-    ¬ teaElaboration.Related
+/-- The terminal `moreEarth` and `moreVesper` residues are not joinable at base. -/
+theorem tea_moreEarth_moreVesper_not_joinable :
+    ¬ teaElaboration.Joinable
       GalacticTeaDesignatum.moreEarth
       GalacticTeaDesignatum.moreVesper := by
-  apply tea_not_related_of_no_elaboration
+  apply tea_not_joinable_of_no_elaboration
   · intro rawM
     simp [teaElaboration]
   · intro rawM
     simp [teaElaboration]
   · simp
 
-/-- Priming relates the previously unrelated terminal branch residues. -/
-theorem primedTea_moreEarth_moreVesper_related :
-    primedTeaElaboration.Related
+/--
+Priming makes the previously non-joinable terminal branch residues joinable.
+-/
+theorem primedTea_moreEarth_moreVesper_joinable :
+    primedTeaElaboration.Joinable
       (some GalacticTeaDesignatum.moreEarth)
       (some GalacticTeaDesignatum.moreVesper) :=
-  Elaboration.prime_related_total teaElaboration _ _
+  Elaboration.prime_joinable_total teaElaboration _ _
 
 /--
 The linkage derived from the primed tea elaboration is universal. Unlike
