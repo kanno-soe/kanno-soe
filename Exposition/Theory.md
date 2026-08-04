@@ -17,7 +17,7 @@ The basic shape of a Mutual Dependence `m` is a list of at least two components 
 ```text
     m ⇓ [C1 ⋈ C2 ⋈ C3 ⋈ ... ⋈ Cn]
 
-    not required: a temporal order, a causal arrow, or direct C1/Cn linkage
+    not required: a temporal order, a causal arrow, or direct C1/Cn interdependence
 ```
 
 as an equation:
@@ -60,7 +60,7 @@ d \downarrow e
 \exists w.\; d \to^{*} w \leftarrow^{*} e
 ```
 
-This joinability is reflexive and symmetric, but it need not be transitive. A linkage (⋈) between two components is stronger than finding one attractive pair: every designatum in the first component must have a joinable partner in the second, and every designatum in the second must have a joinable partner in the first.
+This joinability is reflexive and symmetric, but it need not be transitive. An interdependence (⋈) between two components is stronger than finding one attractive pair: every designatum in the first component must have a joinable partner in the second, and every designatum in the second must have a joinable partner in the first.
 
 ```text
     component C                         component D
@@ -71,10 +71,10 @@ This joinability is reflexive and symmetric, but it need not be transitive. A li
     | ...     |                         | ...     |
     +---------+                         +---------+
 
-    Linked(C,D) requires coverage in both directions.
+    Interdependent(C,D) requires coverage in both directions.
 ```
 
-as an equation (linkage is Egli–Milner lifting of joinability):
+as an equation (interdependence is the Egli–Milner lifting of joinability):
 ```math
 A\;\overline{\downarrow}\;B
 \iff
@@ -88,7 +88,7 @@ A\bowtie B
 A\;\overline{\downarrow}\;B
 ```
 
-The chain may be any finite length. It can be sliced and compatible chains can be joined, but the word *chain* must not smuggle in time: these arrows display symmetric linkage, not before and after. This is the minimal formal structure of **Mutual Dependence** (*sōe*). Throughout, that structure is read as **mujishō-sōe**: mutual dependence without-own-being (*mujishō*), in which neither side supplies a self-standing substrate for the other.
+The chain may be any finite length. It can be sliced and compatible chains can be catenated, but the word *chain* must not smuggle in time: these arrows display symmetric interdependence, not before and after. This is the minimal formal structure of **Mutual Dependence** (*sōe*). Throughout, that structure is read as **mujishō-sōe**: mutual dependence without-own-being (*mujishō*), in which neither side supplies a self-standing substrate for the other.
 
 ## Resonance as a Mutual Dependence
 
@@ -98,7 +98,7 @@ A **Resonance** is the following four-component special case of Mutual Dependenc
     calls ⋈ {b1} ⋈ {b2} ⋈ responses
 ```
 
-The intended reading is that `b1` is the receiving view or moment of a being and `b2` is its responding view or moment. Formally, however, `b1` and `b2` are two designata joined in the same certified dependence. The model does not prove that they are numerically identical, temporally successive, conscious, or personal. The names **calls**, **receiving**, **responding**, and **responses** are role-readings of the shape.
+The intended reading is that `b1` is the receiving view or moment of a being and `b2` is its responding view or moment. Formally, however, `b1` and `b2` are two interdependent singleton designata in the same certified dependence. The model does not prove that they are numerically identical, temporally successive, conscious, or personal. The names **calls**, **receiving**, **responding**, and **responses** are role-readings of the shape.
 
 An **Encounter** is a Resonance viewed merely as a Mutual Dependence. It retains the concrete `calls--b1--b2--responses` shape while everything about it being a resonance is temporarily forgotten. *Encounter* is an expository alias, not a new Lean type. Every Encounter is a Mutual Dependence; not every Mutual Dependence has the four-component singleton-middle shape needed to be an Encounter.
 
@@ -108,7 +108,7 @@ Because designata may elaborate into any raw dependence the modeler supplies and
     {wind} ⋈ {stone-receiving} ⋈ {stone-responding} ⋈ {rolling}
 ```
 
-Nothing in the ungraded structure privileges the person. Nor does the stone example prove a doctrine about sentience: it proves only that the Resonance constructor asks for linked designata, not a prior metaphysical kind called *person*.
+Nothing in the ungraded structure privileges the person. Nor does the stone example prove a doctrine about sentience: it proves only that the Resonance constructor asks for interdependent singleton designata in its two middle positions, not a prior metaphysical kind called *person*.
 
 ## Graded Resonance and Being
 
@@ -132,10 +132,10 @@ A **Being** is a nonempty list of Resonances whose singleton middle components f
 of Resonance 1       of Resonance 2              of Resonance n
 {r1b1} ⋈ {r1b2}  ⋈  {r2b1} ⋈ {r2b2}  ⋈ ... ⋈  {rnb1} ⋈ {rnb2}
 
-    Being = the certified linkage of these receiving/responding moments
+    Being = the certified chain of these receiving/responding moments
 ```
 
-The calls and responses surrounding each Resonance do not constitute the Being's formal spine; its `b1,b2,...` middle moments do. This is a conventional construction of a being out of linked moments, not a proof of a persisting owner behind them.
+The calls and responses surrounding each Resonance do not constitute the Being's formal spine; its `b1,b2,...` middle moments do. This is a conventional construction of a being out of interdependent moments, not a proof of a persisting owner behind them.
 
 ## Direction and Causation are overlays
 
@@ -149,10 +149,10 @@ That certificate is itself just another Mutual Dependence in a precise and limit
     causal assertion:          x ↝ y
 
     x ↝ y  =>  x ≺ y
-    x ↝ y  =>  a Mutual Dependence joins endpoint-components
+    x ↝ y  =>  a Mutual Dependence whose endpoint-components interdepend
 ```
 
-Forgetting the causal and temporal overlays leaves the underlying Mutual Dependence; adding the overlays is additional data. Therefore this does not say that every Mutual Dependence is causal, that symmetric linkage secretly points from cause to effect, or that every `Before` fact is causal. Causation as another Mutual Dependence names the certified dependence-skeleton of a causal claim, not a reduction of causality to symmetry.
+Forgetting the causal and temporal overlays leaves the underlying Mutual Dependence; adding the overlays is additional data. Therefore this does not say that every Mutual Dependence is causal, that symmetric interdependence secretly points from cause to effect, or that every `Before` fact is causal. Causation as another Mutual Dependence names the certified dependence-skeleton of a causal claim, not a reduction of causality to symmetry.
 
 Accordingly, **mujishō-sōe** is the dependence-structure retained when either grading or the causal and directional overlays are forgotten.
 
@@ -167,7 +167,7 @@ Accordingly, **mujishō-sōe** is the dependence-structure retained when either 
 
 Remove grades from a Graded Resonance and everything else about it being a resonance and the Mutual Dependence remains. That remainder does not by itself prove a Buddhist metaphysics. The philosophical bridge begins when the act-grammar reads it as **mujishō-sōe**: mutual dependence under the condition of no own-being.
 
-*Mujishō* (無自性) means without self-nature or own-being. The model's mutual dependence linkage is a simple formal analogue: neither linked component is entered as the self-standing base of the other. This is an **interpretation of** Mutual Dependence, not a theorem extracted from `Linked`; supplied elaborations can encode many domains, and Lean does not turn a symmetric reach relation into Nāgārjuna by itself.
+*Mujishō* (無自性) means without self-nature or own-being. The model's interdependence relation is a simple formal analogue: neither interdependent component is entered as the self-standing base of the other. This is an **interpretation of** Mutual Dependence, not a theorem extracted from `Interdependent`; supplied elaborations can encode many domains, and Lean does not turn a symmetric reach relation into Nāgārjuna by itself.
 
 The interpretive route begins with Nāgārjuna's *MMK* 24.18: what dependently originates is empty of own-being; that emptiness is itself dependently designated; just this is the middle way. Dependence therefore cannot mean relations among already self-subsisting things, while emptiness cannot become a deeper thing beneath them. Applied to the Encounter above, the point is not that `calls`, `b1`, `b2`, and `responses` vanish. It is that none supplies the final bearer of the answering.
 
@@ -358,8 +358,9 @@ prove that reading or the identification with Huayan.
 
 The diagrams use the following shorthand:
 
-- `a ⋈ b` displays Mutual Dependence between singleton components. At a
-  singleton join, certification reduces to whether `a` and `b` are joinable.
+- `a ⋈ b` displays Mutual Dependence between singleton components. For
+  singleton interdependence, certification reduces to whether `a` and `b` are
+  joinable.
 - `[a ⋈ b]` designates the displayed dependence-whole as one new thing.
 - `→*` means reachability with zero or more elaboration steps.
 - Letters written together, such as `ab`, name one designatum rather than two.
@@ -397,9 +398,10 @@ designatum first occupies a component slot: `ab` by itself is placed in
 separate kind of “whole-name.”
 
 The endpoint-sensitive Segment layer is now part of the operative signature
-API. `Segment.linked_sources_of_joined` proves that joining two opened shell
-interfaces entails the corresponding source-component join.
-`Segment.Shape.chainLinked_sourceComponents` validates the retained flattened
+API. `Segment.interdependent_sources_of_catenable` proves that catenating two
+opened shell interfaces entails the corresponding source-component
+interdependence.
+`Segment.Shape.chained_sourceComponents` validates the retained flattened
 chain, and `Segment.toMutualDependence` packages any decomposition with at
 least two source components as a certified `MutualDependence`. The
 endpoint-sensitive `endpointResolvedABThenC` example constructs this
@@ -428,11 +430,12 @@ These are `Segment.left_ofResolution` and
   [a ⋈ b] ⋈ c
 ```
 
-retains the certified inner `a ⋈ b` and checks only the adjacent outer
-join `Linked {b} {c}`. With singleton interfaces this is exactly whether `b`
-and `c` are joinable (`joined_resolution_designatum_iff`). The source remains
-`{ab}`, and its stored body remains the certified `a ⋈ b`; the outer join is
-simply made against that body's exposed right interface.
+retains the certified inner `a ⋈ b` and checks only whether the facing
+interfaces satisfy `Interdependent {b} {c}`. With singleton interfaces this is
+exactly whether `b` and `c` are joinable
+(`catenable_resolution_designatum_iff`). The source remains `{ab}`, and its
+stored body remains the certified `a ⋈ b`; catenability is checked against that
+body's exposed right interface.
 
 A component may contain several slots, and they open in parallel rather than
 acquiring an arbitrary serial order. For example, if `ab` opens as
@@ -446,8 +449,8 @@ acquiring an arbitrary serial order. For example, if `ab` opens as
 
 This is checked by `mem_parallelShell_left_iff` and
 `mem_parallelShell_right_iff`. The ordinary strong rule is unchanged at the
-next join: every member exposed on each side must find a joinable member on the
-other. Opening a slot therefore preserves the expressive force of
+next catenation: every member exposed on each side must find a joinable member
+on the other. Opening a slot therefore preserves the expressive force of
 multi-member components rather than admitting irrelevant passengers.
 
 Resolution is positive, finite, and local to an occurrence. A leaf means
@@ -460,15 +463,15 @@ recursive normalization is attempted, so cyclic elaborations remain usable.
 
 Opening is a presentation operation, not a carrier extension. The designatum
 `ab` remains an ordinary member of the same `D`; its selected `Resolution`
-records the certified body `[a ⋈ b]`. `Segment.append` checks the outer join
+records the certified body `[a ⋈ b]`. `Segment.catenate` checks interdependence
 only at the exposed `{b}` and `{c}` interfaces. Flattening the retained segment
 then produces the ordinary mutual dependence `{ab} ⋈ {c}`. No `Option`
 wrapper, fresh `none`, or priming operation is involved. A designatum therefore
 does not become prime merely because its body is opened or retained, and
-Segment supplies no automatic total joinability or linkage. In
+Segment supplies no automatic total joinability or interdependence. In
 Interpenetration, the corresponding primed-tier facts follow specifically from
 the explicit `prime` construction (`prime_joinable_total`,
-`prime_linked_total`).
+`prime_interdependent_total`).
 
 Carrier extension remains available separately through
 `freshSourceExtension`. It may add clauses sourced at a fresh `none`, but old
@@ -480,7 +483,7 @@ whole.
 
 Segments now supply the endpoint-sensitive part of the intended diagrammatic
 calculus. A direct certified mutual dependence can occupy a Segment position
-(`Segment.ofMutualDependence`), and `Segment.append` retains both sides while
+(`Segment.ofMutualDependence`), and `Segment.catenate` retains both sides while
 checking just their touching interfaces. Thus several views of one already
 stated dependence-web can preserve their internal bodies:
 
@@ -495,7 +498,7 @@ Left and right here are diagrammatic interfaces, not a temporal or causal
 direction. Reversing a display must reverse its retained bodies as well:
 the reverse of `[a ⋈ b] ⋈ c` is `c ⋈ [b ⋈ a]`, not a naïve swap
 which leaves the inner orientation unchanged. This is realized by
-`Segment.reverse`, `Segment.Joined.reverse`, and `Segment.reverse_append`
+`Segment.reverse`, `Segment.Catenable.reverse`, and `Segment.reverse_catenate`
 under `Elaboration.ReversalClosed`, the condition that elaboration is closed
 under reversal of its raw mutual-dependence bodies.
 
@@ -529,9 +532,9 @@ The closed prime has this shape:
 Every primed point reaches the web (`prime_reaches_web`), so every pair has the
 same common witness. Hence `Joinable` is total and therefore transitive
 (`prime_joinable_total`, `prime_joinable_transitive`). Every pair of nonempty
-components is `Linked` (`prime_linked_total`), and every raw dependence
-re-tagged with this primed linkage holds (`prime_certification_trivial`). The
-last result says that the primed linkage is saturated; it does not say that
+components is `Interdependent` (`prime_interdependent_total`), and every raw dependence
+re-tagged with this primed interdependence holds (`prime_certification_trivial`). The
+last result says that the primed interdependence is saturated; it does not say that
 every arbitrary assertion is true.
 
 Closed priming adds no new old-to-old reachability:

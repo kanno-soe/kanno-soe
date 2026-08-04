@@ -21,45 +21,45 @@ inductive Signal where
 
 open Signal
 
-def universalLinkage : Linkage Signal where
-  Linked := fun _ _ => True
+def universalInterdependence : Interdependence Signal where
+  Interdependent := fun _ _ => True
   symm := fun _ => trivial
 
 def firstResonance : Resonance Signal :=
-  Resonance.mk' universalLinkage
+  Resonance.mk' universalInterdependence
     (Component.singleton firstCall) firstBeing firstResponse
     (Component.singleton firstResult) trivial trivial trivial
 
 def secondResonance : Resonance Signal :=
-  Resonance.mk' universalLinkage
+  Resonance.mk' universalInterdependence
     (Component.singleton secondCall) secondBeing secondResponse
     (Component.singleton secondResult) trivial trivial trivial
 
 def singleBeing : Being Signal :=
-  Being.ofResonances universalLinkage [firstResonance] (by simp) (by
+  Being.ofResonances universalInterdependence [firstResonance] (by simp) (by
     show
-      universalLinkage.ChainLinked
+      universalInterdependence.Chained
         [Component.singleton firstBeing, Component.singleton firstResponse]
     exact .cons trivial (.single _))
 
-theorem consecutiveMiddlesLinked :
-    universalLinkage.Linked
+theorem consecutiveMiddlesInterdependent :
+    universalInterdependence.Interdependent
       (Component.singleton firstResponse)
       (Component.singleton secondBeing) :=
   trivial
 
 def multiBeing : Being Signal :=
-  Being.ofResonances universalLinkage
+  Being.ofResonances universalInterdependence
     [firstResonance, secondResonance] (by simp) (by
       show
-        universalLinkage.ChainLinked
+        universalInterdependence.Chained
           [Component.singleton firstBeing,
             Component.singleton firstResponse,
             Component.singleton secondBeing,
             Component.singleton secondResponse]
       exact
         .cons trivial
-          (.cons consecutiveMiddlesLinked
+          (.cons consecutiveMiddlesInterdependent
             (.cons trivial (.single _))))
 
 def natPreorderBot : PreorderBot Nat where
@@ -292,31 +292,31 @@ attribute [local simp] Elaboration.Joinable.refl
   bigBang_vesper_joinable earth_bigBang_joinable
   vesper_someoneDrinkingTea_joinable meDrinkingTea_earth_joinable
 
-theorem bigBang_vesper_linked :
-    teaElaboration.Linked bigBang vesper := by
-  simp [Elaboration.Linked, bigBang, vesper]
+theorem bigBang_vesper_interdependent :
+    teaElaboration.Interdependent bigBang vesper := by
+  simp [Elaboration.Interdependent, bigBang, vesper]
 
-theorem earth_bigBang_linked :
-    teaElaboration.Linked earth bigBang := by
-  simp [Elaboration.Linked, earth, bigBang]
+theorem earth_bigBang_interdependent :
+    teaElaboration.Interdependent earth bigBang := by
+  simp [Elaboration.Interdependent, earth, bigBang]
 
-theorem vesper_someoneDrinkingTea_linked :
-    teaElaboration.Linked vesper someoneDrinkingTea := by
-  simp [Elaboration.Linked, vesper, someoneDrinkingTea]
+theorem vesper_someoneDrinkingTea_interdependent :
+    teaElaboration.Interdependent vesper someoneDrinkingTea := by
+  simp [Elaboration.Interdependent, vesper, someoneDrinkingTea]
 
-theorem meDrinkingTea_earth_linked :
-    teaElaboration.Linked meDrinkingTea earth := by
-  simp [Elaboration.Linked, meDrinkingTea, earth]
+theorem meDrinkingTea_earth_interdependent :
+    teaElaboration.Interdependent meDrinkingTea earth := by
+  simp [Elaboration.Interdependent, meDrinkingTea, earth]
 
 def galacticTeaDependence : MutualDependence GalacticTeaDesignatum where
   toRaw :=
     ⟨teaElaboration, meDrinkingTea, [earth, bigBang, vesper],
       someoneDrinkingTea⟩
   holds :=
-    .cons meDrinkingTea_earth_linked
-      (.cons earth_bigBang_linked
-        (.cons bigBang_vesper_linked
-          (.cons vesper_someoneDrinkingTea_linked (.single _))))
+    .cons meDrinkingTea_earth_interdependent
+      (.cons earth_bigBang_interdependent
+        (.cons bigBang_vesper_interdependent
+          (.cons vesper_someoneDrinkingTea_interdependent (.single _))))
 
 theorem galacticTeaDependence_components :
     galacticTeaDependence.components =
@@ -325,11 +325,11 @@ theorem galacticTeaDependence_components :
 
 def bigBangVesperTeaDependence : MutualDependence GalacticTeaDesignatum :=
   MutualDependence.triple teaElaboration bigBang vesper someoneDrinkingTea
-    bigBang_vesper_linked vesper_someoneDrinkingTea_linked
+    bigBang_vesper_interdependent vesper_someoneDrinkingTea_interdependent
 
 def bigBangEarthTeaDependence : MutualDependence GalacticTeaDesignatum :=
   MutualDependence.triple teaElaboration bigBang earth meDrinkingTea
-    earth_bigBang_linked.symm meDrinkingTea_earth_linked.symm
+    earth_bigBang_interdependent.symm meDrinkingTea_earth_interdependent.symm
 
 inductive TeaBefore :
     GalacticTeaDesignatum → GalacticTeaDesignatum → Prop where

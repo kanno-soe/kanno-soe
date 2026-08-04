@@ -9,7 +9,7 @@ example. Calling the primed system a *floor-tier* presentation is a supplied
 reading, not a formal status encoded by the model. Priming connects branches
 which remain distinct in the base presentation and makes certification
 uniform, with the same universal behavior exhibited directly by
-`BeingAndGrading.universalLinkage`.
+`BeingAndGrading.universalInterdependence`.
 -/
 
 namespace GalacticTea
@@ -85,14 +85,14 @@ theorem primedTea_moreEarth_moreVesper_joinable :
   Elaboration.prime_joinable_total teaElaboration _ _
 
 /--
-The linkage derived from the primed tea elaboration is universal. Unlike
-`BeingAndGrading.universalLinkage`, whose proofs are definitionally `True`,
+The interdependence derived from the primed tea elaboration is universal. Unlike
+`BeingAndGrading.universalInterdependence`, whose proofs are definitionally `True`,
 this universality is a theorem forced by the priming construction.
 -/
-theorem primedTea_linked_total
+theorem primedTea_interdependent_total
     (c₁ c₂ : Component PrimedGalacticTeaDesignatum) :
-    (Linkage.ofElaboration primedTeaElaboration).Linked c₁ c₂ :=
-  Elaboration.prime_linked_total teaElaboration c₁ c₂
+    (Interdependence.ofElaboration primedTeaElaboration).Interdependent c₁ c₂ :=
+  Elaboration.prime_interdependent_total teaElaboration c₁ c₂
 
 /--
 The raw five-component shape underlying `galacticTeaDependence`, stated
@@ -101,7 +101,7 @@ which proof obligation priming discharges.
 -/
 def rawGalacticTeaDependence :
     RawMutualDependence GalacticTeaDesignatum where
-  linkage := Linkage.ofElaboration teaElaboration
+  interdependence := Interdependence.ofElaboration teaElaboration
   c₁ := meDrinkingTea
   middle := [earth, bigBang, vesper]
   cₙ := someoneDrinkingTea
@@ -110,11 +110,11 @@ def rawGalacticTeaDependence :
 def primedGalacticTeaRaw :
     RawMutualDependence PrimedGalacticTeaDesignatum :=
   RawMutualDependence.mapComponents rawGalacticTeaDependence some
-    (Linkage.ofElaboration primedTeaElaboration)
+    (Interdependence.ofElaboration primedTeaElaboration)
 
 /--
 Under the base elaboration, `galacticTeaDependence` supplies four explicit
-adjacent-linkage proofs. Under the prime, the same component shape is certified
+adjacent interdependence proofs. Under the prime, the same component shape is certified
 uniformly by `Elaboration.prime_certification_trivial`.
 -/
 def primedGalacticTeaDependence :

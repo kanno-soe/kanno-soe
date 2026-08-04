@@ -12,7 +12,7 @@ personhood to a designatum.
 `Elaboration.prime E` uses `none : Option D` as a fresh web-designatum.  It
 lifts every old clause along `some` and gives each lifted old designatum an
 additional clause whose components are itself and `none`.  The construction
-is additive and remains agnostic about the linkage bundled in an elaboration
+is additive and remains agnostic about the interdependence bundled in an elaboration
 target.
 
 `Elaboration.primeOpen E` additionally lets `none` elaborate back to every
@@ -75,19 +75,20 @@ end Component
 namespace RawMutualDependence
 
 /--
-Map every component of a raw target.  The new linkage is an explicit
-parameter: component transport cannot, and need not, manufacture a linkage.
+Map every component of a raw target.  The new interdependence is an explicit
+parameter: component transport cannot, and need not, manufacture an
+interdependence.
 -/
 def mapComponents {D : Type u} {D' : Type v}
-    (rawM : RawMutualDependence D) (f : D → D') (L : Linkage D') :
+    (rawM : RawMutualDependence D) (f : D → D') (L : Interdependence D') :
     RawMutualDependence D' where
-  linkage := L
+  interdependence := L
   c₁ := rawM.c₁.map f
   middle := rawM.middle.map (Component.map f)
   cₙ := rawM.cₙ.map f
 
 @[simp] theorem components_mapComponents {D : Type u} {D' : Type v}
-    (rawM : RawMutualDependence D) (f : D → D') (L : Linkage D') :
+    (rawM : RawMutualDependence D) (f : D → D') (L : Interdependence D') :
     (rawM.mapComponents f L).components =
       rawM.components.map (Component.map f) := by
   simp [mapComponents, components]
@@ -126,7 +127,7 @@ Adjoin `none` as a fresh designatum, lift all old clauses along `some`, and
 add for every old `d` a clause with components `{some d}` and `{none}`.
 
 Only `components` is constrained.  In particular, the definition neither
-fixes the target's bundled linkage nor asserts that the target holds.
+fixes the target's bundled interdependence nor asserts that the target holds.
 -/
 def prime {D : Type u} (E : Elaboration D) : Elaboration (Option D) where
   Elab od rawM :=
@@ -148,7 +149,7 @@ theorem Reaches.prime {D : Type u} {E : Elaboration D} {d e : D}
   | @step d e f rawM a hElab hcomponent hmem _ ih =>
       let mapped :=
         rawM.mapComponents Option.some
-          (Linkage.ofElaboration (Elaboration.prime E))
+          (Interdependence.ofElaboration (Elaboration.prime E))
       exact Reaches.step (rawM := mapped) (a := a.map Option.some)
         (Or.inl ⟨rawM, hElab, by simp [mapped]⟩)
         (by
@@ -163,7 +164,7 @@ theorem prime_reaches_web {D : Type u} (E : Elaboration D)
   | none => exact .refl none
   | some d =>
       let rawM :=
-        RawMutualDependence.pair (Linkage.ofElaboration (prime E))
+        RawMutualDependence.pair (Interdependence.ofElaboration (prime E))
           (Component.singleton (some d)) (Component.singleton none)
       exact Reaches.single (rawM := rawM) (a := Component.singleton none)
         (Or.inr (by simp [rawM])) (by simp [rawM]) (by simp)
@@ -181,34 +182,34 @@ theorem prime_joinable_transitive {D : Type u} (E : Elaboration D) :
   intro a _ c _ _
   exact prime_joinable_total E a c
 
-/-- Every pair of nonempty components is linked in the primed tier. -/
-theorem prime_linked_total {D : Type u} (E : Elaboration D)
-    (c₁ c₂ : Component (Option D)) : (prime E).Linked c₁ c₂ := by
+/-- Every pair of nonempty components is interdependent in the primed tier. -/
+theorem prime_interdependent_total {D : Type u} (E : Elaboration D)
+    (c₁ c₂ : Component (Option D)) : (prime E).Interdependent c₁ c₂ := by
   obtain ⟨a, ha⟩ := c₁.nonempty
   obtain ⟨b, hb⟩ := c₂.nonempty
   exact
     ⟨fun x _ => ⟨b, hb, prime_joinable_total E x b⟩,
       fun y _ => ⟨a, ha, prime_joinable_total E a y⟩⟩
 
-private theorem chainLinked_of_total {D : Type u} {L : Linkage D}
-    (h : ∀ c₁ c₂, L.Linked c₁ c₂) :
-    ∀ cs : List (Component D), L.ChainLinked cs
+private theorem chained_of_total {D : Type u} {L : Interdependence D}
+    (h : ∀ c₁ c₂, L.Interdependent c₁ c₂) :
+    ∀ cs : List (Component D), L.Chained cs
   | [] => .nil
   | [c] => .single c
   | c₁ :: c₂ :: rest =>
-      .cons (h c₁ c₂) (chainLinked_of_total h (c₂ :: rest))
+      .cons (h c₁ c₂) (chained_of_total h (c₂ :: rest))
 
 /--
-After re-tagging by the primed linkage, every raw dependence holds.  This is
+After re-tagging by the primed interdependence, every raw dependence holds.  This is
 a statement about saturation of the primed formal tier, not about the status
 of an unprimed act-time elaboration.
 -/
 theorem prime_certification_trivial {D : Type u} (E : Elaboration D)
     (rawM : RawMutualDependence (Option D)) :
     (prime E).certify rawM |>.Holds := by
-  apply chainLinked_of_total
+  apply chained_of_total
   intro c₁ c₂
-  exact prime_linked_total E c₁ c₂
+  exact prime_interdependent_total E c₁ c₂
 
 /--
 There is an elaboration with a genuinely non-joinable old pair whose images are
@@ -303,7 +304,7 @@ theorem primeOpen_reaches_from_web {D : Type u} (E : Elaboration D)
   | none => exact .refl none
   | some d =>
       let rawM :=
-        RawMutualDependence.pair (Linkage.ofElaboration (primeOpen E))
+        RawMutualDependence.pair (Interdependence.ofElaboration (primeOpen E))
           (Component.singleton none) (Component.singleton (some d))
       exact Reaches.single (rawM := rawM)
         (a := Component.singleton (some d))
@@ -395,7 +396,7 @@ theorem Reaches.freshSource {D : Type u} {E : Elaboration D}
   | @step d e f rawM c hElab hcomponent hmem _ ih =>
       let mapped :=
         rawM.mapComponents Option.some
-          (Linkage.ofElaboration (freshSourceExtension E fresh))
+          (Interdependence.ofElaboration (freshSourceExtension E fresh))
       exact Reaches.step (rawM := mapped) (a := c.map Option.some)
         ⟨rawM, hElab, by simp [mapped]⟩
         (by

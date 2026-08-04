@@ -4,11 +4,11 @@ import Std
 # Mutual dependence, resonance, and direction
 
 Raw types describe component structures without asserting that their
-linkages hold. Certified types pair those descriptions with proofs, while
+interdependences hold. Certified types pair those descriptions with proofs, while
 `Elaboration` targets raw mutual dependences so it can remain agnostic about
 the validity of its targets.
 
-A linkage derived from an elaboration (`Linkage.ofElaboration E`) cannot
+A interdependence derived from an elaboration (`Interdependence.ofElaboration E`) cannot
 appear inside the targets of `E`'s own definition; see
 `Elaboration.certify` and `Elaboration.SelfCertified`.
 
@@ -96,115 +96,115 @@ def bind {D : Type u} (source : Component D)
 
 end Component
 
-/-! ## Linkage -/
+/-! ## Interdependence -/
 
-structure Linkage (D : Type u) where
-  Linked : Component D → Component D → Prop
-  symm : ∀ {c₁ c₂}, Linked c₁ c₂ → Linked c₂ c₁
+structure Interdependence (D : Type u) where
+  Interdependent : Component D → Component D → Prop
+  symm : ∀ {c₁ c₂}, Interdependent c₁ c₂ → Interdependent c₂ c₁
 
-namespace Linkage
+namespace Interdependence
 
-inductive ChainLinked {D : Type u} (L : Linkage D) :
+inductive Chained {D : Type u} (L : Interdependence D) :
     List (Component D) → Prop where
-  | nil : ChainLinked L []
-  | single (c₁ : Component D) : ChainLinked L [c₁]
+  | nil : Chained L []
+  | single (c₁ : Component D) : Chained L [c₁]
   | cons {c₁ c₂ : Component D} {rest : List (Component D)}
-      (h₁₂ : L.Linked c₁ c₂) (h : ChainLinked L (c₂ :: rest)) :
-      ChainLinked L (c₁ :: c₂ :: rest)
+      (h₁₂ : L.Interdependent c₁ c₂) (h : Chained L (c₂ :: rest)) :
+      Chained L (c₁ :: c₂ :: rest)
 
-theorem ChainLinked.tail {D : Type u} {L : Linkage D}
+theorem Chained.tail {D : Type u} {L : Interdependence D}
     {c₁ : Component D} {l : List (Component D)}
-    (h : L.ChainLinked (c₁ :: l)) : L.ChainLinked l := by
+    (h : L.Chained (c₁ :: l)) : L.Chained l := by
   cases h with
-  | single _ => exact ChainLinked.nil
+  | single _ => exact Chained.nil
   | cons _ h => exact h
 
-theorem ChainLinked.of_append_right {D : Type u} {L : Linkage D} :
+theorem Chained.of_append_right {D : Type u} {L : Interdependence D} :
     ∀ (l₁ : List (Component D)) {l₂ : List (Component D)},
-      L.ChainLinked (l₁ ++ l₂) → L.ChainLinked l₂
+      L.Chained (l₁ ++ l₂) → L.Chained l₂
   | [], _, h => h
   | c₁ :: rest, l₂, h => by
       rw [List.cons_append] at h
-      exact ChainLinked.of_append_right rest h.tail
+      exact Chained.of_append_right rest h.tail
 
-theorem ChainLinked.of_append_left {D : Type u} {L : Linkage D} :
+theorem Chained.of_append_left {D : Type u} {L : Interdependence D} :
     ∀ (l₁ l₂ : List (Component D)),
-      L.ChainLinked (l₁ ++ l₂) → L.ChainLinked l₁
-  | [], _, _ => ChainLinked.nil
-  | [c₁], _, _ => ChainLinked.single c₁
+      L.Chained (l₁ ++ l₂) → L.Chained l₁
+  | [], _, _ => Chained.nil
+  | [c₁], _, _ => Chained.single c₁
   | c₁ :: c₂ :: rest, l₂, h => by
       rw [List.cons_append, List.cons_append] at h
       cases h with
       | cons h₁₂ h =>
-          refine ChainLinked.cons h₁₂
-            (ChainLinked.of_append_left (c₂ :: rest) l₂ ?_)
+          refine Chained.cons h₁₂
+            (Chained.of_append_left (c₂ :: rest) l₂ ?_)
           rw [List.cons_append]
           exact h
 
-theorem ChainLinked.glue {D : Type u} {L : Linkage D} :
+theorem Chained.glue {D : Type u} {L : Interdependence D} :
     ∀ {l₁ : List (Component D)} {cₙ : Component D}
         {l₂ : List (Component D)},
-      L.ChainLinked (l₁ ++ [cₙ]) → L.ChainLinked (cₙ :: l₂) →
-      L.ChainLinked (l₁ ++ cₙ :: l₂) := by
+      L.Chained (l₁ ++ [cₙ]) → L.Chained (cₙ :: l₂) →
+      L.Chained (l₁ ++ cₙ :: l₂) := by
   intro l₁ cₙ l₂ hleft hright
   induction l₁ with
   | nil => exact hright
   | cons c₁ rest ih =>
       cases rest with
       | nil =>
-          change L.ChainLinked [c₁, cₙ] at hleft
+          change L.Chained [c₁, cₙ] at hleft
           cases hleft with
           | cons h₁ₙ _ => exact .cons h₁ₙ hright
       | cons c₂ rest =>
-          change L.ChainLinked (c₁ :: c₂ :: rest ++ [cₙ]) at hleft
+          change L.Chained (c₁ :: c₂ :: rest ++ [cₙ]) at hleft
           cases hleft with
           | cons h₁₂ htail =>
               exact .cons h₁₂ (ih htail)
 
-/-- Join two nonempty linked chains by linking their exposed endpoints. -/
-theorem ChainLinked.append_of_linked {D : Type u} {L : Linkage D}
+/-- Catenate two nonempty chains whose exposed endpoints are interdependent. -/
+theorem Chained.catenate {D : Type u} {L : Interdependence D}
     {l₁ l₂ : List (Component D)} {c₁ c₂ : Component D}
-    (h₁ : L.ChainLinked (l₁ ++ [c₁]))
-    (h₂ : L.ChainLinked (c₂ :: l₂))
-    (h₁₂ : L.Linked c₁ c₂) :
-    L.ChainLinked ((l₁ ++ [c₁]) ++ c₂ :: l₂) := by
+    (h₁ : L.Chained (l₁ ++ [c₁]))
+    (h₂ : L.Chained (c₂ :: l₂))
+    (h₁₂ : L.Interdependent c₁ c₂) :
+    L.Chained ((l₁ ++ [c₁]) ++ c₂ :: l₂) := by
   have hthrough :
-      L.ChainLinked ((l₁ ++ [c₁]) ++ [c₂]) := by
+      L.Chained ((l₁ ++ [c₁]) ++ [c₂]) := by
     simpa [List.append_assoc] using
-      (ChainLinked.glue (l₁ := l₁) (cₙ := c₁) (l₂ := [c₂])
+      (Chained.glue (l₁ := l₁) (cₙ := c₁) (l₂ := [c₂])
         h₁ (.cons h₁₂ (.single c₂)))
-  exact ChainLinked.glue (l₁ := l₁ ++ [c₁]) (cₙ := c₂)
+  exact Chained.glue (l₁ := l₁ ++ [c₁]) (cₙ := c₂)
     (l₂ := l₂) hthrough h₂
 
-/-- Reversing a linked chain preserves it under a symmetric linkage. -/
-theorem ChainLinked.reverse {D : Type u} {L : Linkage D}
+/-- Reversing a chain preserves it under a symmetric interdependence. -/
+theorem Chained.reverse {D : Type u} {L : Interdependence D}
     {components : List (Component D)}
-    (h : L.ChainLinked components) :
-    L.ChainLinked components.reverse := by
+    (h : L.Chained components) :
+    L.Chained components.reverse := by
   induction h with
   | nil => exact .nil
   | single c => exact .single c
   | @cons c₁ c₂ rest h₁₂ htail ih =>
       have htail' :
-          L.ChainLinked (rest.reverse ++ [c₂]) := by
+          L.Chained (rest.reverse ++ [c₂]) := by
         simpa using ih
       simpa [List.reverse_cons, List.append_assoc] using
-        (ChainLinked.glue (l₁ := rest.reverse) (cₙ := c₂)
+        (Chained.glue (l₁ := rest.reverse) (cₙ := c₂)
           (l₂ := [c₁]) htail'
           (.cons (L.symm h₁₂) (.single c₁)))
 
-end Linkage
+end Interdependence
 
 /-! ## Raw mutual dependence: data only -/
 
 /--
-Components plus their linkage, as pure data (1:1: each value carries
-exactly one linkage). At least two components by construction. This type
+Components plus their interdependence, as pure data (1:1: each value carries
+exactly one interdependence). At least two components by construction. This type
 makes no assertion; `RawMutualDependence.Holds` states it, and
 `MutualDependence` below bundles the proof.
 -/
 structure RawMutualDependence (D : Type u) where
-  linkage : Linkage D
+  interdependence : Interdependence D
   c₁ : Component D
   middle : List (Component D)
   cₙ : Component D
@@ -224,24 +224,24 @@ def components {D : Type u} (rawM : RawMutualDependence D) :
   simp [components]
 
 /-- The assertion: every two adjacent components are accepted by the
-bundled linkage. -/
+bundled interdependence. -/
 def Holds {D : Type u} (rawM : RawMutualDependence D) : Prop :=
-  rawM.linkage.ChainLinked rawM.components
+  rawM.interdependence.Chained rawM.components
 
-def pair {D : Type u} (L : Linkage D) (c₁ c₂ : Component D) :
+def pair {D : Type u} (L : Interdependence D) (c₁ c₂ : Component D) :
     RawMutualDependence D :=
   ⟨L, c₁, [], c₂⟩
 
-def triple {D : Type u} (L : Linkage D) (c₁ c₂ c₃ : Component D) :
+def triple {D : Type u} (L : Interdependence D) (c₁ c₂ c₃ : Component D) :
     RawMutualDependence D :=
   ⟨L, c₁, [c₂], c₃⟩
 
-def quad {D : Type u} (L : Linkage D) (c₁ c₂ c₃ c₄ : Component D) :
+def quad {D : Type u} (L : Interdependence D) (c₁ c₂ c₃ c₄ : Component D) :
     RawMutualDependence D :=
   ⟨L, c₁, [c₂, c₃], c₄⟩
 
 /-- Build raw dependence data from an explicitly nontrivial component list. -/
-def ofComponents {D : Type u} (L : Linkage D)
+def ofComponents {D : Type u} (L : Interdependence D)
     (c₁ c₂ : Component D) :
     List (Component D) → RawMutualDependence D
   | [] => pair L c₁ c₂
@@ -249,17 +249,17 @@ def ofComponents {D : Type u} (L : Linkage D)
       let rawM := ofComponents L c₂ c₃ rest
       ⟨L, c₁, c₂ :: rawM.middle, rawM.cₙ⟩
 
-@[simp] theorem linkage_ofComponents {D : Type u} (L : Linkage D)
+@[simp] theorem interdependence_ofComponents {D : Type u} (L : Interdependence D)
     (c₁ c₂ : Component D) (rest : List (Component D)) :
-    (ofComponents L c₁ c₂ rest).linkage = L := by
+    (ofComponents L c₁ c₂ rest).interdependence = L := by
   cases rest <;> rfl
 
-@[simp] theorem c₁_ofComponents {D : Type u} (L : Linkage D)
+@[simp] theorem c₁_ofComponents {D : Type u} (L : Interdependence D)
     (c₁ c₂ : Component D) (rest : List (Component D)) :
     (ofComponents L c₁ c₂ rest).c₁ = c₁ := by
   cases rest <;> rfl
 
-@[simp] theorem components_ofComponents {D : Type u} (L : Linkage D)
+@[simp] theorem components_ofComponents {D : Type u} (L : Interdependence D)
     (c₁ c₂ : Component D) (rest : List (Component D)) :
     (ofComponents L c₁ c₂ rest).components = c₁ :: c₂ :: rest := by
   induction rest generalizing c₁ c₂ with
@@ -288,58 +288,58 @@ def ofComponents {D : Type u} (L : Linkage D)
           _ = c₂ :: c₃ :: rest := ih c₂ c₃
       exact congrArg (List.cons c₁) tailComponents
 
-@[simp] theorem linkage_pair {D : Type u} (L : Linkage D)
-    (c₁ c₂ : Component D) : (pair L c₁ c₂).linkage = L :=
+@[simp] theorem interdependence_pair {D : Type u} (L : Interdependence D)
+    (c₁ c₂ : Component D) : (pair L c₁ c₂).interdependence = L :=
   rfl
 
-@[simp] theorem components_pair {D : Type u} (L : Linkage D)
+@[simp] theorem components_pair {D : Type u} (L : Interdependence D)
     (c₁ c₂ : Component D) : (pair L c₁ c₂).components = [c₁, c₂] :=
   rfl
 
-@[simp] theorem components_triple {D : Type u} (L : Linkage D)
+@[simp] theorem components_triple {D : Type u} (L : Interdependence D)
     (c₁ c₂ c₃ : Component D) :
     (triple L c₁ c₂ c₃).components = [c₁, c₂, c₃] :=
   rfl
 
-@[simp] theorem components_quad {D : Type u} (L : Linkage D)
+@[simp] theorem components_quad {D : Type u} (L : Interdependence D)
     (c₁ c₂ c₃ c₄ : Component D) :
     (quad L c₁ c₂ c₃ c₄).components = [c₁, c₂, c₃, c₄] :=
   rfl
 
-@[simp] theorem holds_pair_iff {D : Type u} {L : Linkage D}
+@[simp] theorem holds_pair_iff {D : Type u} {L : Interdependence D}
     {c₁ c₂ : Component D} :
-    (pair L c₁ c₂).Holds ↔ L.Linked c₁ c₂ := by
+    (pair L c₁ c₂).Holds ↔ L.Interdependent c₁ c₂ := by
   constructor
   · intro h
-    have h : L.ChainLinked [c₁, c₂] := h
+    have h : L.Chained [c₁, c₂] := h
     cases h with
     | cons h₁₂ _ => exact h₁₂
   · intro h
-    show L.ChainLinked [c₁, c₂]
+    show L.Chained [c₁, c₂]
     exact .cons h (.single c₂)
 
-@[simp] theorem holds_triple_iff {D : Type u} {L : Linkage D}
+@[simp] theorem holds_triple_iff {D : Type u} {L : Interdependence D}
     {c₁ c₂ c₃ : Component D} :
     (triple L c₁ c₂ c₃).Holds ↔
-      L.Linked c₁ c₂ ∧ L.Linked c₂ c₃ := by
+      L.Interdependent c₁ c₂ ∧ L.Interdependent c₂ c₃ := by
   constructor
   · intro h
-    have h : L.ChainLinked [c₁, c₂, c₃] := h
+    have h : L.Chained [c₁, c₂, c₃] := h
     cases h with
     | cons h₁₂ h =>
         cases h with
         | cons h₂₃ _ => exact ⟨h₁₂, h₂₃⟩
   · intro h
-    show L.ChainLinked [c₁, c₂, c₃]
+    show L.Chained [c₁, c₂, c₃]
     exact .cons h.1 (.cons h.2 (.single c₃))
 
-@[simp] theorem holds_quad_iff {D : Type u} {L : Linkage D}
+@[simp] theorem holds_quad_iff {D : Type u} {L : Interdependence D}
     {c₁ c₂ c₃ c₄ : Component D} :
     (quad L c₁ c₂ c₃ c₄).Holds ↔
-      L.Linked c₁ c₂ ∧ L.Linked c₂ c₃ ∧ L.Linked c₃ c₄ := by
+      L.Interdependent c₁ c₂ ∧ L.Interdependent c₂ c₃ ∧ L.Interdependent c₃ c₄ := by
   constructor
   · intro h
-    have h : L.ChainLinked [c₁, c₂, c₃, c₄] := h
+    have h : L.Chained [c₁, c₂, c₃, c₄] := h
     cases h with
     | cons h₁₂ h =>
         cases h with
@@ -347,19 +347,19 @@ def ofComponents {D : Type u} (L : Linkage D)
             cases h with
             | cons h₃₄ _ => exact ⟨h₁₂, h₂₃, h₃₄⟩
   · intro h
-    show L.ChainLinked [c₁, c₂, c₃, c₄]
+    show L.Chained [c₁, c₂, c₃, c₄]
     exact .cons h.1 (.cons h.2.1 (.cons h.2.2 (.single c₄)))
 
-/-- Reverse the displayed order while retaining the same symmetric linkage. -/
+/-- Reverse the displayed order while retaining the same symmetric interdependence. -/
 def reverse {D : Type u} (rawM : RawMutualDependence D) :
     RawMutualDependence D where
-  linkage := rawM.linkage
+  interdependence := rawM.interdependence
   c₁ := rawM.cₙ
   middle := rawM.middle.reverse
   cₙ := rawM.c₁
 
-@[simp] theorem linkage_reverse {D : Type u}
-    (rawM : RawMutualDependence D) : rawM.reverse.linkage = rawM.linkage :=
+@[simp] theorem interdependence_reverse {D : Type u}
+    (rawM : RawMutualDependence D) : rawM.reverse.interdependence = rawM.interdependence :=
   rfl
 
 @[simp] theorem c₁_reverse {D : Type u} (rawM : RawMutualDependence D) :
@@ -388,28 +388,28 @@ def reverse {D : Type u} (rawM : RawMutualDependence D) :
 /-- A certified raw chain remains certified when its display is reversed. -/
 theorem Holds.reverse {D : Type u} {rawM : RawMutualDependence D}
     (h : rawM.Holds) : rawM.reverse.Holds := by
-  change rawM.linkage.ChainLinked rawM.reverse.components
+  change rawM.interdependence.Chained rawM.reverse.components
   rw [components_reverse]
-  exact Linkage.ChainLinked.reverse h
+  exact Interdependence.Chained.reverse h
 
 theorem holds_of_contiguous {D : Type u}
     {whole sub : RawMutualDependence D} {pre suf : List (Component D)}
-    (hL : sub.linkage = whole.linkage)
+    (hL : sub.interdependence = whole.interdependence)
     (hdecomp : whole.components = pre ++ sub.components ++ suf)
     (hw : whole.Holds) : sub.Holds := by
-  have h : whole.linkage.ChainLinked (pre ++ sub.components ++ suf) := by
+  have h : whole.interdependence.Chained (pre ++ sub.components ++ suf) := by
     rw [← hdecomp]
     exact hw
-  show sub.linkage.ChainLinked sub.components
+  show sub.interdependence.Chained sub.components
   rw [hL]
-  exact Linkage.ChainLinked.of_append_right pre
-    (Linkage.ChainLinked.of_append_left _ suf h)
+  exact Interdependence.Chained.of_append_right pre
+    (Interdependence.Chained.of_append_left _ suf h)
 
 def IsResonance {D : Type u} (rawM : RawMutualDependence D) : Prop :=
   ∃ b₁ b₂ : D,
     rawM.middle = [Component.singleton b₁, Component.singleton b₂]
 
-theorem isResonance_quad {D : Type u} (L : Linkage D) (c₁ : Component D)
+theorem isResonance_quad {D : Type u} (L : Interdependence D) (c₁ : Component D)
     (b₁ b₂ : D) (c₄ : Component D) :
     (quad L c₁ (Component.singleton b₁)
       (Component.singleton b₂) c₄).IsResonance :=
@@ -421,9 +421,9 @@ end RawMutualDependence
 
 /--
 The certified type downstream code should use: a raw mutual dependence
-together with the proof that it holds under its own linkage.
+together with the proof that it holds under its own interdependence.
 
-If most of your linkage proofs are dischargeable by a tactic, give the
+If most of your interdependence proofs are dischargeable by a tactic, give the
 `holds` field a default (`holds : toRaw.Holds := by your_tactic`) so
 construction feels field-free at most sites.
 -/
@@ -433,8 +433,8 @@ structure MutualDependence (D : Type u) where
 
 namespace MutualDependence
 
-def linkage {D : Type u} (m : MutualDependence D) : Linkage D :=
-  m.toRaw.linkage
+def interdependence {D : Type u} (m : MutualDependence D) : Interdependence D :=
+  m.toRaw.interdependence
 
 def c₁ {D : Type u} (m : MutualDependence D) : Component D :=
   m.toRaw.c₁
@@ -466,8 +466,8 @@ def reverse {D : Type u} (m : MutualDependence D) : MutualDependence D :=
     m.reverse.toRaw = m.toRaw.reverse :=
   rfl
 
-@[simp] theorem linkage_reverse {D : Type u} (m : MutualDependence D) :
-    m.reverse.linkage = m.linkage :=
+@[simp] theorem interdependence_reverse {D : Type u} (m : MutualDependence D) :
+    m.reverse.interdependence = m.interdependence :=
   rfl
 
 @[simp] theorem c₁_reverse {D : Type u} (m : MutualDependence D) :
@@ -490,101 +490,103 @@ def reverse {D : Type u} (m : MutualDependence D) : MutualDependence D :=
     m.reverse.reverse = m :=
   ext (RawMutualDependence.reverse_reverse m.toRaw)
 
-def pair {D : Type u} (L : Linkage D) (c₁ c₂ : Component D)
-    (h : L.Linked c₁ c₂) : MutualDependence D :=
+def pair {D : Type u} (L : Interdependence D) (c₁ c₂ : Component D)
+    (h : L.Interdependent c₁ c₂) : MutualDependence D :=
   ⟨RawMutualDependence.pair L c₁ c₂,
     RawMutualDependence.holds_pair_iff.mpr h⟩
 
-def triple {D : Type u} (L : Linkage D) (c₁ c₂ c₃ : Component D)
-    (h₁₂ : L.Linked c₁ c₂) (h₂₃ : L.Linked c₂ c₃) :
+def triple {D : Type u} (L : Interdependence D) (c₁ c₂ c₃ : Component D)
+    (h₁₂ : L.Interdependent c₁ c₂) (h₂₃ : L.Interdependent c₂ c₃) :
     MutualDependence D :=
   ⟨RawMutualDependence.triple L c₁ c₂ c₃,
     RawMutualDependence.holds_triple_iff.mpr ⟨h₁₂, h₂₃⟩⟩
 
-def quad {D : Type u} (L : Linkage D) (c₁ c₂ c₃ c₄ : Component D)
-    (h₁₂ : L.Linked c₁ c₂) (h₂₃ : L.Linked c₂ c₃)
-    (h₃₄ : L.Linked c₃ c₄) :
+def quad {D : Type u} (L : Interdependence D) (c₁ c₂ c₃ c₄ : Component D)
+    (h₁₂ : L.Interdependent c₁ c₂) (h₂₃ : L.Interdependent c₂ c₃)
+    (h₃₄ : L.Interdependent c₃ c₄) :
     MutualDependence D :=
   ⟨RawMutualDependence.quad L c₁ c₂ c₃ c₄,
     RawMutualDependence.holds_quad_iff.mpr ⟨h₁₂, h₂₃, h₃₄⟩⟩
 
-/-- Certify an explicitly nontrivial list of chain-linked components. -/
-def ofComponents {D : Type u} (L : Linkage D)
+/-- Certify an explicitly nontrivial chained list of components. -/
+def ofComponents {D : Type u} (L : Interdependence D)
     (c₁ c₂ : Component D) (rest : List (Component D))
-    (holds : L.ChainLinked (c₁ :: c₂ :: rest)) :
+    (holds : L.Chained (c₁ :: c₂ :: rest)) :
     MutualDependence D := by
   refine ⟨RawMutualDependence.ofComponents L c₁ c₂ rest, ?_⟩
   change
-    (RawMutualDependence.ofComponents L c₁ c₂ rest).linkage.ChainLinked
+    (RawMutualDependence.ofComponents L c₁ c₂ rest).interdependence.Chained
       (RawMutualDependence.ofComponents L c₁ c₂ rest).components
-  rw [RawMutualDependence.linkage_ofComponents,
+  rw [RawMutualDependence.interdependence_ofComponents,
     RawMutualDependence.components_ofComponents]
   exact holds
 
 /-- `holds_of_contiguous` as a slicing function: the sub-tuple copies the
-whole's linkage, so it comes back certified with no side conditions. -/
+whole's interdependence, so it comes back certified with no side conditions. -/
 def slice {D : Type u} (whole : MutualDependence D)
     (c₁ : Component D) (middle : List (Component D))
     (cₙ : Component D) (pre suf : List (Component D))
     (hdecomp : whole.toRaw.components =
       pre ++ (c₁ :: middle ++ [cₙ]) ++ suf) : MutualDependence D :=
-  ⟨⟨whole.toRaw.linkage, c₁, middle, cₙ⟩,
+  ⟨⟨whole.toRaw.interdependence, c₁, middle, cₙ⟩,
     RawMutualDependence.holds_of_contiguous
       (whole := whole.toRaw)
-      (sub := ⟨whole.toRaw.linkage, c₁, middle, cₙ⟩)
+      (sub := ⟨whole.toRaw.interdependence, c₁, middle, cₙ⟩)
       (pre := pre) (suf := suf) rfl hdecomp whole.holds⟩
 
-def mergeSharedEndpoint {D : Type u} (m₁ m₂ : MutualDependence D)
-    (hL : m₁.linkage = m₂.linkage) (hShared : m₁.cₙ = m₂.c₁) :
+/-- Concatenate two dependences by identifying an equal shared endpoint. -/
+def concatenateSharedEndpoint {D : Type u} (m₁ m₂ : MutualDependence D)
+    (hL : m₁.interdependence = m₂.interdependence) (hShared : m₁.cₙ = m₂.c₁) :
     MutualDependence D := by
   refine
-    ⟨⟨m₁.linkage, m₁.c₁, m₁.middle ++ m₁.cₙ :: m₂.middle, m₂.cₙ⟩, ?_⟩
+    ⟨⟨m₁.interdependence, m₁.c₁, m₁.middle ++ m₁.cₙ :: m₂.middle, m₂.cₙ⟩, ?_⟩
   have h₂ :
-      m₁.linkage.ChainLinked (m₁.cₙ :: m₂.middle ++ [m₂.cₙ]) := by
+      m₁.interdependence.Chained (m₁.cₙ :: m₂.middle ++ [m₂.cₙ]) := by
     rw [hL, hShared]
     exact m₂.holds
-  have h := Linkage.ChainLinked.glue
+  have h := Interdependence.Chained.glue
     (l₁ := m₁.c₁ :: m₁.middle) (cₙ := m₁.cₙ)
     (l₂ := m₂.middle ++ [m₂.cₙ]) m₁.holds h₂
-  simpa [MutualDependence.linkage, MutualDependence.c₁,
+  simpa [MutualDependence.interdependence, MutualDependence.c₁,
     MutualDependence.middle, MutualDependence.cₙ,
     RawMutualDependence.Holds, RawMutualDependence.components,
     List.append_assoc] using h
 
-def mergeLinkedEndpoints {D : Type u} (m₁ m₂ : MutualDependence D)
-    (hL : m₁.linkage = m₂.linkage)
-    (hJoin : m₁.linkage.Linked m₁.cₙ m₂.c₁) :
+/-- Concatenate two dependences while retaining both interdependent endpoints. -/
+def concatenateInterdependentEndpoints {D : Type u} (m₁ m₂ : MutualDependence D)
+    (hL : m₁.interdependence = m₂.interdependence)
+    (hInterdependent : m₁.interdependence.Interdependent m₁.cₙ m₂.c₁) :
     MutualDependence D := by
   refine
-    ⟨⟨m₁.linkage, m₁.c₁,
+    ⟨⟨m₁.interdependence, m₁.c₁,
       m₁.middle ++ [m₁.cₙ, m₂.c₁] ++ m₂.middle, m₂.cₙ⟩, ?_⟩
   have h₁₂ :
-      m₁.linkage.ChainLinked
+      m₁.interdependence.Chained
         (((m₁.c₁ :: m₁.middle) ++ [m₁.cₙ]) ++ [m₂.c₁]) := by
-    simpa [MutualDependence.linkage, MutualDependence.c₁,
+    simpa [MutualDependence.interdependence, MutualDependence.c₁,
       MutualDependence.middle, MutualDependence.cₙ,
       List.append_assoc] using
-      (Linkage.ChainLinked.glue
+      (Interdependence.Chained.glue
         (l₁ := m₁.c₁ :: m₁.middle) (cₙ := m₁.cₙ) (l₂ := [m₂.c₁])
-        m₁.holds (.cons hJoin (.single m₂.c₁)))
+        m₁.holds (.cons hInterdependent (.single m₂.c₁)))
   have h₂ :
-      m₁.linkage.ChainLinked (m₂.c₁ :: m₂.middle ++ [m₂.cₙ]) := by
+      m₁.interdependence.Chained (m₂.c₁ :: m₂.middle ++ [m₂.cₙ]) := by
     rw [hL]
     exact m₂.holds
-  have h := Linkage.ChainLinked.glue
+  have h := Interdependence.Chained.glue
     (l₁ := (m₁.c₁ :: m₁.middle) ++ [m₁.cₙ]) (cₙ := m₂.c₁)
     (l₂ := m₂.middle ++ [m₂.cₙ]) h₁₂ h₂
-  simpa [MutualDependence.linkage, MutualDependence.c₁,
+  simpa [MutualDependence.interdependence, MutualDependence.c₁,
     MutualDependence.middle, MutualDependence.cₙ,
     RawMutualDependence.Holds, RawMutualDependence.components,
     List.append_assoc] using h
 
-@[simp] theorem components_mergeLinkedEndpoints {D : Type u}
-    (m₁ m₂ : MutualDependence D) (hL : m₁.linkage = m₂.linkage)
-    (hJoin : m₁.linkage.Linked m₁.cₙ m₂.c₁) :
-    (mergeLinkedEndpoints m₁ m₂ hL hJoin).components =
+@[simp] theorem components_concatenateInterdependentEndpoints {D : Type u}
+    (m₁ m₂ : MutualDependence D) (hL : m₁.interdependence = m₂.interdependence)
+    (hInterdependent : m₁.interdependence.Interdependent m₁.cₙ m₂.c₁) :
+    (concatenateInterdependentEndpoints m₁ m₂ hL hInterdependent).components =
       m₁.components ++ m₂.components := by
-  simp [mergeLinkedEndpoints, MutualDependence.components,
+  simp [concatenateInterdependentEndpoints, MutualDependence.components,
     MutualDependence.c₁, MutualDependence.middle, MutualDependence.cₙ,
     RawMutualDependence.components, List.append_assoc]
 
@@ -601,8 +603,8 @@ elaborated as* the raw mutual dependence `rawM`.
 
 `Elaboration` must target `RawMutualDependence`: it constrains the
 components of its targets and stays agnostic about both the bundled
-linkage and whether the tuple holds. Requiring targets to carry
-`Linkage.ofElaboration` of this same elaboration — let alone proofs under
+interdependence and whether the tuple holds. Requiring targets to carry
+`Interdependence.ofElaboration` of this same elaboration — let alone proofs under
 it — inside the elaboration's own definition is value-level
 self-reference; see `certify` and `SelfCertified`.
 -/
@@ -657,13 +659,17 @@ theorem Reaches.joinable_symm {D : Type u} {E : Elaboration D} {a b : D}
     (h : E.Reaches a b) : E.Joinable b a :=
   h.joinable.symm
 
-def Linked {D : Type u} (E : Elaboration D)
+/--
+The Egli–Milner lifting of joinability to components: every designatum on
+either side has a joinable partner on the other.
+-/
+def Interdependent {D : Type u} (E : Elaboration D)
     (c₁ c₂ : Component D) : Prop :=
   (∀ a ∈ c₁, ∃ b ∈ c₂, E.Joinable a b) ∧
     (∀ b ∈ c₂, ∃ a ∈ c₁, E.Joinable a b)
 
-theorem Linked.symm {D : Type u} {E : Elaboration D}
-    {c₁ c₂ : Component D} (h : E.Linked c₁ c₂) : E.Linked c₂ c₁ := by
+theorem Interdependent.symm {D : Type u} {E : Elaboration D}
+    {c₁ c₂ : Component D} (h : E.Interdependent c₁ c₂) : E.Interdependent c₂ c₁ := by
   obtain ⟨h₁, h₂⟩ := h
   refine ⟨fun b hb => ?_, fun a ha => ?_⟩
   · obtain ⟨a, ha, hr⟩ := h₂ b hb
@@ -671,9 +677,9 @@ theorem Linked.symm {D : Type u} {E : Elaboration D}
   · obtain ⟨b, hb, hr⟩ := h₁ a ha
     exact ⟨b, hb, hr.symm⟩
 
-@[simp] theorem linked_singleton_iff {D : Type u} {E : Elaboration D}
+@[simp] theorem interdependent_singleton_iff {D : Type u} {E : Elaboration D}
     {a b : D} :
-    E.Linked (Component.singleton a) (Component.singleton b) ↔
+    E.Interdependent (Component.singleton a) (Component.singleton b) ↔
       E.Joinable a b := by
   constructor
   · intro h
@@ -692,30 +698,30 @@ theorem Linked.symm {D : Type u} {E : Elaboration D}
 
 end Elaboration
 
-namespace Linkage
+namespace Interdependence
 
-def ofElaboration {D : Type u} (E : Elaboration D) : Linkage D where
-  Linked := E.Linked
-  symm := Elaboration.Linked.symm
+def ofElaboration {D : Type u} (E : Elaboration D) : Interdependence D where
+  Interdependent := E.Interdependent
+  symm := Elaboration.Interdependent.symm
 
-instance {D : Type u} : Coe (Elaboration D) (Linkage D) :=
+instance {D : Type u} : Coe (Elaboration D) (Interdependence D) :=
   ⟨ofElaboration⟩
 
-end Linkage
+end Interdependence
 
 namespace Elaboration
 
-/-- Re-tag a raw dependence with the linkage derived from `E` — the
+/-- Re-tag a raw dependence with the interdependence derived from `E` — the
 sanctioned route around the self-reference restriction. Certifying (i.e.
 producing a `MutualDependence`) additionally requires proving `Holds`
-under the derived linkage, which is genuine work per system. -/
+under the derived interdependence, which is genuine work per system. -/
 def certify {D : Type u} (E : Elaboration D)
     (rawM : RawMutualDependence D) : RawMutualDependence D :=
-  { rawM with linkage := Linkage.ofElaboration E }
+  { rawM with interdependence := Interdependence.ofElaboration E }
 
-@[simp] theorem linkage_certify {D : Type u} (E : Elaboration D)
+@[simp] theorem interdependence_certify {D : Type u} (E : Elaboration D)
     (rawM : RawMutualDependence D) :
-    (E.certify rawM).linkage = Linkage.ofElaboration E :=
+    (E.certify rawM).interdependence = Interdependence.ofElaboration E :=
   rfl
 
 @[simp] theorem components_certify {D : Type u} (E : Elaboration D)
@@ -724,21 +730,21 @@ def certify {D : Type u} (E : Elaboration D)
   rfl
 
 @[simp] theorem certify_pair {D : Type u} (E : Elaboration D)
-    (L : Linkage D) (c₁ c₂ : Component D) :
+    (L : Interdependence D) (c₁ c₂ : Component D) :
     E.certify (RawMutualDependence.pair L c₁ c₂) =
-      RawMutualDependence.pair (Linkage.ofElaboration E) c₁ c₂ :=
+      RawMutualDependence.pair (Interdependence.ofElaboration E) c₁ c₂ :=
   rfl
 
 @[simp] theorem certify_triple {D : Type u} (E : Elaboration D)
-    (L : Linkage D) (c₁ c₂ c₃ : Component D) :
+    (L : Interdependence D) (c₁ c₂ c₃ : Component D) :
     E.certify (RawMutualDependence.triple L c₁ c₂ c₃) =
-      RawMutualDependence.triple (Linkage.ofElaboration E) c₁ c₂ c₃ :=
+      RawMutualDependence.triple (Interdependence.ofElaboration E) c₁ c₂ c₃ :=
   rfl
 
 @[simp] theorem certify_quad {D : Type u} (E : Elaboration D)
-    (L : Linkage D) (c₁ c₂ c₃ c₄ : Component D) :
+    (L : Interdependence D) (c₁ c₂ c₃ c₄ : Component D) :
     E.certify (RawMutualDependence.quad L c₁ c₂ c₃ c₄) =
-      RawMutualDependence.quad (Linkage.ofElaboration E) c₁ c₂ c₃ c₄ :=
+      RawMutualDependence.quad (Interdependence.ofElaboration E) c₁ c₂ c₃ c₄ :=
   rfl
 
 @[simp] theorem certify_reverse {D : Type u} (E : Elaboration D)
@@ -747,10 +753,10 @@ def certify {D : Type u} (E : Elaboration D)
   rfl
 
 /-- Well-formedness of a completed system: every emitted raw dependence
-carries the linkage derived from the elaboration itself. Provable about a
+carries the interdependence derived from the elaboration itself. Provable about a
 finished `E`; not expressible inside `E`'s own definition. -/
 def SelfCertified {D : Type u} (E : Elaboration D) : Prop :=
-  ∀ d rawM, E.Elab d rawM → rawM.linkage = Linkage.ofElaboration E
+  ∀ d rawM, E.Elab d rawM → rawM.interdependence = Interdependence.ofElaboration E
 
 /-- An elaboration system accepts the reversed display of every target. -/
 def ReversalClosed {D : Type u} (E : Elaboration D) : Prop :=
@@ -767,11 +773,11 @@ theorem ReversalClosed.elab_reverse_iff {D : Type u}
 
 /--
 A chosen elaboration body together with the proof that it certifies under the
-linkage derived from the same elaboration system.
+interdependence derived from the same elaboration system.
 
-The raw target is retained because `Elab` may inspect its original linkage;
+The raw target is retained because `Elab` may inspect its original interdependence;
 `certify` is the sanctioned operation which retags that target with
-`Linkage.ofElaboration E`.
+`Interdependence.ofElaboration E`.
 -/
 structure Resolution {D : Type u} (E : Elaboration D) (d : D) where
   raw : RawMutualDependence D
@@ -798,9 +804,9 @@ def toMutualDependence {D : Type u} {E : Elaboration D} {d : D}
     r.toMutualDependence.toRaw = E.certify r.raw :=
   rfl
 
-@[simp] theorem toMutualDependence_linkage {D : Type u}
+@[simp] theorem toMutualDependence_interdependence {D : Type u}
     {E : Elaboration D} {d : D} (r : Resolution E d) :
-    r.toMutualDependence.linkage = Linkage.ofElaboration E :=
+    r.toMutualDependence.interdependence = Interdependence.ofElaboration E :=
   rfl
 
 @[simp] theorem toMutualDependence_c₁ {D : Type u}
@@ -855,11 +861,11 @@ private inductive JoinabilityNotTransitiveCase where
 `Joinable`. Here `a` and `b` share `abWitness`, while `b` and `c` share the
 distinct `bcWitness`; the reachable sets of `a` and `c` are disjoint. Thus the
 singleton triple `[{a}, {b}, {c}]` genuinely holds under
-`Linkage.ofElaboration E`, although its endpoint designata are not joinable. -/
+`Interdependence.ofElaboration E`, although its endpoint designata are not joinable. -/
 theorem Joinable.exists_nontransitive_mutualDependence :
     ∃ (D : Type) (E : Elaboration D) (a b c : D)
         (m : MutualDependence D),
-      m.linkage = Linkage.ofElaboration E ∧
+      m.interdependence = Interdependence.ofElaboration E ∧
         m.components =
           [Component.singleton a, Component.singleton b,
             Component.singleton c] ∧
@@ -955,12 +961,12 @@ theorem Joinable.exists_nontransitive_mutualDependence :
     MutualDependence.triple E
       (Component.singleton .a) (Component.singleton .b)
       (Component.singleton .c)
-      (linked_singleton_iff.mpr hab) (linked_singleton_iff.mpr hbc')
+      (interdependent_singleton_iff.mpr hab) (interdependent_singleton_iff.mpr hbc')
   exact ⟨JoinabilityNotTransitiveCase, E, .a, .b, .c, m,
     rfl, rfl, hab, hbc', hnac⟩
 
 /-- `Joinable` is not transitive, even among the components of a certified
-mutual dependence carrying the linkage derived from its elaboration. -/
+mutual dependence carrying the interdependence derived from its elaboration. -/
 theorem Joinable.not_transitive :
     ∃ (D : Type) (E : Elaboration D),
       ¬ ∀ ⦃a b c⦄, E.Joinable a b → E.Joinable b c → E.Joinable a c := by
@@ -978,10 +984,10 @@ end Elaboration
 Resonance data whose two middle components are forced to be singletons.
 
 b₁ is the being receiving calls; b₂ is the "same" being responding. The being's
-receiving-stage and responding-stage share linkage despite the change.
+receiving-stage and responding-stage share interdependence despite the change.
 -/
 structure RawResonance (D : Type u) where
-  linkage : Linkage D
+  interdependence : Interdependence D
   calls : Component D
   b₁ : D
   b₂ : D
@@ -994,7 +1000,7 @@ def middle {D : Type u} (rawR : RawResonance D) : List (Component D) :=
 
 def toRawMutualDependence {D : Type u} (rawR : RawResonance D) :
     RawMutualDependence D :=
-  RawMutualDependence.quad rawR.linkage rawR.calls
+  RawMutualDependence.quad rawR.interdependence rawR.calls
     (Component.singleton rawR.b₁)
     (Component.singleton rawR.b₂) rawR.responses
 
@@ -1002,9 +1008,9 @@ def components {D : Type u} (rawR : RawResonance D) :
     List (Component D) :=
   rawR.toRawMutualDependence.components
 
-@[simp] theorem linkage_toRawMutualDependence {D : Type u}
+@[simp] theorem interdependence_toRawMutualDependence {D : Type u}
     (rawR : RawResonance D) :
-    rawR.toRawMutualDependence.linkage = rawR.linkage :=
+    rawR.toRawMutualDependence.interdependence = rawR.interdependence :=
   rfl
 
 @[simp] theorem middle_toRawMutualDependence {D : Type u}
@@ -1027,13 +1033,13 @@ def Holds {D : Type u} (rawR : RawResonance D) : Prop :=
 
 @[simp] theorem holds_iff {D : Type u} {rawR : RawResonance D} :
     rawR.Holds ↔
-      rawR.linkage.Linked rawR.calls (Component.singleton rawR.b₁) ∧
-        rawR.linkage.Linked (Component.singleton rawR.b₁)
+      rawR.interdependence.Interdependent rawR.calls (Component.singleton rawR.b₁) ∧
+        rawR.interdependence.Interdependent (Component.singleton rawR.b₁)
           (Component.singleton rawR.b₂) ∧
-          rawR.linkage.Linked (Component.singleton rawR.b₂)
+          rawR.interdependence.Interdependent (Component.singleton rawR.b₂)
             rawR.responses := by
   change
-    (RawMutualDependence.quad rawR.linkage rawR.calls
+    (RawMutualDependence.quad rawR.interdependence rawR.calls
       (Component.singleton rawR.b₁)
       (Component.singleton rawR.b₂) rawR.responses).Holds ↔ _
   exact RawMutualDependence.holds_quad_iff
@@ -1047,12 +1053,12 @@ theorem RawMutualDependence.IsResonance.exists_rawResonance
     (h : rawM.IsResonance) :
     ∃ rawR : RawResonance D, rawR.toRawMutualDependence = rawM := by
   cases rawM with
-  | mk linkage c₁ middle cₙ =>
+  | mk interdependence c₁ middle cₙ =>
       obtain ⟨b₁, b₂, hmiddle⟩ := h
       change middle = [Component.singleton b₁, Component.singleton b₂]
         at hmiddle
       subst middle
-      exact ⟨⟨linkage, c₁, b₁, b₂, cₙ⟩, rfl⟩
+      exact ⟨⟨interdependence, c₁, b₁, b₂, cₙ⟩, rfl⟩
 
 /-- The certified counterpart to `RawResonance`, following the same
 raw/certified boundary as mutual dependence. -/
@@ -1062,8 +1068,8 @@ structure Resonance (D : Type u) where
 
 namespace Resonance
 
-def linkage {D : Type u} (r : Resonance D) : Linkage D :=
-  r.toRawResonance.linkage
+def interdependence {D : Type u} (r : Resonance D) : Interdependence D :=
+  r.toRawResonance.interdependence
 
 def calls {D : Type u} (r : Resonance D) : Component D :=
   r.toRawResonance.calls
@@ -1092,11 +1098,11 @@ theorem isResonance {D : Type u} (r : Resonance D) :
     r.toMutualDependence.IsResonance :=
   r.toRawResonance.isResonance
 
-def mk' {D : Type u} (L : Linkage D) (calls : Component D) (b₁ b₂ : D)
+def mk' {D : Type u} (L : Interdependence D) (calls : Component D) (b₁ b₂ : D)
     (responses : Component D)
-    (h₁ : L.Linked calls (Component.singleton b₁))
-    (h₂ : L.Linked (Component.singleton b₁) (Component.singleton b₂))
-    (h₃ : L.Linked (Component.singleton b₂) responses) : Resonance D :=
+    (h₁ : L.Interdependent calls (Component.singleton b₁))
+    (h₂ : L.Interdependent (Component.singleton b₁) (Component.singleton b₂))
+    (h₃ : L.Interdependent (Component.singleton b₂) responses) : Resonance D :=
   ⟨⟨L, calls, b₁, b₂, responses⟩,
     RawResonance.holds_iff.mpr ⟨h₁, h₂, h₃⟩⟩
 
@@ -1132,21 +1138,22 @@ namespace Being
 /--
 Certify a nonempty list of resonances as a being. Each resonance contributes
 its two singleton middle components, and `holds` certifies the resulting
-chain, including every join between consecutive resonances.
+chain, including the interdependence between every pair of consecutive
+resonances.
 -/
 def ofResonances {D : Type u}
-    (L : Linkage D)
+    (L : Interdependence D)
     (resonances : List (Resonance D))
     (nonempty : resonances ≠ [])
     (holds :
-      L.ChainLinked
+      L.Chained
         (resonances.flatMap Resonance.middleComponents)) :
     Being D := by
   cases resonances with
   | nil => exact (nonempty rfl).elim
   | cons r rest =>
       have chain :
-          L.ChainLinked
+          L.Chained
             (Component.singleton r.b₁ :: Component.singleton r.b₂ ::
               rest.flatMap Resonance.middleComponents) := by
         simpa [Resonance.middleComponents] using holds
@@ -1170,7 +1177,7 @@ dependence.  A segment is a presentation layer in which a designatum in a
 component may be opened as one certified mutual dependence.  The opened body
 is retained, and its first and last components become that slot's left and
 right interfaces.  Slots in a multi-member component are combined in
-parallel; adjacent segments continue to use `Elaboration.Linked`.
+parallel; adjacent segments continue to use `Elaboration.Interdependent`.
 
 Opening is one level deep and local to an occurrence.  In particular, a leaf
 means "not opened here", not "provably has no elaboration".  This keeps every
@@ -1440,10 +1447,10 @@ theorem exists_mem_left_reaches {D : Type u} {E : Elaboration D}
       exact ⟨x, hx, Elaboration.Reaches.single r.isElaboration
         r.raw.c₁_mem_components hx⟩
 
-/-- A join from the right interface is sound for the retained source. -/
-theorem linked_of_linked_right {D : Type u} {E : Elaboration D}
-    (s : Shell E) {c : Component D} (h : E.Linked s.right c) :
-    E.Linked s.source c := by
+/-- Interdependence from the right interface is sound for the retained source. -/
+theorem interdependent_of_interdependent_right {D : Type u} {E : Elaboration D}
+    (s : Shell E) {c : Component D} (h : E.Interdependent s.right c) :
+    E.Interdependent s.source c := by
   constructor
   · intro d hd
     obtain ⟨x, hx, hdx⟩ := s.exists_mem_right_reaches hd
@@ -1454,10 +1461,10 @@ theorem linked_of_linked_right {D : Type u} {E : Elaboration D}
     obtain ⟨d, hd, hdx⟩ := s.reaches_of_mem_right hx
     exact ⟨d, hd, Elaboration.Joinable.of_reaches hdx hxy⟩
 
-/-- A join from the left interface is sound for the retained source. -/
-theorem linked_of_linked_left {D : Type u} {E : Elaboration D}
-    (s : Shell E) {c : Component D} (h : E.Linked s.left c) :
-    E.Linked s.source c := by
+/-- Interdependence from the left interface is sound for the retained source. -/
+theorem interdependent_of_interdependent_left {D : Type u} {E : Elaboration D}
+    (s : Shell E) {c : Component D} (h : E.Interdependent s.left c) :
+    E.Interdependent s.source c := by
   constructor
   · intro d hd
     obtain ⟨x, hx, hdx⟩ := s.exists_mem_left_reaches hd
@@ -1599,15 +1606,15 @@ end Shell
 /-! ## Serial segment presentations -/
 
 /--
-The retained shape of a segment.  `append` records serial composition without
+The retained shape of a segment.  `catenated` records serial composition without
 discarding either side; a direct mutual dependence may also occupy a segment
-position when its linkage is the one induced by `E`.
+position when its interdependence is the one induced by `E`.
 -/
 inductive Shape {D : Type u} (E : Elaboration D) where
   | shell (value : Shell E)
   | dependence (value : MutualDependence D)
-      (compatible : value.linkage = Linkage.ofElaboration E)
-  | append (left right : Shape E)
+      (compatible : value.interdependence = Interdependence.ofElaboration E)
+  | catenated (left right : Shape E)
 
 namespace Shape
 
@@ -1615,13 +1622,13 @@ namespace Shape
 def left {D : Type u} {E : Elaboration D} : Shape E → Component D
   | .shell s => s.left
   | .dependence m _ => m.c₁
-  | .append l _ => l.left
+  | .catenated l _ => l.left
 
 /-- The right interface of a retained segment shape. -/
 def right {D : Type u} {E : Elaboration D} : Shape E → Component D
   | .shell s => s.right
   | .dependence m _ => m.cₙ
-  | .append _ r => r.right
+  | .catenated _ r => r.right
 
 @[simp] theorem left_shell {D : Type u} {E : Elaboration D}
     (s : Shell E) : (Shape.shell s).left = s.left :=
@@ -1633,38 +1640,39 @@ def right {D : Type u} {E : Elaboration D} : Shape E → Component D
 
 @[simp] theorem left_dependence {D : Type u} {E : Elaboration D}
     (m : MutualDependence D)
-    (compatible : m.linkage = Linkage.ofElaboration E) :
+    (compatible : m.interdependence = Interdependence.ofElaboration E) :
     (Shape.dependence m compatible).left = m.c₁ :=
   rfl
 
 @[simp] theorem right_dependence {D : Type u} {E : Elaboration D}
     (m : MutualDependence D)
-    (compatible : m.linkage = Linkage.ofElaboration E) :
+    (compatible : m.interdependence = Interdependence.ofElaboration E) :
     (Shape.dependence m compatible).right = m.cₙ :=
   rfl
 
-@[simp] theorem left_append {D : Type u} {E : Elaboration D}
-    (s₁ s₂ : Shape E) : (Shape.append s₁ s₂).left = s₁.left :=
+@[simp] theorem left_catenated {D : Type u} {E : Elaboration D}
+    (s₁ s₂ : Shape E) : (Shape.catenated s₁ s₂).left = s₁.left :=
   rfl
 
-@[simp] theorem right_append {D : Type u} {E : Elaboration D}
-    (s₁ s₂ : Shape E) : (Shape.append s₁ s₂).right = s₂.right :=
+@[simp] theorem right_catenated {D : Type u} {E : Elaboration D}
+    (s₁ s₂ : Shape E) : (Shape.catenated s₁ s₂).right = s₂.right :=
   rfl
 
 /--
 Internal validity of a shape.  Shells contain only leaves or certified
 resolutions, and compatible mutual dependences are already certified.  An
-append adds exactly the strong join between the exposed adjacent interfaces.
+catenation adds exactly the interdependence between the exposed adjacent
+interfaces.
 -/
 def Holds {D : Type u} {E : Elaboration D} : Shape E → Prop
   | .shell _ => True
   | .dependence _ _ => True
-  | .append l r => l.Holds ∧ r.Holds ∧ E.Linked l.right r.left
+  | .catenated l r => l.Holds ∧ r.Holds ∧ E.Interdependent l.right r.left
 
-@[simp] theorem holds_append_iff {D : Type u} {E : Elaboration D}
+@[simp] theorem holds_catenated_iff {D : Type u} {E : Elaboration D}
     (s₁ s₂ : Shape E) :
-    (Shape.append s₁ s₂).Holds ↔
-      s₁.Holds ∧ s₂.Holds ∧ E.Linked s₁.right s₂.left :=
+    (Shape.catenated s₁ s₂).Holds ↔
+      s₁.Holds ∧ s₂.Holds ∧ E.Interdependent s₁.right s₂.left :=
   Iff.rfl
 
 /-- The retained source components, in serial display order. -/
@@ -1672,7 +1680,7 @@ def sourceComponents {D : Type u} {E : Elaboration D} :
     Shape E → List (Component D)
   | .shell s => [s.source]
   | .dependence m _ => m.components
-  | .append s₁ s₂ => s₁.sourceComponents ++ s₂.sourceComponents
+  | .catenated s₁ s₂ => s₁.sourceComponents ++ s₂.sourceComponents
 
 @[simp] theorem sourceComponents_shell {D : Type u} {E : Elaboration D}
     (s : Shell E) : (Shape.shell s).sourceComponents = [s.source] :=
@@ -1680,13 +1688,13 @@ def sourceComponents {D : Type u} {E : Elaboration D} :
 
 @[simp] theorem sourceComponents_dependence {D : Type u}
     {E : Elaboration D} (m : MutualDependence D)
-    (compatible : m.linkage = Linkage.ofElaboration E) :
+    (compatible : m.interdependence = Interdependence.ofElaboration E) :
     (Shape.dependence m compatible).sourceComponents = m.components :=
   rfl
 
-@[simp] theorem sourceComponents_append {D : Type u}
+@[simp] theorem sourceComponents_catenated {D : Type u}
     {E : Elaboration D} (s₁ s₂ : Shape E) :
-    (Shape.append s₁ s₂).sourceComponents =
+    (Shape.catenated s₁ s₂).sourceComponents =
       s₁.sourceComponents ++ s₂.sourceComponents :=
   rfl
 
@@ -1696,76 +1704,76 @@ theorem sourceComponents_ne_nil {D : Type u} {E : Elaboration D}
   | shell s => simp
   | dependence m compatible =>
       simp [MutualDependence.components, RawMutualDependence.components]
-  | append s₁ s₂ ih₁ ih₂ =>
+  | catenated s₁ s₂ ih₁ ih₂ =>
       cases hsource : s₁.sourceComponents with
       | nil => exact (ih₁ hsource).elim
       | cons c rest => simp [hsource]
 
 /--
-Decompose the retained sources at the right edge and transport any join from
-the exposed interface back to that last source component.
+Decompose the retained sources at the right edge and transport any
+interdependence from the exposed interface back to that last source component.
 -/
 theorem exists_last_source {D : Type u} {E : Elaboration D}
     (sh : Shape E) :
     ∃ before last,
       sh.sourceComponents = before ++ [last] ∧
-        ∀ c, E.Linked sh.right c → E.Linked last c := by
+        ∀ c, E.Interdependent sh.right c → E.Interdependent last c := by
   induction sh with
   | shell s =>
-      exact ⟨[], s.source, rfl, fun _ h => s.linked_of_linked_right h⟩
+      exact ⟨[], s.source, rfl, fun _ h => s.interdependent_of_interdependent_right h⟩
   | dependence m compatible =>
       exact ⟨m.c₁ :: m.middle, m.cₙ, rfl, fun _ h => h⟩
-  | append s₁ s₂ ih₁ ih₂ =>
+  | catenated s₁ s₂ ih₁ ih₂ =>
       obtain ⟨before, last, hsources, htransport⟩ := ih₂
       refine ⟨s₁.sourceComponents ++ before, last, ?_, ?_⟩
       · simp [hsources]
       · exact htransport
 
 /--
-Decompose the retained sources at the left edge and transport any join from
-the exposed interface back to that first source component.
+Decompose the retained sources at the left edge and transport any
+interdependence from the exposed interface back to that first source component.
 -/
 theorem exists_head_source {D : Type u} {E : Elaboration D}
     (sh : Shape E) :
     ∃ first after,
       sh.sourceComponents = first :: after ∧
-        ∀ c, E.Linked c sh.left → E.Linked c first := by
+        ∀ c, E.Interdependent c sh.left → E.Interdependent c first := by
   induction sh with
   | shell s =>
       exact ⟨s.source, [], rfl,
-        fun _ h => (s.linked_of_linked_left h.symm).symm⟩
+        fun _ h => (s.interdependent_of_interdependent_left h.symm).symm⟩
   | dependence m compatible =>
       exact ⟨m.c₁, m.middle ++ [m.cₙ], rfl, fun _ h => h⟩
-  | append s₁ s₂ ih₁ ih₂ =>
+  | catenated s₁ s₂ ih₁ ih₂ =>
       obtain ⟨first, after, hsources, htransport⟩ := ih₁
       refine ⟨first, after ++ s₂.sourceComponents, ?_, ?_⟩
       · simp [hsources]
       · exact htransport
 
-/-- Every holding retained shape flattens to a linked source-component chain. -/
-theorem chainLinked_sourceComponents {D : Type u} {E : Elaboration D}
+/-- Every holding retained shape flattens to a chained source-component list. -/
+theorem chained_sourceComponents {D : Type u} {E : Elaboration D}
     (sh : Shape E) (h : sh.Holds) :
-    (Linkage.ofElaboration E).ChainLinked sh.sourceComponents := by
+    (Interdependence.ofElaboration E).Chained sh.sourceComponents := by
   induction sh with
   | shell s => exact .single s.source
   | dependence m compatible =>
-      change (Linkage.ofElaboration E).ChainLinked m.components
+      change (Interdependence.ofElaboration E).Chained m.components
       rw [← compatible]
       exact m.holds
-  | append s₁ s₂ ih₁ ih₂ =>
-      obtain ⟨h₁, h₂, hjoin⟩ := h
+  | catenated s₁ s₂ ih₁ ih₂ =>
+      obtain ⟨h₁, h₂, hinterdependent⟩ := h
       have hchain₁ := ih₁ h₁
       have hchain₂ := ih₂ h₂
       obtain ⟨before, last, hsources₁, hlast⟩ :=
         exists_last_source s₁
       obtain ⟨first, after, hsources₂, hfirst⟩ :=
         exists_head_source s₂
-      have hlastFirst : E.Linked last first :=
-        hfirst last (hlast s₂.left hjoin)
+      have hlastFirst : E.Interdependent last first :=
+        hfirst last (hlast s₂.left hinterdependent)
       rw [hsources₁] at hchain₁
       rw [hsources₂] at hchain₂
-      rw [sourceComponents_append, hsources₁, hsources₂]
-      exact Linkage.ChainLinked.append_of_linked
+      rw [sourceComponents_catenated, hsources₁, hsources₂]
+      exact Interdependence.Chained.catenate
         hchain₁ hchain₂ hlastFirst
 
 /-- Reverse retained bodies and reverse the order of serial composition. -/
@@ -1775,7 +1783,7 @@ def reverse {D : Type u} {E : Elaboration D}
   | .shell s => .shell (s.reverse hrc)
   | .dependence m compatible =>
       .dependence m.reverse (by simpa using compatible)
-  | .append s₁ s₂ => .append (s₂.reverse hrc) (s₁.reverse hrc)
+  | .catenated s₁ s₂ => .catenated (s₂.reverse hrc) (s₁.reverse hrc)
 
 @[simp] theorem left_reverse {D : Type u} {E : Elaboration D}
     (sh : Shape E) (hrc : E.ReversalClosed) :
@@ -1798,9 +1806,9 @@ theorem Holds.reverse {D : Type u} {E : Elaboration D} {sh : Shape E}
   induction sh with
   | shell s => trivial
   | dependence m compatible => trivial
-  | append s₁ s₂ ih₁ ih₂ =>
-      obtain ⟨h₁, h₂, hjoin⟩ := h
-      exact ⟨ih₂ h₂, ih₁ h₁, by simpa using hjoin.symm⟩
+  | catenated s₁ s₂ ih₁ ih₂ =>
+      obtain ⟨h₁, h₂, hinterdependent⟩ := h
+      exact ⟨ih₂ h₂, ih₁ h₁, by simpa using hinterdependent.symm⟩
 
 @[simp] theorem reverse_reverse {D : Type u} {E : Elaboration D}
     (sh : Shape E) (hrc : E.ReversalClosed) :
@@ -1811,7 +1819,7 @@ end Shape
 
 end Segment
 
-/-- A retained endpoint-sensitive shape together with all of its joins. -/
+/-- A retained endpoint-sensitive shape with its interdependence proofs. -/
 structure Segment {D : Type u} (E : Elaboration D) where
   shape : Segment.Shape E
   holds : shape.Holds
@@ -1855,21 +1863,21 @@ def ofResolution {D : Type u} {E : Elaboration D} {d : D}
 /-- A compatible certified mutual dependence used directly as a segment. -/
 def ofMutualDependence {D : Type u} {E : Elaboration D}
     (m : MutualDependence D)
-    (compatible : m.linkage = Linkage.ofElaboration E) : Segment E :=
+    (compatible : m.interdependence = Interdependence.ofElaboration E) : Segment E :=
   ⟨.dependence m compatible, trivial⟩
 
-/-- The endpoint-sensitive join required between two oriented segments. -/
-def Joined {D : Type u} (E : Elaboration D)
+/-- Two oriented segments are catenable when their facing endpoints interdepend. -/
+def Catenable {D : Type u} (E : Elaboration D)
     (s₁ s₂ : Segment E) : Prop :=
-  E.Linked s₁.right s₂.left
+  E.Interdependent s₁.right s₂.left
 
 /--
-Compose two segments while retaining both shapes.  Only the left segment's
+Catenate two segments while retaining both shapes.  Only the left segment's
 right interface and the right segment's left interface are checked.
 -/
-def append {D : Type u} {E : Elaboration D} (s₁ s₂ : Segment E)
-    (joined : Joined E s₁ s₂) : Segment E :=
-  ⟨.append s₁.shape s₂.shape, ⟨s₁.holds, s₂.holds, joined⟩⟩
+def catenate {D : Type u} {E : Elaboration D} (s₁ s₂ : Segment E)
+    (catenable : Catenable E s₁ s₂) : Segment E :=
+  ⟨.catenated s₁.shape s₂.shape, ⟨s₁.holds, s₂.holds, catenable⟩⟩
 
 /-- Flatten a segment with at least two retained sources to a certified chain. -/
 def toMutualDependence {D : Type u} {E : Elaboration D}
@@ -1877,9 +1885,9 @@ def toMutualDependence {D : Type u} {E : Elaboration D}
     {rest : List (Component D)}
     (hdecomp : s.shape.sourceComponents = c₁ :: c₂ :: rest) :
     MutualDependence D := by
-  apply MutualDependence.ofComponents (Linkage.ofElaboration E) c₁ c₂ rest
+  apply MutualDependence.ofComponents (Interdependence.ofElaboration E) c₁ c₂ rest
   rw [← hdecomp]
-  exact s.shape.chainLinked_sourceComponents s.holds
+  exact s.shape.chained_sourceComponents s.holds
 
 @[simp] theorem components_toMutualDependence {D : Type u}
     {E : Elaboration D} (s : Segment E) {c₁ c₂ : Component D}
@@ -1909,39 +1917,39 @@ def reverse {D : Type u} {E : Elaboration D}
     (s.reverse hrc).reverse hrc = s :=
   ext (Shape.reverse_reverse s.shape hrc)
 
-/-- A joined display reverses by reversing and exchanging both sides. -/
-theorem Joined.reverse {D : Type u} {E : Elaboration D}
-    {s₁ s₂ : Segment E} (h : Joined E s₁ s₂)
+/-- A catenable display reverses by reversing and exchanging both sides. -/
+theorem Catenable.reverse {D : Type u} {E : Elaboration D}
+    {s₁ s₂ : Segment E} (h : Catenable E s₁ s₂)
     (hrc : E.ReversalClosed) :
-    Joined E (s₂.reverse hrc) (s₁.reverse hrc) := by
-  simpa [Joined] using h.symm
+    Catenable E (s₂.reverse hrc) (s₁.reverse hrc) := by
+  simpa [Catenable] using h.symm
 
-@[simp] theorem reverse_append {D : Type u} {E : Elaboration D}
-    (s₁ s₂ : Segment E) (h : Joined E s₁ s₂)
+@[simp] theorem reverse_catenate {D : Type u} {E : Elaboration D}
+    (s₁ s₂ : Segment E) (h : Catenable E s₁ s₂)
     (hrc : E.ReversalClosed) :
-    (append s₁ s₂ h).reverse hrc =
-      append (s₂.reverse hrc) (s₁.reverse hrc) (h.reverse hrc) :=
+    (catenate s₁ s₂ h).reverse hrc =
+      catenate (s₂.reverse hrc) (s₁.reverse hrc) (h.reverse hrc) :=
   ext rfl
 
-/-- A join at a left shell's interface implies the corresponding source join. -/
-theorem linked_source_of_joined_left {D : Type u} {E : Elaboration D}
-    (s₁ : Shell E) (s₂ : Segment E) (h : Joined E (ofShell s₁) s₂) :
-    E.Linked s₁.source s₂.left :=
-  s₁.linked_of_linked_right h
+/-- Interface interdependence at a left shell transports to its source. -/
+theorem interdependent_source_of_catenable_left {D : Type u} {E : Elaboration D}
+    (s₁ : Shell E) (s₂ : Segment E) (h : Catenable E (ofShell s₁) s₂) :
+    E.Interdependent s₁.source s₂.left :=
+  s₁.interdependent_of_interdependent_right h
 
-/-- A join at a right shell's interface implies the corresponding source join. -/
-theorem linked_source_of_joined_right {D : Type u} {E : Elaboration D}
-    (s₁ : Segment E) (s₂ : Shell E) (h : Joined E s₁ (ofShell s₂)) :
-    E.Linked s₁.right s₂.source :=
-  (s₂.linked_of_linked_left h.symm).symm
+/-- Interface interdependence at a right shell transports to its source. -/
+theorem interdependent_source_of_catenable_right {D : Type u} {E : Elaboration D}
+    (s₁ : Segment E) (s₂ : Shell E) (h : Catenable E s₁ (ofShell s₂)) :
+    E.Interdependent s₁.right s₂.source :=
+  (s₂.interdependent_of_interdependent_left h.symm).symm
 
-/-- Joining two shells through their interfaces implies their source join. -/
-theorem linked_sources_of_joined {D : Type u} {E : Elaboration D}
-    (s₁ s₂ : Shell E) (h : Joined E (ofShell s₁) (ofShell s₂)) :
-    E.Linked s₁.source s₂.source := by
-  have hleft : E.Linked s₁.source s₂.left :=
-    linked_source_of_joined_left s₁ (ofShell s₂) h
-  exact (s₂.linked_of_linked_left hleft.symm).symm
+/-- Catenable shells have interdependent source components. -/
+theorem interdependent_sources_of_catenable {D : Type u} {E : Elaboration D}
+    (s₁ s₂ : Shell E) (h : Catenable E (ofShell s₁) (ofShell s₂)) :
+    E.Interdependent s₁.source s₂.source := by
+  have hleft : E.Interdependent s₁.source s₂.left :=
+    interdependent_source_of_catenable_left s₁ (ofShell s₂) h
+  exact (s₂.interdependent_of_interdependent_left hleft.symm).symm
 
 @[simp] theorem left_ofShell {D : Type u} {E : Elaboration D}
     (s : Shell E) : (ofShell s).left = s.left :=
@@ -1979,64 +1987,65 @@ theorem linked_sources_of_joined {D : Type u} {E : Elaboration D}
 
 @[simp] theorem left_ofMutualDependence {D : Type u}
     {E : Elaboration D} (m : MutualDependence D)
-    (compatible : m.linkage = Linkage.ofElaboration E) :
+    (compatible : m.interdependence = Interdependence.ofElaboration E) :
     (ofMutualDependence m compatible).left = m.c₁ :=
   rfl
 
 @[simp] theorem right_ofMutualDependence {D : Type u}
     {E : Elaboration D} (m : MutualDependence D)
-    (compatible : m.linkage = Linkage.ofElaboration E) :
+    (compatible : m.interdependence = Interdependence.ofElaboration E) :
     (ofMutualDependence m compatible).right = m.cₙ :=
   rfl
 
-@[simp] theorem left_append {D : Type u} {E : Elaboration D}
-    (l r : Segment E) (h : Joined E l r) :
-    (append l r h).left = l.left :=
+@[simp] theorem left_catenate {D : Type u} {E : Elaboration D}
+    (l r : Segment E) (h : Catenable E l r) :
+    (catenate l r h).left = l.left :=
   rfl
 
-@[simp] theorem right_append {D : Type u} {E : Elaboration D}
-    (l r : Segment E) (h : Joined E l r) :
-    (append l r h).right = r.right :=
+@[simp] theorem right_catenate {D : Type u} {E : Elaboration D}
+    (l r : Segment E) (h : Catenable E l r) :
+    (catenate l r h).right = r.right :=
   rfl
 
-@[simp] theorem joined_resolution_component_iff {D : Type u}
+@[simp] theorem catenable_resolution_component_iff {D : Type u}
     {E : Elaboration D} {d : D} (r : Elaboration.Resolution E d)
     (c : Component D) :
-    Joined E (ofResolution r) (ofComponent E c) ↔
-      E.Linked r.raw.cₙ c := by
-  simp [Joined]
+    Catenable E (ofResolution r) (ofComponent E c) ↔
+      E.Interdependent r.raw.cₙ c := by
+  simp [Catenable]
 
-@[simp] theorem joined_component_resolution_iff {D : Type u}
+@[simp] theorem catenable_component_resolution_iff {D : Type u}
     {E : Elaboration D} (c : Component D) {d : D}
     (r : Elaboration.Resolution E d) :
-    Joined E (ofComponent E c) (ofResolution r) ↔
-      E.Linked c r.raw.c₁ := by
-  simp [Joined]
+    Catenable E (ofComponent E c) (ofResolution r) ↔
+      E.Interdependent c r.raw.c₁ := by
+  simp [Catenable]
 
 /--
 For singleton interfaces, a resolved `[a <--> b] <--> c` occurrence checks
 only whether `b` and `c` are joinable; the stored `a <--> b` body remains
 internal to its shell.
 -/
-theorem joined_resolution_designatum_iff {D : Type u}
+theorem catenable_resolution_designatum_iff {D : Type u}
     {E : Elaboration D} {d b : D}
     (r : Elaboration.Resolution E d)
     (hright : r.raw.cₙ = Component.singleton b) (c : D) :
-    Joined E (ofResolution r) (ofDesignatum E c) ↔ E.Joinable b c := by
-  rw [Joined, right_ofResolution, left_ofDesignatum, hright]
-  exact Elaboration.linked_singleton_iff
+    Catenable E (ofResolution r) (ofDesignatum E c) ↔ E.Joinable b c := by
+  rw [Catenable, right_ofResolution, left_ofDesignatum, hright]
+  exact Elaboration.interdependent_singleton_iff
 
 /--
-The left mirror of `joined_resolution_designatum_iff`: a designatum joined to
-an opened body is checked only against that body's exposed left endpoint.
+The left mirror of `catenable_resolution_designatum_iff`: a designatum is
+catenable with an opened body exactly when it passes the body's exposed left
+endpoint check.
 -/
-theorem joined_designatum_resolution_iff {D : Type u}
+theorem catenable_designatum_resolution_iff {D : Type u}
     {E : Elaboration D} {d a : D}
     (r : Elaboration.Resolution E d)
     (hleft : r.raw.c₁ = Component.singleton a) (c : D) :
-    Joined E (ofDesignatum E c) (ofResolution r) ↔ E.Joinable c a := by
-  rw [Joined, right_ofDesignatum, left_ofResolution, hleft]
-  exact Elaboration.linked_singleton_iff
+    Catenable E (ofDesignatum E c) (ofResolution r) ↔ E.Joinable c a := by
+  rw [Catenable, right_ofDesignatum, left_ofResolution, hleft]
+  exact Elaboration.interdependent_singleton_iff
 
 end Segment
 

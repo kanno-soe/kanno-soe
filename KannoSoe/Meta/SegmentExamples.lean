@@ -20,7 +20,7 @@ inductive ParallelDesignatum where
   | x
   deriving DecidableEq
 
-/-- A small elaboration used only to make every example linkage immediate. -/
+/-- A small elaboration making every example's interdependence proofs immediate. -/
 def parallelElaboration : Elaboration ParallelDesignatum where
   Elab := fun _ _ => True
 
@@ -45,7 +45,7 @@ def resolutionAB :
   holds := by
     simp only [rawAB, Elaboration.certify_pair,
       RawMutualDependence.holds_pair_iff]
-    exact Elaboration.linked_singleton_iff.mpr
+    exact Elaboration.interdependent_singleton_iff.mpr
       (parallel_joinable_total .a .b)
 
 /--
@@ -132,30 +132,30 @@ theorem resolvedAB_source :
       Component.singleton ParallelDesignatum.ab :=
   rfl
 
-/-- The right-hand join of `[a <--> b] <--> c` is the `b`/`c` join. -/
-theorem resolvedAB_join_c :
-    Segment.Joined parallelElaboration
+/-- The opened body's right endpoint and `c` make the segments catenable. -/
+theorem resolvedAB_catenable_with_c :
+    Segment.Catenable parallelElaboration
       (Segment.ofResolution resolutionAB)
       (Segment.ofDesignatum parallelElaboration ParallelDesignatum.c) := by
-  apply (Segment.joined_resolution_designatum_iff resolutionAB
+  apply (Segment.catenable_resolution_designatum_iff resolutionAB
     rfl ParallelDesignatum.c).mpr
   exact parallel_joinable_total .b .c
 
 /-- The retained nested segment denoted by `[a <--> b] <--> c`. -/
 def resolvedABThenC : Segment parallelElaboration :=
-  Segment.append (Segment.ofResolution resolutionAB)
+  Segment.catenate (Segment.ofResolution resolutionAB)
     (Segment.ofDesignatum parallelElaboration ParallelDesignatum.c)
-    resolvedAB_join_c
+    resolvedAB_catenable_with_c
 
 /-- Composition retains the inner left edge and the outer right edge. -/
 theorem resolvedABThenC_interfaces :
     resolvedABThenC.left = Component.singleton ParallelDesignatum.a ∧
       resolvedABThenC.right = Component.singleton ParallelDesignatum.c := by
   constructor
-  · rw [resolvedABThenC, Segment.left_append,
+  · rw [resolvedABThenC, Segment.left_catenate,
       Segment.left_ofResolution]
     rfl
-  · rw [resolvedABThenC, Segment.right_append,
+  · rw [resolvedABThenC, Segment.right_catenate,
       Segment.right_ofDesignatum]
 
 /-! ## Endpoint sensitivity over a non-total elaboration -/
@@ -301,21 +301,21 @@ def endpointResolutionAB :
   holds := by
     simp only [endpointRawAB, Elaboration.certify_pair,
       RawMutualDependence.holds_pair_iff]
-    exact Elaboration.linked_singleton_iff.mpr endpoint_joinable_a_b
+    exact Elaboration.interdependent_singleton_iff.mpr endpoint_joinable_a_b
 
-/-- The selected body exposes `b`, so `[a,b] <--> c` succeeds. -/
-theorem endpoint_resolution_join_c :
-    Segment.Joined endpointElaboration
+/-- The selected body exposes `b`, making it catenable with `c`. -/
+theorem endpoint_resolution_catenable_with_c :
+    Segment.Catenable endpointElaboration
       (Segment.ofResolution endpointResolutionAB)
       (Segment.ofDesignatum endpointElaboration .c) := by
-  exact (Segment.joined_resolution_designatum_iff endpointResolutionAB
+  exact (Segment.catenable_resolution_designatum_iff endpointResolutionAB
     rfl .c).mpr endpoint_joinable_b_c
 
 /-- The retained nested segment denoted by `[a <--> b] <--> c`. -/
 def endpointResolvedABThenC : Segment endpointElaboration :=
-  Segment.append (Segment.ofResolution endpointResolutionAB)
+  Segment.catenate (Segment.ofResolution endpointResolutionAB)
     (Segment.ofDesignatum endpointElaboration .c)
-    endpoint_resolution_join_c
+    endpoint_resolution_catenable_with_c
 
 @[simp] theorem endpointResolvedABThenC_sourceComponents :
     endpointResolvedABThenC.shape.sourceComponents =
@@ -335,23 +335,23 @@ def endpointNestedMutualDependence : MutualDependence EndpointDesignatum :=
   simp [endpointNestedMutualDependence]
 
 /-- Reversing only the outer order tests `c` against `a` and therefore fails. -/
-theorem endpoint_c_not_join_resolution :
-    ¬ Segment.Joined endpointElaboration
+theorem endpoint_c_not_catenable_with_resolution :
+    ¬ Segment.Catenable endpointElaboration
       (Segment.ofDesignatum endpointElaboration .c)
       (Segment.ofResolution endpointResolutionAB) := by
-  intro hjoined
+  intro hcatenable
   have hca : endpointElaboration.Joinable .c .a :=
-    (Segment.joined_designatum_resolution_iff endpointResolutionAB
-      rfl .c).mp hjoined
+    (Segment.catenable_designatum_resolution_iff endpointResolutionAB
+      rfl .c).mp hcatenable
   exact endpoint_not_joinable_a_c hca.symm
 
 /-- The same certified `a <--> b <--> c` chain can occupy one Segment slot. -/
 def endpointMutualDependence : MutualDependence EndpointDesignatum :=
-  MutualDependence.triple (Linkage.ofElaboration endpointElaboration)
+  MutualDependence.triple (Interdependence.ofElaboration endpointElaboration)
     (Component.singleton .a) (Component.singleton .b)
     (Component.singleton .c)
-    (Elaboration.linked_singleton_iff.mpr endpoint_joinable_a_b)
-    (Elaboration.linked_singleton_iff.mpr endpoint_joinable_b_c)
+    (Elaboration.interdependent_singleton_iff.mpr endpoint_joinable_a_b)
+    (Elaboration.interdependent_singleton_iff.mpr endpoint_joinable_b_c)
 
 def endpointDirectSegment : Segment endpointElaboration :=
   Segment.ofMutualDependence endpointMutualDependence rfl
