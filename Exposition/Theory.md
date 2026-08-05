@@ -123,11 +123,15 @@ Nothing in the ungraded structure privileges the person. Nor does the stone exam
 A **Graded Resonance** adds two independent grades to a Resonance: a calls-side grade and a responses-side grade. The grade type need only be a preorder with a bottom element. It need not be numerical, total, or metrically spaced. The intended reading is **dis-resonance**: volition insofar as it is *sāsrava*—with outflows, ripening in further becoming. Bottom is *anāsrava* at this Resonance: the act is not productive of further becoming, without implying either the absence of volition or the global attainment of arhatship. `0` is only the familiar numerical example. How a bottom grading relates in the world is left as a functional question about the relating of such moments, and could be modelled by downstream effects on other resonances.
 
 ```text
-                    one Graded Resonance
+                one Graded Resonance
 
-   calls ⋈ (callsGrade) {b₁} ⋈ {b₂} (responsesGrade) ⋈ responses
 
-     callsGrade and responsesGrade are independent coordinates.
+           calls ⋈ {b₁} ⋈ {b₂} ⋈ responses
+
+             (callsGrade) (responsesGrade)
+
+
+    callsGrade and responsesGrade are independent coordinates.
 ```
 
 Thus a stone may be *assigned* bottom on both sides, while a grumpy person who has stubbed a toe may be *assigned* a non-bottom calls grade, a non-bottom responses grade, or both. Those are interpretations supplied to the model; the model itself does not infer a grade from stonehood, pain, personality, or behavior. `IsUngraded` means exactly that both grades are bottom. “Ungraded” here therefore means no dis-resonance entered on either side, not absence of calls from the resonance and not absence of response.
