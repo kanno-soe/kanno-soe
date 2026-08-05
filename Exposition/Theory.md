@@ -400,6 +400,8 @@ then at the *limit*, we define a *web* whose elaboration is the totality of inte
   web :=           ⋊ abcd...wxyz ⋉
 ```
 
+The very concept of expansion and contraction is part of how the web is defined.
+
 ### The common web
 
 What the formalism calls **Prime** is for the designator to designate under the expansive
