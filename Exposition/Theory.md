@@ -363,197 +363,97 @@ The taxonomy is not a map of places on a path. Immunity is checked per productio
 
 ## From mutual dependence to interpenetration
 
-This section has two layers. Lean proves facts about reachability, common
-witnesses, fresh designata, and conservative extensions. The exposition then
-supplies a philosophical reading of that structure as a dependence-web, and
-aligns the base and primed systems with act-time and floor-face. Lean does not
-prove that reading or the identification with Huayan.
+### Extension
 
-### Chains and brackets
-
-The supplied closure-reading says that no displayed end of a dependence is
-final. A chosen segment may be articulated farther in either direction:
+A mutual dependence may be expanded in either direction:
 
 ```text
-  chosen:                 n ⋈ o
-  extend left:        m ⋈ n ⋈ o
-  extend right:           n ⋈ o ⋈ p
-  extend both:  ...   m ⋈ n ⋈ o ⋈ p
+initial:           no  ⇓     [n ⋈ o]
+extended left:    mno  ⇓ [m ⋈ n ⋈ o]
+extended right:    nop ⇓     [n ⋈ o ⋈ p]
+extended both:    mnop ⇓ [m ⋈ n ⋈ o ⋈ p]
 ```
 
-A dependence-whole may also be retained behind a designatum. Every such
-designatum first occupies a component slot: `ab` by itself is placed in
-`{ab}`. A component with no slots opened is immediately a one-position
-`Segment`; its left and right interfaces are both the original component
-(`Segment.left_ofComponent`, `Segment.right_ofComponent`). There is no
-separate kind of “whole-name.”
+This follows from the supplied philosophical reading. We say that n *implicates* m and o *implicates* p.
 
-The endpoint-sensitive Segment layer is now part of the operative signature
-API. `Segment.interdependent_sources_of_catenable` proves that catenating two
-opened shell interfaces entails the corresponding source-component
-interdependence.
-`Segment.Shape.chained_sourceComponents` validates the retained flattened
-chain, and `Segment.toMutualDependence` packages any decomposition with at
-least two source components as a certified `MutualDependence`. The
-endpoint-sensitive `endpointResolvedABThenC` example constructs this
-composition directly in the original elaboration, and
-`endpointNestedMutualDependence_components` confirms that its flattened
-components are exactly `{ab}` and `{c}`.
+### Contraction
 
-If an occurrence of `ab` designates a raw mutual dependence which certifies
-under the current elaboration, that slot may instead be opened with an
-`Elaboration.Resolution`. The source component and the designatum `ab` remain
-stored in the shell, as does the complete selected body. What changes is the
-interface exposed by that occurrence:
+A mutual dependence may be contracted, by replacing interdependence with designation:
 
 ```text
-  ab designates [a ⋈ b]
-
-                  left interface    right interface
-  unopened {ab}:       {ab}              {ab}
-  opened   {ab}:       {a}                {b}
+extended both:    mnop ⇓ [m ⋈ n ⋈ o ⋈ p]
+contracted left:  mn   ⇓ [m ⋈ n]
+                  mnop ⇓ [mn ⋈ o ⋈ p]
+contracted right:   op ⇓ [m ⋈ n]
+                  mnop ⇓ [m ⋈ n ⋈ op]
+contracted both:  mnop ⇓ [mn ⋈ op]
 ```
 
-These are `Segment.left_ofResolution` and
-`Segment.right_ofResolution`. Consequently the displayed composition
+### Expansion and Contraction
+
+If we repeat the process of expansion and contraction indefinitely from any starting position, be it `a` or `z`,
+then at the *limit*, we name a designatum *web* whose elaboration is the totality of interdependence.
 
 ```text
-  [a ⋈ b] ⋈ c
+  viewed from a:   ⋊ a ⋈ bcde...wxyz ⋉
+  viewed from z:   ⋊ abcd...vwxy ⋈ z ⋉
+
+  web :=           ⋊ abcd...wxyz ⋉
 ```
-
-retains the certified inner `a ⋈ b` and checks only whether the facing
-interfaces satisfy `Interdependent {b} {c}`. With singleton interfaces this is
-exactly whether `b` and `c` are joinable
-(`catenable_resolution_designatum_iff`). The source remains `{ab}`, and its
-stored body remains the certified `a ⋈ b`; catenability is checked against that
-body's exposed right interface.
-
-A component may contain several slots, and they open in parallel rather than
-acquiring an arbitrary serial order. For example, if `ab` opens as
-`[a ⋈ b]` while `x` remains a leaf, then
-
-```text
-  source component:   {ab, x}
-  left interface:      {a, x}
-  right interface:     {b, x}
-```
-
-This is checked by `mem_parallelShell_left_iff` and
-`mem_parallelShell_right_iff`. The ordinary strong rule is unchanged at the
-next catenation: every member exposed on each side must find a joinable member
-on the other. Opening a slot therefore preserves the expressive force of
-multi-member components rather than admitting irrelevant passengers.
-
-Resolution is positive, finite, and local to an occurrence. A leaf means
-“not opened here”; it need not carry a global proof that no body exists.
-Where a name has several certified bodies, each resolution selects one whole
-body, whose first and last components supply both interfaces together. The
-alternatives remain alternative segment presentations: a left endpoint from
-one body cannot be combined with a right endpoint from another. No eager
-recursive normalization is attempted, so cyclic elaborations remain usable.
-
-Opening is a presentation operation, not a carrier extension. The designatum
-`ab` remains an ordinary member of the same `D`; its selected `Resolution`
-records the certified body `[a ⋈ b]`. `Segment.catenate` checks interdependence
-only at the exposed `{b}` and `{c}` interfaces. Flattening the retained segment
-then produces the ordinary mutual dependence `{ab} ⋈ {c}`. No `Option`
-wrapper, fresh `none`, or priming operation is involved. A designatum therefore
-does not become prime merely because its body is opened or retained, and
-Segment supplies no automatic total joinability or interdependence. In
-Interpenetration, the corresponding primed-tier facts follow specifically from
-the explicit `prime` construction (`prime_joinable_total`,
-`prime_interdependent_total`).
-
-Carrier extension remains available separately through
-`freshSourceExtension`. It may add clauses sourced at a fresh `none`, but old
-paths cannot enter that fresh point because old-sourced component lists contain
-only embedded old designata. Its outgoing clauses therefore cannot alter
-old-started paths (`freshSource_reaches_iff`, `freshSource_joinable_iff`). This
-generic conservativity result is not needed to represent an opened dependence
-whole.
-
-Segments now supply the endpoint-sensitive part of the intended diagrammatic
-calculus. A direct certified mutual dependence can occupy a Segment position
-(`Segment.ofMutualDependence`), and `Segment.catenate` retains both sides while
-checking just their touching interfaces. Thus several views of one already
-stated dependence-web can preserve their internal bodies:
-
-```text
-  viewed from a:      ⋊ a ⋈ [b ⋈ c ⋈ ... ⋈ y ⋈ z] ⋉
-  viewed from z:     ⋊ [a ⋈ b ⋈ ... ⋈ x ⋈ y] ⋈ z ⋉
-
-  whole-name: web :=  ⋊ a ⋈ b ⋈ ... ⋈ x ⋈ y ⋈ z ⋉
-```
-
-Left and right here are diagrammatic interfaces, not a temporal or causal
-direction. Reversing a display must reverse its retained bodies as well:
-the reverse of `[a ⋈ b] ⋈ c` is `c ⋈ [b ⋈ a]`, not a naïve swap
-which leaves the inner orientation unchanged. This is realized by
-`Segment.reverse`, `Segment.Catenable.reverse`, and `Segment.reverse_catenate`
-under `Elaboration.ReversalClosed`, the condition that elaboration is closed
-under reversal of its raw mutual-dependence bodies.
 
 ### The common web
 
-What the code calls Prime is for the designator to designate under the new expansive
-understanding above, that to designate `a` is at the same moment to implicate the full
-web reachable from, and including `a`. The code calls this "closed prime" - the ability to
-start at `a` and directly reach the web implicated by `a`. In this Prime mode of
-designating, `a` "contains" the web. Going the opposite direction, from web to `a`, is
-very natural as we defined the web in terms of `a` initially. For analytic reasons,
-the code considers that case separately and calls it "open prime", but it is still the
-straightforward fact that having defined the web from `a`, the web "contains" `a`.
-These modes are called **all in each** and **each in all**, respectively.
+What the formalism calls **Prime** is for the designator to designate under the expansive
+understanding above—that to designate `a'` is at the same moment to implicate the full
+web reachable from, and including `a'`. The formal model calls this "closed prime"—the ability to
+start at `a'` and directly reach the web implicated by `a'`. In this prime mode of
+designating, `a'` "contains" the web. Going the opposite direction, from web to `a'`, is
+very natural as we defined the web in terms of `a'` initially. For analytic purposes,
+the formalism considers that case separately and calls it "open prime", but it is still the
+straightforward fact that having defined the web from `a'`, the web "contains" `a'`.
+These modes are interpreted as **all in each** and **each in all**, respectively.
 
-Formally, `prime E` embeds every old `d` as `some d`, written below as `d'`,
-and uses the fresh `none` as the web. It retains every lifted base clause and
-adds a clause from each embedded old point to itself and the web. The
-definition specifies these component lists only; whether a raw dependence
-certifies remains a separate question.
+Formally, `prime E` embeds every old `d` as `some d`, written as `d'`,
+and uses value `none` as the web. It retains every lifted base clause and
+adds a clause from each embedded old point to itself and the web.
 
-Neither `prime` nor `primeOpen` supplies a `Directed` or `Causal`
-interpretation. Unless stated otherwise, the arrows in this section abbreviate
-`Reaches`, not `Before` or `Causes`.
+Neither `prime` nor `primeOpen` supplies a Directed or Causal
+interpretation. Unless stated otherwise, the arrows in this section denote
+Reaches, not Before or Causes.
 
 The closed prime has this shape:
 
 ```text
-  a' → web ← b'
+  a' →∗ web ←∗ b'
 
   web cannot Reach a' or b'   no outgoing elaboration clauses;
                               web still Reaches itself by reflexivity
 ```
 
-Every primed point reaches the web (`prime_reaches_web`), so every pair has the
-same common witness. Hence `Joinable` is total and therefore transitive
-(`prime_joinable_total`, `prime_joinable_transitive`). Every pair of nonempty
-components is `Interdependent` (`prime_interdependent_total`), and every raw dependence
-re-tagged with this primed interdependence holds (`prime_certification_trivial`). The
-last result says that the primed interdependence is saturated; it does not say that
-every arbitrary assertion is true. In particular, a Mutual Dependence certificate
-may mention the web without making it a temporal or causal intermediary.
-
-Closed priming adds no new old-to-old reachability:
-
-```text
-  a' Reaches b'   <==>   a Reaches b
+As an equation, this implies joinability for all designata and interdependence for all components:
+```math
+\left(\forall d'\in\mathcal D'.\;d'\to^*\mathsf{web}\right)
+\Longrightarrow
+\left(\forall d',e'\in\mathcal D'.\;d'\downarrow e'\right)
+\Longrightarrow
+\left(\forall A',B'\subseteq\mathcal D'.\;A'\bowtie B'\right)
 ```
 
-This is `prime_reaches_some_iff`. The base system therefore remains available
-with all of its distinctions. `exists_tier_noncollapse` supplies an example of
+`exists_tier_noncollapse` supplies an example of
 a base elaboration with the following shape:
 
 ```text
-  base:      NOT Joinable(a,b)
-  primed:        Joinable(a',b')       because both reach web
+  base:      ¬(a  ↓ b )
+  primed:     (a' ↓ b')       because both reach web
 ```
 
 Priming is a new saturated presentation, not a derivation showing that the
 base relation was already total.
 
 Direction, when wanted, is carried separately. `Directed.liftOption DA`
-agrees with `DA.Before` between `some` images and makes every `Before` claim
-involving `none` false. It therefore preserves base direction without treating
+agrees with `DA.Before` between `some` images and makes every Before claim
+involving `none` false (the web isn't "before" designata and designata aren't "before" the web).
+It therefore preserves base direction without treating
 the web as a first or last moment; this is a chosen overlay, not a consequence
 of priming.
 
@@ -561,30 +461,36 @@ The open prime retains all closed-prime clauses and adds the missing clauses
 from the web back to every member:
 
 ```text
-  members to web:    a' → web ← b'
-  web to members:    a' ← web → b'
+  members to web:    a' →∗ web ←∗ b'
+  web to members:    a' ←∗ web →∗ b'
 
-  therefore:         a' → web → b'
+  therefore:         a' →∗ web →∗ b'
 ```
 
-Now `Reaches` itself is total (`primeOpen_reaches_total`). Opening can genuinely
+As an equation:
+```math
+\left(\forall d'.\;d'\to^*\mathsf{web} \land \mathsf{web}\to^*d'\right)
+\Longrightarrow
+\left(\forall d',e'.\;d' \to^* e'\right)
+```
+
+With this, Reaches itself is total (`primeOpen_reaches_total`). Opening can genuinely
 change reachability (`exists_prime_open_reaches_distinction`), although it is
-invisible to `Joinable`, which was already total in the closed prime
+invisible to Joinable, which was already total in the closed prime
 (`primeOpen_joinable_iff_prime`).
 
 ```text
-                             CLOSED PRIME        OPEN PRIME
+                          CLOSED PRIME        OPEN PRIME
 
-  member Reaches web             yes                yes
-  web Reaches member             no                 yes
-  a' Reaches b'                  as at base         always
-  Joinable(a',b')                always             always
+    member →∗ web           yes                yes
+    web →∗ member           no                 yes
+    a' →∗ b'                as at base         always
+    a' ↓ b'                 always             always
 ```
 
 ### Supplied philosophical reading
 
-The supplied reading calls `none` the dependence-web and the added clause the
-all-clause. It then aligns the structures as follows:
+A recap of the structures as follows:
 
 ```text
   base elaboration        act-time articulation; local differences remain
@@ -598,49 +504,35 @@ Here the labels follow what each directed path makes available:
 ```text
   CLOSED PRIME
 
-  each member  →  web (= all)              ALL IN EACH
+  each member  →∗  web (= all)              ALL IN EACH
 
   OPEN PRIME
 
-  each member  →  web (= all)              ALL IN EACH
-  each member  ←  web (= all)              EACH IN ALL
+  each member  →∗  web (= all)              ALL IN EACH
+  each member  ←∗  web (= all)              EACH IN ALL
 ```
 
 In the closed prime, every member reaches the web. Since the web designates the
 all, this is **all in each**: start from any one member and its elaboration
 implicates the whole (`prime_reaches_web`). The open prime adds the other half,
-**each in all**, by making the web reach every member
-(`primeOpen_reaches_from_web`). It therefore supplies both halves as directed
-`Reaches` facts. The paths compose, so every primed designatum reaches every
+**each in all**: the web reaches every member
+(`primeOpen_reaches_from_web`). It therefore supplies both halves as Reaches facts.
+The paths compose, so every primed designatum reaches every
 other one (`primeOpen_reaches_total`):
 
 ```text
-  any a'  →  web  →  any b'
+  any a'  →∗  web  →∗  any b'
 ```
 
-At the coarser `Joinable` level, the directional distinction has already
-disappeared in the closed prime: `Joinable` is total and symmetric because every
-pair shares the web. It records universal joinability, not which direction
-of implication supplies it. Here “in” means implication through stated
-dependence, not spatial containment.
+At the coarser Joinable level, the directional distinction has already
+disappeared in the closed prime: Joinable is total and symmetric because every
+pair shares the web.
 
-The source/target boundary marks the formal transition. A
-`freshSourceExtension` is conservative on old designata while its fresh point
-is only a source which old paths cannot enter. `prime` makes the fresh web a
-target of every old image; `primeOpen` makes it both target and source. The
-act-grammar locates Huayan reciprocity in that non-conservative tier-change.
-Lean proves the boundary and tier noncollapse, not their philosophical
-identification.
-
-The two presentations must therefore coexist. Importing primed saturation into
-base diagnosis is collapse; insisting that a base separation remain final at
-the floor is freeze. The web is a designated formal witness for the supplied
-whole-reading, not an independently existing ground underneath the old
-designata.
-
-When designating `a`, the designator may instead designate its primed image
-`a' := some a` without withdrawing the lifted base clauses. **Read at the
-floor**, that designation may carry the role-reading *with understanding all in
-each / each in all*. “Understanding” belongs to the role supplied in
-designation, not to a sentience or nature possessed by `a'`. The floor-face
-offer does not replace act-time articulation (`exists_tier_noncollapse`).
+`prime` makes the fresh web a target of every old image; `primeOpen` makes it
+both target and source.The act-grammar locates Huayan reciprocity in that
+non-conservative tier-change. The formal model proves the boundary and tier noncollapse,
+not their philosophical identification. The two presentations must therefore coexist.
+Importing primed saturation into base diagnosis is collapse; insisting that a
+base separation remain final at the floor is freeze. The web is a designated
+witness for the supplied whole-reading, not an independently existing
+ground underneath the old designata.
