@@ -103,12 +103,12 @@ This is the minimal formal structure of **Mutual Dependence** (*sōe*). Througho
 A **Resonance** is the following four-component special case of Mutual Dependence, with its middle components forced to be singletons:
 
 ```text
-    calls ⋈ {b1} ⋈ {b2} ⋈ responses
+    calls ⋈ {b₁} ⋈ {b₂} ⋈ responses
 ```
 
-The intended reading is that `b1` is the receiving view or moment of a being and `b2` is its responding view or moment. Formally, however, `b1` and `b2` are two interdependent singleton designata in the same certified dependence. The model does not prove that they are numerically identical, temporally successive, conscious, or personal. The names **calls**, **receiving**, **responding**, and **responses** are role-readings of the shape.
+The intended reading is that `b₁` is the receiving view or moment of a being and `b₂` is its responding view or moment. Formally, however, `b₁` and `b₂` are two interdependent singleton designata in the same certified dependence. The model does not prove that they are numerically identical, temporally successive, conscious, or personal. The names **calls**, **receiving**, **responding**, and **responses** are role-readings of the shape.
 
-An **Encounter** is a Resonance viewed merely as a Mutual Dependence. It retains the concrete `calls ⋈ {b1} ⋈ {b2} ⋈ responses` shape while everything about it being a resonance is temporarily forgotten. *Encounter* is an expository alias, not a new Lean type. Every Encounter is a Mutual Dependence; not every Mutual Dependence has the four-component singleton-middle shape needed to be an Encounter.
+An **Encounter** is a Resonance viewed merely as a Mutual Dependence. It retains the concrete `calls ⋈ {b₁} ⋈ {b₂} ⋈ responses` shape while everything about it being a resonance is temporarily forgotten. *Encounter* is an expository alias, not a new Lean type. Every Encounter is a Mutual Dependence; not every Mutual Dependence has the four-component singleton-middle shape needed to be an Encounter.
 
 Because designata may elaborate into any raw dependence the modeler supplies and later certifies, the same Resonance shape can be used for a person answering a question or a stone answering the wind by rolling downhill:
 
@@ -118,14 +118,14 @@ Because designata may elaborate into any raw dependence the modeler supplies and
 
 Nothing in the ungraded structure privileges the person. Nor does the stone example prove a doctrine about sentience: it proves only that the Resonance constructor asks for interdependent singleton designata in its two middle positions, not a prior metaphysical kind called *person*.
 
-## Graded Resonance and Being
+## Graded Resonance
 
 A **Graded Resonance** adds two independent grades to a Resonance: a calls-side grade and a responses-side grade. The grade type need only be a preorder with a bottom element. It need not be numerical, total, or metrically spaced. The intended reading is **dis-resonance**: volition insofar as it is *sāsrava*—with outflows, ripening in further becoming. Bottom is *anāsrava* at this Resonance: the act is not productive of further becoming, without implying either the absence of volition or the global attainment of arhatship. `0` is only the familiar numerical example. How a bottom grading relates in the world is left as a functional question about the relating of such moments, and could be modelled by downstream effects on other resonances.
 
 ```text
                     one Graded Resonance
 
-   calls ⋈ (callsGrade) {b1} ⋈ {b2} (responsesGrade) ⋈ responses
+   calls ⋈ (callsGrade) {b₁} ⋈ {b₂} (responsesGrade) ⋈ responses
 
      callsGrade and responsesGrade are independent coordinates.
 ```
@@ -134,16 +134,15 @@ Thus a stone may be *assigned* bottom on both sides, while a grumpy person who h
 
 Grading is sentience-neutral. A sentience reading *could* be supplied as additional information, but it's not inherently required in the model.
 
-A **Being** is a nonempty list of Resonances whose singleton middle components flatten into one certified Mutual Dependence:
+## Being
+
+A **Being** is a mutual dependence of singleton-only designata.
 
 ```text
-of Resonance 1       of Resonance 2              of Resonance n
-{r1b1} ⋈ {r1b2}  ⋈  {r2b1} ⋈ {r2b2}  ⋈ ... ⋈  {rnb1} ⋈ {rnb2}
-
-    Being = the certified chain of these receiving/responding moments
+being ⇓ [{b₁} ⋈ {b₂}  ⋈  {b₃} ⋈ ... ⋈  {bₙ}]
 ```
 
-The calls and responses surrounding each Resonance do not constitute the Being's formal spine; its `b1,b2,...` middle moments do. This is a conventional construction of a being out of interdependent moments, not a proof of a persisting owner behind them.
+The designata are implied to be *imputed* from (share common elements with) the `b₁` and `b₂` of  resonances. A directed/causal reading may also be supplied.
 
 ## Direction and Causation are overlays
 
@@ -180,7 +179,7 @@ Remove grades from a Graded Resonance and everything else about it being a reson
 
 *Mujishō* (無自性) means without self-nature or own-being. The model's interdependence relation is a simple formal analogue: neither interdependent component is entered as the self-standing base of the other. This is an **interpretation of** Mutual Dependence, not a theorem extracted from `Interdependent`; supplied elaborations can encode many domains, and Lean does not turn a symmetric reach relation into Nāgārjuna by itself.
 
-The interpretive route begins with Nāgārjuna's *MMK* 24.18: what dependently originates is empty of own-being; that emptiness is itself dependently designated; just this is the middle way. Dependence therefore cannot mean relations among already self-subsisting things, while emptiness cannot become a deeper thing beneath them. Applied to the Encounter above, the point is not that `calls`, `b1`, `b2`, and `responses` vanish. It is that none supplies the final bearer of the answering.
+The interpretive route begins with Nāgārjuna's *MMK* 24.18: what dependently originates is empty of own-being; that emptiness is itself dependently designated; just this is the middle way. Dependence therefore cannot mean relations among already self-subsisting things, while emptiness cannot become a deeper thing beneath them. Applied to the Encounter above, the point is not that `calls`, `b₁`, `b₂`, and `responses` vanish. It is that none supplies the final bearer of the answering.
 
 Jizang supplies the next turn. In the fourfold two truths, each stated ultimate—including the conventional/ultimate distinction itself—can become the conventional content of the next analysis. The iteration does not discover a fifth, finally unconditioned proposition. It ends at words forgotten, thought cut off (言忘慮絶): not another claim, but the place where words and thought no longer do separating work. That claimless place is called the **floor**. The middle can then manifest as this case instead of becoming another object of analysis. This manifestation is called **genjō**, the **provisional middle**.
 
@@ -258,7 +257,7 @@ The shushō reading introduced above is one example:
    in receiving/responding
 ```
 
-Act-time follows the concrete receiving at `b1` or responding at `b2`; the floor-face reads that same `b1` or `b2` without an independently standing receiver or responder. Shu and shō are reciprocal faces of that receiving or responding within the Graded Resonance: one name follows the enactment, the other its no-own-being, non-attaining realization.
+Act-time follows the concrete receiving at `b₁` or responding at `b₂`; the floor-face reads that same `b₁` or `b₂` without an independently standing receiver or responder. Shu and shō are reciprocal faces of that receiving or responding within the Graded Resonance: one name follows the enactment, the other its no-own-being, non-attaining realization.
 
 ## Separate/fuse, utterances, and their offers
 
