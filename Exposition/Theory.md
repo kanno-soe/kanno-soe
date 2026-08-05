@@ -368,10 +368,10 @@ The taxonomy is not a map of places on a path. Immunity is checked per productio
 A mutual dependence may be expanded in either direction:
 
 ```text
-initial:           mn  ⇓     [m ⋈ n]
-extended left:    lmn  ⇓ [l ⋈ m ⋈ n]
-extended right:    mno ⇓     [m ⋈ n ⋈ o]
-extended both:    lmno ⇓ [l ⋈ m ⋈ n ⋈ o]
+initial:           no  ⇓     [n ⋈ o]
+extended left:    mno  ⇓ [m ⋈ n ⋈ o]
+extended right:    nop ⇓     [n ⋈ o ⋈ p]
+extended both:    mnop ⇓ [m ⋈ n ⋈ o ⋈ p]
 ```
 
 This follows from the supplied philosophical reading. We say that n *implicates* m and o *implicates* p.
@@ -381,12 +381,12 @@ This follows from the supplied philosophical reading. We say that n *implicates*
 A mutual dependence may be contracted, by replacing interdependence with designation:
 
 ```text
-extended both:    lmno ⇓ [l ⋈ m ⋈ n ⋈ o]
-contracted left:  lm   ⇓ [l ⋈ m]
-                  lmno ⇓ [lm ⋈ n ⋈ o]
-contracted right:   no ⇓          [n ⋈ o]
-                  lmno ⇓ [l ⋈ m ⋈ no]
-contracted both:  lmno ⇓ [lm ⋈ no]
+extended both:    mnop ⇓ [m ⋈ n ⋈ o ⋈ p]
+contracted left:  mn   ⇓ [m ⋈ n]
+                  mnop ⇓ [mn ⋈ o ⋈ p]
+contracted right:   op ⇓ [m ⋈ n]
+                  mnop ⇓ [m ⋈ n ⋈ op]
+contracted both:  mnop ⇓ [mn ⋈ op]
 ```
 
 ### Expansion and Contraction
