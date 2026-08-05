@@ -144,6 +144,8 @@ being ⇓ [{b₁} ⋈ {b₂}  ⋈  {b₃} ⋈ ... ⋈  {bₙ}]
 
 The designata are implied to be *imputed* from (share common elements with) the `b₁` and `b₂` of  resonances. A directed/causal reading may also be supplied.
 
+This is technically called something like a McTaggartian C-series plus a reader-supplied orientation yielding an interpreted B-series.
+
 ## Direction and Causation are overlays
 
 Mutual Dependence and Resonance contain no time-directedness. A **Directed** interpretation is supplied separately as a strict transitive **Before** (≺) relation. A domain may then supply a **Causal** (↝) interpretation with a `x ↝ y` relation, a proof that causing implies `x ≺ y`, and, for every causal claim, a **Causation** certificate.
