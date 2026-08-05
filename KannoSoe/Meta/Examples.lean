@@ -11,12 +11,16 @@ namespace BeingAndGrading
 inductive Signal where
   | firstCall
   | firstBeing
-  | firstResponse
-  | firstResult
-  | secondCall
   | secondBeing
+  | firstResponse
+  | secondCall
+  | thirdBeing
+  | fourthBeing
   | secondResponse
-  | secondResult
+  | a
+  | b
+  | c
+  | d
   deriving DecidableEq, Repr
 
 open Signal
@@ -27,40 +31,51 @@ def universalInterdependence : Interdependence Signal where
 
 def firstResonance : Resonance Signal :=
   Resonance.mk' universalInterdependence
-    (Component.singleton firstCall) firstBeing firstResponse
-    (Component.singleton firstResult) trivial trivial trivial
+    (Component.singleton firstCall) firstBeing secondBeing
+    (Component.singleton firstResponse) trivial trivial trivial
 
 def secondResonance : Resonance Signal :=
   Resonance.mk' universalInterdependence
-    (Component.singleton secondCall) secondBeing secondResponse
-    (Component.singleton secondResult) trivial trivial trivial
+    (Component.singleton secondCall) thirdBeing fourthBeing
+    (Component.singleton secondResponse) trivial trivial trivial
 
 def singleBeing : Being Signal :=
-  Being.ofResonances universalInterdependence [firstResonance] (by simp) (by
-    show
-      universalInterdependence.Chained
-        [Component.singleton firstBeing, Component.singleton firstResponse]
-    exact .cons trivial (.single _))
+  Being.ofMutualDependence
+    (MutualDependence.pair universalInterdependence
+      (Component.singleton a)
+      (Component.singleton b) trivial) (by
+        intro component hc
+        change component ∈
+          [Component.singleton a,
+            Component.singleton b] at hc
+        simp only [List.mem_cons, List.not_mem_nil, or_false] at hc
+        rcases hc with rfl | rfl <;> exact ⟨_, rfl⟩)
 
-theorem consecutiveMiddlesInterdependent :
+theorem consecutiveBeingComponentsInterdependent :
     universalInterdependence.Interdependent
-      (Component.singleton firstResponse)
-      (Component.singleton secondBeing) :=
+      (Component.singleton b)
+      (Component.singleton c) :=
   trivial
 
 def multiBeing : Being Signal :=
-  Being.ofResonances universalInterdependence
-    [firstResonance, secondResonance] (by simp) (by
-      show
-        universalInterdependence.Chained
-          [Component.singleton firstBeing,
-            Component.singleton firstResponse,
-            Component.singleton secondBeing,
-            Component.singleton secondResponse]
-      exact
-        .cons trivial
-          (.cons consecutiveMiddlesInterdependent
-            (.cons trivial (.single _))))
+  Being.ofMutualDependence
+    (MutualDependence.ofComponents universalInterdependence
+      (Component.singleton a)
+      (Component.singleton b)
+      [Component.singleton c,
+        Component.singleton d] (by
+          exact
+            .cons trivial
+              (.cons consecutiveBeingComponentsInterdependent
+                (.cons trivial (.single _))))) (by
+        intro component hc
+        change component ∈
+          [Component.singleton a,
+            Component.singleton b,
+            Component.singleton c,
+            Component.singleton d] at hc
+        simp only [List.mem_cons, List.not_mem_nil, or_false] at hc
+        rcases hc with rfl | rfl | rfl | rfl <;> exact ⟨_, rfl⟩)
 
 def natPreorderBot : PreorderBot Nat where
   le := (· ≤ ·)

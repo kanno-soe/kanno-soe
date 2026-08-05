@@ -1122,48 +1122,25 @@ theorem MutualDependence.IsResonance.exists_resonance
 /-! ## Being -/
 
 /--
-A nonempty collection of resonances whose singleton middle components form
-one certified mutual dependence.
+A certified mutual dependence all of whose components are singletons.
 -/
 structure Being (D : Type u) where
-  resonances : List (Resonance D)
-  nonempty : resonances ≠ []
   toMutualDependence : MutualDependence D
-  components_eq :
-    toMutualDependence.components =
-      resonances.flatMap Resonance.middleComponents
+  singleton_components :
+    ∀ c ∈ toMutualDependence.components,
+      ∃ d : D, c = Component.singleton d
 
 namespace Being
 
 /--
-Certify a nonempty list of resonances as a being. Each resonance contributes
-its two singleton middle components, and `holds` certifies the resulting
-chain, including the interdependence between every pair of consecutive
-resonances.
+Regard a certified mutual dependence as a being when every one of its
+components is a singleton.
 -/
-def ofResonances {D : Type u}
-    (L : Interdependence D)
-    (resonances : List (Resonance D))
-    (nonempty : resonances ≠ [])
-    (holds :
-      L.Chained
-        (resonances.flatMap Resonance.middleComponents)) :
-    Being D := by
-  cases resonances with
-  | nil => exact (nonempty rfl).elim
-  | cons r rest =>
-      have chain :
-          L.Chained
-            (Component.singleton r.b₁ :: Component.singleton r.b₂ ::
-              rest.flatMap Resonance.middleComponents) := by
-        simpa [Resonance.middleComponents] using holds
-      refine
-        ⟨r :: rest, by simp,
-          MutualDependence.ofComponents L
-            (Component.singleton r.b₁) (Component.singleton r.b₂)
-            (rest.flatMap Resonance.middleComponents) chain, ?_⟩
-      simp [MutualDependence.ofComponents, MutualDependence.components,
-        Resonance.middleComponents]
+def ofMutualDependence {D : Type u} (m : MutualDependence D)
+    (singleton_components :
+      ∀ c ∈ m.components, ∃ d : D, c = Component.singleton d) :
+    Being D :=
+  ⟨m, singleton_components⟩
 
 instance {D : Type u} : Coe (Being D) (MutualDependence D) :=
   ⟨toMutualDependence⟩
