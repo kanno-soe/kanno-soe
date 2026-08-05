@@ -8,19 +8,19 @@ The project implements a deliberately simplified model for discussing Mahayana B
 
 A **designatum** is simply something the model can designate. It does not first divide designata into people, objects, events, thoughts, or times.
 
-A **component** is a nonempty group of designata.
+A **component** is a nonempty group of designata (`{a, b, c, ...}`).
 
 An **elaboration** (⇓ reads as "elaborates to") is a relation saying that a designatum may be expanded into a raw Mutual Dependence; because it is a relation rather than a function, one designatum may have no stated elaboration, one elaboration, or several alternatives.
 
-The basic shape of a Mutual Dependence `m` is a list of at least two components where every adjacent pair are symmetrically interdepending:
+The **raw structure of a Mutual Dependence** `m` is a list of at least two components (C1, ..., Cn) where every adjacent pair are symmetrically interdepending:
 
 ```text
     m ⇓ [C1 ⋈ C2 ⋈ C3 ⋈ ... ⋈ Cn]
 
-    not required: a temporal order, a causal arrow, or direct C1/Cn interdependence
+    not required: a temporal order, a causal arrow, or direct interdependence of non-adjacent components
 ```
 
-as an equation:
+or as an equation:
 ```math
 C_1 \bowtie \cdots \bowtie C_n
 \quad\Longleftrightarrow\quad
@@ -41,7 +41,7 @@ Here the first component of `m` has 3 designata, `ab` which designates (elaborat
 
 A designata **reaches** (`d →* w`) if in zero or more steps of elaboration, `d` can elaborate toward another designatum `w`.
 
-Designata of neighbouring components are **joinable** (↓) if there is a shared designatum `w` that both can reach (it is focused reachability, explanation follows). The shape of the elaborated mutual dependences is considered relevant when elaborating on each side of the neighbouring components. If we consider the first and second components of `m` above, `ab` is in the first component, and we only consider the right side of its shape, `b`, in terms of reach with the neighbouring component to its right, `{e}`. Elaborations of those reached designata may then be followed again. The designata are **joinable** when their reach-trees have some designatum in common:
+Designata of neighbouring components are **joinable** (↓) if there is a shared designatum `w` that both can reach. It's *focused reachability*—the shape of the elaborated mutual dependences is considered relevant when elaborating on each side of the neighbouring components. If we consider the first and second components of `m` above, `ab` is in the first component, and we only consider the right side of its shape, `b`, in terms of reach with the neighbouring component to its right, `{e}`. Elaborations of those reached designata may then be followed again. The designata are **joinable** when their reach-trees have some designatum in common:
 
 ```text
                               +--> p ---->
@@ -55,14 +55,16 @@ Designata of neighbouring components are **joinable** (↓) if there is a shared
     b ↓ e  :=  there is some w reached from both b and e
 ```
 
-as an equation:
+or as an equation:
 ```math
 d \downarrow e
 \quad\Longleftrightarrow\quad
 \exists w.\; d \to^{*} w \leftarrow^{*} e
 ```
 
-This joinability is reflexive and symmetric, but it need not be transitive. An interdependence (⋈) between two components is a stronger requirement than just finding a joinable pair: every designatum in the first component must have a joinable partner in the second, and every designatum in the second must have a joinable partner in the first.
+This joinability is reflexive and symmetric, but it need not be transitive (which means that just because b ↓ e and suppose e ↓ fg, it isn't necessarily true that b ↓ fg).
+
+An **interdependence** (⋈) between two components is a stronger requirement than just finding a joinable pair: every designatum in the first component must have a joinable partner in the second, and every designatum in the second must have a joinable partner in the first.
 
 ```text
     component C                       component D
@@ -78,7 +80,7 @@ This joinability is reflexive and symmetric, but it need not be transitive. An i
     For singleton interdependence, C ⋈ D is true iff c ↓ d
 ```
 
-as an equation (interdependence is the Egli–Milner lifting of joinability):
+or as an equation (interdependence is the Egli–Milner lifting of joinability):
 ```math
 A\;\overline{\downarrow}\;B
 \iff
@@ -92,7 +94,7 @@ A\bowtie B
 A\;\overline{\downarrow}\;B
 ```
 
-The chain may be any finite length. It can be sliced and compatible chains can be catenated, but the word *chain* must not smuggle in time: these arrows display symmetric interdependence, not before and after. Also note that although the examples in this exposition involve linear chains, two chains may include the same component. Taken together then it is really a chain network (net for short), with components having a "valency". An interior component of a chain has valency 2, while a junction in a chain network can have valency >2.
+The interdependence **chain** may be any finite length. It can be sliced and compatible chains can be catenated, but the word *chain* must not smuggle in time: these arrows display symmetric interdependence, not before and after. Also note that although the examples in this exposition involve linear chains, two chains may include the same component. Taken together it is really a chain network, with components having a "valency". An interior component of a chain has valency 2, while a junction in a chain network can have valency >2.
 
 This is the minimal formal structure of **Mutual Dependence** (*sōe*). Throughout, that structure is read as **mujishō-sōe**: mutual dependence without-own-being (*mujishō*), in which neither side supplies a self-standing substrate for the other.
 
