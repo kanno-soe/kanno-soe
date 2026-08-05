@@ -12,10 +12,10 @@ A **component** is a nonempty group of designata (`{a, b, c, ...}`).
 
 An **elaboration** (⇓ reads as "elaborates to") is a relation saying that a designatum may be expanded into a raw Mutual Dependence; because it is a relation rather than a function, one designatum may have no stated elaboration, one elaboration, or several alternatives.
 
-The **raw structure of a Mutual Dependence** `m` is a list of at least two components (C1, ..., Cn) where every adjacent pair are symmetrically interdepending:
+The **raw structure of a Mutual Dependence** `m` is a list of at least two components (C₁, ..., Cₙ) where every adjacent pair are symmetrically interdepending:
 
 ```text
-    m ⇓ [C1 ⋈ C2 ⋈ C3 ⋈ ... ⋈ Cn]
+    m ⇓ [C₁ ⋈ C₂ ⋈ C₃ ⋈ ... ⋈ Cₙ]
 
     not required: a temporal order, a causal arrow, or direct interdependence of non-adjacent components
 ```
@@ -27,7 +27,7 @@ C_1 \bowtie \cdots \bowtie C_n
 \bigwedge_{i=1}^{n-1}(C_i\bowtie C_{i+1})
 ```
 
-The mutual dependence, when considered as a shape, has a left side C1, and a right side Cn.
+The mutual dependence, when considered as a shape, has a left side C₁, and a right side Cₙ.
 
 As components may contain designata, and a designatum may be elaborated to a mutual dependence, the elaborated components can look like:
 
