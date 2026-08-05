@@ -440,7 +440,7 @@ As an equation, this implies joinability for all designata and interdependence f
 ```
 
 `exists_tier_noncollapse` supplies an example of
-a base elaboration with the following shape:
+a base elaboration without joinability, while the lifted prime elaboration has joinability:
 
 ```text
   base:      ¬(a  ↓ b )
