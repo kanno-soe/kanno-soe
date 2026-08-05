@@ -432,7 +432,7 @@ The closed prime has this shape:
 
 As an equation, this implies joinability for all designata and interdependence for all components:
 ```math
-\left(\forall d'\in\mathcal D'.\;d'\to^*\mathsf{web}\right)
+\left(\forall a'\in\mathcal D'.\;a'\to^*\mathsf{web}\right)
 \Longrightarrow
 \left(\forall d',e'\in\mathcal D'.\;d'\downarrow e'\right)
 \Longrightarrow
@@ -469,7 +469,7 @@ from the web back to every member:
 
 As an equation:
 ```math
-\left(\forall d'.\;d'\to^*\mathsf{web} \land \mathsf{web}\to^*d'\right)
+\left(\forall a'.\;a'\to^*\mathsf{web} \land \mathsf{web}\to^*a'\right)
 \Longrightarrow
 \left(\forall d',e'.\;d' \to^* e'\right)
 ```
