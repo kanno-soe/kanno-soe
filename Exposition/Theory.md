@@ -391,7 +391,7 @@ contracted both:  mnop ⇓ [mn ⋈ op]
 ### Expansion and Contraction
 
 If we repeat the process of expansion and contraction indefinitely from any starting position, be it `a` or `z`,
-then at the *limit*, we name a designatum *web* whose elaboration is the totality of interdependence.
+then at the *limit*, we define a *web* whose elaboration is the totality of interdependence.
 
 ```text
   viewed from a:   ⋊ a ⋈ bcde...wxyz ⋉
@@ -511,7 +511,7 @@ Here the labels follow what each directed path makes available:
   each member  ←∗  web (= all)              EACH IN ALL
 ```
 
-In the closed prime, every member directly reaches the web. Since the web designates the
+In the closed prime, every member directly reaches the web. Since the web defines the
 all, this is **all in each**: start from any one member and its elaboration
 implicates the whole (`prime_reaches_web`). The open prime adds the other half,
 **each in all**: the web directly reaches every member
@@ -532,6 +532,6 @@ both target and source.The act-grammar locates Huayan reciprocity in that
 non-conservative tier-change. The formal model proves the boundary and tier noncollapse,
 not their philosophical identification. The two presentations must therefore coexist.
 Importing primed saturation into base diagnosis is collapse; insisting that a
-base separation remain final at the floor is freeze. The web is a designated
+base separation remain final at the floor is freeze. The web is a
 witness for the supplied whole-reading, not an independently existing
 ground underneath the old designata.
