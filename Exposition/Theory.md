@@ -405,8 +405,8 @@ then at the *limit*, we name a designatum *web* whose elaboration is the totalit
 
 What the formalism calls **Prime** is for the designator to designate under the expansive
 understanding above—that to designate `a'` is at the same moment to implicate the full
-web reachable from, and including `a'`. The formal model calls this "closed prime"—the ability to
-start at `a'` and directly reach the web implicated by `a'`. In this prime mode of
+web directly reachable from, and including `a'`. The formal model calls this "closed prime"—the ability to
+start at `a'` and directly without traversal reach the web implicated by `a'`. In this prime mode of
 designating, `a'` "contains" the web. Going the opposite direction, from web to `a'`, is
 very natural as we defined the web in terms of `a'` initially. For analytic purposes,
 the formalism considers that case separately and calls it "open prime", but it is still the
@@ -444,7 +444,7 @@ a base elaboration with the following shape:
 
 ```text
   base:      ¬(a  ↓ b )
-  primed:     (a' ↓ b')       because both reach web
+  primed:     (a' ↓ b')       because both directly reach web
 ```
 
 Priming is a new saturated presentation, not a derivation showing that the
@@ -495,7 +495,7 @@ A recap of the structures as follows:
 ```text
   base elaboration        act-time articulation; local differences remain
   closed prime            every member reaches the common web
-  open prime              members reach web; web reaches every member
+  open prime              members directly reach web; web directly reaches every member
   primed designation      floor-face offer; not a replacement for the base
 ```
 
@@ -512,10 +512,10 @@ Here the labels follow what each directed path makes available:
   each member  ←∗  web (= all)              EACH IN ALL
 ```
 
-In the closed prime, every member reaches the web. Since the web designates the
+In the closed prime, every member directly reaches the web. Since the web designates the
 all, this is **all in each**: start from any one member and its elaboration
 implicates the whole (`prime_reaches_web`). The open prime adds the other half,
-**each in all**: the web reaches every member
+**each in all**: the web directly reaches every member
 (`primeOpen_reaches_from_web`). It therefore supplies both halves as Reaches facts.
 The paths compose, so every primed designatum reaches every
 other one (`primeOpen_reaches_total`):
