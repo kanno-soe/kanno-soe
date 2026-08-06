@@ -2155,6 +2155,15 @@ inductive Causation (D : Type u) (x y : D) : Prop where
   | ofMutualDependence (m : MutualDependence D)
       (mem_c₁ : x ∈ m.c₁) (mem_cₙ : y ∈ m.cₙ)
 
+namespace Causation
+
+theorem symm {D : Type u} {x y : D} (h : Causation D x y) :
+    Causation D y x := by
+  obtain ⟨m, hx, hy⟩ := h
+  exact .ofMutualDependence m.reverse hy hx
+
+end Causation
+
 structure Causal (D : Type u) extends Directed D where
   Causes : D → D → Prop
   causes_before : ∀ {x y : D}, Causes x y → Before x y
