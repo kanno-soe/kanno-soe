@@ -141,7 +141,7 @@ Grading is sentience-neutral. A sentience reading *could* be supplied as additio
 A **Being** is a mutual dependence of singleton-only designata.
 
 ```text
-being ⇓ [{b₁} ⋈ {b₂}  ⋈  {b₃} ⋈ ... ⋈  {bₙ}]
+being ⇓ [{b₁} ⋈ {b₂} ⋈ {b₃} ⋈ ... ⋈ {bₙ}]
 ```
 
 The designata are implied to be *imputed* from (share common elements with) the `b₁` and `b₂` of  resonances. A directed/causal reading (described below) may also be supplied.
