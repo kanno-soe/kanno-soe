@@ -22,13 +22,6 @@ as the witness below shows, but not for `Joinable`.
 `Directed.liftOption DA` separately preserves a supplied direction between
 embedded old designata while leaving `none` outside that direction.  It is an
 optional overlay on the primed carrier, not direction derived by priming.
-
-Finally, `freshSourceExtension` isolates a conservative shape.  Clauses
-sourced at `none` may target arbitrary designata; their targets need no
-restriction.  Conservativity instead relies on every clause sourced at an
-embedded old designatum containing only `some` images, so no old-started path
-can enter `none`.  Allowing `none` in an old-sourced component list — as
-`prime` does — is precisely what can destroy conservativity.
 -/
 
 universe u v
@@ -129,6 +122,8 @@ theorem Joinable.mono {D : Type u} {E E' : Elaboration D}
 /--
 Adjoin `none` as a fresh designatum, lift all old clauses along `some`, and
 add for every old `d` a clause with components `{some d}` and `{none}`.
+The lifted worldly bodies and bracket body are intentionally simultaneous
+alternatives for one source: their plurality is the content, not slack.
 
 Only `components` is constrained.  In particular, the definition neither
 fixes the target's bundled interdependence nor asserts that the target holds.
@@ -287,7 +282,9 @@ theorem prime_reaches_some_iff {D : Type u} (E : Elaboration D) (a b : D) :
 
 /--
 Open the bracket by adding, for each old `d`, a clause from `none` back to
-`some d`.  As with `prime`, only component lists are constrained.
+`some d`. The web intentionally has one two-component body per old designatum;
+this plurality is the hub encoding. As with `prime`, only component lists are
+constrained.
 -/
 def primeOpen {D : Type u} (E : Elaboration D) : Elaboration (Option D) where
   Elab d rawM :=
@@ -370,104 +367,6 @@ theorem prime_joinable_exhausted_on_image {D : Type u} (E : Elaboration D)
       (prime E).Joinable a b :=
   ⟨fun _ => prime_joinable_total E a b,
     fun _ => prime_joinable_total (prime E) (some a) (some b)⟩
-
-/-! ## Conservative fresh-source extension -/
-
-/--
-Lift the old system to `some` and add arbitrary clauses at the fresh source
-`none`.  No restriction is placed on fresh-clause targets.  The load-bearing
-restriction is that lifted old-sourced clauses cannot contain `none`, so the
-fresh clauses remain invisible from old starts.
--/
-def freshSourceExtension {D : Type u} (E : Elaboration D)
-    (fresh : RawMutualDependence (Option D) → Prop) :
-    Elaboration (Option D) where
-  Elab od rawM :=
-    match od with
-    | none => fresh rawM
-    | some d =>
-        ∃ oldM, E.Elab d oldM ∧
-          rawM.components =
-            oldM.components.map (Component.map Option.some)
-
-/-- Old reachability embeds into any fresh-source extension. -/
-theorem Reaches.freshSource {D : Type u} {E : Elaboration D}
-    {fresh : RawMutualDependence (Option D) → Prop} {a b : D}
-    (h : E.Reaches a b) :
-    (freshSourceExtension E fresh).Reaches (some a) (some b) := by
-  induction h with
-  | refl d => exact .refl (some d)
-  | @step d e f rawM c hElab hcomponent hmem _ ih =>
-      let mapped :=
-        rawM.mapComponents Option.some
-          (Interdependence.ofElaboration (freshSourceExtension E fresh))
-      exact Reaches.step (rawM := mapped) (a := c.map Option.some)
-        ⟨rawM, hElab, by simp [mapped]⟩
-        (by
-          rw [RawMutualDependence.components_mapComponents]
-          exact list_mem_map_of_mem hcomponent)
-        (Component.mem_map hmem) ih
-
-private theorem freshSource_reaches_old_aux {D : Type u}
-    {E : Elaboration D}
-    {fresh : RawMutualDependence (Option D) → Prop}
-    {start target : Option D}
-    (h : (freshSourceExtension E fresh).Reaches start target) :
-    ∀ {a : D}, start = some a →
-      ∃ b, target = some b ∧ E.Reaches a b := by
-  induction h with
-  | refl d =>
-      intro a hd
-      exact ⟨a, hd, .refl a⟩
-  | @step d e f rawM c hElab hcomponent hmem _ ih =>
-      intro a hd
-      subst d
-      obtain ⟨oldM, hOld, hcomponents⟩ := hElab
-      rw [hcomponents] at hcomponent
-      obtain ⟨oldC, holdC, hc⟩ := exists_of_list_mem_map hcomponent
-      subst c
-      obtain ⟨e₀, he₀, he⟩ := hmem
-      subst e
-      obtain ⟨b, hfb, hreach⟩ := ih rfl
-      exact ⟨b, hfb, Reaches.step hOld holdC he₀ hreach⟩
-
-/--
-Every path from an embedded old designatum stays in the embedded old domain.
--/
-theorem freshSource_reaches_old {D : Type u} {E : Elaboration D}
-    {fresh : RawMutualDependence (Option D) → Prop}
-    {a : D} {target : Option D}
-    (h : (freshSourceExtension E fresh).Reaches (some a) target) :
-    ∃ b, target = some b ∧ E.Reaches a b :=
-  freshSource_reaches_old_aux h rfl
-
-/-- Fresh-source extension preserves `Reaches` on the old domain exactly. -/
-theorem freshSource_reaches_iff {D : Type u} (E : Elaboration D)
-    (fresh : RawMutualDependence (Option D) → Prop) (a b : D) :
-    (freshSourceExtension E fresh).Reaches (some a) (some b) ↔
-      E.Reaches a b := by
-  constructor
-  · intro h
-    obtain ⟨b', hb', hab'⟩ := freshSource_reaches_old h
-    have hbb : b = b' := Option.some.inj hb'
-    exact hbb ▸ hab'
-  · intro h
-    exact h.freshSource
-
-/-- Fresh-source extension preserves `Joinable` on the old domain exactly. -/
-theorem freshSource_joinable_iff {D : Type u} (E : Elaboration D)
-    (fresh : RawMutualDependence (Option D) → Prop) (a b : D) :
-    (freshSourceExtension E fresh).Joinable (some a) (some b) ↔
-      E.Joinable a b := by
-  constructor
-  · rintro ⟨w, haw, hbw⟩
-    obtain ⟨wa, hwa, ha⟩ := freshSource_reaches_old haw
-    obtain ⟨wb, hwb, hb⟩ := freshSource_reaches_old hbw
-    have hwab : wa = wb := Option.some.inj (hwa.symm.trans hwb)
-    subst wb
-    exact ⟨wa, ha, hb⟩
-  · rintro ⟨w, haw, hbw⟩
-    exact ⟨some w, haw.freshSource, hbw.freshSource⟩
 
 end Elaboration
 

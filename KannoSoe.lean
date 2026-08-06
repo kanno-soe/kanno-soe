@@ -5,21 +5,17 @@ import KannoSoe.Meta
 Root module for the `KannoSoe` library.
 
 Layers:
-* `Signature`: definitions and primitive interfaces.
-* `Consequences`: neutral lemma library, including the error taxonomy.
-* `Doctrines`: discourse-facing checked conditionals with sibling negatives.
-* `Identification`: the naming claim, ownership vocabulary, placements,
-  disclaimers, commentary, and placement-gating results.
-* `Meta`: invariance discipline, sibling countermodels, verdict ledger, and
-  audit.
-* `Exposition`: prose-facing office data, rendering, and prose-surface checks.
+* `Signature.V2`: components, Mutual Dependence, reachability,
+  joinability, interdependence, and certified chains.
+* `Signature.Rules`: finite rule presentations and verified executable
+  decision procedures for the core predicates.
+* `Signature.Interpenetration`: closed- and open-prime presentations.
+* `Meta.Examples`: the finite tea example and executable regression facts.
+* `Meta.ReachabilityExamples`: tests for middle-component reach and reversal
+  invariance.
+* `Meta.InterpenetrationExamples`: base/prime contrast examples.
 
-Placement rules:
-1. Place a declaration by the vocabulary its statement consumes.
-2. Put negative witnesses in the sibling module of the claim they gate.
-3. Preserve the layer DAG: Signature -> Consequences -> Doctrines ->
-   Identification -> Meta -> Exposition.
-4. Explanatory content that exists only to read the code lives in
-   `Exposition`; no grid layer imports `Exposition`; `Exposition` defines no
-   grid vocabulary and proves nothing about the grid.
+`Meta.Audit` is a standalone audit target rather than a root import. The
+philosophical account lives in `Exposition/Theory.md`, outside the Lean module
+graph.
 -/

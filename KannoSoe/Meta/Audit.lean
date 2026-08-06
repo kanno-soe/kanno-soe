@@ -1,9 +1,10 @@
 import Lean
 import KannoSoe.Signature.V2
+import KannoSoe.Signature.Rules
 import KannoSoe.Signature.Interpenetration
 import KannoSoe.Meta.Examples
+import KannoSoe.Meta.ReachabilityExamples
 import KannoSoe.Meta.InterpenetrationExamples
-import KannoSoe.Meta.SegmentExamples
 
 /-!
 # Audit: signature and example modules
@@ -23,12 +24,14 @@ The exact module-level trust boundaries are:
 
 * KannoSoe.Signature.V2: propext and Quot.sound. Quot.sound enters via funext,
   required by Component.ext (extensionality of Component carriers) and the
-  reversal interface equalities; the generated recursion helpers for
-  component-list construction and retained Segment shapes are also expected.
+  reversal interface equalities; the generated recursion helper for
+  component-list construction is also expected.
 * KannoSoe.Signature.Interpenetration: propext.
+* KannoSoe.Signature.Rules: propext and Quot.sound; the generated structural
+  recursion helpers for saturation and chained checking are expected.
 * KannoSoe.Meta.Examples: propext and Quot.sound.
-* KannoSoe.Meta.InterpenetrationExamples: propext.
-* KannoSoe.Meta.SegmentExamples: propext.
+* KannoSoe.Meta.ReachabilityExamples: propext and Quot.sound.
+* KannoSoe.Meta.InterpenetrationExamples: propext and Quot.sound.
 
 In particular, sorry and admit (which elaborate through sorryAx), declared
 axioms, and classical choice are rejected.
@@ -219,24 +222,25 @@ elab "#audit_signature_and_examples" : command => do
       sourcePath := packageDir / "Signature" / "V2.lean"
       allowedAxioms := ["propext", "Quot.sound"]
       expectedPartials :=
-        ["RawMutualDependence.ofComponents._unsafe_rec",
-          "Segment.Shape.Holds._unsafe_rec",
-          "Segment.Shape.left._unsafe_rec",
-          "Segment.Shape.reverse._unsafe_rec",
-          "Segment.Shape.right._unsafe_rec",
-          "Segment.Shape.sourceComponents._unsafe_rec"] },
+        ["RawMutualDependence.ofComponents._unsafe_rec"] },
     { moduleName := "KannoSoe.Signature.Interpenetration"
       sourcePath := packageDir / "Signature" / "Interpenetration.lean"
       allowedAxioms := ["propext"] },
+    { moduleName := "KannoSoe.Signature.Rules"
+      sourcePath := packageDir / "Signature" / "Rules.lean"
+      allowedAxioms := ["propext", "Quot.sound"]
+      expectedPartials :=
+        ["Elaboration.Rules.chainedB._unsafe_rec",
+          "Elaboration.Rules.saturate._unsafe_rec"] },
     { moduleName := "KannoSoe.Meta.Examples"
       sourcePath := auditDir / "Examples.lean"
       allowedAxioms := ["propext", "Quot.sound"] },
+    { moduleName := "KannoSoe.Meta.ReachabilityExamples"
+      sourcePath := auditDir / "ReachabilityExamples.lean"
+      allowedAxioms := ["propext", "Quot.sound"] },
     { moduleName := "KannoSoe.Meta.InterpenetrationExamples"
       sourcePath := auditDir / "InterpenetrationExamples.lean"
-      allowedAxioms := ["propext"] },
-    { moduleName := "KannoSoe.Meta.SegmentExamples"
-      sourcePath := auditDir / "SegmentExamples.lean"
-      allowedAxioms := ["propext"] }
+      allowedAxioms := ["propext", "Quot.sound"] }
   ]
 
   for config in configs do

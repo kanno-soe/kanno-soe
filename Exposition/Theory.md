@@ -10,7 +10,7 @@ A **designatum** is simply something the model can designate. It does not first 
 
 A **component** is a nonempty group of designata (`{a, b, c, ...}`).
 
-An **elaboration** (⇓ reads as "elaborates to") is a relation saying that a designatum may be expanded into a raw Mutual Dependence; because it is a relation rather than a function, one designatum may have no stated elaboration, one elaboration, or several alternatives.
+An **elaboration** (⇓ reads as "elaborates to") is a relation saying that a designatum may be expanded into a raw Mutual Dependence; because it is a relation rather than a function, one designatum may have no stated elaboration, one elaboration, or several alternatives. Alternatives are simultaneously available dependence-explanations rather than mutually exclusive outcomes.
 
 The **raw structure of a Mutual Dependence** `m` is a list of at least two components (C₁, ..., Cₙ) where every adjacent pair are symmetrically interdepending (⋈):
 
@@ -37,7 +37,7 @@ As components may contain designata, and a designatum may be elaborated to a mut
 
 Here the first component of `m` has 3 designata, `ab` which designates (elaborates to) a mutual dependence `[a ⋈ b]`, and `c`, and `d`, which each are designata without defined elaboration.
 
-A designata **reaches** (`d →* w`) if in zero or more steps of elaboration, `d` can elaborate toward another designatum `w`.
+A designatum `d` **reaches** another designatum `w` (`d →* w`) if it can get there in zero or more steps of elaboration. Every designatum reaches itself. If `d` elaborates to `[C₁ ⋈ ... ⋈ Cₙ]`, one step may enter any designatum in any component.
 
 Designata of neighbouring components are **joinable** (↓) if there is a shared designatum `w` that both can reach. Elaborations of reached designata may be followed again. The designata are **joinable** when their reach-trees have some designatum in common:
 

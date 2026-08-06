@@ -20,38 +20,11 @@ abbrev PrimedGalacticTeaDesignatum := Option GalacticTeaDesignatum
 def primedTeaElaboration : Elaboration PrimedGalacticTeaDesignatum :=
   Elaboration.prime teaElaboration
 
-/-- A designatum with no elaboration clause can reach only itself. -/
-private theorem tea_reaches_eq_of_no_elaboration
-    {d w : GalacticTeaDesignatum}
-    (hnone : ∀ rawM, ¬ teaElaboration.Elab d rawM)
-    (h : teaElaboration.Reaches d w) : w = d := by
-  cases h with
-  | refl _ => rfl
-  | step hElab _ _ _ => exact (hnone _ hElab).elim
-
-/-- Two distinct terminal designata are not joinable in the base elaboration. -/
-private theorem tea_not_joinable_of_no_elaboration
-    {a b : GalacticTeaDesignatum}
-    (ha : ∀ rawM, ¬ teaElaboration.Elab a rawM)
-    (hb : ∀ rawM, ¬ teaElaboration.Elab b rawM)
-    (hne : a ≠ b) : ¬ teaElaboration.Joinable a b := by
-  rintro ⟨w, haw, hbw⟩
-  apply hne
-  exact
-    (tea_reaches_eq_of_no_elaboration ha haw).symm.trans
-      (tea_reaches_eq_of_no_elaboration hb hbw)
-
 /-- The terminal tea-drinking results are not joinable in the base system. -/
 theorem tea_drinkingResults_not_joinable :
     ¬ teaElaboration.Joinable
       GalacticTeaDesignatum.meDrinkingTeaOnEarth
-      GalacticTeaDesignatum.someoneDrinkingTeaOnVesper := by
-  apply tea_not_joinable_of_no_elaboration
-  · intro rawM
-    simp [teaElaboration]
-  · intro rawM
-    simp [teaElaboration]
-  · simp
+      GalacticTeaDesignatum.someoneDrinkingTeaOnVesper := by decide
 
 /--
 Priming makes the previously non-joinable terminal tea-drinking results
@@ -67,13 +40,7 @@ theorem primedTea_drinkingResults_joinable :
 theorem tea_moreEarth_moreVesper_not_joinable :
     ¬ teaElaboration.Joinable
       GalacticTeaDesignatum.moreEarth
-      GalacticTeaDesignatum.moreVesper := by
-  apply tea_not_joinable_of_no_elaboration
-  · intro rawM
-    simp [teaElaboration]
-  · intro rawM
-    simp [teaElaboration]
-  · simp
+      GalacticTeaDesignatum.moreVesper := by decide
 
 /--
 Priming makes the previously non-joinable terminal branch residues joinable.

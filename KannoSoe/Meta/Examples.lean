@@ -1,4 +1,4 @@
-import KannoSoe.Signature.V2
+import KannoSoe.Signature.Rules
 
 /-!
 # Signature examples
@@ -141,19 +141,19 @@ inductive GalacticTeaDesignatum where
 
 open GalacticTeaDesignatum
 
-def bigBang : Component GalacticTeaDesignatum :=
+abbrev bigBang : Component GalacticTeaDesignatum :=
   Component.singleton GalacticTeaDesignatum.bigBang
 
-def earth : Component GalacticTeaDesignatum :=
+abbrev earth : Component GalacticTeaDesignatum :=
   Component.singleton GalacticTeaDesignatum.earth
 
-def vesper : Component GalacticTeaDesignatum :=
+abbrev vesper : Component GalacticTeaDesignatum :=
   Component.singleton GalacticTeaDesignatum.vesper
 
-def meDrinkingTea : Component GalacticTeaDesignatum :=
+abbrev meDrinkingTea : Component GalacticTeaDesignatum :=
   Component.singleton GalacticTeaDesignatum.meDrinkingTea
 
-def someoneDrinkingTea : Component GalacticTeaDesignatum :=
+abbrev someoneDrinkingTea : Component GalacticTeaDesignatum :=
   Component.singleton GalacticTeaDesignatum.someoneDrinkingTea
 
 theorem bigBang_designatum_mem :
@@ -168,170 +168,71 @@ theorem someoneDrinkingTea_designatum_mem :
     GalacticTeaDesignatum.someoneDrinkingTea ∈ someoneDrinkingTea := by
   simp [someoneDrinkingTea]
 
-def teaElaboration : Elaboration GalacticTeaDesignatum where
-  Elab d rawM :=
-    (d = GalacticTeaDesignatum.bigBang ∧
-        rawM.components =
-          [Component.singleton bigBangProducingVesper,
-            Component.singleton moreBigBang,
-            Component.singleton bigBangProducingEarth]) ∨
-      (d = GalacticTeaDesignatum.earth ∧
-        rawM.components =
-          [Component.singleton bigBangProducingEarth,
-            Component.singleton moreEarth,
-            Component.singleton meOnEarth]) ∨
-      (d = GalacticTeaDesignatum.vesper ∧
-        rawM.components =
-          [Component.singleton bigBangProducingVesper,
-            Component.singleton moreVesper,
-            Component.singleton someoneOnVesper]) ∨
-      (d = GalacticTeaDesignatum.meDrinkingTea ∧
-        rawM.components =
-          [Component.singleton meOnEarth,
-            Component.singleton meDrinkingTeaOnEarth]) ∨
-      (d = GalacticTeaDesignatum.someoneDrinkingTea ∧
-        rawM.components =
-          [Component.singleton someoneOnVesper,
-            Component.singleton someoneDrinkingTeaOnVesper])
-
-def bigBangElaborationTarget :
-    RawMutualDependence GalacticTeaDesignatum :=
-  RawMutualDependence.triple teaElaboration
-    (Component.singleton bigBangProducingVesper)
-    (Component.singleton moreBigBang)
-    (Component.singleton bigBangProducingEarth)
-
-def earthElaborationTarget : RawMutualDependence GalacticTeaDesignatum :=
-  RawMutualDependence.triple teaElaboration
-    (Component.singleton bigBangProducingEarth)
-    (Component.singleton moreEarth)
-    (Component.singleton meOnEarth)
-
-def vesperElaborationTarget : RawMutualDependence GalacticTeaDesignatum :=
-  RawMutualDependence.triple teaElaboration
-    (Component.singleton bigBangProducingVesper)
-    (Component.singleton moreVesper)
-    (Component.singleton someoneOnVesper)
-
-def meDrinkingTeaElaborationTarget :
-    RawMutualDependence GalacticTeaDesignatum :=
-  RawMutualDependence.pair teaElaboration
-    (Component.singleton meOnEarth)
-    (Component.singleton meDrinkingTeaOnEarth)
-
-def someoneDrinkingTeaElaborationTarget :
-    RawMutualDependence GalacticTeaDesignatum :=
-  RawMutualDependence.pair teaElaboration
-    (Component.singleton someoneOnVesper)
-    (Component.singleton someoneDrinkingTeaOnVesper)
-
-theorem bigBang_elaborates :
-    teaElaboration.Elab
-      GalacticTeaDesignatum.bigBang bigBangElaborationTarget := by
-  simp [teaElaboration, bigBangElaborationTarget]
-
-theorem earth_elaborates :
-    teaElaboration.Elab
-      GalacticTeaDesignatum.earth earthElaborationTarget := by
-  simp [teaElaboration, earthElaborationTarget]
-
-theorem vesper_elaborates :
-    teaElaboration.Elab
-      GalacticTeaDesignatum.vesper vesperElaborationTarget := by
-  simp [teaElaboration, vesperElaborationTarget]
-
-theorem meDrinkingTea_elaborates :
-    teaElaboration.Elab GalacticTeaDesignatum.meDrinkingTea
-      meDrinkingTeaElaborationTarget := by
-  simp [teaElaboration, meDrinkingTeaElaborationTarget]
-
-theorem someoneDrinkingTea_elaborates :
-    teaElaboration.Elab GalacticTeaDesignatum.someoneDrinkingTea
-      someoneDrinkingTeaElaborationTarget := by
-  simp [teaElaboration, someoneDrinkingTeaElaborationTarget]
+/-- The galactic-tea clauses as a finite elaboration-rule presentation. -/
+abbrev teaElaboration : Elaboration GalacticTeaDesignatum :=
+  Elaboration.ofRules [
+    { source := GalacticTeaDesignatum.bigBang
+      components :=
+        [[bigBangProducingVesper], [moreBigBang], [bigBangProducingEarth]] },
+    { source := GalacticTeaDesignatum.earth
+      components :=
+        [[bigBangProducingEarth], [moreEarth], [meOnEarth]] },
+    { source := GalacticTeaDesignatum.vesper
+      components :=
+        [[bigBangProducingVesper], [moreVesper], [someoneOnVesper]] },
+    { source := GalacticTeaDesignatum.meDrinkingTea
+      components := [[meOnEarth], [meDrinkingTeaOnEarth]] },
+    { source := GalacticTeaDesignatum.someoneDrinkingTea
+      components := [[someoneOnVesper], [someoneDrinkingTeaOnVesper]] }
+  ]
 
 theorem bigBang_vesper_joinable :
     teaElaboration.Joinable
-      GalacticTeaDesignatum.bigBang GalacticTeaDesignatum.vesper :=
-  ⟨bigBangProducingVesper,
-    Elaboration.Reaches.single bigBang_elaborates
-      (rawM := bigBangElaborationTarget)
-      (a := Component.singleton bigBangProducingVesper)
-      (by simp [bigBangElaborationTarget]) (by simp),
-    Elaboration.Reaches.single vesper_elaborates
-      (rawM := vesperElaborationTarget)
-      (a := Component.singleton bigBangProducingVesper)
-      (by simp [vesperElaborationTarget]) (by simp)⟩
+      GalacticTeaDesignatum.bigBang GalacticTeaDesignatum.vesper := by
+  decide
 
 theorem earth_bigBang_joinable :
     teaElaboration.Joinable
-      GalacticTeaDesignatum.earth GalacticTeaDesignatum.bigBang :=
-  ⟨bigBangProducingEarth,
-    Elaboration.Reaches.single earth_elaborates
-      (rawM := earthElaborationTarget)
-      (a := Component.singleton bigBangProducingEarth)
-      (by simp [earthElaborationTarget]) (by simp),
-    Elaboration.Reaches.single bigBang_elaborates
-      (rawM := bigBangElaborationTarget)
-      (a := Component.singleton bigBangProducingEarth)
-      (by simp [bigBangElaborationTarget]) (by simp)⟩
+      GalacticTeaDesignatum.earth GalacticTeaDesignatum.bigBang := by
+  decide
 
 theorem vesper_someoneDrinkingTea_joinable :
     teaElaboration.Joinable
       GalacticTeaDesignatum.vesper
-        GalacticTeaDesignatum.someoneDrinkingTea :=
-  ⟨someoneOnVesper,
-    Elaboration.Reaches.single vesper_elaborates
-      (rawM := vesperElaborationTarget)
-      (a := Component.singleton someoneOnVesper)
-      (by simp [vesperElaborationTarget]) (by simp),
-    Elaboration.Reaches.single someoneDrinkingTea_elaborates
-      (rawM := someoneDrinkingTeaElaborationTarget)
-      (a := Component.singleton someoneOnVesper)
-      (by simp [someoneDrinkingTeaElaborationTarget]) (by simp)⟩
+        GalacticTeaDesignatum.someoneDrinkingTea := by
+  decide
 
 theorem meDrinkingTea_earth_joinable :
     teaElaboration.Joinable
-      GalacticTeaDesignatum.meDrinkingTea GalacticTeaDesignatum.earth :=
-  ⟨meOnEarth,
-    Elaboration.Reaches.single meDrinkingTea_elaborates
-      (rawM := meDrinkingTeaElaborationTarget)
-      (a := Component.singleton meOnEarth)
-      (by simp [meDrinkingTeaElaborationTarget]) (by simp),
-    Elaboration.Reaches.single earth_elaborates
-      (rawM := earthElaborationTarget)
-      (a := Component.singleton meOnEarth)
-      (by simp [earthElaborationTarget]) (by simp)⟩
-
-attribute [local simp] Elaboration.Joinable.refl
-  bigBang_vesper_joinable earth_bigBang_joinable
-  vesper_someoneDrinkingTea_joinable meDrinkingTea_earth_joinable
+      GalacticTeaDesignatum.meDrinkingTea GalacticTeaDesignatum.earth := by
+  decide
 
 theorem bigBang_vesper_interdependent :
-    teaElaboration.Interdependent bigBang vesper := by
-  simp [Elaboration.Interdependent, bigBang, vesper]
+    teaElaboration.Interdependent bigBang vesper := by decide
 
 theorem earth_bigBang_interdependent :
-    teaElaboration.Interdependent earth bigBang := by
-  simp [Elaboration.Interdependent, earth, bigBang]
+    teaElaboration.Interdependent earth bigBang := by decide
 
 theorem vesper_someoneDrinkingTea_interdependent :
-    teaElaboration.Interdependent vesper someoneDrinkingTea := by
-  simp [Elaboration.Interdependent, vesper, someoneDrinkingTea]
+    teaElaboration.Interdependent vesper someoneDrinkingTea := by decide
 
 theorem meDrinkingTea_earth_interdependent :
-    teaElaboration.Interdependent meDrinkingTea earth := by
-  simp [Elaboration.Interdependent, meDrinkingTea, earth]
+    teaElaboration.Interdependent meDrinkingTea earth := by decide
+
+/-- The displayed component chain certified by the tea example. -/
+abbrev galacticTeaChain : ElabRule GalacticTeaDesignatum :=
+  { source := GalacticTeaDesignatum.meDrinkingTea
+    components :=
+      [[GalacticTeaDesignatum.meDrinkingTea],
+        [GalacticTeaDesignatum.earth],
+        [GalacticTeaDesignatum.bigBang],
+        [GalacticTeaDesignatum.vesper],
+        [GalacticTeaDesignatum.someoneDrinkingTea]] }
 
 def galacticTeaDependence : MutualDependence GalacticTeaDesignatum where
-  toRaw :=
-    ⟨teaElaboration, meDrinkingTea, [earth, bigBang, vesper],
-      someoneDrinkingTea⟩
-  holds :=
-    .cons meDrinkingTea_earth_interdependent
-      (.cons earth_bigBang_interdependent
-        (.cons bigBang_vesper_interdependent
-          (.cons vesper_someoneDrinkingTea_interdependent (.single _))))
+  toRaw := galacticTeaChain.toRaw
+    (Interdependence.ofElaboration teaElaboration)
+  holds := by decide
 
 theorem galacticTeaDependence_components :
     galacticTeaDependence.components =
