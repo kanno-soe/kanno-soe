@@ -12,7 +12,7 @@ A **component** is a nonempty group of designata (`{a, b, c, ...}`).
 
 An **elaboration** (⇓ reads as "elaborates to") is a relation saying that a designatum may be expanded into a raw Mutual Dependence; because it is a relation rather than a function, one designatum may have no stated elaboration, one elaboration, or several alternatives.
 
-The **raw structure of a Mutual Dependence** `m` is a list of at least two components (C₁, ..., Cₙ) where every adjacent pair are symmetrically interdepending:
+The **raw structure of a Mutual Dependence** `m` is a list of at least two components (C₁, ..., Cₙ) where every adjacent pair are symmetrically interdepending (⋈):
 
 ```text
     m ⇓ [C₁ ⋈ C₂ ⋈ C₃ ⋈ ... ⋈ Cₙ]
@@ -27,8 +27,6 @@ C_1 \bowtie \cdots \bowtie C_n
 \bigwedge_{i=1}^{n-1}(C_i\bowtie C_{i+1})
 ```
 
-The mutual dependence, when considered as a shape, has a left side C₁, and a right side Cₙ.
-
 As components may contain designata, and a designatum may be elaborated to a mutual dependence, the elaborated components can look like:
 
 ```text
@@ -41,7 +39,7 @@ Here the first component of `m` has 3 designata, `ab` which designates (elaborat
 
 A designata **reaches** (`d →* w`) if in zero or more steps of elaboration, `d` can elaborate toward another designatum `w`.
 
-Designata of neighbouring components are **joinable** (↓) if there is a shared designatum `w` that both can reach. It's *focused reachability*—the shape of the elaborated mutual dependences is considered relevant when elaborating on each side of the neighbouring components. If we consider the first and second components of `m` above, `ab` is in the first component, and we only consider the right side of its shape, `b`, in terms of reach with the neighbouring component to its right, `{e}`. Elaborations of those reached designata may then be followed again. The designata are **joinable** when their reach-trees have some designatum in common:
+Designata of neighbouring components are **joinable** (↓) if there is a shared designatum `w` that both can reach. Elaborations of reached designata may be followed again. The designata are **joinable** when their reach-trees have some designatum in common:
 
 ```text
                               +--> p ---->
@@ -160,7 +158,7 @@ That certificate is itself just another Mutual Dependence in a precise and limit
     causal assertion:          x ↝ y
 
     x ↝ y  =>  x ≺ y
-    x ↝ y  =>  a Mutual Dependence with `x` in the left and `y` in the right of its shape
+    x ↝ y  =>  a Mutual Dependence with `x` at one end and `y` at the other
 ```
 
 Because `Before` is strict, causal direction is asymmetric:
