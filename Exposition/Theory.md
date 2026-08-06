@@ -176,8 +176,7 @@ That certificate is itself just another Mutual Dependence in a precise and limit
     x ↝ y  =>  a Mutual Dependence with `x` at one end and `y` at the other
 ```
 
-Because Before is strict, causal direction is asymmetric:
-`Causal.causes_asymm` rules out `y ↝ x` whenever `x ↝ y`.
+Because Before is strict, causal direction is asymmetric: `x ↝ y` rules out `y ↝ x`.
 
 Forgetting the causal and temporal overlays leaves the underlying Mutual Dependence; adding the overlays is additional data. Therefore this does not say that every Mutual Dependence is causal, that symmetric interdependence secretly points from cause to effect, or that every Directed fact is causal. Causation as another Mutual Dependence names the certified dependence-skeleton of a causal claim, not a reduction of causality to symmetry.
 
