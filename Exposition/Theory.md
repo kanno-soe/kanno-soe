@@ -419,6 +419,8 @@ then at the *limit*, we define a *web* whose elaboration is the totality of inte
 
 The very concept of expansion and contraction is part of how the web is defined.
 
+Here the single-brace display describes the web’s total scope, not one many-component elaboration body; the open-prime construction below realizes it as a hub of pairwise alternatives.
+
 ### The common web
 
 What the formalism calls **Prime** is for the designator to designate under the expansive
@@ -432,12 +434,23 @@ straightforward fact that having defined the web from `a'`, the web "contains" `
 These modes are interpreted as **all in each** and **each in all**, respectively.
 
 Formally, `prime E` embeds every old `d` as `some d`, written as `d'`,
-and uses value `none` as the web. It retains every lifted base clause and
-adds a clause from each embedded old point to itself and the web.
+and uses value `none` as the web. Every base elaboration is automatically lifted to prime:
 
-Neither `prime` nor `primeOpen` supplies a Directed or Causal
-interpretation. Unless stated otherwise, the arrows in this section denote
-Reaches, not Before or Causes.
+```math
+d \Downarrow_E [C_1 \bowtie \cdots \bowtie C_n]
+\;\Longrightarrow\;
+d' \Downarrow_{\operatorname{prime}(E)}
+  [C_1' \bowtie \cdots \bowtie C_n']
+```
+
+```math
+C_i'=\{x'\mid x\in C_i\}
+```
+
+So, for every base clause
+`d ⇓ [C₁ ⋈ … ⋈ Cₙ]`, the closed prime has
+`d′ ⇓ [C₁′ ⋈ … ⋈ Cₙ′]` (lifted base clause)
+where each `Cᵢ′` is obtained by priming every designatum in `Cᵢ`.
 
 The closed prime has this shape:
 
@@ -448,7 +461,7 @@ The closed prime has this shape:
                               web still Reaches itself by reflexivity
 ```
 
-As an equation, this implies joinability for all designata and interdependence for all components:
+This then implies joinability for all prime designata, and interdependence for all prime components:
 ```math
 \left(\forall a'\in\mathcal D'.\;a'\to^*\mathsf{web}\right)
 \Longrightarrow
@@ -457,25 +470,45 @@ As an equation, this implies joinability for all designata and interdependence f
 \left(\forall A',B'\subseteq\mathcal D'.\;A'\bowtie B'\right)
 ```
 
-`exists_tier_noncollapse` supplies an example of
-a base elaboration without joinability, while the lifted prime elaboration has joinability:
+Reachability also gives interdependence with web. By symmetry, both of the interdependence orderings are equivalent:
 
-```text
-  base:      ¬(a  ↓ b )
-  primed:     (a' ↓ b')       because both directly reach web
+```math
+\left(
+\forall a'\in\mathcal D'.\;
+a'\to^*\mathsf{web}
+\right)
+\Longrightarrow
+\left(
+\forall d'\in\mathcal D'.\;
+\{d'\}\bowtie\{\mathsf{web}\}
+\right)
 ```
 
-Priming is a new saturated presentation, not a derivation showing that the
-base relation was already total.
+```math
+\{d'\}\bowtie\{\mathsf{web}\}
+\quad\Longleftrightarrow\quad
+\{\mathsf{web}\}\bowtie\{d'\}.
+```
 
-Direction, when wanted, is carried separately. `Directed.liftOption DA`
-agrees with `DA.Before` between `some` images and makes every Before claim
-involving `none` false (the web isn't "before" designata and designata aren't "before" the web).
-It therefore preserves base direction without treating
-the web as a first or last moment; this is a chosen overlay, not a consequence
-of priming.
+The two prime constructions realize the interdependence as a direct elaboration clause. For every $d\in\mathcal D$:
 
-The open prime retains all closed-prime clauses and adds the missing clauses
+Prime closed — all in each:
+
+```math
+d'
+\Downarrow_{\operatorname{prime}(E)}
+[\{d'\}\bowtie\{\mathsf{web}\}]
+```
+
+Prime open — each in all:
+
+```math
+\mathsf{web}
+\Downarrow_{\operatorname{primeOpen}(E)}
+[\{\mathsf{web}\}\bowtie\{d'\}]
+```
+
+The open prime retains all closed-prime clauses and adds the clauses
 from the web back to every member:
 
 ```text
@@ -506,9 +539,16 @@ invisible to Joinable, which was already total in the closed prime
     a' ↓ b'                 always             always
 ```
 
+Direction, when wanted, is carried separately. `Directed.liftOption DA`
+agrees with `DA.Before` between `some` images and makes every Before claim
+involving `none` false (the web isn't "before" designata and designata aren't "before" the web).
+It therefore preserves base direction without treating
+the web as a first or last moment; this is a chosen overlay, not a consequence
+of priming.
+
 ### Supplied philosophical reading
 
-A recap of the structures as follows:
+A recap of the structures:
 
 ```text
   base elaboration        act-time articulation; local differences remain
@@ -516,8 +556,6 @@ A recap of the structures as follows:
   open prime              members directly reach web; web directly reaches every member
   primed designation      floor-face offer; not a replacement for the base
 ```
-
-Here the labels follow what each directed path makes available:
 
 ```text
   CLOSED PRIME
@@ -532,11 +570,10 @@ Here the labels follow what each directed path makes available:
 
 In the closed prime, every member directly reaches the web. Since the web defines the
 all, this is **all in each**: start from any one member and its elaboration
-implicates the whole (`prime_reaches_web`). The open prime adds the other half,
-**each in all**: the web directly reaches every member
-(`primeOpen_reaches_from_web`). It therefore supplies both halves as Reaches facts.
+implicates the whole. The open prime adds the other half,
+**each in all**: the web directly reaches every member. It therefore supplies both halves as Reaches facts.
 The paths compose, so every primed designatum reaches every
-other one (`primeOpen_reaches_total`):
+other one:
 
 ```text
   any a'  →∗  web  →∗  any b'
