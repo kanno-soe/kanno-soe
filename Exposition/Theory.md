@@ -470,13 +470,15 @@ This then implies joinability for all prime designata, and interdependence for a
 \left(\forall A',B'\subseteq\mathcal D'.\;A'\bowtie B'\right)
 ```
 
-Reachability also gives interdependence with web. By symmetry, both of the interdependence orderings are equivalent:
+Reachability also gives interdependence with web:
 
 ```math
 \left(
 \forall a'\in\mathcal D'.\;
 a'\to^*\mathsf{web}
 \right)
+\Longrightarrow
+\left(\forall d'\in\mathcal D'.\;d'\downarrow \mathsf{web}\right)
 \Longrightarrow
 \left(
 \forall d'\in\mathcal D'.\;
