@@ -440,7 +440,6 @@ theorem ext {D : Type u} {a b : MutualDependence D}
   cases h
   rfl
 
-/-- Reverse a certified dependence together with its holding proof. -/
 def reverse {D : Type u} (m : MutualDependence D) : MutualDependence D :=
   ⟨m.toRaw.reverse, m.holds.reverse⟩
 

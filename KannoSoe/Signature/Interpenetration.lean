@@ -311,13 +311,11 @@ theorem primeOpen_reaches_from_web {D : Type u} (E : Elaboration D)
         (a := Component.singleton (some d))
         (Or.inr ⟨rfl, d, by simp [rawM]⟩) (by simp [rawM]) (by simp)
 
-/-- `Reaches` is total in the open prime. -/
 theorem primeOpen_reaches_total {D : Type u} (E : Elaboration D)
     (a b : Option D) : (primeOpen E).Reaches a b :=
   (prime_reaches_web E a).mono (prime_le_primeOpen E) |>.trans
     (primeOpen_reaches_from_web E b)
 
-/-- `Joinable` is total in the open prime as well. -/
 theorem primeOpen_joinable_total {D : Type u} (E : Elaboration D)
     (a b : Option D) : (primeOpen E).Joinable a b :=
   (primeOpen_reaches_total E a b).joinable
@@ -406,13 +404,11 @@ def liftOption {D : Type u} (DA : Directed D) : Directed (Option D) where
     (liftOption DA).Before (some x) (some y) ↔ DA.Before x y :=
   Iff.rfl
 
-/-- No designatum precedes `none` in the conservative lift. -/
 @[simp] theorem liftOption_not_before_none {D : Type u}
     (DA : Directed D) (x : Option D) :
     ¬ (liftOption DA).Before x none := by
   cases x <;> exact fun h => h
 
-/-- `none` precedes no designatum in the conservative lift. -/
 @[simp] theorem liftOption_not_none_before {D : Type u}
     (DA : Directed D) (y : Option D) :
     ¬ (liftOption DA).Before none y := by

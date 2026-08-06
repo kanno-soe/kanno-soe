@@ -51,11 +51,9 @@ theorem components_ne_nil {D : Type u} (rule : ElabRule D) :
   have htwo := rule.two_le
   simp [h] at htwo
 
-/-- The first component list of a rule. -/
 def first {D : Type u} (rule : ElabRule D) : List D :=
   rule.components.head rule.components_ne_nil
 
-/-- The last component list of a rule. -/
 def last {D : Type u} (rule : ElabRule D) : List D :=
   rule.components.getLast rule.components_ne_nil
 
