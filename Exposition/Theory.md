@@ -527,10 +527,9 @@ As an equation:
 \left(\forall d',e'.\;d' \to^* e'\right)
 ```
 
-With this, Reaches itself is total (`primeOpen_reaches_total`). Opening can genuinely
-change reachability (`exists_prime_open_reaches_distinction`), although it is
-invisible to Joinable, which was already total in the closed prime
-(`primeOpen_joinable_iff_prime`).
+With this, Reaches itself is total. Opening can genuinely
+change reachability, although it is
+invisible to Joinable, which was already total in the closed prime.
 
 ```text
                           CLOSED PRIME        OPEN PRIME
