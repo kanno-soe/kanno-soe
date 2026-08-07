@@ -384,10 +384,10 @@ The taxonomy is not a map of places on a path. Immunity is checked per productio
 A mutual dependence may be extended in either direction:
 
 ```text
-initial:           no  ⇓       [{n} ⋈ {o}]
-extended left:    mno  ⇓ [{m} ⋈ {n} ⋈ {o}]
-extended right:    nop ⇓       [{n} ⋈ {o} ⋈ {p}]
-extended both:    mnop ⇓ [{m} ⋈ {n} ⋈ {o} ⋈ {p}]
+initial:           no   ⇓       [{n} ⋈ {o}]
+extended left:    mno   ⇓ [{m} ⋈ {n} ⋈ {o}]
+extended right:    nopq ⇓       [{n} ⋈ {o} ⋈ {p, q}]
+extended both:    mnopq ⇓ [{m} ⋈ {n} ⋈ {o} ⋈ {p, q}]
 ```
 
 This follows from the supplied philosophical reading. We say that n *implicates* m and o *implicates* p.
@@ -397,12 +397,12 @@ This follows from the supplied philosophical reading. We say that n *implicates*
 A mutual dependence may be contracted, by replacing interdependence with designation:
 
 ```text
-extended both:    mnop  ⇓ [{m} ⋈ {n} ⋈ {o} ⋈ {p}]
+extended both:    mnopq ⇓ [{m} ⋈ {n} ⋈ {o} ⋈ {p, q}]
 contracted left:  mn    ⇓ [{m} ⋈ {n}]
-                  mnop  ⇓ [{mn} ⋈ {o} ⋈ {p}]
+                  mnopq ⇓ [{mn} ⋈ {o} ⋈ {p, q}]
 contracted right:   opq ⇓              [{o} ⋈ {p, q}]
-                  mnop  ⇓ [{m} ⋈ {n} ⋈ {opq}]
-contracted both:  mnop  ⇓ [{mn} ⋈ {opq}]
+                  mnopq ⇓ [{m} ⋈ {n} ⋈ {opq}]
+contracted both:  mnopq ⇓ [{mn} ⋈ {opq}]
 ```
 
 ### Extension and Contraction
