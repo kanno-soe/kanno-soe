@@ -30,8 +30,8 @@ C_1 \bowtie \cdots \bowtie C_n
 As components may contain designata, and a designatum may be elaborated to a mutual dependence, the elaborated components can look like:
 
 ```text
-  ab ⇓ [a ⋈ b]
-  fg ⇓ [f ⋈ g]
+  ab ⇓ [{a} ⋈ {b}]
+  fg ⇓ [{f} ⋈ {g}]
   m  ⇓ [{ab, c, d} ⋈ {e} ⋈ {fg} ⋈ {h}]
 ```
 
@@ -419,6 +419,24 @@ then at the *limit*, we define a *web* whose elaboration is the totality of inte
 The very concept of expansion and contraction is part of how the web is defined.
 
 Here the single-brace display describes the web’s total scope, not one many-component elaboration body; the open-prime construction below realizes it as a hub of pairwise alternatives.
+
+### Investigation
+
+Additionally, looking within `a` reveals the story of the totality contained by `a`:
+
+```text
+a ⇓ [{a} ⋈ {c}] a ⇓ [{a} ⋈ {h}]
+
+c ⇓ [{c} ⋈ {e}] c ⇓ [{c} ⋈ {j}] h ⇓ [{h} ⋈ {j}] h ⇓ [{h} ⋈ {o}]
+
+e ⇓ [{e} ⋈ {g}] e ⇓ [{e} ⋈ {l}] j ⇓ [{j} ⋈ {l}] j ⇓ [{j} ⋈ {q}] j ⇓ [{j} ⋈ {l}] j ⇓ [{j} ⋈ {q}] o ⇓ [{o} ⋈ {q}] o ⇓ [{o} ⋈ {v}]
+
+g ⇓ [{g} ⋈ {i}] g ⇓ [{g} ⋈ {n}] l ⇓ [{l} ⋈ {n}] l ⇓ [{l} ⋈ {s}] l ⇓ [{l} ⋈ {n}] l ⇓ [{l} ⋈ {s}] q ⇓ [{q} ⋈ {s}] q ⇓ [{q} ⋈ {x}] l ⇓ [{l} ⋈ {n}] l ⇓ [{l} ⋈ {s}] q ⇓ [{q} ⋈ {s}] q ⇓ [{q} ⋈ {x}] q ⇓ [{q} ⋈ {s}] q ⇓ [{q} ⋈ {x}] v ⇓ [{v} ⋈ {x}] v ⇓ [{v} ⋈ {c}]
+
+continues...
+```
+
+At the limit, *web* names the set of all elaborations investigation reveals.
 
 ### The common web
 
