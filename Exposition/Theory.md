@@ -381,7 +381,7 @@ The taxonomy is not a map of places on a path. Immunity is checked per productio
 
 ### Extension
 
-A mutual dependence may be expanded in either direction:
+A mutual dependence may be extended in either direction:
 
 ```text
 initial:           no  ⇓       [{n} ⋈ {o}]
@@ -405,9 +405,9 @@ contracted right:   opq ⇓              [{o} ⋈ {p, q}]
 contracted both:  mnop  ⇓ [{mn} ⋈ {opq}]
 ```
 
-### Expansion and Contraction
+### Extension and Contraction
 
-If we repeat the process of expansion and contraction indefinitely from any starting position, be it `a` or `z`,
+If we repeat the process of extension and contraction indefinitely from any starting position, be it `a` or `z`,
 then at the *limit*, we define a *web* whose elaboration is the totality of interdependence.
 
 ```text
@@ -417,7 +417,7 @@ then at the *limit*, we define a *web* whose elaboration is the totality of inte
   web :=           ⋊ {abcd...wxyz} ⋉
 ```
 
-The very concept of expansion and contraction is part of how the web is defined.
+The very concept of extension and contraction is part of how the web is defined.
 
 Here the single-brace display describes the web’s total scope, not one many-component elaboration body; the open-prime construction below realizes it as a hub of pairwise alternatives.
 
@@ -566,6 +566,11 @@ the web as a first or last moment; this is a chosen overlay, not a consequence
 of priming.
 
 ### Supplied philosophical reading
+
+> Ninth: explaining “rolling up” and “spreading out.” Because a mote of dust has no intrinsic nature, its whole being pervades the ten directions: this is spreading out. Because the ten directions have no intrinsic substance, through conditions they appear completely within a mote of dust: this is rolling up.  
+> The sūtra says: “One Buddha-land fills the ten directions; the ten directions enter one, with nothing left over.” Thus, when rolled up, all phenomena appear within one mote of dust; when spread out, one mote of dust pervades every place. Spreading out is always rolling up, because one mote encompasses all; rolling up is always spreading out, because all encompasses one mote. This is the freedom of rolling up and spreading out.
+>
+> — Fazang, *One Hundred Gates to the Sea of Meaning of the Huayan Sūtra* (華嚴經義海百門), Gate Four, section 9, “Rolling Up and Spreading Out”; *Taishō Tripiṭaka* 45, no. 1875, p. 631a4–9
 
 A recap of the structures:
 
