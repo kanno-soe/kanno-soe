@@ -55,7 +55,7 @@ e\in\bigcup\operatorname{components}(M)
      {d\to^*w}
 ```
 
-Designata of neighbouring components are **joinable** (↓) if there is a shared designatum `w` that both can reach. Elaborations of reached designata may be followed again. The designata are **joinable** when their reach-trees have some designatum in common:
+Designata are **joinable** (↓) if there is a shared designatum `w` that both can reach. Elaborations of reached designata may be followed again. The designata are **joinable** when their reach-trees have some designatum in common:
 
 ```text
                               +--> p ---->
