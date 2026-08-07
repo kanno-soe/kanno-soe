@@ -39,7 +39,7 @@ Here the first component of `m` has 3 designata, `ab` which designates (elaborat
 
 A designatum `d` **reaches** another designatum `w` (`d →* w`) if it can get there in zero or more steps of elaboration. Every designatum reaches itself. If `d` elaborates to `[C₁ ⋈ ... ⋈ Cₙ]`, one step may enter any designatum in any component.
 
-Or more formally, fixing $E$, write $\to$ for $\to_E$, and let $\to^*$ denote the reflexive–transitive (Kleene-star) closure of $\to$:
+Or more formally, fixing $E$, the elaboration approach, write $\to$ for $\to_E$, and with M as elaborated mutual dependence, let $\to^*$ denote the reflexive–transitive (Kleene-star) closure of $\to$:
 
 ```math
 d\to e
@@ -55,7 +55,7 @@ e\in\bigcup\operatorname{components}(M)
      {d\to^*w}
 ```
 
-Designata are **joinable** (↓) if there is a shared designatum `w` that both can reach. Elaborations of reached designata may be followed again. The designata are **joinable** when their reach-trees have some designatum in common:
+Designata are **joinable** (↓) if there is a shared designatum `w` that both can reach:
 
 ```text
                               +--> p ---->
