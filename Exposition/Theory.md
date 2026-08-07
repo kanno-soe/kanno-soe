@@ -35,7 +35,7 @@ As components may contain designata, and a designatum may be elaborated to a mut
   m  ⇓ [{ab, c, d} ⋈ {e} ⋈ {fg} ⋈ {h}]
 ```
 
-Here the first component of `m` has 3 designata, `ab` which designates (elaborates to) a mutual dependence `[a ⋈ b]`, and `c`, and `d`, which each are designata without defined elaboration.
+Here the first component of `m` has 3 designata, `ab` which designates (elaborates to) a mutual dependence `[{a} ⋈ {b}]`, and `c`, and `d`, which each are designata without defined elaboration.
 
 A designatum `d` **reaches** another designatum `w` (`d →* w`) if it can get there in zero or more steps of elaboration. Every designatum reaches itself. If `d` elaborates to `[C₁ ⋈ ... ⋈ Cₙ]`, one step may enter any designatum in any component.
 
