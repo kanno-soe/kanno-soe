@@ -253,7 +253,7 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 >
 > — Hakuin Ekaku, *Orategama* I, quoting Dahui Zonggao
 
-The three-row **act-grammar** can now be shown whole. Each row pairs a dependence-reading with an enactment-reading of one Resonance.
+An **act-grammar** grid pairs a dependence-reading with an enactment-reading of one graded resonance across three rows. The enactment cells pick out three aspects of the quoted passages: *genjō* is the actualizing of the case, *banpō susumite* is the dharmas advancing and the self being verified, and *dōchū no kufū* names that practice-realizing under the directed-time reading.
 
 | Dependence reading | Enactment reading | Modelling |
 |---|---|---|
@@ -261,9 +261,7 @@ The three-row **act-grammar** can now be shown whole. Each row pairs a dependenc
 | **kannō-sōe** — responsive resonance placed under dis-resonance grading | **banpō susumite** — the myriad dharmas advancing, the being verified | Graded Resonance |
 | **engi / inga** — dependent arising and cause/effect under an added direction | **dōchū no kufū** — practice in the midst of activity | Directed + Causal + Causation |
 
-Read under the essay's title, the enactment cells pick out three aspects of the quoted passages: *genjō* is the actualizing of the case, *banpō susumite* is the dharmas advancing and the self being verified, and *dōchū no kufū* names that practice-realizing under the directed-time reading.
-
-These are not three events, three agents, or a chronology from Row 1 to Row 3. Row 1 reads that act as manifestation without substrate; Row 2 reads it as this being's graded receiving and responding; Row 3 reads the doing under direction and causation reading. Conversely, forgetting Row 3's overlays and Row 2's grades returns the Mutual Dependence with which the formal account began.
+Row 1 reads the resonance as manifestation without a substrate; Row 2 reads it as graded receiving and responding; Row 3 reads the doing under direction and causation reading. Conversely, forgetting Row 3's overlays and Row 2's grades returns the same mutual dependence of the encounter.
 
 ## Floor-face and act-time face
 
