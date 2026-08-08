@@ -470,13 +470,13 @@ So for every base clause
 `d′ ⇓ [C₁′ ⋈ … ⋈ Cₙ′]` (lifted base clause)
 where each `Cᵢ′` is obtained by priming every designatum in `Cᵢ`.
 
-The closed prime has this shape:
+Closed prime has this shape:
 
 ```text
   a' →∗ web ←∗ b'
 
-  web cannot Reach a' or b'   no outgoing elaboration clauses;
-                              web still Reaches itself by reflexivity
+web doesn’t reach a' or b’
+(no outgoing elaboration clauses are defined in closed prime)
 ```
 
 This implies joinability for all prime designata and interdependence for all prime components:
@@ -528,7 +528,7 @@ Prime open (each in all):
 [\{\mathsf{web}\}\bowtie\{d'\}]
 ```
 
-The open prime retains all closed-prime clauses and adds the clauses
+Open prime retains all closed-prime clauses and adds the clauses
 from the web back to every member:
 
 ```text
@@ -545,9 +545,8 @@ As an equation:
 \left(\forall d',e'.\;d' \to^* e'\right)
 ```
 
-With this, Reaches itself is total. Opening can genuinely
-change reachability, although it is
-invisible to Joinable, which was already total in the closed prime.
+In open prime *reaches* is total, though that doesn’t change joinability
+which is already total in closed prime.
 
 ```text
                           CLOSED PRIME        OPEN PRIME
@@ -558,12 +557,8 @@ invisible to Joinable, which was already total in the closed prime.
     a' ↓ b'                 always             always
 ```
 
-Direction, when wanted, is carried separately. `Directed.liftOption DA`
-agrees with `DA.Before` between `some` images and makes every Before claim
-involving `none` false (the web isn't "before" designata and designata aren't "before" the web).
-It therefore preserves base direction without treating
-the web as a first or last moment; this is a chosen overlay, not a consequence
-of priming.
+As in base elaboration, Direction is overlayed, or can be lifted from base,
+although neither designata nor the web are “before” the other.
 
 ### Supplied philosophical reading
 
