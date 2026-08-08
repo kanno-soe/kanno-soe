@@ -225,9 +225,9 @@ The **dependence-face** names the relation retained when additions are forgotten
 
 Genjō answers how groundless dependence comes forward as a case.
 
-Linji supplies its guard-image. The reconstruction reads the true person of no rank (無位真人) along a seam: *no rank* (無位) is non-attainment; the true person going in and out (真人…出入) through the face-gates prevents no-rank from becoming inert; the whole figure holds no-rank and activity together. When the monk asks what the true person is—and then hesitates under Linji’s demand to speak—the phrase threatens to become a resting-place. Linji’s rebuff destroys that possibility, discarding even the “true person of no rank” once it begins to function as something identifiable or possessable. This no-rank, no-resting-place reading is called the **non-attaining middle**, or the **unattaining middle** when the emphasis falls on nothing being obtained or stored.
+Linji supplies its guard-image. The reconstruction reads the true person of no rank (無位真人) along a seam: *no rank* (無位) is non-attainment; the true person going in and out (真人…出入) through the face-gates prevents no-rank from becoming inert; the whole figure holds no-rank and activity together. When the monk asks what the true person is—and then hesitates under Linji’s demand to speak—the phrase threatens to become a resting-place. Linji’s rebuff destroys that possibility, discarding even the “true person of no rank” once it begins to function as something identifiable or possessable. This no-rank, no-resting-place reading is called the **non-attaining middle**, or **unattaining middle**, when the emphasis falls on nothing being obtained or stored.
 
-The reconstruction states that reading in Dōgen's vocabulary. **Shu** (修) is practice, the concrete doing. **Shō** (証) is realization, with the non-attaining floor-face at a bottom placement in any given grading, read here under the governing *mujishō* condition—no own-being, no rank, nothing possessed. The homophone matters: the *shō* in *mujishō* is 性, nature, while the **shō** in *shushō* is 証, realization—governed by the *mujishō* no-own-being reading.
+The reconstruction states that reading in Dōgen's vocabulary. **Shu** (修) is practice, the concrete doing. **Shō** (証) is realization, with the non-attaining floor-face at bottom placement in any given grading, read here under the governing *mujishō* condition—no own-being, no rank, nothing possessed. The homophone matters: the *shō* in *mujishō* is 性, nature, while the **shō** in *shushō* is 証, realization—governed by the *mujishō* no-own-being reading.
 
 Shō gains determinate content through a contrast within practice. At a bottom placement, practice has its non-attaining floor-face face: the act's subject-position is ceded, with nothing in the doing answering to a dis-resonant "self-forwards". At a non-bottom placement, that same practice is delusive to the extent that it arrogates the subject-position. This gives the non-attaining floor-face its grading counterpart. Genjō has no corresponding delusion term: its contrast is empty dependence versus manifestation, not non-bottom delusion versus unattaining bottom placement.
 
@@ -241,7 +241,7 @@ Shō gains determinate content through a contrast within practice. At a bottom p
                       shushō-ittō: not two events
 ```
 
-**Genjō**, the provisional middle, answers *how does empty dependence manifest as this case?* **Shō** answers *what is realization as verified?* Manifestation is not possession of realization; realization is not a second activity alongside manifestation. Their distinction will remain live when the grading is diagnosed and lose its separating work where not.
+**Genjō**, the provisional middle, answers *how does empty dependence manifest as this case*? **Shō** answers *what is realization as verified*? Their distinction remains live when the grading is diagnosed, and loses its separating work where not.
 
 ## The act-grammar grid
 
