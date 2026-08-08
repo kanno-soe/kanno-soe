@@ -304,7 +304,7 @@ Classical nihilism turns out to be a freeze, not a collapse: the void is emptine
 
 The errors are categorised in two grades:
 
-1. **Grammatical errors** — tier-errors and typing-errors. These the system can *assert*, because a mis-feed is a conventional-tier logic verdict, not a value. The fox's mistake is assertable. (Assertable, note, *within the lens*: "tier-error" and "mis-feed" are verdicts of the two-truths machinery itself, compelled inside it and offered outside — the banner's clause governs the grid's own voice, and the asymmetry between the two grades is an asymmetry in that voice, not an appeal to lens-free logic.)
+1. **Grammatical errors** — tier-errors and typing-errors. These the system can *assert*, because a mis-feed is a conventional-tier logic verdict, not a value. The old man of the fox koan's mistake is assertable. (Assertable, note, *within the lens*: "tier-error" and "mis-feed" are verdicts of the two-truths machinery itself, compelled inside it and offered outside — the banner's clause governs the grid's own voice, and the asymmetry between the two grades is an asymmetry in that voice, not an appeal to lens-free logic.)
 2. **Soteriological shortfalls** — arrogation, self-forward, low resonance, failure to meet beings. These the system can only *display* — Row 2 placements and Row 3 directions, valence borrowed from the object. The five hundred fox lives were returns, not punishments; by the same token "he failed to act as a bodhisattva" is never an asserted wrong, only a displayed asymmetry.
 
 ### Grade 1: the generator's output
