@@ -154,7 +154,7 @@ A **Graded Resonance** adds two independent grades to a Resonance: a calls-side 
     callsGrade and responsesGrade are independent coordinates.
 ```
 
-Thus a stone may be *assigned* bottom on both sides, while a grumpy person who has stubbed a toe may be *assigned* a non-bottom calls grade, a non-bottom responses grade, or both. Those are interpretations supplied to the model; the model itself does not infer a grade from stonehood, pain, personality, or behavior. `IsUngraded` means exactly that both grades are bottom. “Ungraded” here therefore means no dis-resonance entered on either side.
+Thus a stone may be *assigned* bottom on both sides, while a grumpy person who has stubbed a toe may be *assigned* a non-bottom calls grade, a non-bottom responses grade, or both. Those are interpretations supplied to the model; the model itself does not infer a grade from stonehood, pain, personality, or behavior.
 
 Grading is sentience-neutral. A sentience reading *could* be supplied as additional information, but it's not inherently required in the model.
 
@@ -227,7 +227,7 @@ Genjō answers how groundless dependence comes forward as a case.
 
 Linji supplies its guard-image. The reconstruction reads the true person of no rank (無位真人) along a seam: *no rank* (無位) is non-attainment; the true person going in and out (真人…出入) through the face-gates prevents no-rank from becoming inert; the whole figure holds no-rank and activity together. When the monk asks what the true person is—and then hesitates under Linji’s demand to speak—the phrase threatens to become a resting-place. Linji’s rebuff destroys that possibility, discarding even the “true person of no rank” once it begins to function as something identifiable or possessable. This no-rank, no-resting-place reading is called the **non-attaining middle**, or **unattaining middle**, when the emphasis falls on nothing being obtained or stored.
 
-The reconstruction states that reading in Dōgen's vocabulary. **Shu** (修) is practice, the concrete doing. **Shō** (証) is realization, with the non-attaining floor-face at bottom placement in any given grading, read here under the governing *mujishō* condition—no own-being, no rank, nothing possessed. The homophone matters: the *shō* in *mujishō* is 性, nature, while the **shō** in *shushō* is 証, realization—governed by the *mujishō* no-own-being reading.
+The reconstruction states that reading in Dōgen's vocabulary. **Shu** (修) is practice, the concrete doing. **Shō** (証) is realization, with the non-attaining floor-face at bottom placement in any given grading of a resonance. The homophone differs from the the *shō* in *mujishō*, which is 性, nature, while the **shō** in *shushō* is 証, realization.
 
 Shō gains determinate content through a contrast within practice. At a bottom placement, practice has its non-attaining floor-face face: the act's subject-position is ceded, with nothing in the doing answering to a dis-resonant "self-forwards". At a non-bottom placement, that same practice is delusive to the extent that it arrogates the subject-position. This gives the non-attaining floor-face its grading counterpart. Genjō has no corresponding delusion term: its contrast is empty dependence versus manifestation, not non-bottom delusion versus unattaining bottom placement.
 
