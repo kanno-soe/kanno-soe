@@ -443,10 +443,8 @@ At the *limit*, this surfaces the totality of the previous section. The elaborat
 
 ### The common web
 
-What the formalism calls **Prime** is for the designator to designate under the expansive
-understanding above—that to designate `a'` is at the same moment to implicate the full
-web directly reachable from, and including `a'`. The formal model calls this "closed prime"—the ability to
-start at `a'` and directly without traversal reach the web implicated by `a'`. In this prime mode of
+What the formalism calls **Prime** elaboration is for the designator to designate under the expansive
+understanding above, that to designate `a'` is at the same moment to implicate the web of totality directly reachable from, and including `a`. The formal model calls this "closed prime". In this prime mode of
 designating, `a'` "contains" the web. Going the opposite direction, from web to `a'`, is
 very natural as we defined the web in terms of `a'` initially. For analytic purposes,
 the formalism considers that case separately and calls it "open prime", but it is still the
