@@ -261,7 +261,7 @@ An **act-grammar** grid pairs a dependence-reading with an enactment-reading of 
 | **kannō-sōe** — responsive resonance placed under dis-resonance grading | **banpō susumite** — the myriad dharmas advancing, the being verified | Graded Resonance |
 | **engi / inga** — dependent arising and cause/effect under an added direction | **dōchū no kufū** — practice in the midst of activity | Directed + Causal + Causation |
 
-Row 1 reads the resonance as manifestation without a substrate; Row 2 reads it as graded receiving and responding; Row 3 reads the doing under direction and causation reading. Conversely, forgetting Row 3's overlays and Row 2's grades returns the same mutual dependence of the encounter.
+Row 1 reads the resonance as manifestation without a substrate; Row 2 reads it as graded receiving and responding; Row 3 reads the doing under direction and causation reading. Conversely, forgetting Row 3's overlays and Row 2's grades returns the one mutual dependence of the encounter.
 
 ## Floor-face and act-time face
 
