@@ -597,16 +597,3 @@ other one:
 ```text
   any a'  →∗  web  →∗  any b'
 ```
-
-At the coarser Joinable level, the directional distinction has already
-disappeared in the closed prime: Joinable is total and symmetric because every
-pair shares the web.
-
-`prime` makes the fresh web a target of every old image; `primeOpen` makes it
-both target and source.The act-grammar locates Huayan reciprocity in that
-non-conservative tier-change. The formal model proves the boundary and tier noncollapse,
-not their philosophical identification. The two presentations must therefore coexist.
-Importing primed saturation into base diagnosis is collapse; insisting that a
-base separation remain final at the floor is freeze. The web is a
-witness for the supplied whole-reading, not an independently existing
-ground underneath the old designata.
