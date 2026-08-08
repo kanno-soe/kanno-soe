@@ -423,7 +423,7 @@ then at the *limit*, we define a *web* whose elaboration is the totality of inte
 
 The very concept of extension and contraction is part of how the web is defined.
 
-Here the single-brace display describes the web’s total scope, not one many-component elaboration body; the open-prime construction below realizes it as a hub of pairwise alternatives.
+This example is illustrative of the web’s total scope, but the open-prime construction below realizes it as a hub of pairwise alternative elaborations, not a fixed single elaboration.
 
 ### Investigation
 
