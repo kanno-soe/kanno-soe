@@ -304,7 +304,7 @@ Classical nihilism turns out to be a freeze, not a collapse: the void is emptine
 
 The errors are categorised in two grades:
 
-1. **Grammatical errors** — tier-errors and typing-errors. These the system can *assert*, because a mis-feed is a conventional-tier logic verdict, not a value. The old man of the fox koan's mistake is assertable. (Assertable, note, *within the lens*: "tier-error" and "mis-feed" are verdicts of the two-truths machinery itself, compelled inside it and offered outside — the banner's clause governs the grid's own voice, and the asymmetry between the two grades is an asymmetry in that voice, not an appeal to lens-free logic.)
+1. **Grammatical errors** — tier-errors and typing-errors. These the system can *assert*, because a mis-feed is a conventional-tier logic verdict, not a value. The old man of the fox kōan's mistake is assertable. (Assertable, note, *within the lens*: "tier-error" and "mis-feed" are verdicts of the two-truths machinery itself, compelled inside it and offered outside — the banner's clause governs the grid's own voice, and the asymmetry between the two grades is an asymmetry in that voice, not an appeal to lens-free logic.)
 2. **Soteriological shortfalls** — arrogation, self-forward, low resonance, failure to meet beings. These the system can only *display* — Row 2 placements and Row 3 directions, valence borrowed from the object. The five hundred fox lives were returns, not punishments; by the same token "he failed to act as a bodhisattva" is never an asserted wrong, only a displayed asymmetry.
 
 ### Grade 1: the generator's output
@@ -379,7 +379,7 @@ Two remainders. **Pre-grid ignorance** — svabhāva realism, the provisional mi
 
 ### Non-linearity
 
-The taxonomy is not a map of places on a path. Immunity is checked per production, not stored as a safe stage: arhat quiet excludes the live self-pole through all three doors, while buddha no-nescience additionally requires positive truth from each pole-share speech-or-mind production. The former can hold while the latter fails, so the old “no safe stage” future-work absence is retired as this production-level check, not converted into rank furniture. This is why the fox koan, a story about one sentence spoken once, can carry the whole system's diagnostics: the errors are not stations but ways the separate/fuse rule can be violated *now*. The taxonomy remains answerable in the other direction too: the deaf-blind case classifies as nothing, or else the generator would be a lens that finds error wherever it looks.
+The taxonomy is not a map of places on a path. Immunity is checked per production, not stored as a safe stage: arhat quiet excludes the live self-pole through all three doors, while buddha no-nescience additionally requires positive truth from each pole-share speech-or-mind production. The former can hold while the latter fails, so the old “no safe stage” future-work absence is retired as this production-level check, not converted into rank furniture. This is why the fox kōan, a story about one sentence spoken once, can carry the whole system's diagnostics: the errors are not stations but ways the separate/fuse rule can be violated *now*. The taxonomy remains answerable in the other direction too: the deaf-blind case classifies as nothing, or else the generator would be a lens that finds error wherever it looks.
 
 ## From mutual dependence to interpenetration
 
