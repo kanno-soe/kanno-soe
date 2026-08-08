@@ -198,7 +198,7 @@ To summarise, **mujishō-sōe** is the dependence-structure retained when either
 >
 > — Nāgārjuna, *Mūlamadhyamakakārikā* 24.18
 
-Remove grades from a Graded Resonance and the Direction/Causal overlay from a Causation certificate, and the Mutual Dependence remains. That remainder by itself is not a Buddhist metaphysics — the philosophical bridge begins when the act-grammar reads it as **mujishō-sōe**: mutual dependence under the condition of no own-being.
+Remove grades from a Graded Resonance and the Direction/Causal overlay from a Causation certificate, and the Mutual Dependence remains. That by itself is not a Buddhist metaphysics — the philosophical bridge begins when the act-grammar reads the mutual dependence (**sōe**) as **mujishō-sōe**: mutual dependence under the condition of no own-being.
 
 *Mujishō* (無自性) means without self-nature or own-being. The model's interdependence relation is a simple formal analogue: neither interdependent component is entered as the self-standing base of the other.
 
