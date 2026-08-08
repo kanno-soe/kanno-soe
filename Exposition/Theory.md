@@ -452,8 +452,7 @@ very natural, as we defined the web in terms of `a'` initially. For analytic pur
 the formalism considers that case separately and calls it **open prime**, but it’s still the
 straightforward fact that having defined the web from `a'`, the web *contains* `a'`, which is called **each in all**.
 
-Formally, `prime E` embeds every old `d` as `some d`, written as `d'`,
-and uses `none` as the web. Every base elaboration is automatically lifted to prime:
+Every base elaboration is automatically lifted to a prime elaboration:
 
 ```math
 d \Downarrow_E [C_1 \bowtie \cdots \bowtie C_n]
@@ -466,7 +465,7 @@ d' \Downarrow_{\operatorname{prime}(E)}
 C_i'=\{x'\mid x\in C_i\}
 ```
 
-So, for every base clause
+So for every base clause
 `d ⇓ [C₁ ⋈ … ⋈ Cₙ]`, the closed prime has
 `d′ ⇓ [C₁′ ⋈ … ⋈ Cₙ′]` (lifted base clause)
 where each `Cᵢ′` is obtained by priming every designatum in `Cᵢ`.
@@ -480,7 +479,7 @@ The closed prime has this shape:
                               web still Reaches itself by reflexivity
 ```
 
-This then implies joinability for all prime designata, and interdependence for all prime components:
+This implies joinability for all prime designata and interdependence for all prime components:
 ```math
 \left(\forall a'\in\mathcal D'.\;a'\to^*\mathsf{web}\right)
 \Longrightarrow
@@ -489,7 +488,7 @@ This then implies joinability for all prime designata, and interdependence for a
 \left(\forall A',B'\subseteq\mathcal D'.\;A'\bowtie B'\right)
 ```
 
-Reachability also gives interdependence with web:
+Reachability also implies interdependence with web:
 
 ```math
 \left(
@@ -511,9 +510,9 @@ a'\to^*\mathsf{web}
 \{\mathsf{web}\}\bowtie\{d'\}.
 ```
 
-The two prime constructions realize the interdependence as a direct elaboration clause. For every $d\in\mathcal D$:
+The two prime constructions realize this interdependence as a direct elaboration clause — for every $d\in\mathcal D$:
 
-Prime closed — all in each:
+Prime closed (all in each):
 
 ```math
 d'
@@ -521,7 +520,7 @@ d'
 [\{d'\}\bowtie\{\mathsf{web}\}]
 ```
 
-Prime open — each in all:
+Prime open (each in all):
 
 ```math
 \mathsf{web}
