@@ -454,7 +454,7 @@ straightforward fact that having defined the web from `a'`, the web *contains* `
 This is **each in all**.
 
 Formally, `prime E` embeds every old `d` as `some d`, written as `d'`,
-and uses value `none` as the web. Every base elaboration is automatically lifted to prime:
+and uses `none` as the web. Every base elaboration is automatically lifted to prime:
 
 ```math
 d \Downarrow_E [C_1 \bowtie \cdots \bowtie C_n]
