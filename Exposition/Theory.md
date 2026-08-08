@@ -292,9 +292,9 @@ The **separate/fuse rule** states how distinctions behave across those tiers. At
 
 The two error cells occupy one diagonal; the other diagonal is the rule obeyed.
 
-**Collapse**, written `><`, is premature fusion under act-time diagnosis; **freeze**, written `||`, is a useful separation reified as a floor-claim. These are expository operators, not Lean syntax. “There is no time, no being, and no Resonance” is a collapse when offered where a response is occurring. A flowing time-container, substantial Being, stored shō, or self-existing Resonance is the corresponding kind of freeze.
+**Collapse**, written `><`, is premature fusion under act-time diagnosis; **freeze**, written `||`, is a useful separation reified as a floor-claim. “There is no time, no being, and no Resonance” is a collapse when offered where a response is occurring. A flowing time-container, substantial Being, stored shō, or self-existing Resonance is the corresponding kind of freeze.
 
-An **utterance** here is not a sentence-shape in isolation. It is content carried by a resonance, with the call it answers and the tier at which it is offered. The taxonomy (in the section below) grades that offer, not the words alone: ordinary narration offered conventionally at act-time is declined as no error; the same words offered as ultimate furniture can freeze, while a denial offered as live diagnosis can collapse.
+An **utterance** isn’t a sentence-shape in isolation but its content carried by a resonance, with the call it answers and the tier at which it’s offered. The taxonomy in the section below checks the offer not the words alone. Ordinary narration offered conventionally at act-time is no error; the same words offered as ultimate furniture can freeze, while a denial offered as live diagnosis can collapse.
 
 ## A taxonomy of error
 
