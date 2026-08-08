@@ -198,21 +198,21 @@ To summarise, **mujishō-sōe** is the dependence-structure retained when either
 >
 > — Nāgārjuna, *Mūlamadhyamakakārikā* 24.18
 
-Remove grades from a Graded Resonance and the Direction/Causal overlay from a Causation certificate, and the Mutual Dependence remains. That by itself is not a Buddhist metaphysics — the philosophical bridge begins when the act-grammar reads the mutual dependence (**sōe**) as **mujishō-sōe**: mutual dependence under the condition of no own-being.
+Remove grades from a Graded Resonance and the Directed/Causal overlay from a Causation certificate, and the Mutual Dependence remains. That by itself is not a Buddhist metaphysics — the philosophical bridge begins when the act-grammar reads the mutual dependence (**sōe**) as **mujishō-sōe**: mutual dependence under the condition of no own-being.
 
-*Mujishō* (無自性) means without self-nature or own-being. The model's interdependence relation is a simple formal analogue: neither interdependent component is entered as the self-standing base of the other.
+*Mujishō* (無自性) means without self-nature or own-being. The formal model's interdependence relation is a simple analogue —neither interdependent component is entered as the self-standing base of the other.
 
-The interpretation comes from Nāgārjuna's *MMK* 24.18: what dependently originates is empty of own-being; that emptiness is itself dependently designated; just this is the middle way. Mutual dependence therefore doesn't mean relations among already self-subsisting things, and emptiness isn't to mean a deeper thing beneath them.
+This is from Nāgārjuna's *MMK* 24.18: what dependently originates is empty of own-being; that emptiness is itself dependently designated; just this is the middle way. Therefore mutual dependence doesn't mean relations among already self-subsisting things, and emptiness does not mean a deeper thing beneath them.
 
-Jizang supplies the next turn. In the fourfold two truths, each stated ultimate—including the conventional/ultimate distinction itself—can become the conventional content of the next analysis. The iteration does not discover a final unconditioned proposition, it ends at words forgotten, thought cut off (言忘慮絶): not another claim but the place where words and thought no longer do separating work. That claimless place is called the **floor**. The **middle** can then manifest as this case, instead of becoming another object of analysis. This manifestation is called **genjō**, the **provisional middle**.
+Jizang supplies the next turn. In the fourfold two truths, each stated ultimate—including the conventional/ultimate distinction itself—can become the conventional content of the next analysis. The iteration does not discover a final unconditioned proposition, it ends at words forgotten, thought cut off (言忘慮絶): not another claim but the place where words and thought no longer do separating work. That claimless place is called the **floor**.
 
-The first row of the act-grammar can now be shown:
+The **middle** can then manifest as this case, instead of becoming another object of analysis. This manifestation is called **genjō**, the **provisional middle**.
 
 | Dependence reading | Enactment reading |
 |---|---|
-| **mujishō-sōe** — Mutual Dependence without own-being | **genjō** — the dependence manifesting as this case |
+| **mujishō-sōe** — mutual dependence without own-being | **genjō** — the dependence manifesting as this case |
 
-The **dependence-face** names the relation retained when additions are forgotten; the **enactment-face** names how that relation comes forward as a case. Mujishō-sōe is therefore the dependence-face of Row 1: this Encounter has no self-standing substrate. Genjō is its enactment-face: that empty dependence nevertheless manifests as this call, this receiving, this response. *Provisional* does not mean half-real or merely hypothetical. It says that the case is concrete without being promoted into a final ground.
+The **dependence-face** names the relation retained when additions are forgotten; the **enactment-face** names how that relation comes forward as a case. Mujishō-sōe is therefore the dependence-face of Row 1: this Encounter has no self-standing substrate. Genjō is its enactment-face: that empty dependence nevertheless manifests as this call, this receiving, this response. *Provisional* doesn’t mean half-real or merely hypothetical, it says that the case is concrete without being promoted into a final ground.
 
 ## From no rank to practice-realization
 
@@ -257,7 +257,7 @@ The three-row **act-grammar** can now be shown whole. Each row pairs a dependenc
 
 | Dependence reading | Enactment reading | Modelling |
 |---|---|---|
-| **mujishō-sōe** — Mutual Dependence without own-being | **genjō** — the dependence manifesting as this case | Mutual Dependence |
+| **mujishō-sōe** — mutual dependence without own-being | **genjō** — the dependence manifesting as this case | Mutual Dependence |
 | **kannō-sōe** — responsive resonance placed under dis-resonance grading | **banpō susumite** — the myriad dharmas advancing, the being verified | Graded Resonance |
 | **engi / inga** — dependent arising and cause/effect under an added direction | **dōchū no kufū** — practice in the midst of activity | Directed + Causal + Causation |
 
