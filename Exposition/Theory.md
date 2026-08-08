@@ -441,15 +441,17 @@ continues… spreading out
 
 At the *limit*, this surfaces the totality of the previous section. The elaboration of web *rolls up* the elaborations revealed under investigation.
 
-### The common web
+### The web
 
 What the formalism calls **Prime** elaboration is for the designator to designate under the expansive
-understanding above, that to designate `a'` is at the same moment to implicate the web of totality directly reachable from, and including `a`. The formal model calls this "closed prime". In this prime mode of
-designating, `a'` "contains" the web. Going the opposite direction, from web to `a'`, is
-very natural as we defined the web in terms of `a'` initially. For analytic purposes,
-the formalism considers that case separately and calls it "open prime", but it is still the
-straightforward fact that having defined the web from `a'`, the web "contains" `a'`.
-These modes are interpreted as **all in each** and **each in all**, respectively.
+understanding above, that to designate `a'` is at the same moment to implicate the web of totality directly reachable from, and including `a`. The formal model calls this **closed prime**. In this prime mode of
+designating, `a'` *contains* the web. This is **all in each**.
+
+Going in the opposite direction, from web to `a'`, is
+very natural, as we defined the web in terms of `a'` initially. For analytic purposes,
+the formalism considers that case separately and calls it **open prime**, but it’s still the
+straightforward fact that having defined the web from `a'`, the web *contains* `a'`.
+This is **each in all**.
 
 Formally, `prime E` embeds every old `d` as `some d`, written as `d'`,
 and uses value `none` as the web. Every base elaboration is automatically lifted to prime:
