@@ -557,7 +557,7 @@ which is already total in closed prime.
     a' ↓ b'                 always             always
 ```
 
-As in base elaboration, Direction is overlayed, or can be lifted from base,
+As in the base elaboration Direction is overlayed (or can be lifted from base),
 although neither designata nor the web are “before” the other.
 
 ### Supplied philosophical reading
