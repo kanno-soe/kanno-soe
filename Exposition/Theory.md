@@ -590,10 +590,4 @@ A recap of the structures:
 In the closed prime, every member directly reaches the web. Since the web defines the
 all, this is **all in each**: start from any one member and its elaboration
 implicates the whole. The open prime adds the other half,
-**each in all**: the web directly reaches every member. It therefore supplies both halves as Reaches facts.
-The paths compose, so every primed designatum reaches every
-other one:
-
-```text
-  any a'  →∗  web  →∗  any b'
-```
+**each in all**: the web directly reaches every member.
