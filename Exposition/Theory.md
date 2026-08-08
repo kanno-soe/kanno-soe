@@ -412,7 +412,7 @@ contracted both:  mnopq ⇓ [{mn} ⋈ {opq}]
 ### Extension and Contraction
 
 If we repeat the process of extension and contraction indefinitely from any starting position, be it `a` or `z`,
-then at the *limit*, we define a *web* whose elaboration is the totality of interdependence.
+then at the *limit*, we can describe a *web*, representing the totality of interdependence.
 
 ```text
   viewed from a:   ⋊ {a} ⋈ {bcde...wxyz} ⋉
@@ -421,13 +421,11 @@ then at the *limit*, we define a *web* whose elaboration is the totality of inte
   web :=           ⋊ {abcd...wxyz} ⋉
 ```
 
-The very concept of extension and contraction is part of how the web is defined.
-
-This example is illustrative of the web’s total scope, but the open-prime construction below realizes it as a hub of pairwise alternative elaborations, not a fixed single elaboration.
+This example is illustrative of the web’s total scope, though the open-prime construction below realizes it as a hub of pairwise alternative elaborations, not as a fixed single elaboration.
 
 ### Investigation
 
-Additionally, looking within `a` reveals the story of the totality contained by `a`:
+Looking *within* `a` equally reveals the story of the totality contained by `a`:
 
 ```text
 a ⇓ [{a} ⋈ {c}] a ⇓ [{a} ⋈ {h}]
@@ -438,10 +436,10 @@ e ⇓ [{e} ⋈ {g}] e ⇓ [{e} ⋈ {l}] j ⇓ [{j} ⋈ {l}] j ⇓ [{j} ⋈
 
 g ⇓ [{g} ⋈ {i}] g ⇓ [{g} ⋈ {n}] l ⇓ [{l} ⋈ {n}] l ⇓ [{l} ⋈ {s}] q ⇓ [{q} ⋈ {s}] q ⇓ [{q} ⋈ {x}] v ⇓ [{v} ⋈ {x}] v ⇓ [{v} ⋈ {c}]
 
-continues...
+continues… spreading out
 ```
 
-At the limit, *web* names the set of all elaborations investigation reveals.
+At the *limit*, this surfaces the totality of the previous section. The elaboration of web *rolls up* the elaborations revealed under investigation.
 
 ### The common web
 
