@@ -229,7 +229,7 @@ Linji supplies its guard-image. The reconstruction reads the true person of no r
 
 The reconstruction states that reading in Dōgen's vocabulary. **Shu** (修) is practice, the concrete doing. **Shō** (証) is realization, with the non-attaining floor-face at bottom placement in any given grading of a resonance. The homophone differs from the the *shō* in *mujishō*, which is 性, nature, while the **shō** in *shushō* is 証, realization.
 
-Shō gains determinate content through a contrast within practice. At a bottom placement, practice has its non-attaining floor-face face: the act's subject-position is ceded, with nothing in the doing answering to a dis-resonant "self-forwards". At a non-bottom placement, that same practice is delusive to the extent that it arrogates the subject-position. This gives the non-attaining floor-face its grading counterpart. Genjō has no corresponding delusion term: its contrast is empty dependence versus manifestation, not non-bottom delusion versus unattaining bottom placement.
+Shō gains determinate content through a contrast within practice. At a bottom placement, practice has its non-attaining floor-face face: the act's subject-position is ceded, with nothing in the doing answering to a dis-resonant "self-forwards". At a non-bottom placement, that same practice is delusive to the extent that it arrogates the subject-position. This gives the non-attaining floor-face its grading counterpart. Genjō has no corresponding delusion term: its contrast is empty dependence versus manifestation.
 
 **Shushō** (修証) says practice-realization; **shushō-ittō** says that its practice and realization are non-dual. That cannot mean two events—practice first and an attained realization later—nor a still shō somehow acting by itself.
 
