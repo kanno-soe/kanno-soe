@@ -300,10 +300,10 @@ An **utterance** isn’t a sentence-shape in isolation but its content carried b
 
 Freeze and collapse each have a conventional form and a deflationary form. The wording may affirm or deny something; classification follows what the utterance does at the tier where it is offered.
 
-|                     |**Freeze `||`**                                                                                                                     |**Collapse `><`**                                                                                                                                                                |
-|---------------------|------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|**Conventional side**|A useful distinction is held as floor-furniture: substantial Being, stored shō, or the prior doer.                                  |Two sides that remain live at act-time are identified: sentience is read off function, or genjō and shō are conflated.                                                           |
-|**Deflation**        |A denial is made into an item: nihilism, emptiness-sickness (空病), or the lack of a final floor taken to remove conventional warrant.|A denial is offered where the distinction is live: “no time, no being,” the fox’s “does not fall under cause and effect,” or cheap transcendence that skips the work of emptying.|
+|| **Freeze `\|\|`** | **Collapse `><`** |
+|---|---|---|
+| **Conventional side** | A useful distinction is held as floor-furniture: substantial Being, stored shō, or the prior doer. | Two sides that remain live at act-time are identified: sentience is read off function, or genjō and shō are conflated. |
+| **Deflation** | A denial is made into an item: nihilism, emptiness-sickness (空病), or the lack of a final floor taken to remove conventional warrant. | A denial is offered where the distinction is live: “no time, no being,” the fox’s “does not fall under cause and effect,” or cheap transcendence that skips the work of emptying. |
 
 On the conventional side, freeze gives permanent standing to something whose use belongs to act-time. A being may be designated, shō may name the floor-face of practice-realization, and a doer may be named within a deed. Freeze carries one of these terms to the floor as something substantial, stored, or prior.
 
