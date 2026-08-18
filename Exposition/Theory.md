@@ -284,11 +284,10 @@ Act-time follows the concrete receiving at `b₁` or responding at `b₂`; the f
 
 The **separate/fuse rule** states how distinctions behave across those tiers. At act-time a useful distinction separates. At the floor it fuses, meaning that it makes no separating claim there—not that its two sides become one substance and not that both propositions are asserted.
 
-```text
-                         distinction separates      distinction fuses
-    act-time diagnosis   A | B   rule obeyed        A >< B  collapse
-    floor                A || B  freeze             A . B   rule obeyed
-```
+|| **Distinction separates** | **Distinction fuses** |
+|---|---|---|
+| **Act-time diagnosis** | `A \| B  rule obeyed` | `A >< B collapse` |
+| **Floor** | `A \|\| B freeze` | `A . B  rule obeyed` |
 
 The two error cells occupy one diagonal; the other diagonal is the rule obeyed.
 
