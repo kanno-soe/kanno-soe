@@ -403,6 +403,10 @@ The taxonomy is not a map of places on a path. Immunity is checked per productio
 
 ## The ladder as medicine
 
+> The middle exists in response to the illness of one-sidedness. Once that illness is removed, the middle too is not established.
+>
+> — Jizang, *The Profound Meaning of the Three Treatises* (三論玄義)
+
 Jizang’s four levels of the two-truths teaching follow a teaching as it meets attachment. At each level, a conventional distinction remains available for use. A freeze occurs when that distinction is accorded final standing. The ultimate truth at the right of the row addresses that overreach without cancelling the distinction’s conventional use.
 
 A teacher says, “Bring the cart,” because a load needs moving. “Cart” works as a conventional designation for the assembled cart. If someone instead treats the cart as self-standing apart from its parts and conditions, “the cart is empty of own-being” answers that attribution of self-standing; it does not deny the cart’s conventional availability.
