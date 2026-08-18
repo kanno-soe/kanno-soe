@@ -401,6 +401,33 @@ Two remainders. **Pre-grid ignorance** — svabhāva realism, the provisional mi
 
 The taxonomy is not a map of places on a path. Immunity is checked per production, not stored as a safe stage: arhat quiet excludes the live self-pole through all three doors, while buddha no-nescience additionally requires positive truth from each pole-share speech-or-mind production. The former can hold while the latter fails, so the old “no safe stage” future-work absence is retired as this production-level check, not converted into rank furniture. This is why the fox kōan, a story about one sentence spoken once, can carry the whole system's diagnostics: the errors are not stations but ways the separate/fuse rule can be violated *now*. The taxonomy remains answerable in the other direction too: the deaf-blind case classifies as nothing, or else the generator would be a lens that finds error wherever it looks.
 
+## The ladder as medicine
+
+The taxonomy grades offers one distinction at a time, with each seed-row already carrying its conventional-side and deflation-side errors. This section uses the same error-cells and re-indexes them by when each ultimate-truth enters as medicine. A collapse therefore appears only after its ultimate-truth has been stated.
+
+Jizang’s four levels of the two-truths teaching follow a teaching as it meets attachment. At each level, a conventional-distinction can guide practice. Giving it final-standing produces a freeze. The ultimate-truth at the right of that row answers the freeze.
+
+A teacher says, “Bring the cart,” because a load needs moving. “Cart” works as a conventional-designation for the assembled cart. If someone holds the cart as self-standing apart from its parts and conditions, “the cart is empty of own-being” answers that freeze.
+
+The second-level can then discuss both the live cart and the claim that the cart has final-standing. Emptiness refutes the final-standing claim. Collapse identifies the live cart with the reified cart, so the same refutation is made to erase both: “there is no cart, so nothing can be moved.”
+
+The table reads from conventional-truth on the left to its fitting ultimate-truth on the right. The freeze column records the current conventional-truth given final-standing. The collapse column records the live conventional identified with the lower-freeze that the inherited ultimate-truth refutes.
+
+| Conventional-truth | Freeze (held at floor) | Collapse (live conventional fused with lower-freeze) | Ultimate-truth |
+|---|---|---|---|
+| **First-level (一重): being (有).** The cart, path, being, or another useful distinction is live. | Being is given own-being (自性): the cart or another designation is held as independently real. *(See the “Named being / floor” freeze in the taxonomy.)* | — | **Emptiness (空).** The distinction has no own-being or final-standing. |
+| **Second-level (二重): being-and-emptiness (有空).** The lower-conventional, its possible finalization, and the correction of that finalization are available as teaching. | Emptiness is held as a final absence over against being. The two-truths teaching becomes a two-item-ontology. *(See the “Being / non-being (Nishitani)” freeze in the taxonomy.)* | The live cart is identified with the self-standing cart. Emptiness refutes the latter and is then made to erase the former: “there is no cart,” so the live task, practice, or response is cancelled. *(See the “Named being / floor” collapse in the taxonomy.)* | **Neither-being-nor-emptiness (非有非空).** Neither side receives final-standing. |
+| **Third-level (三重): duality-and-non-duality (二不二).** The being-and-emptiness pair is duality; neither-being-nor-emptiness supplies its non-duality. | Neither-being-nor-emptiness or non-duality is held as a middle-position. | The live being-and-emptiness distinction is identified with its frozen form. Neither-being-nor-emptiness is used to erase the distinction: “neither being nor emptiness applies, so no distinction matters.” | **Neither-duality-nor-non-duality (非二非不二).** Neither the pair nor its non-duality receives final-standing. |
+| **Fourth-level (四重): the first three levels as teaching-language (言教).** Their distinctions and corrections remain available as teaching. | The four-level account is held as the last teaching, with its final distinction retained as doctrine. | The live use of the preceding teachings is identified with a fixed doctrinal scheme. Neither-duality-nor-non-duality is used to dismiss teaching itself: “no distinction or non-distinction applies, so nothing can be said or taught.” | **Words-forgotten-and-thought-cut-off (言忘慮絶), with nothing-relied-on-or-acquired (無所依得).** The teaching completes its work without leaving another position to hold. |
+
+Jizang’s fourth-level gathers the preceding levels as teaching-gates (教門) and brings them to the principle-gate (理門). This supplies the pedagogical closure of the four-level account.
+
+The Lean construction also records what happens when a description of that closure becomes another claim. Silence or ineffability can cancel a live response; the taxonomy keeps this under cheap-transcendence in the level-n row. The ineffable or emptying itself can be held as final and prompt the search for a fifth-negation; the taxonomy keeps this emptiness-sickness (空病) in the ladder / terminus row.
+
+Further formal-rungs repeat the emptying of statable claims without adding another floor. No statable rung supplies final-standing (`no_final_level_of_errorFree`), and the floor remains common to the whole ladder (`words_idle_at_floor`, `no_row_claim_holds_at_floor`).
+
+The Chinese terms provide the philosophical reading of the ladder. The theorem-names in this section follow the archived Ladder/Metaphysics model still cited by the taxonomy above.
+
 ## From mutual dependence to interpenetration
 
 ### Extension
