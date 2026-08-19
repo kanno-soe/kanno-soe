@@ -293,26 +293,26 @@ The two error cells occupy one diagonal; the other diagonal is the rule obeyed.
 
 An **utterance** isn’t a sentence-shape in isolation but its content carried by a resonance, with the call it answers and the tier at which it’s offered. The taxonomy in the section below checks the offer not the words alone. Ordinary narration offered conventionally at act-time is no error; the same words offered as ultimate furniture can freeze, while a denial offered as live diagnosis can collapse.
 
-## Four ways freeze and collapse appear
+## The articulation joint
 
-Freeze and collapse each have a conventional form and a deflationary form. The wording may affirm or deny something; classification follows what the utterance does at the tier where it is offered.
+At an **articulation joint**, a distinction remains usable at act-time without receiving intrinsic standing at the floor. Freeze and collapse are the two ways this relation can fail. Each can operate either on a conventional articulation or on the deflationary correction of one.
 
-|| **Freeze `\|\|`** | **Collapse `><`** |
+The rows below name the material being mishandled. The columns name what is done with it.
+
+| Material being mishandled | **Freeze `\|\|`: assigns final standing** | **Collapse `><`: removes live separation** |
 |---|---|---|
-| **Conventional side** | A useful distinction is held as floor-furniture: substantial Being, stored shō, or the prior doer. | Two sides that remain live at act-time are identified: sentience is read off function, or genjō and shō are conflated. |
-| **Deflation** | A denial is made into an item: nihilism, emptiness-sickness (空病), or the lack of a final floor taken to remove conventional warrant. | A denial is offered where the distinction is live: “no time, no being,” the fox’s “does not fall under cause and effect,” or cheap transcendence that skips the work of emptying. |
+| **Conventional articulation** — a live designation or distinction | **Intrinsic-joint realism.** `act-time → floor`: a usable term is treated as intrinsic. A being becomes substantial Being, shō becomes something stored, or the doer is placed prior to the deed. | **Identification.** `act-time → act-time`: terms whose difference remains live are fused. Sentience is read off function, or genjō and shō are conflated. |
+| **Deflationary correction** — a denial or other floor-speech | **Ground-reification.** `floor → floor`: emptiness, nonduality, the web, or the denial of a final floor is installed as a final item or ground. Nihilism and emptiness-sickness (空病) belong here. | **Erasure.** `floor → act-time`: a correction is used to cancel the live case. “No time” or “no being” denies an act underway; “does not fall under cause and effect” erases conduct where conduct matters. |
 
-On the conventional side, freeze gives permanent standing to something whose use belongs to act-time. A being may be designated, shō may name the floor-face of practice-realization, and a doer may be named within a deed. Freeze carries one of these terms to the floor as something substantial, stored, or prior.
+Identification and erasure are therefore different forms of collapse. Identification fuses terms within a live articulation. Erasure imports a deflationary correction into that articulation and uses it to cancel the case.
 
-Conventional collapse identifies terms whose difference still matters. Visible function leaves sentience underdetermined. Genjō and shō retain different roles while the grading is live. Treating one side as sufficient to establish the other removes a distinction still needed by the case.
+The freeze cells differ in the same way. Intrinsic-joint realism gives final standing to something used in conventional articulation. Ground-reification fixes the corrective itself as the final answer. Here “ground” names what the error invents, not anything the framework accepts as a ground.
 
-Deflation can also freeze. The void becomes a final answer, emptying becomes something to pursue and possess, or the absence of final warrant is taken to destroy ordinary warrant. Negative content has thereby become floor-furniture.
+The diagonals show the resulting register movements. Intrinsic-joint realism and erasure are register-mismatch errors: the first carries act-time furniture to the floor, while the second carries floor-speech into act-time. Identification and ground-reification are within-register errors: the first removes a distinction still needed at act-time, while the second turns floor-speech into an item at the floor.
 
-A deflationary collapse brings floor-speech into act-time so that it cancels the case occurring. “No time” or “no being” is made to deny an act underway. The fox’s “does not fall under cause and effect” uses the floor-face to erase conduct at the tier where conduct matters. Cheap transcendence declares the terminus while leaving the intervening distinctions untouched.
+Dependent articulation guards against both kinds of collapse. Because a distinction is dependently articulated, its terms can remain different where the case requires them without becoming intrinsic. For the same reason, their lack of intrinsic standing does not erase their conventional use. The ladder section develops this point by showing that every ultimate correction remains dependent on the articulation it corrects and can itself become material for further correction.
 
-The diagonals reveal a second division. Conventional freeze and deflationary collapse are register-mismatch errors: the first carries act-time furniture to the floor, while the second carries floor-speech into act-time. Conventional collapse and deflationary freeze are errors within a register: the first identifies distinctions that remain live, while the second turns deflation into an item.
-
-This is why nihilism can be a freeze while “no being” can be a collapse. The first stores the denial at the floor; the second uses it to fuse a live distinction. As elsewhere, the error belongs to the utterance with its call and offer, rather than to the sentence-shape alone.
+As elsewhere, these classifications concern an utterance with its call and offer, not a sentence-shape by itself. The same words may function as conventional articulation, intrinsic-joint realism, corrective medicine, or erasure according to the tier at which they are offered.
 
 ## A taxonomy of error
 
