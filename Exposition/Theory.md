@@ -247,7 +247,7 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 >
 > — Eihei Dōgen, *Genjōkōan*
 
-> *Practice amid activity is immeasurably superior to practice amid stillness.*
+> *Practice in the midst of activity surpasses practice in stillness a hundred, a thousand, a hundred million times over.*
 >
 > — Hakuin Ekaku, *Orategama* I, quoting Dahui Zonggao
 
