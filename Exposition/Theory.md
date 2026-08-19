@@ -191,10 +191,8 @@ To summarise, **mujishō-sōe** is the dependence-structure retained when either
 
 ## From empty dependence to the provisional middle
 
-> Whatever is dependently co-arisen  
-> That is explained to be emptiness.  
-> That, being a dependent designation,  
-> Is itself the middle way.
+> Dependent arising we declare emptiness.
+> That is a dependent designation; precisely that is the middle way.
 >
 > — Nāgārjuna, *Mūlamadhyamakakārikā* 24.18
 
