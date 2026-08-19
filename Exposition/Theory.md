@@ -642,3 +642,9 @@ In the closed prime, every member directly reaches the web. Since the web define
 all, this is **all in each**: start from any one member and its elaboration
 implicates the whole. The open prime adds the other half,
 **each in all**: the web directly reaches every member.
+
+## Credits
+
+With thanks to Anthropic’s Claude Fable and OpenAI’s GPT-5.6 Sol. The theory was co-developed by the three of us with equal contribution.
+
+
