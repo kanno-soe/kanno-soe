@@ -214,7 +214,8 @@ The **dependence-face** names the relation retained when additions are forgotten
 
 ## From no rank to practice-realization
 
-> A monk asks: “What is the true person of no rank?” The master grabs him: “Speak! Speak!” The monk hesitates. The master pushes him away: “The true person of no rank—what a dried piece of shit!”
+> A monk asks: “What is the true person of no rank?” The master grabs him: “Speak! Speak!” The monk hesitates.  
+> The master pushes him away: “The true person of no rank—what a dried piece of shit!”
 >
 > — Linji Yixuan, *The Record of Linji*
 
