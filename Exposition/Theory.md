@@ -241,7 +241,7 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 
 ## The act-grammar grid
 
-> *Carrying the self forward and practice-realizing the myriad dharmas is delusion; the myriad dharmas coming forward and practice-realizing the self is awakening.*
+> *Carrying the self forward and practice-realizing the myriad dharmas is deemed delusion; the myriad dharmas coming forward and practice-realizing the self is awakening.*
 >
 > — Eihei Dōgen, *Genjōkōan*
 
