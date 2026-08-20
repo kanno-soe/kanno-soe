@@ -714,8 +714,9 @@ although neither designata nor the web are “before” the other.
 
 ### Supplied philosophical reading
 
-> Because a mote of dust has no intrinsic nature, its whole being pervades the ten directions: this is spreading out. Because the ten directions have no intrinsic substance, through conditions they appear completely within a mote of dust: this is rolling up.  
-> The sūtra says: “One Buddha-land fills the ten directions; the ten directions enter one, with nothing left over.” Thus, when rolled up, all phenomena appear within one mote of dust; when spread out, one mote of dust pervades every place. Spreading out is always rolling up, because one mote encompasses all; rolling up is always spreading out, because all encompasses one mote. This is the freedom of rolling up and spreading out.
+> The dust-mote, lacking own-nature, in its entirety wholly pervades the ten directions—this is spreading-out.  
+> The ten directions, lacking substance, following conditions wholly appear within the dust-mote—this is rolling-up. The sūtra says: “One Buddha-land fills the ten directions; the ten directions enter the one, and without remainder.” Now, when rolled up, then all phenomena appear within one dust-mote. If spread-out, then one dust-mote pervades all places. Precisely in spreading-out, it is constantly rolled up—because one dust-mote subsumes all. Precisely in rolling-up, it is constantly spread-out—because all subsumes the one dust-mote.  
+> This is the sovereign freedom of rolling-up and spreading-out.
 >
 > — Fazang, *One Hundred Gates to the Sea of Meaning of the Huayan Sūtra* (華嚴經義海百門), Gate Four, section 9, “Rolling Up and Spreading Out”; *Taishō Tripiṭaka* 45, no. 1875, p. 631a4–9
 
