@@ -1,4 +1,4 @@
-# Jingqing’s Pip and Peck
+# Jingqing’s pip-and-peck potential
 
 A chick ready to hatch pips from within the shell; the hen answers from without. Zen calls their meeting *pip and peck at once*.
 
