@@ -241,7 +241,15 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 
 ## The act-grammar grid
 
-> *Carrying the self forward and practice-realizing the myriad dharmas is deemed delusion; the myriad dharmas coming forward and practice-realizing the self is awakening.*
+> Carrying the self forward and practice-realizing the myriad dharmas is deemed delusion; the myriad dharmas coming forward and practice-realizing the self is awakening.
+>
+> — Eihei Dōgen, *Genjōkōan*
+>
+> To learn the Buddha Way is to learn the self.  
+> To learn the self is to forget the self.  
+> To forget the self is to be realized by the myriad dharmas.  
+> To be realized by the myriad dharmas is to shed the body and mind of the self and the body and mind of other-selves.  
+> There’s a resting of the traces of realization; a causing of the rested traces of realization to issue forth, long, long.
 >
 > — Eihei Dōgen, *Genjōkōan*
 
@@ -249,13 +257,13 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 >
 > — Hakuin Ekaku, *Orategama* I, quoting Dahui Zonggao
 
-An **act-grammar** grid pairs a dependence-reading with an enactment-reading of one graded resonance across three rows. The enactment cells pick out three aspects of the quoted passages: *genjō* is the actualizing of the case, *banpō susumite* is the dharmas advancing and the self being verified, and *dōchū no kufū* names that practice-realizing under the directed-time reading.
+An **act-grammar** grid pairs a dependence-reading with an enactment-reading of one graded resonance across three rows. The enactment cells pick out three aspects of the quoted passages: *genjō* is the actualizing of the case, *banpō susumite* is the dharmas coming forward and the self being verified, and *dōchū no kufū* names that practice-realizing under the directed-time reading.
 
 | Dependence reading | Enactment reading | Modelling |
 |---|---|---|
 | **mujishō-sōe** — mutual dependence without own-being | **genjō** — the dependence manifesting as this case | Mutual Dependence |
-| **kannō-sōe** — responsive resonance placed under dis-resonance grading | **banpō susumite** — the myriad dharmas advancing, the being verified | Graded Resonance |
-| **engi / inga** — dependent arising and cause/effect under an added direction | **dōchū no kufū** — practice in the midst of activity | Directed + Causal + Causation |
+| **kannō-sōe** — responsive resonance placed under dis-resonance grading | **banpō susumite** — the myriad dharmas coming forward, the being verified; **shushō** — practice-realization | Graded Resonance |
+| **engi / inga** — dependent arising and cause/effect under an added direction | **shushō** — practice-realization; **dōchū no kufū** — practice in the midst of activity | Directed + Causal + Causation |
 
 Row 1 reads the resonance as manifestation without a substrate; Row 2 reads it as graded receiving and responding; Row 3 reads the doing under direction and causation reading. Conversely, forgetting Row 3's overlays and Row 2's grades returns the one mutual dependence of the encounter.
 
