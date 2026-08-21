@@ -249,7 +249,7 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 > To learn the self is to forget the self.  
 > To forget the self is to be realized by the myriad dharmas.  
 > To be realized by the myriad dharmas is to shed the body and mind of the self and the body and mind of other-selves.  
-> There’s a resting of the traces of realization; and a causing of the rested traces of realization to issue forth, long, long.
+> There’s a resting of the traces of realization; a causing of the rested traces of realization to issue forth, long, long.
 >
 > — Eihei Dōgen, *Genjōkōan*
 
