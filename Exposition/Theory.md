@@ -505,7 +505,7 @@ The taxonomy is not a map of places on a path. Immunity is checked per productio
 
 ## The ladder as medicine
 
-> Originally, it’s in response to the one-sidedness illness that the middle exists. Once that one-sided illness is removed, the middle likewise isn’t established.
+> It is to cure the illness of one-sidedness that there is a middle. Once the illness of one-sidedness is removed, the middle likewise is not established.
 >
 > — Jizang, *The Profound Meaning of the Three Treatises* (三論玄義)
 
