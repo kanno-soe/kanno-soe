@@ -3,7 +3,7 @@
 A chick ready to hatch pips from within the shell; the hen answers from without. Zen calls their meeting *pip and peck at once*.
 
 A monk asks Jingqing: “This student pips; please, teacher, peck.”  
-Jingqing says: “Will you come alive, or not?”  
+Jingqing says: “Will it come alive, or not?”  
 The monk says: “If I don’t come alive, I’ll be met with people’s blame and ridicule.”  
 Jingqing says: “Another man in the weeds.”  
 
