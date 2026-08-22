@@ -166,28 +166,28 @@ A **Being** is a mutual dependence of singleton-only designata.
 being ⇓ [{b₁} ⋈ {b₂} ⋈ {b₃} ⋈ ... ⋈ {bₙ}]
 ```
 
-The designata are implied to be *imputed* from (share common elements with) the `b₁` and `b₂` of  resonances. A directed/causal reading (described below) may also be supplied.
+The designata are implied to be *imputed* from (share common elements with) the `b₁` and `b₂` of  resonances. A temporal/causal reading (described below) may also be supplied.
 
-## Direction and Causation are overlays
+## Temporality and Causation are overlays
 
-Mutual Dependence and Resonance contain no time-directedness. A **Directed** interpretation is supplied separately as a strict transitive **Before** (≺) relation. A domain may then supply a **Causal** (↝) interpretation with a `x ↝ y` relation, a proof that causing implies `x ≺ y`, and, for every causal claim, a **Causation** certificate.
+Mutual Dependence and Resonance contain no time-directedness. A **Temporality** interpretation is supplied separately as a strict transitive **Before** (≺) relation with, for every `x ≺ y` claim, a **Temporal** certificate. A domain may then supply a **Causal** (↝) interpretation with a `x ↝ y` relation that implies `x ≺ y`.
 
 The certificate is simply a mutual dependence with `x` at one end and `y` at the other.
 
 ```text
-    dependence certificate:   {x, ...} ⋈ ... ⋈ {..., y}
-    directed overlay:          x ≺ y
+    temporal certificate:     {x, ...} ⋈ ... ⋈ {..., y}
+    temporal overlay:          x ≺ y
     causal assertion:          x ↝ y
 
+    x ≺ y  =>  a mutual dependence with `x` at one end and `y` at the other
     x ↝ y  =>  x ≺ y
-    x ↝ y  =>  a mutual dependence with `x` at one end and `y` at the other
 ```
 
 Because Before is strict, causal direction is asymmetric: `x ↝ y` rules out `y ↝ x`.
 
 Forgetting the causal and temporal overlays leaves the certificate as just like any other mutual dependence without causal and temporal interpretations.
 
-To summarise, **mujishō-sōe** is the dependence-structure retained when either grading or the causal and directional overlays are forgotten.
+To summarise, mujishō-sōe is the dependence-structure retained when either grading or the causal and temporal overlays are forgotten.
 
 ## From empty dependence to the provisional middle
 
@@ -196,7 +196,7 @@ To summarise, **mujishō-sōe** is the dependence-structure retained when either
 >
 > — Nāgārjuna, *Mūlamadhyamakakārikā* 24.18
 
-Remove grades from a Graded Resonance and the Directed/Causal overlay from a Causation certificate, and the Mutual Dependence remains. That by itself is not a Buddhist metaphysics — the philosophical bridge begins when the act-grammar reads the mutual dependence (**sōe**) as **mujishō-sōe**: mutual dependence under the condition of no own-being.
+Remove grades from a Graded Resonance and the Temporal/Causal overlay, and the Mutual Dependence remains. That by itself is not a Buddhist metaphysics — the philosophical bridge begins when the act-grammar reads the mutual dependence (**sōe**) as **mujishō-sōe**: mutual dependence under the condition of no own-being.
 
 *Mujishō* (無自性) means without self-nature or own-being. The formal model's interdependence relation is a simple analogue —neither interdependent component is entered as the self-standing base of the other.
 
@@ -257,15 +257,15 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 >
 > — Hakuin Ekaku, *Orategama* I, quoting Dahui Zonggao
 
-An **act-grammar** grid pairs a dependence-reading with an enactment-reading of one graded resonance across three rows. The enactment cells pick out three aspects of the quoted passages: *genjō* is the actualizing of the case, *banpō susumite* is the dharmas coming forward and the self being verified, and *dōchū no kufū* names that practice-realizing under the directed-time reading.
+An **act-grammar** grid pairs a dependence-reading with an enactment-reading of one graded resonance across three rows. The enactment cells pick out three aspects of the quoted passages: *genjō* is the actualizing of the case, *banpō susumite* is the dharmas coming forward and the self being verified, **shushō** and *dōchū no kufū* names that practice-realizing under the causal reading.
 
 | Dependence reading | Enactment reading | Modelling |
 |---|---|---|
 | **mujishō-sōe** — mutual dependence without own-being | **genjō** — the dependence manifesting as this case | Mutual Dependence |
 | **kannō-sōe** — responsive resonance placed under dis-resonance grading | **shushō** — practice-realization, **banpō susumite** — the myriad dharmas coming forward, the being verified | Graded Resonance |
-| **engi / inga** — dependent arising and cause/effect under an added direction | **shushō** — practice-realization, **dōchū no kufū** — practice in the midst of activity | Directed + Causal + Causation |
+| **engi / inga** — dependent arising and cause/effect under an added direction | **shushō** — practice-realization, **dōchū no kufū** — practice in the midst of activity | Causal |
 
-Row 1 reads the resonance as manifestation without a substrate; Row 2 reads it as graded receiving and responding; Row 3 reads the doing under direction and causation reading. Conversely, forgetting Row 3's overlays and Row 2's grades returns the one mutual dependence of the encounter.
+Row 1 reads the resonance as manifestation without a substrate; Row 2 reads it as graded receiving and responding; Row 3 reads the doing under temporality and causation. Conversely, forgetting Row 3's overlays and Row 2's grades returns the one mutual dependence of the encounter.
 
 ## Floor-face and act-time face
 
@@ -673,7 +673,7 @@ which is already total in closed prime.
     a' ↓ b'                 always             always
 ```
 
-As in the base elaboration Direction is overlayed (or can be lifted from base),
+As in the base elaboration, Temporality is overlaid (or can be lifted from base),
 although neither designata nor the web are “before” the other.
 
 ### Supplied philosophical reading

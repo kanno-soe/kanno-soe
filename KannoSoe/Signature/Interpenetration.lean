@@ -19,9 +19,10 @@ target.
 lifted old designatum.  The closed and open systems can differ for `Reaches`,
 as the witness below shows, but not for `Joinable`.
 
-`Directed.liftOption DA` separately preserves a supplied direction between
-embedded old designata while leaving `none` outside that direction.  It is an
-optional overlay on the primed carrier, not direction derived by priming.
+`Temporality.liftOption T` separately preserves a supplied `Before` relation
+between embedded old designata, transports their temporal certificates, and
+leaves `none` outside that relation.  It is an optional temporal overlay on the
+primed carrier, not temporality derived by priming.
 -/
 
 universe u v
@@ -69,6 +70,30 @@ theorem mem_map {D : Type u} {D' : Type v}
 
 end Component
 
+namespace Interdependence
+
+/-- Transport an interdependence along a map of designata. -/
+def map {D : Type u} {D' : Type v} (L : Interdependence D) (f : D → D') :
+    Interdependence D' where
+  Interdependent c₁' c₂' :=
+    ∃ c₁ c₂, L.Interdependent c₁ c₂ ∧
+      c₁' = c₁.map f ∧ c₂' = c₂.map f
+  symm := by
+    rintro c₁' c₂' ⟨c₁, c₂, h₁₂, hc₁, hc₂⟩
+    exact ⟨c₂, c₁, L.symm h₁₂, hc₂, hc₁⟩
+
+theorem Chained.map {D : Type u} {D' : Type v}
+    {L : Interdependence D} {components : List (Component D)}
+    (f : D → D') (h : L.Chained components) :
+    (L.map f).Chained (components.map (Component.map f)) := by
+  induction h with
+  | nil => exact .nil
+  | single c₁ => exact .single (c₁.map f)
+  | cons h₁₂ _ ih =>
+      exact .cons ⟨_, _, h₁₂, rfl, rfl⟩ ih
+
+end Interdependence
+
 namespace RawMutualDependence
 
 /--
@@ -91,6 +116,40 @@ def mapComponents {D : Type u} {D' : Type v}
   simp [mapComponents, components]
 
 end RawMutualDependence
+
+namespace MutualDependence
+
+/-- Transport a certified mutual dependence along a map of designata. -/
+def map {D : Type u} {D' : Type v} (m : MutualDependence D) (f : D → D') :
+    MutualDependence D' where
+  toRaw := m.toRaw.mapComponents f (m.interdependence.map f)
+  holds := by
+    rw [RawMutualDependence.Holds,
+      RawMutualDependence.components_mapComponents]
+    exact m.holds.map f
+
+@[simp] theorem c₁_map {D : Type u} {D' : Type v}
+    (m : MutualDependence D) (f : D → D') :
+    (m.map f).c₁ = m.c₁.map f :=
+  rfl
+
+@[simp] theorem cₙ_map {D : Type u} {D' : Type v}
+    (m : MutualDependence D) (f : D → D') :
+    (m.map f).cₙ = m.cₙ.map f :=
+  rfl
+
+end MutualDependence
+
+namespace Temporal
+
+/-- Transport a temporal certificate along a map of designata. -/
+def map {D : Type u} {D' : Type v} {x y : D}
+    (h : Temporal D x y) (f : D → D') : Temporal D' (f x) (f y) := by
+  obtain ⟨m, hx, hy⟩ := h
+  exact .ofMutualDependence (m.map f) (Component.mem_map hx)
+    (Component.mem_map hy)
+
+end Temporal
 
 /-! ## Additive extension and monotonicity -/
 
@@ -368,18 +427,18 @@ theorem prime_joinable_exhausted_on_image {D : Type u} (E : Elaboration D)
 
 end Elaboration
 
-/-! ## Conservative direction on a primed carrier -/
+/-! ## Conservative temporality on a primed carrier -/
 
-namespace Directed
+namespace Temporality
 
 /--
-Preserve a base direction between `some` images while leaving the fresh
-`none` designatum direction-isolated.  This is an optional overlay for the
-carrier used by priming; `Elaboration.prime` itself supplies no direction.
+Preserve a base `Before` relation between `some` images while leaving the fresh
+`none` designatum temporally isolated.  This is an optional overlay for the
+carrier used by priming; `Elaboration.prime` itself supplies no temporality.
 -/
-def liftOption {D : Type u} (DA : Directed D) : Directed (Option D) where
+def liftOption {D : Type u} (T : Temporality D) : Temporality (Option D) where
   Before
-    | some x, some y => DA.Before x y
+    | some x, some y => T.Before x y
     | _, _ => False
   trans := by
     intro x y z hxy hyz
@@ -391,27 +450,35 @@ def liftOption {D : Type u} (DA : Directed D) : Directed (Option D) where
         | some y =>
             cases z with
             | none => exact False.elim hyz
-            | some z => exact DA.trans hxy hyz
+            | some z => exact T.trans hxy hyz
   irrefl := by
     intro x
     cases x with
     | none => exact fun h => h
-    | some x => exact DA.irrefl x
+    | some x => exact T.irrefl x
+  certify := by
+    intro x y h
+    cases x with
+    | none => exact False.elim h
+    | some x =>
+        cases y with
+        | none => exact False.elim h
+        | some y => exact (T.certify h).map Option.some
 
-/-- The lifted direction agrees exactly with the base direction on old images. -/
+/-- The lifted `Before` relation agrees with the base relation on old images. -/
 @[simp] theorem liftOption_before_some_some_iff {D : Type u}
-    (DA : Directed D) {x y : D} :
-    (liftOption DA).Before (some x) (some y) ↔ DA.Before x y :=
+    (T : Temporality D) {x y : D} :
+    (liftOption T).Before (some x) (some y) ↔ T.Before x y :=
   Iff.rfl
 
 @[simp] theorem liftOption_not_before_none {D : Type u}
-    (DA : Directed D) (x : Option D) :
-    ¬ (liftOption DA).Before x none := by
+    (T : Temporality D) (x : Option D) :
+    ¬ (liftOption T).Before x none := by
   cases x <;> exact fun h => h
 
 @[simp] theorem liftOption_not_none_before {D : Type u}
-    (DA : Directed D) (y : Option D) :
-    ¬ (liftOption DA).Before none y := by
+    (T : Temporality D) (y : Option D) :
+    ¬ (liftOption T).Before none y := by
   cases y <;> exact fun h => h
 
-end Directed
+end Temporality

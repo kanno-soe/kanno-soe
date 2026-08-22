@@ -3,7 +3,7 @@ import KannoSoe.Signature.Rules
 /-!
 # Signature examples
 
-Examples of certified beings, two-sided resonance grades, and direction.
+Examples of certified beings, two-sided resonance grades, and temporality.
 -/
 
 namespace BeingAndGrading
@@ -276,8 +276,26 @@ theorem teaBefore_rank_lt {x y : GalacticTeaDesignatum} (h : TeaBefore x y) :
     teaRank x < teaRank y := by
   cases h <;> decide
 
-def teaDirection : Directed GalacticTeaDesignatum :=
-  Directed.ofBaseRank TeaBefore teaRank teaBefore_rank_lt
+def teaBefore_temporal {x y : GalacticTeaDesignatum}
+    (h : Relation.TransGen TeaBefore x y) :
+    Temporal GalacticTeaDesignatum x y := by
+  induction h with
+  | single hxy =>
+      cases hxy with
+      | bigBang_vesper =>
+          exact .ofMutualDependence bigBangVesperTeaDependence
+            bigBang_designatum_mem someoneDrinkingTea_designatum_mem
+      | bigBang_earth =>
+          exact .ofMutualDependence bigBangEarthTeaDependence
+            bigBang_designatum_mem meDrinkingTea_designatum_mem
+  | tail hxy hyz _ =>
+      have hlt :=
+        Temporality.rank_lt_of_transGen
+          (base := TeaBefore) (rank := teaRank) teaBefore_rank_lt hxy
+      cases hyz <;> exact (Nat.not_lt_zero _ hlt).elim
+
+def teaTemporal : Temporality GalacticTeaDesignatum :=
+  Temporality.ofBaseRank TeaBefore teaRank teaBefore_rank_lt teaBefore_temporal
 
 inductive TeaCauses :
     GalacticTeaDesignatum → GalacticTeaDesignatum → Prop where
@@ -289,7 +307,7 @@ inductive TeaCauses :
         GalacticTeaDesignatum.meDrinkingTea
 
 def teaCausal : Causal GalacticTeaDesignatum where
-  toDirected := teaDirection
+  toTemporality := teaTemporal
   Causes := TeaCauses
   causes_before := fun h => by
     cases h with
@@ -297,26 +315,20 @@ def teaCausal : Causal GalacticTeaDesignatum where
         exact Relation.TransGen.single TeaBefore.bigBang_vesper
     | bigBang_earth =>
         exact Relation.TransGen.single TeaBefore.bigBang_earth
-  certify := fun h => by
-    cases h with
-    | bigBang_vesper =>
-        exact .ofMutualDependence bigBangVesperTeaDependence
-          bigBang_designatum_mem someoneDrinkingTea_designatum_mem
-    | bigBang_earth =>
-        exact .ofMutualDependence bigBangEarthTeaDependence
-          bigBang_designatum_mem meDrinkingTea_designatum_mem
 
-example : Causation GalacticTeaDesignatum
+example : Temporal GalacticTeaDesignatum
     GalacticTeaDesignatum.bigBang
       GalacticTeaDesignatum.someoneDrinkingTea :=
-  teaCausal.certify TeaCauses.bigBang_vesper
+  teaTemporal.certify
+    (Relation.TransGen.single TeaBefore.bigBang_vesper)
 
-example : Causation GalacticTeaDesignatum
+example : Temporal GalacticTeaDesignatum
     GalacticTeaDesignatum.bigBang GalacticTeaDesignatum.meDrinkingTea :=
-  teaCausal.certify TeaCauses.bigBang_earth
+  teaTemporal.certify
+    (Relation.TransGen.single TeaBefore.bigBang_earth)
 
 theorem vesperEarthTea_not_before :
-    ¬ teaDirection.Before
+    ¬ teaTemporal.Before
       GalacticTeaDesignatum.someoneDrinkingTea
         GalacticTeaDesignatum.meDrinkingTea := by
   intro h
@@ -324,11 +336,11 @@ theorem vesperEarthTea_not_before :
     GalacticTeaDesignatum.someoneDrinkingTea
       GalacticTeaDesignatum.meDrinkingTea at h
   exact Nat.lt_irrefl 1
-    (Directed.rank_lt_of_transGen
+    (Temporality.rank_lt_of_transGen
       (base := TeaBefore) (rank := teaRank) teaBefore_rank_lt h)
 
 theorem earthVesperTea_not_before :
-    ¬ teaDirection.Before
+    ¬ teaTemporal.Before
       GalacticTeaDesignatum.meDrinkingTea
         GalacticTeaDesignatum.someoneDrinkingTea := by
   intro h
@@ -336,23 +348,23 @@ theorem earthVesperTea_not_before :
     GalacticTeaDesignatum.meDrinkingTea
       GalacticTeaDesignatum.someoneDrinkingTea at h
   exact Nat.lt_irrefl 1
-    (Directed.rank_lt_of_transGen
+    (Temporality.rank_lt_of_transGen
       (base := TeaBefore) (rank := teaRank) teaBefore_rank_lt h)
 
 theorem vesperTea_not_before_bigBang :
-    ¬ teaDirection.Before
+    ¬ teaTemporal.Before
       GalacticTeaDesignatum.someoneDrinkingTea
         GalacticTeaDesignatum.bigBang := by
-  apply teaDirection.asymm
+  apply teaTemporal.asymm
   change Relation.TransGen TeaBefore
     GalacticTeaDesignatum.bigBang
       GalacticTeaDesignatum.someoneDrinkingTea
   exact Relation.TransGen.single TeaBefore.bigBang_vesper
 
 theorem earthTea_not_before_bigBang :
-    ¬ teaDirection.Before GalacticTeaDesignatum.meDrinkingTea
+    ¬ teaTemporal.Before GalacticTeaDesignatum.meDrinkingTea
       GalacticTeaDesignatum.bigBang := by
-  apply teaDirection.asymm
+  apply teaTemporal.asymm
   change Relation.TransGen TeaBefore
     GalacticTeaDesignatum.bigBang GalacticTeaDesignatum.meDrinkingTea
   exact Relation.TransGen.single TeaBefore.bigBang_earth

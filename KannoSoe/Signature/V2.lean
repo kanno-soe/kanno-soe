@@ -1,7 +1,7 @@
 import Std
 
 /-!
-# Mutual dependence, resonance, and direction
+# Mutual dependence, resonance, and temporality
 
 Raw types describe component structures without asserting that their
 interdependences hold. Certified types pair those descriptions with proofs, while
@@ -12,7 +12,7 @@ A interdependence derived from an elaboration (`Interdependence.ofElaboration E`
 appear inside the targets of `E`'s own definition; see
 `Elaboration.certify` and `Elaboration.SelfCertified`.
 
-Direction/causality is an additional interpretation a domain may carry,
+Temporality/causality is an additional interpretation a domain may carry,
 not something mutual dependence or resonance asserts or requires.
 -/
 
@@ -1172,32 +1172,51 @@ def le {D : Type u} {Grade : Type v} {PB : PreorderBot Grade}
 
 end GradedResonance
 
-/-! ## Direction and causality -/
+/-! ## Temporality and causality -/
 
 /--
-Directed is not derived from the MutualDependence or Resonance,
-instead it's a fact among those - it just turns out that when thermodynamic gradient
-is possible, some designata sit at lower entropy than others; Directed specifies which.
-
-Causal comes with an assertion that there's a
-mutual dependence chain with x at one side and y at another.
+The undirected dependence certificate carried by a temporal claim.  It singles
+out `x` in the first component and `y` in the last; the certified mutual
+dependence does not itself assert that either designatum is before the other.
 -/
-structure Directed (D : Type u) where
+inductive Temporal (D : Type u) (x y : D) : Prop where
+  | ofMutualDependence (m : MutualDependence D)
+      (mem_c₁ : x ∈ m.c₁) (mem_cₙ : y ∈ m.cₙ)
+
+namespace Temporal
+
+theorem symm {D : Type u} {x y : D} (h : Temporal D x y) :
+    Temporal D y x := by
+  obtain ⟨m, hx, hy⟩ := h
+  exact .ofMutualDependence m.reverse hy hx
+
+end Temporal
+
+/--
+Temporality is not derived from the MutualDependence or Resonance,
+instead it's a fact among those - for example, when a thermodynamic gradient
+is possible, some designata sit at lower entropy than others, and Temporality can specify which.
+Every `Before` fact carries a temporal dependence certificate.
+-/
+structure Temporality (D : Type u) where
   Before : D → D → Prop
   trans : ∀ {x y z : D}, Before x y → Before y z → Before x z
   irrefl : ∀ x : D, ¬ Before x x
+  certify : ∀ {x y : D}, Before x y → Temporal D x y
 
-namespace Directed
+namespace Temporality
 
-theorem asymm {D : Type u} (DA : Directed D) {x y : D}
-    (h : DA.Before x y) : ¬ DA.Before y x :=
-  fun h' => DA.irrefl x (DA.trans h h')
+theorem asymm {D : Type u} (T : Temporality D) {x y : D}
+    (h : T.Before x y) : ¬ T.Before y x :=
+  fun h' => T.irrefl x (T.trans h h')
 
 def ofBase {D : Type u} (base : D → D → Prop)
-    (acyclic : ∀ x, ¬ Relation.TransGen base x x) : Directed D where
+    (certify : ∀ {x y}, Relation.TransGen base x y → Temporal D x y)
+    (acyclic : ∀ x, ¬ Relation.TransGen base x x) : Temporality D where
   Before := Relation.TransGen base
   trans := Relation.TransGen.trans
   irrefl := acyclic
+  certify := certify
 
 theorem rank_lt_of_transGen {D : Type u} {base : D → D → Prop}
     {rank : D → Nat}
@@ -1208,41 +1227,24 @@ theorem rank_lt_of_transGen {D : Type u} {base : D → D → Prop}
   | tail _ hyz ih => exact Nat.lt_trans ih (step_lt hyz)
 
 def ofBaseRank {D : Type u} (base : D → D → Prop) (rank : D → Nat)
-    (step_lt : ∀ {x y}, base x y → rank x < rank y) : Directed D :=
-  ofBase base fun x h =>
+    (step_lt : ∀ {x y}, base x y → rank x < rank y)
+    (certify : ∀ {x y}, Relation.TransGen base x y → Temporal D x y) :
+    Temporality D :=
+  ofBase base certify fun x h =>
     Nat.lt_irrefl (rank x)
       (rank_lt_of_transGen (base := base) (rank := rank) step_lt h)
 
-end Directed
+end Temporality
 
-/--
-The undirected dependence certificate carried by a causal claim.  It singles
-out `x` in the first component and `y` in the last; the certified mutual
-dependence does not itself assert that either designatum is before the other.
--/
-inductive Causation (D : Type u) (x y : D) : Prop where
-  | ofMutualDependence (m : MutualDependence D)
-      (mem_c₁ : x ∈ m.c₁) (mem_cₙ : y ∈ m.cₙ)
-
-namespace Causation
-
-theorem symm {D : Type u} {x y : D} (h : Causation D x y) :
-    Causation D y x := by
-  obtain ⟨m, hx, hy⟩ := h
-  exact .ofMutualDependence m.reverse hy hx
-
-end Causation
-
-structure Causal (D : Type u) extends Directed D where
+structure Causal (D : Type u) extends Temporality D where
   Causes : D → D → Prop
   causes_before : ∀ {x y : D}, Causes x y → Before x y
-  certify : ∀ {x y : D}, Causes x y → Causation D x y
 
 namespace Causal
 
 /-- Causal claims inherit asymmetry from their strict `Before` overlay. -/
 theorem causes_asymm {D : Type u} (C : Causal D) {x y : D}
     (h : C.Causes x y) : ¬ C.Causes y x :=
-  fun h' => C.toDirected.asymm (C.causes_before h) (C.causes_before h')
+  fun h' => C.toTemporality.asymm (C.causes_before h) (C.causes_before h')
 
 end Causal
