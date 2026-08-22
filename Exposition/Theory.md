@@ -217,7 +217,7 @@ The **dependence-face** names the relation retained when additions are forgotten
 > A monk asks: “What is the true person of no rank?” The master grabs him: “Speak! Speak!”  
 > The monk hesitates. The master pushes him away: “The true person of no rank—what a dried piece of shit!”
 >
-> — Linji Yixuan, *The Record of Linji*
+> — Línjì Yìxuán, *The Record of Línjì*
 
 Genjō answers how groundless dependence comes forward as a case.
 
@@ -243,7 +243,7 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 
 > Carrying the self forward and practice-realizing the myriad dharmas is deemed delusion; the myriad dharmas coming forward and practice-realizing the self is awakening.
 >
-> — Eihei Dōgen, *Genjōkōan*
+> — Dōgen, *Genjōkōan*
 >
 > To learn the Buddha Way is to learn the self.  
 > To learn the self is to forget the self.  
@@ -251,7 +251,7 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 > To be realized by the myriad dharmas is to shed the body and mind of the self and the body and mind of other-selves.  
 > There’s a resting of the traces of realization; a causing of the rested traces of realization to issue forth, long, long.
 >
-> — Eihei Dōgen, *Genjōkōan*
+> — Dōgen, *Genjōkōan*
 
 > *Practice in the midst of activity surpasses practice in stillness a hundred, a thousand, a hundred million times over.*
 >
@@ -507,7 +507,7 @@ The taxonomy is not a map of places on a path. Immunity is checked per productio
 
 > It is to cure the illness of one-sidedness that there is a middle. Once the illness of one-sidedness is removed, the middle likewise is not established.
 >
-> — Jizang, *The Profound Meaning of the Three Treatises* (三論玄義)
+> — Jízàng, *The Profound Meaning of the Three Treatises* (三論玄義)
 
 Jizang’s four levels of the two-truths teaching follow a teaching as it meets attachment. At each level, a conventional distinction remains available for use. A freeze occurs when that distinction is accorded final standing. The ultimate truth at the right of the row addresses that overreach without cancelling the distinction’s conventional use.
 
