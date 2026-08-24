@@ -1,6 +1,6 @@
 # [Kannō-Sōe Mutual Dependence (KSMD)](https://ksmd-theory.org/)
 
-The KSMD project implements a simplified formal model reconstruction of Zen metaphysics and soteriology.
+The KSMD project implements an ontology-under-erasure formal theory analysis inspired by Zen sayings.
 
 The use of formal modelling is primarily for internal accountability in defining the system—please note that every notable conclusion of the model follows only from the modelling decisions made during the creation of the project.
 
