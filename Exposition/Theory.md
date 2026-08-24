@@ -262,8 +262,8 @@ An **act-grammar** grid pairs a dependence-reading with an enactment-reading of 
 | Dependence reading | Enactment reading | Modelling |
 |---|---|---|
 | **mujishō-sōe** — mutual dependence without own-being | **genjō** — the dependence manifesting as this case | Mutual Dependence |
-| **kannō-sōe** — responsive resonance placed under dis-resonance grading | **shushō** — practice-realization, **banpō susumite** — the myriad dharmas coming forward, the being verified | Graded Resonance |
-| **engi / inga** — dependent arising and cause/effect | **shushō** — practice-realization, **dōchū no kufū** — practice in the midst of activity | Causal |
+| **kannō-sōe** — responsive resonance placed under dis-resonance grading | **shushō**, **banpō susumite** — the myriad dharmas coming forward, the being verified | Graded Resonance |
+| **engi / inga** — dependent arising and cause/effect | **shushō**, **dōchū no kufū** — practice in the midst of activity | Causal |
 
 Row 1 reads the resonance as manifestation without a substrate; Row 2 reads it as graded receiving and responding; Row 3 reads the doing under temporality and causation. Conversely, forgetting Row 3's overlays and Row 2's grades returns the one mutual dependence of the encounter.
 
