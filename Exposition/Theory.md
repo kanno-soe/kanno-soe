@@ -1,6 +1,6 @@
-# Kannō-Sōe Mutual Dependence
+# Kannō-Sōe Mutual Dependence (KSMD)
 
-The KSMD project implements an ontology-under-erasure formal theory analysis inspired by Zen sayings.
+KSMD implements a formal theory of provisional non-reifying ontology inspired by Zen sayings.
 
 The use of formal modelling is primarily for internal accountability in defining the system—please note that every notable conclusion of the model follows only from the modelling decisions made during the creation of the project.
 
