@@ -154,7 +154,9 @@ A **Graded Resonance** adds two independent grades to a Resonance: a calls-side 
     callsGrade and responsesGrade are independent coordinates.
 ```
 
-Thus a stone may be *assigned* bottom on both sides, while a grumpy person who has stubbed a toe may be *assigned* a non-bottom calls grade, a non-bottom responses grade, or both. Those are interpretations supplied to the model; the model itself does not infer a grade from stonehood, pain, personality, or behavior.
+A stone can prompt volition, not have it; only volition makes a cause karmic. That is the whole difference between non-karmic and karmic cause/effect. Likewise it can feed āsravas, not have them.
+
+Thus a stone is assigned bottom on both sides, while a grumpy person who has stubbed a toe may be *assigned* a non-bottom calls grade, a non-bottom responses grade, or both. Those are interpretations supplied to the model; the model itself does not itself infer a grade.
 
 Grading is sentience-neutral. A sentience reading *could* be supplied as additional information, but it's not inherently required in the model.
 
