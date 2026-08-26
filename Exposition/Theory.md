@@ -206,11 +206,11 @@ This is from Nāgārjuna's *MMK* 24.18: what dependently originates is empty of 
 
 Jizang supplies the next turn. In the fourfold two truths, each stated ultimate—including the conventional/ultimate distinction itself—can become the conventional content of the next analysis. The iteration does not discover a final unconditioned proposition, it ends at words forgotten, thought cut off (言忘慮絶): not another claim but the place where words and thought no longer do separating work. That claimless place is called the **floor**.
 
-The **middle** can then manifest as this case, instead of becoming another object of analysis. This manifestation is called **genjō**, the **provisional middle**.
+The **middle** can then manifest as this case, instead of becoming another object of analysis. This manifestation is called **genjōkōan**, the **provisional middle**.
 
 | Dependence reading | Enactment reading |
 |---|---|
-| **mujishō-sōe** — mutual dependence without own-being | **genjō** — the dependence manifesting as this case |
+| **mujishō-sōe** — mutual dependence without own-being | **genjōkōan** — the case manifesting fully |
 
 The **dependence-face** names the relation retained when additions are forgotten; the **enactment-face** names how that relation comes forward as a case. Mujishō-sōe is the dependence-face of Row 1: this Encounter has no self-standing substrate. Genjō is its enactment-face: that empty dependence nevertheless manifests as this call, this receiving, this response. *Provisional* doesn’t mean half-real or merely hypothetical, it says that the case is concrete without being promoted into a final ground.
 
@@ -221,13 +221,13 @@ The **dependence-face** names the relation retained when additions are forgotten
 >
 > — Línjì Yìxuán, *The Record of Línjì*
 
-Genjō answers how groundless dependence comes forward as a case.
+Genjōkōan answers how groundless dependence comes forward as a case.
 
 Linji supplies its guard-image. The reconstruction reads the true person of no rank (無位真人) along a seam: *no rank* (無位) is non-attainment; the true person going in and out (真人…出入) through the face-gates prevents no-rank from becoming inert; the whole figure holds no-rank and activity together. When the monk asks what the true person is—and then hesitates under Linji’s demand to speak—the phrase threatens to become a resting-place. Linji’s rebuff destroys that possibility, discarding even the “true person of no rank” once it begins to function as something identifiable or possessable. This no-rank, no-resting-place reading is called the **non-attaining middle**, or **unattaining middle**, when the emphasis falls on nothing being obtained or stored.
 
 The reconstruction states that reading in Dōgen's vocabulary. **Shu** (修) is practice, the concrete doing. **Shō** (証) is realization, with the non-attaining floor-face at bottom placement in any given grading of a resonance. The homophone differs from the the *shō* in *mujishō*, which is 性, nature, while the **shō** in *shushō* is 証, realization.
 
-Shō gains determinate content through a contrast within practice. At a bottom placement, practice has its non-attaining floor-face face: the act's subject-position is ceded, with nothing in the doing answering to a dis-resonant "self-forwards". At a non-bottom placement, that same practice is delusive to the extent that it arrogates the subject-position. This gives the non-attaining floor-face its grading counterpart. Genjō has no corresponding delusion term: its contrast is empty dependence versus manifestation.
+Shō gains determinate content through a contrast within practice. At a bottom placement, practice has its non-attaining floor-face face: the act's subject-position is ceded, with nothing in the doing answering to a dis-resonant "self-forwards". At a non-bottom placement, that same practice is delusive to the extent that it arrogates the subject-position. This gives the non-attaining floor-face its grading counterpart. Genjōkōan has no corresponding delusion term: its contrast is empty dependence versus manifestation.
 
 **Shushō** (修証) says practice-realization; **shushō-ittō** says that its practice and realization are non-dual. That cannot mean two events—practice first and an attained realization later—nor a still shō somehow acting by itself.
 
@@ -239,7 +239,7 @@ Shō gains determinate content through a contrast within practice. At a bottom p
                       shushō-ittō: not two events
 ```
 
-**Genjō**, the provisional middle, answers *how does empty dependence manifest as this case*? **Shō** answers *what is realization as verified*? Their distinction remains live when the grading is diagnosed, and loses its separating work where not.
+**Genjōkōan**, the provisional middle, answers *how does empty dependence manifest as this case*? **Shō** answers *what is realization as verified*? Their distinction remains live when the grading is diagnosed, and loses its separating work where not.
 
 ## The act-grammar grid
 
@@ -259,11 +259,11 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 >
 > — Hakuin Ekaku, *Orategama* I, quoting Dahui Zonggao
 
-An **act-grammar** grid pairs a dependence-reading with an enactment-reading of one graded resonance across three rows. The enactment cells pick out three aspects of the quoted passages: *genjō* is the actualizing of the case, *banpō susumite* is the dharmas coming forward and the self being verified, *shushō* and *dōchū no kufū* names that practice-realizing under the causal reading.
+An **act-grammar** grid pairs a dependence-reading with an enactment-reading of one graded resonance across three rows. The enactment cells pick out three aspects of the quoted passages: *genjōkōan* is the actualizing of the case, *banpō susumite* is the dharmas coming forward and the self being verified, *shushō* and *dōchū no kufū* names that practice-realizing under the causal reading.
 
 | Dependence reading | Enactment reading | Modelling |
 |---|---|---|
-| **mujishō-sōe** — mutual dependence without own-being | **genjō** — the dependence manifesting as this case | Mutual Dependence |
+| **mujishō-sōe** — mutual dependence without own-being | **genjōkōan** — the case manifesting fully | Mutual Dependence |
 | **kannō-sōe** — responsive resonance placed under dis-resonance grading | **banpō susumite jiko o shushō suru** — the myriad dharmas coming forward and practice-realizing the self | Graded Resonance |
 | **engi / inga** — dependent arising and cause/effect | **dōchū no kufū** — practice in the midst of activity | Causal |
 
@@ -309,7 +309,7 @@ The rows below name the material being mishandled. The columns name what is done
 
 | Material being mishandled | **Freeze `\|\|`: assigns final standing** | **Collapse `><`: removes live separation** |
 |---|---|---|
-| **Conventional articulation** — a live designation or distinction | **Intrinsic-joint realism.** `act-time → floor`: a usable term is treated as intrinsic. A being becomes substantial Being, shō becomes something stored, or the doer is placed prior to the deed. | **Identification.** `act-time → act-time`: terms whose difference remains live are fused. Sentience is read off function, or genjō and shō are conflated. |
+| **Conventional articulation** — a live designation or distinction | **Intrinsic-joint realism.** `act-time → floor`: a usable term is treated as intrinsic. A being becomes substantial Being, shō becomes something stored, or the doer is placed prior to the deed. | **Identification.** `act-time → act-time`: terms whose difference remains live are fused. Sentience is read off function, or genjōkōan and shō are conflated. |
 | **Deflationary correction** — a denial or other floor-speech | **Ground-reification.** `floor → floor`: emptiness, nonduality, the web, or the denial of a final floor is installed as a final item or ground. Nihilism and emptiness-sickness (空病) belong here. | **Erasure.** `floor → act-time`: a correction is used to cancel the live case. “No time” or “no being” denies an act underway; “does not fall under cause and effect” erases conduct where conduct matters. |
 
 Identification and erasure are therefore different forms of collapse. Identification fuses terms within a live articulation. Erasure imports a deflationary correction into that articulation and uses it to cancel the case.
@@ -352,7 +352,7 @@ recorded here, where that split is defined, rather than as rows.
 
 *Refusing to state the asymmetry* is the display-half abandoned: a theory
 of poison that won't say which direction kills (`pole_validates_all_claims`,
-`poleTier_inhabited_of_liveTerminus`; at genjō all claims validate, fused;
+`poleTier_inhabited_of_liveTerminus`; at genjōkōan all claims validate, fused;
 the pole is not a truth-maker elsewhere). A being's analogue — meeting a
 call with less than the stating it needs — is not a grammatical error but
 the Grade-2 buddha-side shortfall.
@@ -400,8 +400,8 @@ not by themselves merge distinct joints.
 
 | Distinction | **Freeze `\|\|`** | **Collapse `><`** |
 |---|---|---|
-| Rung / pole of the grade (kenshō / genjō) | **Intrinsic-joint realism.** Genjō held as *final* kenshō — the pole as top rung, awakening as a still attainment, daigo as rank; "full satori" is this freeze miniaturized — a state-word for a per-call pattern (`rungPoleRow_not_freeze`) | **Identification.** A kenshō spoken *as* genjō — a rung as the floor; the Zen sickness (禅病) of "stinking of Zen," an opening inflated into arrival — the fox's error at another joint (`rungPoleRow_obeys`, `kensho_as_genjo_collapse_self_refuting`, `rung_not_pole_witness`) |
-| genjō / shō (two middles) | **Intrinsic-joint realism.** Holding the two-middles distinction itself as a final floor-claim | **Identification.** Conflating them — manifestation taken as realization, or conversely |
+| Rung / pole of the grade (kenshō / genjōkōan) | **Intrinsic-joint realism.** Genjōkōan held as *final* kenshō — the pole as top rung, awakening as a still attainment, daigo as rank; "full satori" is this freeze miniaturized — a state-word for a per-call pattern (`rungPoleRow_not_freeze`) | **Identification.** A kenshō spoken *as* genjōkōan — a rung as the floor; the Zen sickness (禅病) of "stinking of Zen," an opening inflated into arrival — the fox's error at another joint (`rungPoleRow_obeys`, `kensho_as_genjo_collapse_self_refuting`, `rung_not_pole_witness`) |
+| genjōkōan / shō (two middles) | **Intrinsic-joint realism.** Holding the two-middles distinction itself as a final floor-claim | **Identification.** Conflating them — manifestation taken as realization, or conversely |
 | shō / satori (証 / 悟) | **Intrinsic-joint realism.** Satori as a datable possession | **Identification.** Reading the floor-face as the awakening-mode, or conversely |
 | Dated grade / agent-type (the mis-typing joint; formerly act / state) | **Intrinsic-joint realism.** The act's grade frozen into a standing configuration of the agent — Resonance held as a faculty; buddha-nature as substance; the empty agent re-based. Distinct from doer/deed, where the doer's *priority* is reified — here it is the act's *type*; and from standing/dated, which takes the seed-side disposition against the dated act and expressly excludes configuration/act | **Identification.** The placement *being* the self — a grade of this dated act identified with the agent |
 | Function / share | **Intrinsic-joint realism.** Function frozen into a standing device-nature — the mirror given a stand; originally not a single thing (本来無一物) is the corrective (`functionShareRow_not_freeze`) | **Identification.** Universal response identified with its share-cell — share-zero treated as non-response, or live share treated as the only real function; the identity *I-making just is the clench* is this collapse in embryo (`functionShareRow_obeys`, `function_share_cell_collapse_self_refuting`) |
