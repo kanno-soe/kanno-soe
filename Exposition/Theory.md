@@ -179,6 +179,13 @@ The designata are implied to be *imputed* from (share common elements with) the 
 
 ## Temporality and Causation are overlays
 
+> In this being, that is.   
+> Owing to the arising of this, that arises.  
+> In this not being, that is not.  
+> Owing to the cessation of this, that ceases.  
+>
+> — Buddha, *Udāna* 1.3
+
 Mutual Dependence and Resonance contain no time-directedness. A **Temporality** interpretation is supplied separately as a strict transitive **Before** (≺) relation with, for every `x ≺ y` claim, a **Temporal** certificate. A domain may then supply a **Causal** (↝) interpretation with a `x ↝ y` relation that implies `x ≺ y`.
 
 The certificate is simply a mutual dependence with `x` at one end and `y` at the other.
