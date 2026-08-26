@@ -141,7 +141,7 @@ Nothing in the ungraded structure privileges the person. Nor does the stone exam
 ## Graded Resonance
 
 > Living beings originally are Buddha.  
-> As with water and ice,  
+> Being like water and ice,  
 > leaving water there is no ice,  
 > outside of living beings there is no Buddha.
 > 
