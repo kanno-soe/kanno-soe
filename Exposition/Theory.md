@@ -179,9 +179,9 @@ The designata are implied to be *imputed* from (share common elements with) the 
 
 ## Temporality and Causation are overlays
 
-> This being, that is.   
+> In this being, that is.   
 > Owing to the arising of this, that arises.  
-> This not being, that is not.  
+> In this not being, that is not.  
 > Owing to the cessation of this, that ceases.  
 >
 > — Buddha, *Udāna* 1.3
