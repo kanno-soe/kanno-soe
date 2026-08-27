@@ -186,6 +186,21 @@ The designata are implied to be *imputed* from (share common elements with) the 
 >
 > — Buddha, *Udāna* 1.3
 
+> Note: This section will be revised, it puts forward a definition of Cause which is intuitive but
+> confusingly different from the one the Buddhist tradition uses.
+> 
+> I’ll try to briefly explain the difference pending bringing this more into line with the Buddhist use of the terminology.
+> 
+> Firstly, in Buddhist terminology, ”A Causes B” does not necessarily imply ”A Before B”. I’ll provide two (not-necessarily-exhaustive) examples:
+> 
+> a) The tradition’s example: You stack two reeds leaning against each other, and leave them leaning against one another. Afterwards it’s correct to say A is Causing B to remain standing, and B is Causing A to remain standing.
+> 
+> b) My own unrelated example: The upcoming World Cup (of whichever sport) is to be hosted in Antarctica. Because of the World Cup taking place, there’s a building of stadiums. The building of stadiums causes the World Cup to take place. Though you could dissect this into a linear causation process, you aren’t required to do so. In farness, the tradition might use “conditions” for the latter, but the general idea is that designation of A and B could be broad enough that within there are genuine Causal relations in each direction, which the whole validly takes on as its own Causal relations when discussing it.
+> 
+> Lastly, (as I understand it) a matter of taste: you should be able to say ”A Before B” without having to state
+> the way they mutually depend in any more detail / separate from the statement already made. The statement you make of “A Before B”
+> already suffices as its own mutual dependence statement (in the sense of A’s beforeness to B, B’s afterness to A).
+
 Mutual Dependence and Resonance contain no time-directedness. A **Temporality** interpretation is supplied separately as a strict transitive **Before** (≺) relation with, for every `x ≺ y` claim, a **Temporal** certificate. A domain may then supply a **Causal** (↝) interpretation with a `x ↝ y` relation that implies `x ≺ y`.
 
 The certificate is simply a mutual dependence with `x` at one end and `y` at the other.
