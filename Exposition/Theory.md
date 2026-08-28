@@ -321,6 +321,8 @@ Act-time corresponds approximately to the term *vacī-saṅkhāra*, discursive/v
 
 The two terms can intersect, in designation without grasping, however here each is a term focusing on their specific aspect without considering whether the other is present of not.
 
+One can talk of the floor at act-time in the same way that one can talk of sleep at act-time — it doesn’t in itself require the person to be sleeping to do so, or cause one to sleep necessarily, or anything like that.
+
 To seek not-proliferation through not-*vacī-saṅkhāra* would be a one-sided approach toward not-proliferation. On the other side, ignoring *nippapañca-dhātu* because it is a “not-“, and considering *only* act-time would be another form of one-sidedness.
 
 ## Separate/fuse, utterances, and their offers
@@ -738,6 +740,8 @@ A recap of the structures:
   closed prime            every member reaches the common web
   open prime              members directly reach web; web directly reaches every member
   prime elaboration       adds floor correspondence positively
+                          while retaining the act-time correspondence of base—
+                          the union of the two concepts
 ```
 
 ```text
@@ -755,8 +759,6 @@ In the closed prime, every member directly reaches the web. Since the web define
 all, this is **all in each**: start from any one member and its elaboration
 implicates the whole. The open prime adds the other half,
 **each in all**: the web directly reaches every member.
-
-In base elaboration, words are in play, so this corresponds to act-time, *vacī-saṅkhāra*, discursive/verbal thought. In prime elaboration, elaboration itself becomes redundant, which corresponds to the floor, *nippapañca-dhātu* — not-proliferation.
 
 ## Credits
 
