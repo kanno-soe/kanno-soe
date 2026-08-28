@@ -744,7 +744,7 @@ A recap of the structures:
                           the union of the two concepts
 ```
 
-In the aspect of elaboration specific to prime, elaboration does no separating work, and corresponds to the floor, *nippapañca-dhātu* — not-proliferation. Prime elaboration is not limited to that however, as it includes all of the base elaboration which corresponds to act-time. Prime elaboration is the union of the two concepts — both act-time and floor, and designation without grasping at their intersection.
+In the aspect of elaboration specific to prime, elaboration does no separating work, and corresponds to the floor, *nippapañca-dhātu* — not-proliferation. Prime elaboration is not limited to that however, as it includes all of the base elaboration which corresponds to act-time. Prime elaboration is the union of the two concepts — both act-time and floor, and designation-without-grasping at their intersection.
 
 ```text
   CLOSED PRIME
