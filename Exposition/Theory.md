@@ -319,7 +319,7 @@ Floor corresponds to the term *nippapañca-dhātu*, an abstract term of “not p
 
 Act-time corresponds approximately to the term *vacī-saṅkhāra*, discursive/verbal thought.
 
-The two terms can intersect, but each is a term focusing on that specific aspect. To seek not-proliferation through not *vacī-saṅkhāra* would be a one-sided approach toward not-proliferation. On the other side, ignoring *nippapañca-dhātu* because it is a “not-“, and considering *only* act-time would be another form of one-sidedness.
+The two terms can intersect, but each is a term focusing on that specific aspect. To seek not-proliferation through not-*vacī-saṅkhāra* would be a one-sided approach toward not-proliferation. On the other side, ignoring *nippapañca-dhātu* because it is a “not-“, and considering *only* act-time would be another form of one-sidedness.
 
 ## Separate/fuse, utterances, and their offers
 
@@ -751,8 +751,7 @@ all, this is **all in each**: start from any one member and its elaboration
 implicates the whole. The open prime adds the other half,
 **each in all**: the web directly reaches every member.
 
-In prime elaboration, elaboration itself becomes redundant, which corresponds to the definition of floor, *nippapañca-dhātu*,
-not proliferation. In base elaboration, words are in play, so this corresponds to act-time *vacī-saṅkhāra*, discursive/verbal thought.
+In base elaboration, words are in play, so this corresponds to act-time *vacī-saṅkhāra*, discursive/verbal thought. In prime elaboration, elaboration itself becomes redundant, which corresponds to the floor, *nippapañca-dhātu* — not-proliferation.
 
 ## Credits
 
