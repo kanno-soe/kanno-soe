@@ -602,7 +602,7 @@ At the *limit*, this surfaces the totality of the previous section. The web *rol
 ### The web
 
 > Note: this is slightly wrong - it shouldn’t be considered a lifting step but a mode of elaboration
-> that includes the prime concept.
+> on normal designata that includes the prime concept.
 
 What the formalism calls **Prime** elaboration is for the designator to designate under the expansive
 understanding above, that to designate `a'` is in the same moment to implicate the web of totality directly reachable from and including `a`. The formal model calls this **closed prime**. In this prime mode of
