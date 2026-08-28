@@ -319,7 +319,7 @@ Floor corresponds to the term *nippapañca-dhātu*, an abstract term of “not p
 
 Act-time corresponds approximately to the term *vacī-saṅkhāra*, discursive/verbal thought.
 
-The two terms can intersect, but each is a term focusing on that specific aspect.
+The two terms can intersect, but each is a term focusing on that specific aspect. To seek not-proliferation through not *vacī-saṅkhāra* would be a one-sided approach toward not-proliferation.
 
 ## Separate/fuse, utterances, and their offers
 
