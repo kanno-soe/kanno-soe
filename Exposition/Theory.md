@@ -319,11 +319,13 @@ Floor corresponds to the term *nippapañca-dhātu*, an abstract term of “not p
 
 Act-time corresponds approximately to the term *vacī-saṅkhāra*, discursive/verbal thought.
 
-The two terms can intersect, but each is a term focusing on that specific aspect. To seek not-proliferation through not-*vacī-saṅkhāra* would be a one-sided approach toward not-proliferation. On the other side, ignoring *nippapañca-dhātu* because it is a “not-“, and considering *only* act-time would be another form of one-sidedness.
+The two terms can intersect, in designation without grasping, however here each is a term focusing on their specific aspect without considering whether the other is present of not.
+
+To seek not-proliferation through not-*vacī-saṅkhāra* would be a one-sided approach toward not-proliferation. On the other side, ignoring *nippapañca-dhātu* because it is a “not-“, and considering *only* act-time would be another form of one-sidedness.
 
 ## Separate/fuse, utterances, and their offers
 
-The **separate/fuse rule** states how distinctions behave across those tiers. At act-time a useful distinction separates. At the floor it fuses, meaning that it makes no separating claim there—not that its two sides become one substance and not that both propositions are asserted.
+The **separate/fuse rule** states how distinctions behave across those tiers. At act-time a useful distinction separates. At the floor it fuses (floor = non-proliferation in the abstract), meaning that it makes no separating claim there—not that its two sides become one substance (non-proliferation wouldn’t assert that) and not that both propositions are asserted (non-proliferation wouldn’t assert that either).
 
 || **Distinction separates** | **Distinction fuses** |
 |---|---|---|
