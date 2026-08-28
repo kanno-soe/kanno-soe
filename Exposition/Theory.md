@@ -315,6 +315,12 @@ The shushō reading introduced above is one example:
 
 Act-time follows the concrete receiving at `b₁` or responding at `b₂`; the floor-face reads that same `b₁` or `b₂` without an independently standing receiver or responder. Shu and shō are reciprocal faces of that receiving or responding within the Graded Resonance: one name follows the enactment, the other its no-own-being, non-attaining realization.
 
+Floor corresponds to the term *nippapañca-dhātu*, an abstract term of “not proliferation”, which is what floor specifically refers to.
+
+Act-time corresponds approximately to the term *vacī-saṅkhāra*, discursive/verbal thought.
+
+The two terms can intersect, but each is a term focusing on that specific aspect.
+
 ## Separate/fuse, utterances, and their offers
 
 The **separate/fuse rule** states how distinctions behave across those tiers. At act-time a useful distinction separates. At the floor it fuses, meaning that it makes no separating claim there—not that its two sides become one substance and not that both propositions are asserted.
