@@ -309,7 +309,7 @@ The shushō reading introduced above is one example:
 
         act-time face                            floor-face
 
-   concrete practice (shu) ---- shushō ---- (shō) the being-verified
+   concrete practice (shu) ---- shushō ---- (shō-graded-at-bottom) the being-verified
    in receiving/responding
 ```
 
