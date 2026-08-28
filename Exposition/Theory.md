@@ -677,7 +677,7 @@ Prime closed (all in each):
 
 ```math
 d'
-\Downarrow_{\operatorname{prime}(E)}
+\Downarrow_{\operatorname{primeClosed}(E)}
 [\{d'\}\bowtie\{\mathsf{web}\}]
 ```
 
@@ -685,7 +685,7 @@ Prime open (each in all):
 
 ```math
 \mathsf{web}
-\Downarrow_{\operatorname{primeOpen}(E)}
+\Downarrow_{\operatorname{prime}(E)}
 [\{\mathsf{web}\}\bowtie\{d'\}]
 ```
 
@@ -735,7 +735,7 @@ A recap of the structures:
   base elaboration        act-time articulation; local differences remain
   closed prime            every member reaches the common web
   open prime              members directly reach web; web directly reaches every member
-  primed designation      adds floor correspondence
+  prime elaboration       adds floor correspondence positively
 ```
 
 ```text
