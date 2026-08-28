@@ -601,6 +601,9 @@ At the *limit*, this surfaces the totality of the previous section. The web *rol
 
 ### The web
 
+> Note: this is slightly wrong - it shouldn’t be considered a lifting step but a mode of elaboration
+> that includes the prime concept.
+
 What the formalism calls **Prime** elaboration is for the designator to designate under the expansive
 understanding above, that to designate `a'` is in the same moment to implicate the web of totality directly reachable from and including `a`. The formal model calls this **closed prime**. In this prime mode of
 designating, `a'` *contains* the web, which is called **all in each**.
@@ -625,7 +628,7 @@ C_i'=\{x'\mid x\in C_i\}
 
 So for every base clause
 `d ⇓ [C₁ ⋈ … ⋈ Cₙ]`, the closed prime has
-`d′ ⇓ [C₁′ ⋈ … ⋈ Cₙ′]` (lifted base clause)
+`d′ ⇓ [C₁′ ⋈ … ⋈ Cₙ′]`
 where each `Cᵢ′` is obtained by priming every designatum in `Cᵢ`.
 
 Closed prime has this shape:
@@ -732,7 +735,7 @@ A recap of the structures:
   base elaboration        act-time articulation; local differences remain
   closed prime            every member reaches the common web
   open prime              members directly reach web; web directly reaches every member
-  primed designation      floor-face offer; not a replacement for the base
+  primed designation      adds floor correspondence
 ```
 
 ```text
