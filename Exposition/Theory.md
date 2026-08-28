@@ -288,7 +288,7 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 >
 > — Hakuin Ekaku, *Orategama* I, quoting Dahui Zonggao
 
-An **act-grammar** grid pairs a dependence-reading with an enactment-reading of one graded resonance across three rows. The enactment cells pick out three aspects of the quoted passages: *genjōkōan* is the actualizing of the case, *banpō susumite* is the dharmas coming forward and the self being verified, *shushō* and *dōchū no kufū* names that practice-realizing under the causal reading.
+An **act-grammar** grid pairs a dependence-reading with an enactment-reading of one graded resonance across three rows. The enactment cells pick out three aspects of the quoted passages: *genjōkōan* is the actualizing of the case, *banpō susumite jiko o shushō suru* is the dharmas coming forward and the self being verified, and *dōchū no kufū* names that practice-realizing under the causal reading.
 
 | Dependence reading | Enactment reading | Modelling |
 |---|---|---|
