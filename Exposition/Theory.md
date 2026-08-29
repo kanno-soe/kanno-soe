@@ -636,6 +636,8 @@ web doesn’t reach a or b
 (no outgoing elaboration clauses are defined in closed prime)
 ```
 
+The inference rule:
+
 ```math
 \frac{}{d\to^*\mathsf{web}}
 ```
