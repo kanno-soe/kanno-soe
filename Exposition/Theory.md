@@ -553,8 +553,13 @@ So a mutual dependence may be freely extended in either direction:
 
 ```text
 initial:           no   ⇓       [{n} ⋈ {o}]
-extended left:    mno   ⇓ [{m} ⋈ {n} ⋈ {o}]
+extend left:      mn    ⇓ [{m} ⋈ {n}]
+extended left     mno   ⇓ [{m} ⋈ {n} ⋈ {o}]
+
+initial:           no   ⇓       [{n} ⋈ {o}]
+extend right:       opq ⇓             [{o} ⋈ {p, q}]
 extended right:    nopq ⇓       [{n} ⋈ {o} ⋈ {p, q}]
+
 extended both:    mnopq ⇓ [{m} ⋈ {n} ⋈ {o} ⋈ {p, q}]
 ```
 
