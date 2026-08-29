@@ -651,6 +651,10 @@ web doesn’t reach a' or b’
 (no outgoing elaboration clauses are defined in closed prime)
 ```
 
+```math
+\frac{}{d\to^*\mathsf{web}}
+```
+
 This implies joinability for all prime designata and interdependence for all prime components:
 ```math
 \left(\forall a'\in\mathcal D'.\;a'\to^*\mathsf{web}\right)
@@ -688,7 +692,7 @@ Prime closed (all in each):
 
 ```math
 d'
-\Downarrow_{\operatorname{primeClosed}(E)}
+\Downarrow_{\operatorname{prime}(E)}
 [\{d'\}\bowtie\{\mathsf{web}\}]
 ```
 
