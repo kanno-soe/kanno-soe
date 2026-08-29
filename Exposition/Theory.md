@@ -547,7 +547,9 @@ The Chinese terms provide the philosophical reading of the ladder. The theorem-n
 
 ### Extension
 
-A mutual dependence may be extended in either direction:
+Note how designation and elaboration is — how we’ve defined it above — a fundamentally *additive* process. There is no pre-existing database saying what something is not. And given ‘d’ elaborating to one mutual dependence, we equally are free to elaborate it additionally as yet another mutual dependence.
+
+So a mutual dependence may be freely extended in either direction:
 
 ```text
 initial:           no   ⇓       [{n} ⋈ {o}]
