@@ -538,7 +538,7 @@ or emptying itself can be held as final and prompt the search for a
 fifth-negation; the taxonomy keeps this at
 `<The ladder / its terminus; Ground-reification; emptiness-sickness>`.
 
-The archived Lean construction analyses a mathematical model of an *infinite* ladder, where the fourth rung onwards are negations of what cam before. It records what happens when a description of that closure becomes another claim. The infinite ladder's top is governed by `no_final_level_of_errorFree`. Further formal-rungs repeat the emptying of statable claims. No statable rung supplies final-standing, and the floor remains available to the whole infinite ladder (`words_idle_at_floor`, `no_row_claim_holds_at_floor`).
+The archived Lean construction analyses a mathematical model of an *infinite* ladder, where the fourth rung onwards are negations of what came before. It records what happens when a description of that closure becomes another claim, and further rungs repeat the emptying of statable claims. The infinite ladder is governed by `no_final_level_of_errorFree`. No statable rung supplies final-standing, and the floor remains available to the whole infinite ladder (`words_idle_at_floor`, `no_row_claim_holds_at_floor`).
 
 The Chinese terms provide the philosophical reading of the ladder. The theorem-names in this section follow the archived Ladder/Metaphysics model still cited by the taxonomy above.
 
