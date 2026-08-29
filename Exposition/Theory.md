@@ -300,7 +300,19 @@ Row 1 reads the resonance as manifestation without a substrate; Row 2 reads it a
 
 ## Floor-face and act-time face
 
-The **floor** is not a first moment, a hidden base, or a final substance. It is the tier at which no deeper support is claimed and no distinction is doing separating work. A **floor-face** is this Encounter read under that no-own-being, no-claim condition. **Act-time** is the conventional diagnostic tier at which this call, this receiving, this response, this practice, and the distinctions needed to describe them are live. It is not a second Resonance before or after the floor-face.
+**Floor** is defined as the term *nippapañca-dhātu*, a privative term of “not proliferation”.
+
+**Act-time** is defined as the term *vacī-saṅkhāra*, a term for discursive/verbal thought.
+
+The two terms can intersect, in what we might call **discernment-without-grasping**, however in common usage each is a term focusing on that specific definition without considering whether the other term is present of not.
+
+We can talk of the ”floor” at act-time in the same way that one can talk of sleep at act-time — it doesn’t in itself require the person to be sleeping to do so, or cause one to sleep necessarily, or anything like that.
+
+The floor is not a first moment, a hidden base, or a final substance. Generally, we talk of the floor as *doing no separating work*. That’s because we even though distinctions can be made in designation-without-grasping (the intersection of act-time with floor), the floor term itself has no notion of separation.
+
+Act-time is the conventional diagnostic tier at which this call, this receiving, this response, this practice, and the distinctions needed to describe them are live.
+
+The **floor-face** is another case of act-time, floor intersection, this time with no elaboration either, which corresponds to “thusness”.
 
 The shushō reading introduced above is one example:
 
@@ -314,14 +326,6 @@ The shushō reading introduced above is one example:
 ```
 
 Act-time follows the concrete receiving at `b₁` or responding at `b₂`; the floor-face reads that same `b₁` or `b₂` without an independently standing receiver or responder. Shu and shō are reciprocal faces of that receiving or responding within the Graded Resonance: one name follows the enactment, the other its no-own-being, non-attaining realization.
-
-Floor corresponds to the term *nippapañca-dhātu*, an abstract term of “not proliferation”, which is what floor specifically refers to.
-
-Act-time corresponds approximately to the term *vacī-saṅkhāra*, discursive/verbal thought.
-
-The two terms can intersect, in designation without grasping, however here each is a term focusing on their specific aspect without considering whether the other is present of not.
-
-One can talk of the floor at act-time in the same way that one can talk of sleep at act-time — it doesn’t in itself require the person to be sleeping to do so, or cause one to sleep necessarily, or anything like that.
 
 To seek not-proliferation through not-*vacī-saṅkhāra* would be a one-sided approach toward not-proliferation. On the other side, ignoring *nippapañca-dhātu* because it is a “not-“, and considering *only* act-time would be another form of one-sidedness.
 
@@ -742,10 +746,10 @@ A recap of the structures:
   base elaboration        act-time articulation; local differences remain
   closed prime            every member reaches the common web
   open prime              members directly reach web; web directly reaches every member
-  prime elaboration       adds suchness correspondence positively
+  prime elaboration       adds the floor-face positively
 ```
 
-Prime elaboration does no separating work, and corresponds to suchness, which is a specific kind of act-time non-proliferation.
+Prime elaboration does no separating work, and corresponds to the floor-face, a specific kind of act-time non-proliferation.
 
 ```text
   CLOSED PRIME
