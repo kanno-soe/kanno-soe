@@ -140,10 +140,10 @@ Nothing in the ungraded structure privileges the person. Nor does the stone exam
 
 ## Graded Resonance
 
-> Living beings originally are Buddha.  
+> Sentient beings originally are Buddha.  
 > Being like water and ice,  
 > leaving water there is no ice,  
-> outside of living beings there is no Buddha.
+> outside of sentient beings there is no Buddha.
 > 
 > — Hakuin Ekaku, *Song of Zazen*
 
