@@ -669,7 +669,7 @@ a\to^*\mathsf{web}
 ```math
 \{d\}\bowtie\{\mathsf{web}\}
 \quad\Longleftrightarrow\quad
-\{\mathsf{web}\}\bowtie\{d\}.
+\{\mathsf{web}\}\bowtie\{d\}
 ```
 
 The two prime constructions realize this interdependence as a direct elaboration clause — for every $d\in\mathcal D$:
