@@ -655,14 +655,14 @@ Reachability also implies interdependence with web:
 
 ```math
 \left(
-\forall a\in\mathcal D.\;
+\forall a.\;
 a\to^*\mathsf{web}
 \right)
 \Longrightarrow
-\left(\forall d\in\mathcal D.\;d'\downarrow \mathsf{web}\right)
+\left(\forall d.\;d\downarrow \mathsf{web}\right)
 \Longrightarrow
 \left(
-\forall d\in\mathcal D.\;
+\forall d.\;
 \{d\}\bowtie\{\mathsf{web}\}
 \right)
 ```
@@ -699,6 +699,12 @@ from the web back to every member:
   web to members:    a ←∗ web →∗ b
 
   therefore:         a →∗ web →∗ b
+```
+
+The inference rule:
+
+```math
+\frac{}{d\to^*\mathsf{web}}
 ```
 
 As an equation:
