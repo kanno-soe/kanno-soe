@@ -612,9 +612,6 @@ At the *limit*, this surfaces the totality of the previous section. The web *rol
 
 ### The web
 
-> Note: this is slightly wrong - it shouldn’t be considered a lifting step but a mode of elaboration
-> on normal designata that includes the prime concept.
-
 What the formalism calls **Prime** elaboration is for the designator to designate under the expansive
 understanding above, that to designate `a` is in the same moment to implicate the web of totality directly reachable from and including `a`. The formal model calls this **closed prime**. In this prime mode of
 designating, `a` *contains* the web, which is called **all in each**.
@@ -640,7 +637,7 @@ web doesn’t reach a or b
 ```
 
 ```math
-\frac{}{d\to^*_{\operatorname{prime}(E)}\mathsf{web}}
+\frac{}{d\to^*\mathsf{web}}
 ```
 
 This implies joinability for all prime designata and interdependence for all prime components:
@@ -738,12 +735,10 @@ A recap of the structures:
   base elaboration        act-time articulation; local differences remain
   closed prime            every member reaches the common web
   open prime              members directly reach web; web directly reaches every member
-  prime elaboration       adds floor correspondence positively
-                          while retaining the act-time correspondence of base—
-                          the union of the two concepts
+  prime elaboration       adds suchness correspondence positively
 ```
 
-In the aspect of elaboration specific to prime, elaboration does no separating work, and corresponds to the floor, *nippapañca-dhātu* — not-proliferation. Prime elaboration is not limited to that however, as it includes all of the base elaboration which corresponds to act-time. Prime elaboration is the union of the two concepts — both act-time and floor, and designation-without-grasping at their intersection.
+Prime elaboration does no separating work, and corresponds to suchness, which is a specific kind of act-time non-proliferation.
 
 ```text
   CLOSED PRIME
