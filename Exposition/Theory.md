@@ -652,7 +652,7 @@ web doesn’t reach a' or b’
 ```
 
 ```math
-\frac{}{d\to^*\mathsf{web}}
+\frac{}{d\to^*_{\operatorname{prime}(E)}\mathsf{web}}
 ```
 
 This implies joinability for all prime designata and interdependence for all prime components:
