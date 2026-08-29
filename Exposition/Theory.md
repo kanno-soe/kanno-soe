@@ -308,7 +308,7 @@ The two terms can intersect, in what we might call **discernment-without-graspin
 
 We can talk of the ”floor” at act-time in the same way that one can talk of sleep at act-time — it doesn’t in itself require the person to be sleeping to do so, or cause one to sleep necessarily, or anything like that.
 
-The floor is not a first moment, a hidden base, or a final substance. Generally, we talk of the floor as *doing no separating work*. That’s because we even though distinctions can be made in designation-without-grasping (the intersection of act-time with floor), the floor term itself has no notion of separation.
+The floor is not a first moment, a hidden base, or a final substance. Generally, we talk of the floor as *doing no separating work*. That’s because even though distinctions can be made in discernment-without-grasping (the intersection of act-time with floor), the floor term itself has no notion of separation.
 
 Act-time is the conventional diagnostic tier at which this call, this receiving, this response, this practice, and the distinctions needed to describe them are live.
 
@@ -331,7 +331,7 @@ To seek not-proliferation through not-*vacī-saṅkhāra* would be a one-sided a
 
 ## Separate/fuse, utterances, and their offers
 
-The **separate/fuse rule** states how distinctions behave across those tiers. At act-time a useful distinction separates. At the floor it fuses (floor = non-proliferation in the abstract), meaning that it makes no separating claim there—not that its two sides become one substance (non-proliferation wouldn’t assert that) and not that both propositions are asserted (non-proliferation wouldn’t assert that either).
+The **separate/fuse rule** states how distinctions behave across those tiers. At act-time a useful distinction separates. At the floor it fuses (floor = privative non-proliferation), meaning that it makes no separating claim there—not that its two sides become one substance (not-proliferation doesn’t assert this) and not that both propositions are asserted (not-proliferation doesn’t assert this either).
 
 || **Distinction separates** | **Distinction fuses** |
 |---|---|---|
