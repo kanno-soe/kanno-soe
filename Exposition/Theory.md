@@ -528,6 +528,8 @@ The table reads from conventional truth on the left to its fitting ultimate trut
 
 Jizang states one medicine at the first level. The reconstruction reads it as answering two freezes at once, because Madhyamaka's target was the self-individuated Abhidharma dharma: what a thing is and where it ends were one fact, so own-being (自性) and own-mark (自相) fell to the same denial. The model's two guards — no self-standing base for either component, and joinability without identity — disaggregate that row without adding a rung beneath it. The dash in row 1's collapse cell is therefore structural: a collapse misapplies the medicine of the row above, and emptiness is row 1's own.
 
+Jizang’s fourth-level gathers the preceding levels as teaching-gates (教門) and brings them to the principle-gate (理門). This supplies the pedagogical closure of the four-level account. This corresponds to non-proliferation, the floor, while not precluding non-clinging designation at act-time from taking place.
+
 The ladder uses the Grade-1 error-cells; it doesn’t introduce new occupants. A freeze is available at the rung where a distinction is stated, whereas its collapse appears only on the next rung, after its ultimate truth has been stated. Thus `<Named being / floor; Intrinsic-joint realism; own-being>` and `<Named being / floor; Intrinsic-joint realism; own-mark>`, read with the articulation joint's notion of **intrinsic-joint realism**, supply row 1's two freeze-faces; `<Named being / floor; Erasure; no beings>` and `<Named being / floor; Identification; being / non-being>`, read with the joint's **erasure** and **identification**, supply row 2's two collapse-faces; and `<Being / emptiness; Ground-reification; nihilism>` and `<Being / emptiness; Erasure; non-duality as erasure>` supply row 2's freeze and row 3's collapse, respectively.
 
 Silence or ineffability can cancel a live response; the taxonomy keeps this
@@ -535,8 +537,6 @@ at `<The ladder / its terminus; Erasure; cheap transcendence>`. The ineffable
 or emptying itself can be held as final and prompt the search for a
 fifth-negation; the taxonomy keeps this at
 `<The ladder / its terminus; Ground-reification; emptiness-sickness>`.
-
-Jizang’s fourth-level gathers the preceding levels as teaching-gates (教門) and brings them to the principle-gate (理門). This supplies the pedagogical closure of the four-level account. This corresponds to non-proliferation, the floor, while not precluding non-clinging designation at act-time from taking place.
 
 The archived Lean construction analyses a mathematical model of an *infinite* ladder, where the fourth rung onwards are negations of what cam before. It records what happens when a description of that closure becomes another claim. The infinite ladder's top is governed by `no_final_level_of_errorFree`. Further formal-rungs repeat the emptying of statable claims. No statable rung supplies final-standing, and the floor remains available to the whole infinite ladder (`words_idle_at_floor`, `no_row_claim_holds_at_floor`).
 
