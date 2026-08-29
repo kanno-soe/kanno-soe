@@ -616,38 +616,26 @@ At the *limit*, this surfaces the totality of the previous section. The web *rol
 > on normal designata that includes the prime concept.
 
 What the formalism calls **Prime** elaboration is for the designator to designate under the expansive
-understanding above, that to designate `a'` is in the same moment to implicate the web of totality directly reachable from and including `a`. The formal model calls this **closed prime**. In this prime mode of
-designating, `a'` *contains* the web, which is called **all in each**.
+understanding above, that to designate `a` is in the same moment to implicate the web of totality directly reachable from and including `a`. The formal model calls this **closed prime**. In this prime mode of
+designating, `a` *contains* the web, which is called **all in each**.
 
-Going in the opposite direction, from web to `a'`, is
-very natural, as we defined the web in terms of `a'` initially. For analytic purposes,
+Going in the opposite direction, from web to `a`, is
+very natural, as we defined the web in terms of `a` initially. For analytic purposes,
 the formalism considers that case separately and calls it **open prime**, but it’s still the
-straightforward fact that having defined the web from `a'`, the web *contains* `a'`, which is called **each in all**.
+straightforward fact that having defined the web from `a`, the web *contains* `a`, which is called **each in all**.
 
-Every base elaboration is automatically lifted to a prime elaboration:
-
-```math
-d \Downarrow_E [C_1 \bowtie \cdots \bowtie C_n]
-\;\Longrightarrow\;
-d' \Downarrow_{\operatorname{prime}(E)}
-  [C_1' \bowtie \cdots \bowtie C_n']
-```
+Throughout this section, we fix the operators not with the base elaboration `E`, but with `prime(E)`:
 
 ```math
-C_i'=\{x'\mid x\in C_i\}
+\to^*_{\operatorname{prime}(E)}\quad\downarrow_{\operatorname{prime}(E)}\quad\bowtie_{\operatorname{prime}(E)}\quad\Downarrow_{\operatorname{prime}(E)}\quad
 ```
-
-So for every base clause
-`d ⇓ [C₁ ⋈ … ⋈ Cₙ]`, the closed prime has
-`d′ ⇓ [C₁′ ⋈ … ⋈ Cₙ′]`
-where each `Cᵢ′` is obtained by priming every designatum in `Cᵢ`.
 
 Closed prime has this shape:
 
 ```text
-  a' →∗ web ←∗ b'
+  a →∗ web ←∗ b
 
-web doesn’t reach a' or b’
+web doesn’t reach a or b
 (no outgoing elaboration clauses are defined in closed prime)
 ```
 
@@ -657,33 +645,33 @@ web doesn’t reach a' or b’
 
 This implies joinability for all prime designata and interdependence for all prime components:
 ```math
-\left(\forall a'\in\mathcal D'.\;a'\to^*\mathsf{web}\right)
+\left(\forall a\in\mathcal D.\;a\to^*\mathsf{web}\right)
 \Longrightarrow
-\left(\forall d',e'\in\mathcal D'.\;d'\downarrow e'\right)
+\left(\forall d,e\in\mathcal D.\;d\downarrow e\right)
 \Longrightarrow
-\left(\forall A',B'\subseteq\mathcal D'.\;A'\bowtie B'\right)
+\left(\forall A,B\subseteq\mathcal D.\;A\bowtie B\right)
 ```
 
 Reachability also implies interdependence with web:
 
 ```math
 \left(
-\forall a'\in\mathcal D'.\;
-a'\to^*\mathsf{web}
+\forall a\in\mathcal D.\;
+a\to^*\mathsf{web}
 \right)
 \Longrightarrow
-\left(\forall d'\in\mathcal D'.\;d'\downarrow \mathsf{web}\right)
+\left(\forall d\in\mathcal D.\;d'\downarrow \mathsf{web}\right)
 \Longrightarrow
 \left(
-\forall d'\in\mathcal D'.\;
-\{d'\}\bowtie\{\mathsf{web}\}
+\forall d\in\mathcal D.\;
+\{d\}\bowtie\{\mathsf{web}\}
 \right)
 ```
 
 ```math
-\{d'\}\bowtie\{\mathsf{web}\}
+\{d\}\bowtie\{\mathsf{web}\}
 \quad\Longleftrightarrow\quad
-\{\mathsf{web}\}\bowtie\{d'\}.
+\{\mathsf{web}\}\bowtie\{d\}.
 ```
 
 The two prime constructions realize this interdependence as a direct elaboration clause — for every $d\in\mathcal D$:
@@ -691,34 +679,34 @@ The two prime constructions realize this interdependence as a direct elaboration
 Prime closed (all in each):
 
 ```math
-d'
-\Downarrow_{\operatorname{prime}(E)}
-[\{d'\}\bowtie\{\mathsf{web}\}]
+d
+\Downarrow
+[\{d\}\bowtie\{\mathsf{web}\}]
 ```
 
 Prime open (each in all):
 
 ```math
 \mathsf{web}
-\Downarrow_{\operatorname{prime}(E)}
-[\{\mathsf{web}\}\bowtie\{d'\}]
+\Downarrow
+[\{\mathsf{web}\}\bowtie\{d\}]
 ```
 
 Open prime retains all closed-prime clauses and adds the clauses
 from the web back to every member:
 
 ```text
-  members to web:    a' →∗ web ←∗ b'
-  web to members:    a' ←∗ web →∗ b'
+  members to web:    a →∗ web ←∗ b
+  web to members:    a ←∗ web →∗ b
 
-  therefore:         a' →∗ web →∗ b'
+  therefore:         a →∗ web →∗ b
 ```
 
 As an equation:
 ```math
-\left(\forall a'.\;a'\to^*\mathsf{web} \land \mathsf{web}\to^*a'\right)
+\left(\forall a.\;a\to^*\mathsf{web} \land \mathsf{web}\to^*a\right)
 \Longrightarrow
-\left(\forall d',e'.\;d' \to^* e'\right)
+\left(\forall d,e.\;d \to^* e\right)
 ```
 
 In open prime *reaches* is total, though that doesn’t change joinability
@@ -729,8 +717,8 @@ which is already total in closed prime.
 
     member →∗ web           yes                yes
     web →∗ member           no                 yes
-    a' →∗ b'                as at base         always
-    a' ↓ b'                 always             always
+    a →∗ b                  as at base         always
+    a ↓ b                   always             always
 ```
 
 As in the base elaboration, Temporality is overlaid (or can be lifted from base),
