@@ -704,7 +704,7 @@ from the web back to every member:
 The inference rule:
 
 ```math
-\frac{}{d\to^*\mathsf{web}}
+\frac{}{\mathsf{web}\to^*d}
 ```
 
 As an equation:
