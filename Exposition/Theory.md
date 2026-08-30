@@ -241,7 +241,7 @@ The **middle** can then manifest as this case, instead of becoming another objec
 |---|---|
 | **mujishō-sōe** — mutual dependence without own-being | **genjōkōan** — the case manifesting fully |
 
-The **dependence-face** names the relation retained when additions are forgotten; the **enactment-face** names how that relation comes forward as a case. Mujishō-sōe is the dependence-face of Row 1: this Encounter has no self-standing substrate. Genjō is its enactment-face: that empty dependence nevertheless manifests as this call, this receiving, this response. *Provisional* doesn’t mean half-real or merely hypothetical, it says that the case is concrete without being promoted into a final ground.
+The **dependence-face** names the relation retained when additions are forgotten; the **enactment-face** names how that relation comes forward as a case. Mujishō-sōe is the dependence-face of Row 1: this Encounter has no self-standing substrate. Genjōkōan is its enactment-face: that empty dependence nevertheless manifests as this call, this receiving, this response. *Provisional* doesn’t mean half-real or merely hypothetical, it says that the case is concrete without being promoted into a final ground.
 
 ## From no rank to practice-realization
 
