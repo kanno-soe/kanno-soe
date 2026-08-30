@@ -633,9 +633,9 @@ Throughout this section, we fix the operators not with the base elaboration `E`,
 Closed prime has this shape:
 
 ```text
-  a →∗ web ←∗ b
+  d →∗ web ←∗ e
 
-web doesn’t reach a or b
+web doesn’t reach d or e
 (no outgoing elaboration clauses are defined in closed prime)
 ```
 
@@ -645,9 +645,9 @@ The inference rule:
 \frac{}{d\to^*\mathsf{web}}
 ```
 
-This implies joinability for all prime designata and interdependence for all prime components:
+This implies prime joinability for all designata and prime interdependence for all components:
 ```math
-\left(\forall a\in\mathcal D.\;a\to^*\mathsf{web}\right)
+\left(\forall d\in\mathcal D.\;d\to^*\mathsf{web}\right)
 \Longrightarrow
 \left(\forall d,e\in\mathcal D.\;d\downarrow e\right)
 \Longrightarrow
@@ -658,8 +658,8 @@ Reachability also implies interdependence with web:
 
 ```math
 \left(
-\forall a.\;
-a\to^*\mathsf{web}
+\forall d.\;
+d\to^*\mathsf{web}
 \right)
 \Longrightarrow
 \left(\forall d.\;d\downarrow \mathsf{web}\right)
@@ -694,14 +694,14 @@ Prime open (each in all):
 [\{\mathsf{web}\}\bowtie\{d\}]
 ```
 
-Open prime retains all closed-prime clauses and adds the clauses
+Open prime retains closed-prime reaches and adds reaches
 from the web back to every member:
 
 ```text
-  members to web:    a →∗ web ←∗ b
-  web to members:    a ←∗ web →∗ b
+  members to web:    d →∗ web ←∗ e
+  web to members:    d ←∗ web →∗ e
 
-  therefore:         a →∗ web →∗ b
+  therefore:         d →∗ web →∗ e
 ```
 
 The inference rule:
@@ -712,12 +712,12 @@ The inference rule:
 
 As an equation:
 ```math
-\left(\forall a.\;a\to^*\mathsf{web} \land \mathsf{web}\to^*a\right)
+\left(\forall d.\;d\to^*\mathsf{web} \land \mathsf{web}\to^*d\right)
 \Longrightarrow
 \left(\forall d,e.\;d \to^* e\right)
 ```
 
-In open prime *reaches* is total, though that doesn’t change joinability
+In open prime, *reaches* is total, though that doesn’t change joinability
 which is already total in closed prime.
 
 ```text
@@ -725,8 +725,8 @@ which is already total in closed prime.
 
     member →∗ web           yes                yes
     web →∗ member           no                 yes
-    a →∗ b                  as at base         always
-    a ↓ b                   always             always
+    d →∗ e                  as at base         always
+    d ↓ e                   always             always
 ```
 
 As in the base elaboration, Temporality is overlaid (or can be lifted from base),
@@ -746,7 +746,7 @@ A recap of the structures:
   base elaboration        act-time articulation; local differences remain
   closed prime            every member reaches the common web
   open prime              members directly reach web; web directly reaches every member
-  prime elaboration       adds the floor-face positively
+  prime elaboration       adds floor-face positively
 ```
 
 Prime elaboration does no separating work, and corresponds to the floor-face, a specific kind of act-time non-proliferation.
