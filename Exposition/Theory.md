@@ -306,7 +306,7 @@ Row 1 reads the resonance as manifestation without a substrate; Row 2 reads it a
 
 The two terms can intersect, in what we might call **discernment-without-grasping**, however in common usage each is a term focusing on that specific definition without considering whether the other term is present of not (like how “large” and “green” can intersect, but as themselves have no notion of the other, either positively or negatively).
 
-We can talk of the ”floor” at act-time in the same way that one can talk of sleep at act-time — it doesn’t in itself require the person to be sleeping to do so, or cause one to sleep necessarily, or anything like that.
+We can talk of the ”floor” at act-time in the same way that one can talk of sleep at act-time — it doesn’t in itself require the person to be sleeping to do so, or cause one to sleep necessarily, nor give a fully accurate impression of what sleep is, or anything like that.
 
 The floor is not a first moment, a hidden base, or a final substance. Generally, we talk of the floor as *doing no separating work*. That’s because even though distinctions can be made in discernment-without-grasping (the intersection of act-time with floor), the floor term itself has no notion of separation.
 
