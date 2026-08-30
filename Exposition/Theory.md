@@ -304,7 +304,7 @@ Row 1 reads the resonance as manifestation without a substrate; Row 2 reads it a
 
 **Act-time** is defined as the term *vacī-saṅkhāra*, a term for discursive/verbal thought.
 
-The two terms can intersect, in what we might call **discernment-without-grasping**, however in common usage each is a term focusing on that specific definition without considering whether the other term is present of not.
+The two terms can intersect, in what we might call **discernment-without-grasping**, however in common usage each is a term focusing on that specific definition without considering whether the other term is present of not (like how “large” and “green” can intersect, but as themselves have no notion of the other, either positively or negatively).
 
 We can talk of the ”floor” at act-time in the same way that one can talk of sleep at act-time — it doesn’t in itself require the person to be sleeping to do so, or cause one to sleep necessarily, or anything like that.
 
