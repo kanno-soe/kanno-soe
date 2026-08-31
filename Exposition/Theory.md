@@ -288,15 +288,15 @@ Shō gains determinate content through a contrast within practice. At a bottom p
 >
 > — Hakuin Ekaku, *Orategama* I, quoting Dahui Zonggao
 
-An **act-grammar** grid pairs a dependence-reading with an enactment-reading of one graded resonance across three rows. The enactment cells pick out three aspects of the quoted passages: *genjōkōan* is the actualizing of the case, *banpō susumite jiko o shushō suru* is the dharmas coming forward and the self being verified, and *dōchū no kufū* names that practice-realizing under the causal reading.
+An **act-grammar** grid pairs a dependence-reading with an enactment-reading of one graded resonance across three rows. The enactment cells pick out three aspects of the quoted passages: *genjōkōan* is the actualizing of the case, *banpō susumite jiko o shushō suru* is the dharmas coming forward and the self being verified, and *dōchū no kufū* names that practice-realizing under the conditioning and temporal readings.
 
 | Dependence reading | Enactment reading | Modelling |
 |---|---|---|
 | **mujishō-sōe** — mutual dependence without own-being | **genjōkōan** — the case manifesting fully | Mutual Dependence |
 | **kannō-sōe** — responsive resonance placed under dis-resonance grading | **banpō susumite jiko o shushō suru** — the myriad dharmas coming forward and practice-realizing the self | Graded Resonance |
-| **engi / inga** — dependent arising and cause/effect | **dōchū no kufū** — practice in the midst of activity | Causal |
+| **engi / inga** — dependent arising and cause/effect | **dōchū no kufū** — practice in the midst of activity | Conditioning and Temporality |
 
-Row 1 reads the resonance as manifestation without a substrate; Row 2 reads it as graded receiving and responding; Row 3 reads the doing under temporality and causation. Conversely, forgetting Row 3's overlays and Row 2's grades returns the one mutual dependence of the encounter.
+Row 1 reads the resonance as manifestation without a substrate; Row 2 reads it as graded receiving and responding; Row 3 reads the doing under conditioning and temporality. Conversely, forgetting Row 3's overlays and Row 2's grades returns the one mutual dependence of the encounter.
 
 ## Floor-face and act-time face
 
