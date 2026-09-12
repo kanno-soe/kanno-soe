@@ -651,7 +651,7 @@ This implies prime joinability for all designata and prime interdependence for a
 \Longrightarrow
 \left(\forall d,e\in\mathcal D.\;d\downarrow e\right)
 \Longrightarrow
-\left(\forall A,B\subseteq\mathcal D.\;A\bowtie B\right)
+\left(\forall A,B\subseteq\mathcal D.\;(A\neq\varnothing \land B\neq\varnothing)\Longrightarrow A\bowtie B\right)
 ```
 
 Reachability also implies interdependence with web:
