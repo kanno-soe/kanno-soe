@@ -513,7 +513,7 @@ The taxonomy is not a map of places on a path. Immunity is checked per productio
 
 > It is to cure the illness of one-sidedness that there is a middle. Once the illness of one-sidedness is removed, the middle likewise is not established.
 >
-> — Jízàng, *The Profound Meaning of the Three Treatises* (三論玄義)
+> — Jízàng, *The Profound Meaning of the Three Treatises*
 
 Jizang’s four levels of the two-truths teaching follow a teaching as it meets attachment. At each level, a conventional distinction remains available for use. A freeze occurs when that distinction is accorded final standing. The ultimate truth at the right of the row addresses that overreach without cancelling the distinction’s conventional use.
 
