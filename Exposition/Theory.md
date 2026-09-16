@@ -550,7 +550,7 @@ The Chinese terms provide the philosophical reading of the ladder. The theorem-n
 
 ### Extension
 
-Note how designation and elaboration is — as we’ve defined it above — incremental, by adding or removing *elaborates-to* statements. There’s no pre-existing database saying what something is or is not. And given a ‘d’ elaborating to one mutual dependence, we‘re free to elaborate it additionally as yet another mutual dependence.
+Note how designation and elaboration is — as we’ve defined it above — incremental, by adding and dropping *elaborates-to* statements. There’s no pre-existing database saying what something is or is not. And given a ‘d’ elaborating to one mutual dependence, we‘re free to elaborate it additionally as yet another mutual dependence.
 
 So a mutual dependence may be freely extended in either direction:
 
