@@ -233,7 +233,7 @@ Remove grades from a Graded Resonance and the Temporal/Causal overlay, and the M
 
 This is from Nāgārjuna's *MMK* 24.18: what dependently originates is empty of own-being; that emptiness is itself dependently designated; just this is the middle way. Therefore mutual dependence doesn't mean relations among already self-subsisting things, and emptiness doesn’t mean a deeper thing beneath them.
 
-Jizang supplies the next turn. In the fourfold two truths, each stated ultimate—including the conventional/ultimate distinction itself—can become the conventional content of the next analysis. The iteration does not discover a final unconditioned proposition, it ends at words forgotten, thought cut off (言忘慮絶): not another claim but the place where words and thought no longer do separating work. That claimless place is called the **floor**.
+Jizang supplies the next turn. In the fourfold two truths, each stated ultimate—including the conventional/ultimate distinction itself—can become the conventional content of the next analysis. The iteration does not discover a final unconditioned proposition, it ends at words forgotten, thought cut off (言忘慮絶): not another claim but the place where words and thought are no longer grasped. That non-grasping place is called the **floor**.
 
 The **middle** can then manifest as this case, instead of becoming another object of analysis. This manifestation is called **genjōkōan**, the **provisional middle**.
 
