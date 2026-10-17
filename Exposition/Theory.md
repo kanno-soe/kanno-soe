@@ -140,7 +140,7 @@ Nothing in the ungraded structure privileges the person. Nor does the stone exam
 
 ## Graded Resonance
 
-> Sentient beings originally are Buddha.  
+> Sentient beings are at root Buddha.  
 > Being like water and ice,  
 > leaving water there is no ice,  
 > outside of sentient beings there is no Buddha.
