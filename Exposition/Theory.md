@@ -312,7 +312,7 @@ The floor is not a first moment, a hidden base, or a final substance. Generally,
 
 Act-time is the conventional diagnostic tier at which this call, this receiving, this response, this practice, and the distinctions needed to describe them are live.
 
-The **floor-face** is another case of act-time, floor intersection, this time with no elaboration either, which corresponds to “thusness”. “Suchness” by contrast is to the side of the formalisms of this document, similar to how genjōkōan is to the side of the contrast with delusion in shō.
+The **floor-face** is another case of act-time, floor intersection, this time with no elaboration either, which corresponds to “thusness”. “Suchness” by contrast is to the side of the formalisms of this document (and in that sense, to the side of all formalisms), similar to how genjōkōan is to the side of the contrast with delusion in shō.
 
 The shushō reading introduced above is one example:
 
